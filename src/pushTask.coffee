@@ -240,6 +240,9 @@ initialCommit = (commander, command, cb) ->
           cb()
 
 ###
+Changelog:
+git log --pretty=format:"%s"
+
 
 git pull origin master
 git push origin master
