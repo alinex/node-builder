@@ -1,7 +1,8 @@
-Package: node-make
+Alinex Development Utils
 =================================================
 
-Description comes here...
+This package contains some helper commands for development of the alinex
+node packages.
 
 
 License

@@ -1,9 +1,9 @@
 {
-  "name": "node-make",
+  "name": "alinex-make",
   "version": "0.0.1",
-  "description": "",
+  "description": "Helper commands for development of npm packages.",
   "copyright": "Alexander Schilling 2013-2014",
-  "keywords": "",
+  "keywords": "make, build, doc, create, compile, manage",
   "homepage": "http://alinex.github.io/node-make/",
   "repository": {
     "type": "git",
@@ -18,13 +18,21 @@
   "contributors": [],
   "license": "Apache-2.0",
   "main": "./lib/index.js",
+  "bin": "bin/make",
   "scripts": {
-    "prepublish": "node node_modules/.bin/coffee -c -m -o lib src"
+    "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
+    "start": "bin/make"
   },
   "directories": {
+    "bin": "./bin",
     "lib": "./lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "commander": "2.x",
+    "colors": "0.x",
+    "async": "0.x",
+    "request": "^2.34.0"
+  },
   "devDependencies": {
     "coffee-script": "1.x"
   },
