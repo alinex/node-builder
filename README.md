@@ -22,6 +22,15 @@ separate them into build tasks which stay in the package and overall management
 tasks which were moved out into this helper tool.
 
 
+Installation
+-------------------------------------------------
+
+Install the package using npm:
+
+  > npm install alinex-make
+
+
+
 Usage
 -------------------------------------------------
 
@@ -32,6 +41,7 @@ The tool will be called with
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
 
+
 ### General options
 
 `-v`or `--verbose` will display a lot of information of what is going on.
@@ -39,6 +49,7 @@ This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
 `-C` or `--no-colors` can be used to disable the colored output.
+
 
 ### Command: `clean`
 
@@ -48,6 +59,7 @@ state of the system. To create a usable system you have to build it again.
 It will delete compiled files, generated documentation and the generated log
 files. With the `--all` option it will also delete config files, data and
 node_modules.
+
 
 ### Command: `doc`
 
@@ -61,18 +73,48 @@ code.
 
 With the `--watch` option it is possible to keep the documentation updated.
 
+
 ### Command `create`
 
-Genereate the base system out of the source code. This creates the `lib` folder
-by copiing, compiling and transforming files. Everything will be done parallel.
+Create a new package from scratch. This will create:
+
+* the directory
+* init git repository
+* setup github repository
+* make initial files
+
+The create task needs the `--password` setting to access github
+through the api. And you may specify the `--package` setting for the npm name
+of the package. The also mandatory path will be used as the github repository 
+name, too.
+
+An example call will look like:
+
+    > bin/make create --password xxxxxxxxx --package alinex-error ../node-error
+
+After that you may directly start to add your code.
+
 
 ### Command `test`
 
+
 ### Command `build`
+
+Genereate the base system out of the source code. This creates the `lib` folder
+by copying, compiling and transforming files. Everything will be done parallel.
 
 With the `--watch` option it is possible to keep the documentation updated.
 
+
 ### Command `push`
+
+With the push command you can push your newest changes to github and npm as a 
+new version. The version can be set by signaling if it should be a `--major`,
+`--minor` or bugfix version if no switch given.
+
+To publish the next bugfix version only call:
+
+    > bin/make push ../node-error
 
 
 License

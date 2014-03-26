@@ -106,6 +106,15 @@ commander.command('create <dir>')
   options.user = 'alinex'
   run commander, options, -> process.exit 0
 
+# ### Push to GitHub and npm
+commander.command('push <dir>')
+.description('Create new node module')
+.option('--major', 'Create new major version')
+.option('--minor', 'Create new minor version')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
 
 # Run commands
 # -------------------------------------------------
