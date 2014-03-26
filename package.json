@@ -31,6 +31,7 @@
     "commander": "2.x",
     "colors": "0.x",
     "async": "0.x",
+    "fs-extra": "0.x",
     "request": "^2.34.0"
   },
   "devDependencies": {
