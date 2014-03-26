@@ -10,7 +10,6 @@ async = require 'async'
 fs = require 'fs-extra'
 path = require 'path'
 colors = require 'colors'
-diff = require 'diff'
 {execFile} = require 'child_process'
 request = require 'request'
 
@@ -47,7 +46,7 @@ createDir = (commander, command, cb) ->
     console.log "Check for existing directory #{command.dir}".grey
   return cb() if fs.existsSync command.dir
   console.log "Create directory #{command.dir}"
-  fs.mkdirs command.dir, (err) ->
+  fs.mkdirs path.join(command.dir, 'src'), (err) ->
     return cb err if err
     file = path.join command.dir, '.npmignore'
     fs.writeFile file, """
@@ -87,17 +86,18 @@ createPackage = (commander, command, cb) ->
   if fs.existsSync file
     return cb()
   console.log "Create new package.json file"
+  gitname = path.basename command.dir
   pack =
     name: command.package
-    version: '0.0.1'
+    version: '0.0.0'
     description: ''
     copyright: PKG.copyright
     keywords: ''
-    homepage: "http://alinex.github.io/#{command.package}/"
+    homepage: "http://alinex.github.io/#{gitname}/"
     repository:
       type: 'git'
-      url: "https://github.com/alinex/#{command.package}.git"
-    bugs: "https://github.com/alinex/#{command.package}/issues",
+      url: "https://github.com/alinex/#{gitname}.git"
+    bugs: "https://github.com/alinex/#{gitname}/issues",
     author: PKG.author
     contributors: []
     license: PKG.license
@@ -163,9 +163,6 @@ createChangelog = (commander, command, cb) ->
     The following list gives a short overview about what is changed between
     individual versions:
 
-    Version 0.0.1
-    -------------------------------------------------
-    Initial version.
 
     """, cb
 
@@ -176,8 +173,9 @@ createGitHub = (commander, command, cb) ->
   if commander.verbose
     console.log "Check existing GitHub repository".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+  gitname = path.basename command.dir
   request {
-    uri: "https://api.github.com/repos/alinex/#{command.package}"
+    uri: "https://api.github.com/repos/alinex/#{gitname}"
     auth:
       user: command.user
       pass: command.password
@@ -200,7 +198,7 @@ createGitHub = (commander, command, cb) ->
         'User-Agent': command.user
       method: 'POST'
       body: JSON.stringify
-        name: command.package
+        name: gitname
         description: pack.description
         homepage: pack.homepage
         private: false
