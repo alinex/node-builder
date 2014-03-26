@@ -22,7 +22,7 @@
 # Node Modules
 # -------------------------------------------------
 
-errorHandler = require('./errorHandler').install()
+require('alinex-error').install()
 
 # include base modules
 commander = require 'commander'

@@ -32,7 +32,8 @@
     "colors": "0.x",
     "async": "0.x",
     "fs-extra": "0.x",
-    "request": "^2.34.0"
+    "request": "^2.34.0",
+    "alinex-error": "0.0.1"
   },
   "devDependencies": {
     "coffee-script": "1.x"
