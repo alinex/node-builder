@@ -65,8 +65,7 @@ updateChangelog = (commander, command, cb) ->
     console.log "Read git log".grey
   args = [ 'log', '--pretty=format:%s' ]
   unless command.oldVersion is '0.0.0'
-    args.push "v#{command.oldVersion}"
-    args.push 'HEAD'
+    args.push "v#{command.oldVersion}..HEAD"
   execFile "git", args, { cwd: command.dir }, (err, stdout, stderr) ->
     console.error stderr.trim().magenta if stderr
     return cb err if err
