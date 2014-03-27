@@ -27,16 +27,16 @@ request = require 'request'
 #   execution finished.
 module.exports.run = (commander, command, cb) ->
   file = path.join command.dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file  
+  pack = JSON.parse fs.readFileSync file
   command.oldVersion = pack.version
   # calculate new version
   if commander.verbose
     console.log "Old version is #{command.oldVersion}".grey
   version = pack.version.split /\./
-  if commander.major
+  if command.major
     version[0]++
     version[1] = version[2] = 0
-  else if commander.minor
+  else if command.minor
     version[1]++
     version[2] = 0
   else
