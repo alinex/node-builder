@@ -22,7 +22,8 @@
 # Node Modules
 # -------------------------------------------------
 
-require('alinex-error').install()
+errorHandler = require './errorHandler'
+errorHandler.install()
 
 # include base modules
 commander = require 'commander'
@@ -66,7 +67,10 @@ run = (commander, command, cb) ->
   # run modules in parallel
   if commander.verbose?
     console.log "Processing".bold
-  lib.run commander, command, cb
+  lib.run commander, command, (err) ->
+    errorHandler.report err if err
+    console.log "Done.".green
+    cb()
 
 
 # Command setup
@@ -115,6 +119,14 @@ commander.command('push <dir>')
   options.dir = dir
   run commander, options, -> process.exit 0
 
+# ### Push to GitHub and npm
+commander.command('doc <dir>')
+.description('Create new API documentation for module')
+.option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
+.option('-p, --publish', 'Push to github pages')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
 
 # Run commands
 # -------------------------------------------------
@@ -257,16 +269,6 @@ commander.command('build')
 .description('Build running system')
 .option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
 .option('-p, --package <name>', 'Only work on the given module', )
-.action (options) -> runPack commander, options, -> process.exit 0
-
-# ### Generate documentation
-#
-# This will create the documentation if called with --watch also  keeps
-# the process running and recreating documentation files.
-commander.command('doc')
-.option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
-.option('-p, --package <name>', 'Only work on the given module', )
-.description('Generate documentation')
 .action (options) -> runPack commander, options, -> process.exit 0
 
 # ### Run test and lint

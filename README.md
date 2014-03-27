@@ -71,7 +71,18 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
+    > bin/make doc ../node-error
+
+It is also possible to update the documentation on github using an additional 
+switch:
+
+    > bin/make doc ../node-error --publish
+
 With the `--watch` option it is possible to keep the documentation updated.
+
+    > bin/make doc ../node-error --watch
+
+But this process will never end, you have to stop it manually to end it.
 
 
 ### Command `create`
@@ -90,7 +101,7 @@ name, too.
 
 An example call will look like:
 
-    > bin/make create --password xxxxxxxxx --package alinex-error ../node-error
+    > bin/make create ../node-error --password xxxxxxxxx --package alinex-error
 
 After that you may directly start to add your code.
 

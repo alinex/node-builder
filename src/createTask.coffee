@@ -37,7 +37,6 @@ module.exports.run = (commander, command, cb) ->
   ], (err) ->
     throw err if err
     console.log "You may now work with the new package.".yellow
-    console.log "Done.".green
     cb()
 
 # ### Create the directory
