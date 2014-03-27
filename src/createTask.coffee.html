@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>createTask.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/createTaskcoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#create%20new%20node%20module">Create new node module</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#main%20routine">Main routine</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20the%20directory">Create the directory</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20initial%20git%20repository">Create initial git repository</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20new%20package.json">Create new package.json</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20a%20readme.md%20file">Create a README.md file</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20an%20initial%20changelog">Create an initial changelog</a>
+      </div>
+      <div class="heading h3">
+        <a href="#create%20new%20github%20repository%20if%20not%20existing">Create new GitHub repository if not existing</a>
+      </div>
+      <div class="heading h3">
+        <a href="#make%20initial%20commit">Make initial commit</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20new%20node%20module">
+  <h1>
+    <a href="#create%20new%20node%20module" name="create%20new%20node%20module" class="pilcrow">&#182;</a>
+    Create new node module
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs-extra&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
+<span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="main%20routine">
+  <h2>
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
+  </h2>
+</div>
+
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>commander</code>
+Commander instance for reading options.</li>
+<li><code>command</code>
+Command specific parameters and options.</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred or with <code>null</code> if
+execution finished.</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">createDir</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">initGit</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">createPackage</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">createReadme</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">createChangelog</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">createGitHub</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">initialCommit</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">],</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;You may now work with the new package.&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+    <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20the%20directory">
+  <h3>
+    <a href="#create%20the%20directory" name="create%20the%20directory" class="pilcrow">&#182;</a>
+    Create the directory
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">createDir = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing directory </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create directory </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.npmignore&#39;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      .project</span>
+<span class="s">      .settings</span>
+<span class="s">      *.sublime-*</span>
+<span class="s">      src</span>
+<span class="s">      doc</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20initial%20git%20repository">
+  <h3>
+    <a href="#create%20initial%20git%20repository" name="create%20initial%20git%20repository" class="pilcrow">&#182;</a>
+    Create initial git repository
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">initGit = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for configured git&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Init new git repository&quot;</span>
+  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;init&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+    <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.gitignore&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      .project</span>
+<span class="s">      .settings</span>
+<span class="s">      *.sublime-*</span>
+<span class="s">      /node_modules/</span>
+<span class="s">      /doc/</span>
+<span class="s">      /lib/</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20new%20package.json">
+  <h3>
+    <a href="#create%20new%20package.json" name="create%20new%20package.json" class="pilcrow">&#182;</a>
+    Create new package.json
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">createPackage = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing package.json&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new package.json file&quot;</span>
+  <span class="nv">gitname = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+  <span class="nv">pack =</span>
+    <span class="nv">name: </span><span class="nx">command</span><span class="p">.</span><span class="nx">package</span>
+    <span class="nv">version: </span><span class="s">&#39;0.0.0&#39;</span>
+    <span class="nv">description: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">copyright: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">copyright</span>
+    <span class="nv">keywords: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">homepage: </span><span class="s">&quot;http://alinex.github.io/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/&quot;</span>
+    <span class="nv">repository:</span>
+      <span class="nv">type: </span><span class="s">&#39;git&#39;</span>
+      <span class="nv">url: </span><span class="s">&quot;https://github.com/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">.git&quot;</span>
+    <span class="nv">bugs: </span><span class="s">&quot;https://github.com/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/issues&quot;</span><span class="p">,</span>
+    <span class="nv">author: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">author</span>
+    <span class="nv">contributors: </span><span class="p">[]</span>
+    <span class="nv">license: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">license</span>
+    <span class="nv">main: </span><span class="s">&#39;./lib/index.js&#39;</span>
+    <span class="nv">scripts:</span>
+      <span class="nv">prepublish: </span><span class="s">&quot;node_modules/.bin/coffee -c -m -o lib src&quot;</span>
+    <span class="nv">directories:</span>
+      <span class="nv">lib: </span><span class="s">&#39;./lib&#39;</span>
+    <span class="nv">dependencies: </span><span class="p">{}</span>
+    <span class="nv">devDependencies:</span>
+      <span class="s">&quot;coffee-script&quot;</span><span class="o">:</span> <span class="s">&quot;1.x&quot;</span>
+    <span class="nv">optionalDependencies: </span><span class="p">{}</span>
+    <span class="nv">engines: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">engines</span>
+    <span class="nv">os: </span><span class="p">[]</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">pack</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20a%20readme.md%20file">
+  <h3>
+    <a href="#create%20a%20readme.md%20file" name="create%20a%20readme.md%20file" class="pilcrow">&#182;</a>
+    Create a README.md file
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">createReadme = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for README.md&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;README.md&#39;</span>
+  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new README.md file&quot;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    Package: </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">package</span><span class="si">}</span><span class="s"></span>
+<span class="s">    =================================================</span>
+
+<span class="s">    Description comes here...</span>
+
+
+<span class="s">    License</span>
+<span class="s">    -------------------------------------------------</span>
+
+<span class="s">    Copyright 2013-2014 Alexander Schilling</span>
+
+<span class="s">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="s">    you may not use this file except in compliance with the License.</span>
+<span class="s">    You may obtain a copy of the License at</span>
+
+<span class="s">    &gt;  &lt;http://www.apache.org/licenses/LICENSE-2.0&gt;</span>
+
+<span class="s">    Unless required by applicable law or agreed to in writing, software</span>
+<span class="s">    distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="s">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="s">    See the License for the specific language governing permissions and</span>
+<span class="s">    limitations under the License.</span>
+
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20an%20initial%20changelog">
+  <h3>
+    <a href="#create%20an%20initial%20changelog" name="create%20an%20initial%20changelog" class="pilcrow">&#182;</a>
+    Create an initial changelog
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">createChangelog = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing changelog&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;Changelog.md&#39;</span>
+  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new changelog file&quot;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    Version changes</span>
+<span class="s">    =================================================</span>
+
+<span class="s">    The following list gives a short overview about what is changed between</span>
+<span class="s">    individual versions:</span>
+
+
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20new%20github%20repository%20if%20not%20existing">
+  <h3>
+    <a href="#create%20new%20github%20repository%20if%20not%20existing" name="create%20new%20github%20repository%20if%20not%20existing" class="pilcrow">&#182;</a>
+    Create new GitHub repository if not existing
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">createGitHub = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">password</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Can&#39;t connect to GitHub API without --password&quot;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check existing GitHub repository&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="nv">gitname = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+  <span class="nx">request</span> <span class="p">{</span>
+    <span class="nv">uri: </span><span class="s">&quot;https://api.github.com/repos/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">auth:</span>
+      <span class="nv">user: </span><span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
+      <span class="nv">pass: </span><span class="nx">command</span><span class="p">.</span><span class="nx">password</span>
+    <span class="nv">headers:</span>
+      <span class="s">&#39;User-Agent&#39;</span><span class="o">:</span> <span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
+  <span class="p">},</span> <span class="nf">(err, response, body) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">answer = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span>
+    <span class="k">unless</span> <span class="nx">answer</span><span class="p">.</span><span class="nx">message</span><span class="o">?</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="k">unless</span> <span class="nx">answer</span><span class="p">.</span><span class="nx">message</span> <span class="o">is</span> <span class="s">&#39;Not Found&#39;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">answer</span><span class="p">.</span><span class="nx">message</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new GitHub repository&quot;</span>
+    <span class="nx">request</span> <span class="p">{</span>
+      <span class="nv">uri: </span><span class="s">&quot;https://api.github.com/user/repos&quot;</span>
+      <span class="nv">auth:</span>
+        <span class="nv">user: </span><span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
+        <span class="nv">pass: </span><span class="nx">command</span><span class="p">.</span><span class="nx">password</span>
+      <span class="nv">headers:</span>
+        <span class="s">&#39;User-Agent&#39;</span><span class="o">:</span> <span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
+      <span class="nv">method: </span><span class="s">&#39;POST&#39;</span>
+      <span class="nv">body: </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span>
+        <span class="nv">name: </span><span class="nx">gitname</span>
+        <span class="nv">description: </span><span class="nx">pack</span><span class="p">.</span><span class="nx">description</span>
+        <span class="nv">homepage: </span><span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span>
+        <span class="nv">private: </span><span class="kc">false</span>
+        <span class="nv">has_issues: </span><span class="kc">true</span>
+        <span class="nv">has_wiki: </span><span class="kc">false</span>
+        <span class="nv">has_downloads: </span><span class="kc">true</span>
+    <span class="p">},</span> <span class="nf">(err, response, body) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="k">unless</span> <span class="nx">response</span><span class="o">?</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">is</span> <span class="mi">201</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;GitHub status was </span><span class="si">#{</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="si">}</span><span class="s"> in try to create repository&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Connect with GitHub repository&quot;</span>
+      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">&#39;remote&#39;</span>
+        <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span>
+      <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="nx">cb</span> <span class="nx">err</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="make%20initial%20commit">
+  <h3>
+    <a href="#make%20initial%20commit" name="make%20initial%20commit" class="pilcrow">&#182;</a>
+    Make initial commit
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">initialCommit = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check if git already used&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;log&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initial commit&quot;</span>
+    <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&#39;Initial commit&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to origin&quot;</span>
+        <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+          <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>git pull origin master
+git push origin master</p>
+  </div>
+  <div class="body"><p>add softlink to node-core
+add to node-core packages</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

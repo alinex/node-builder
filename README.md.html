@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>README.md</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "README.md", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#alinex%20development%20utils">Alinex Development Utils</a>
+      </div>
+      <div class="heading h2">
+        <a href="#motivation">Motivation</a>
+      </div>
+      <div class="heading h2">
+        <a href="#installation">Installation</a>
+      </div>
+      <div class="heading h2">
+        <a href="#usage">Usage</a>
+      </div>
+      <div class="heading h3">
+        <a href="#general%20options">General options</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%3A%20clean">Command: clean</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%3A%20doc">Command: doc</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20create">Command create</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20test">Command test</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20build">Command build</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20push">Command push</a>
+      </div>
+      <div class="heading h2">
+        <a href="#license">License</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="docs markdown">
+<div class="pilwrap" id="alinex%20development%20utils">
+  <h1>
+    <a href="#alinex%20development%20utils" name="alinex%20development%20utils" class="pilcrow">&#182;</a>
+    Alinex Development Utils
+  </h1>
+</div>
+
+
+<p>This package contains some helper commands for development of the alinex
+node packages.</p>
+
+<p>At the moment it is not completely general but specific to my own development.
+But feel free to change the settings within the code to match your environment.</p>
+
+
+<div class="pilwrap" id="motivation">
+  <h2>
+    <a href="#motivation" name="motivation" class="pilcrow">&#182;</a>
+    Motivation
+  </h2>
+</div>
+
+
+<p>While developing an automated build tool always help saving time and make things
+magic and smooth.</p>
+
+<p>My first intention was to use the standardized tools so I looked at Bower and
+Cake. To have more possibilities above the tasks I decided to create a Cakefile.
+This was a good way but over time it got bloated.</p>
+
+<p>Because the general tasks are easy but have to be modularized I decided to
+separate them into build tasks which stay in the package and overall management
+tasks which were moved out into this helper tool.</p>
+
+
+<div class="pilwrap" id="installation">
+  <h2>
+    <a href="#installation" name="installation" class="pilcrow">&#182;</a>
+    Installation
+  </h2>
+</div>
+
+
+<p>Install the package using npm:</p>
+
+<blockquote>
+  <p>npm install alinex-make</p>
+</blockquote>
+
+
+<div class="pilwrap" id="usage">
+  <h2>
+    <a href="#usage" name="usage" class="pilcrow">&#182;</a>
+    Usage
+  </h2>
+</div>
+
+
+<p>The tool will be called with</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span>
+</code></pre></div>
+
+
+
+<p>With the option <code>--help</code> a screen explaining all commands and options will be
+displayed. The major commands will be described here.</p>
+
+
+<div class="pilwrap" id="general%20options">
+  <h3>
+    <a href="#general%20options" name="general%20options" class="pilcrow">&#182;</a>
+    General options
+  </h3>
+</div>
+
+
+<p><code>-v</code>or <code>--verbose</code> will display a lot of information of what is going on.
+This information will sometimes look discarded because of the parallel
+processing of some tasks.</p>
+
+<p><code>-C</code> or <code>--no-colors</code> can be used to disable the colored output.</p>
+
+
+<div class="pilwrap" id="command%3A%20clean">
+  <h3>
+    <a href="#command%3A%20clean" name="command%3A%20clean" class="pilcrow">&#182;</a>
+    Command: <code>clean</code>
+  </h3>
+</div>
+
+
+<p>Remove all automatically generated files. This will bring you to the initial
+state of the system. To create a usable system you have to build it again.</p>
+
+<p>It will delete compiled files, generated documentation and the generated log
+files. With the <code>--all</code> option it will also delete config files, data and
+node_modules.</p>
+
+
+<div class="pilwrap" id="command%3A%20doc">
+  <h3>
+    <a href="#command%3A%20doc" name="command%3A%20doc" class="pilcrow">&#182;</a>
+    Command: <code>doc</code>
+  </h3>
+</div>
+
+
+<p>Generate the documentation this will create the documentation in the <code>doc</code>
+folder. It includes the API documentation with code. Each module will get his
+own documentation space with an auto generated index page.</p>
+
+<p>This tool will extract the documentation from the markup and code files in
+any language and generate HTML pages with the documentation beside the
+code.</p>
+
+<p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
+
+
+<div class="pilwrap" id="command%20create">
+  <h3>
+    <a href="#command%20create" name="command%20create" class="pilcrow">&#182;</a>
+    Command <code>create</code>
+  </h3>
+</div>
+
+
+<p>Create a new package from scratch. This will create:</p>
+
+<ul>
+<li>the directory</li>
+<li>init git repository</li>
+<li>setup github repository</li>
+<li>make initial files</li>
+</ul>
+
+<p>The create task needs the <code>--password</code> setting to access github
+through the api. And you may specify the <code>--package</code> setting for the npm name
+of the package. The also mandatory path will be used as the github repository 
+name, too.</p>
+
+<p>An example call will look like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+</code></pre></div>
+
+
+
+<p>After that you may directly start to add your code.</p>
+
+
+<div class="pilwrap" id="command%20test">
+  <h3>
+    <a href="#command%20test" name="command%20test" class="pilcrow">&#182;</a>
+    Command <code>test</code>
+  </h3>
+</div>
+
+
+
+<div class="pilwrap" id="command%20build">
+  <h3>
+    <a href="#command%20build" name="command%20build" class="pilcrow">&#182;</a>
+    Command <code>build</code>
+  </h3>
+</div>
+
+
+<p>Genereate the base system out of the source code. This creates the <code>lib</code> folder
+by copying, compiling and transforming files. Everything will be done parallel.</p>
+
+<p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
+
+
+<div class="pilwrap" id="command%20push">
+  <h3>
+    <a href="#command%20push" name="command%20push" class="pilcrow">&#182;</a>
+    Command <code>push</code>
+  </h3>
+</div>
+
+
+<p>With the push command you can push your newest changes to github and npm as a 
+new version. The version can be set by signaling if it should be a <code>--major</code>,
+<code>--minor</code> or bugfix version if no switch given.</p>
+
+<p>To publish the next bugfix version only call:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="license">
+  <h2>
+    <a href="#license" name="license" class="pilcrow">&#182;</a>
+    License
+  </h2>
+</div>
+
+
+<p>Copyright 2013-2014 Alexander Schilling</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+
+<blockquote>
+  <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+</blockquote>
+
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p></div>
+  </div>
+</body>
+</html>
