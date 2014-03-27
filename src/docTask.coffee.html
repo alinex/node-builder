@@ -190,7 +190,16 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;index.html&#39;</span><span class="p">),</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">      &lt;html&gt;</span>
-<span class="s">        &lt;head&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=README.md.html&quot; /&gt;&lt;/head&gt;</span>
+<span class="s">      &lt;head&gt;</span>
+<span class="s">        &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=README.md.html&quot; /&gt;</span>
+<span class="s">        &lt;script type=&quot;text/javascript&quot;&gt;</span>
+<span class="s">            window.location.href = &quot;README.md.html&quot;</span>
+<span class="s">        &lt;/script&gt;</span>
+<span class="s">        &lt;title&gt;Page Redirection&lt;/title&gt;</span>
+<span class="s">      &lt;/head&gt;</span>
+<span class="s">      &lt;body&gt;</span>
+<span class="s">        If you are not redirected automatically, follow the link to the &lt;a href=&#39;README.md.html&#39;&gt;README&lt;/a&gt;.</span>
+<span class="s">      &lt;/body&gt;</span>
 <span class="s">      &lt;/html&gt;</span>
 <span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
 
