@@ -156,6 +156,10 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">createDoc = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove old documentation&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create html documentation&quot;</span>
   <span class="nv">docker = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&quot;node_modules/.bin/docker&quot;</span>
   <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">docker</span>
