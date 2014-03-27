@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/pushTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/pushTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -125,7 +125,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>  
+  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
   <span class="nv">command.oldVersion = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span>
 
 </pre></div>
@@ -142,10 +142,10 @@ execution finished.</li>
   <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Old version is </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">oldVersion</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nv">version = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\./</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">major</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">major</span>
     <span class="nx">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">++</span>
     <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">minor</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">minor</span>
     <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span>
     <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="k">else</span>

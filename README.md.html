@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-make/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/alex/a3/node-make/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -179,7 +179,30 @@ own documentation space with an auto generated index page.</p>
 any language and generate HTML pages with the documentation beside the
 code.</p>
 
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+</code></pre></div>
+
+
+
+<p>It is also possible to update the documentation on github using an additional 
+switch:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">publish</span>
+</code></pre></div>
+
+
+
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+</code></pre></div>
+
+
+
+<p>But this process will never end, you have to stop it manually to end it.</p>
 
 
 <div class="pilwrap" id="command%20create">
@@ -207,7 +230,7 @@ name, too.</p>
 <p>An example call will look like:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
 </code></pre></div>
 
 
