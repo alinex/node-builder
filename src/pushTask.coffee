@@ -75,7 +75,7 @@ updateChangelog = (commander, command, cb) ->
 
       Version #{command.newVersion}
       -------------------------------------------------
-      #{stdout.trim()}
+      #{'- ' + stdout.trim().split(/\n/).map '\n- '}
 
       """ + lines[5..].join('\n')
     console.log "Write new changelog"
