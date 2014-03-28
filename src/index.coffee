@@ -124,6 +124,7 @@ commander.command('doc <dir>')
 .description('Create new API documentation for module')
 .option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
 .option('-p, --publish', 'Push to github pages')
+.option('-b, --browser', 'Open in browser')
 .action (dir, options) ->
   options.dir = dir
   run commander, options, -> process.exit 0

@@ -73,7 +73,7 @@ code.
 
     > bin/make doc ../node-error
 
-It is also possible to update the documentation on github using an additional 
+It is also possible to update the documentation on github using an additional
 switch:
 
     > bin/make doc ../node-error --publish
@@ -83,6 +83,9 @@ With the `--watch` option it is possible to keep the documentation updated.
     > bin/make doc ../node-error --watch
 
 But this process will never end, you have to stop it manually to end it.
+
+And at last you may also add the `--browser` flag to open the documentation in
+the browser after created.
 
 
 ### Command `create`
@@ -96,12 +99,12 @@ Create a new package from scratch. This will create:
 
 The create task needs the `--password` setting to access github
 through the api. And you may specify the `--package` setting for the npm name
-of the package. The also mandatory path will be used as the github repository 
+of the package. The also mandatory path will be used as the github repository
 name, too.
 
 An example call will look like:
 
-    > bin/make create ../node-error --password xxxxxxxxx --package alinex-error
+    > bin/make create ../node-error alinex-error --password xxxxxxxxx --package
 
 After that you may directly start to add your code.
 
@@ -117,9 +120,10 @@ by copying, compiling and transforming files. Everything will be done parallel.
 With the `--watch` option it is possible to keep the documentation updated.
 
 
+
 ### Command `push`
 
-With the push command you can push your newest changes to github and npm as a 
+With the push command you can push your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a `--major`,
 `--minor` or bugfix version if no switch given.
 
