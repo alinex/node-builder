@@ -10,8 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{execFile} = require 'child_process'
-request = require 'request'
+{spawn} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -26,6 +25,78 @@ request = require 'request'
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
 module.exports.run = (commander, command, cb) ->
+  coffeelint commander, command, (err) ->
+    return cb err if err
+    test commander, command, cb
+
+# ### Run lint against coffee script
+coffeelint = (commander, command, cb) ->
+  # Check for existing command
+  coffeelint = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/coffeelint"
+  unless fs.existsSync coffeelint
+    console.log "Skipped lint because coffeelint is missing".yellow
+    return cb?()
+  # Run external command
+  if commander.verbose
+    console.log "Linting code".grey
+  if commander.colors
+    proc = spawn coffeelint, [
+      '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
+      'src'
+    ], { cwd: command.dir, stdio: 'inherit' }
+  else
+    proc = spawn coffeelint, [
+      '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
+      'src'
+    ], { cwd: command.dir }
+    proc.stdout.on 'data', (data) ->
+  #    unless ~data.toString().indexOf "Done."
+      if commander.verbose
+        console.log data.toString().trim()
+    proc.stderr.on 'data', (data) ->
+      console.error data.toString().trim()
+  # Error management
+  proc.on 'error', cb
+  proc.on 'exit', (status) ->
+    if status != 0
+      status = new Error "Coffeelint exited with status #{status}"
+    cb status
+
+
+# ###
+test = (commander, command, cb) ->
+  return cb()
+  # Check for existing command
+  mocha = path.join BINMODULES, 'mocha'
+  unless fs.existsSync mocha
+    console.log "Skipped lint because mocha is missing".yellow
+    return cb?()
+  # Run external command
+  console.log "Testing code of " + name
+  options = extend {}, { env: process.env },
+    env:
+      NODE_ENV: 'testing'
+  proc = spawn mocha, [
+    '--reporter', 'spec'
+    '--compilers', 'coffee:iced-coffee-script'
+    '--require', 'iced-coffee-script'
+    '-c'
+    'test/server'
+  ], options
+  # Pass output to console
+  if commander.verbose
+    proc.stderr.pipe process.stderr
+    proc.stdout.pipe process.stdout
+  # Error management
+  proc.on 'error', (err) ->
+    cb? err
+  proc.on 'exit', (status) ->
+    if status != 0
+      status = new Error "mocha exited with status #{ status } for #{ name }"
+    cb? status
+
+
+
   file = path.join command.dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
   command.oldVersion = pack.version

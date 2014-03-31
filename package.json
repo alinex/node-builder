@@ -34,7 +34,8 @@
     "fs-extra": "0.x",
     "request": "^2.34.0",
     "alinex-error": "0.x",
-    "docker": "^0.2.10"
+    "docker": "^0.2.10",
+    "coffeelint": "~1.1.0"
   },
   "devDependencies": {
     "coffee-script": "1.x"

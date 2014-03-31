@@ -51,16 +51,6 @@ processing of some tasks.
 `-C` or `--no-colors` can be used to disable the colored output.
 
 
-### Command: `clean`
-
-Remove all automatically generated files. This will bring you to the initial
-state of the system. To create a usable system you have to build it again.
-
-It will delete compiled files, generated documentation and the generated log
-files. With the `--all` option it will also delete config files, data and
-node_modules.
-
-
 ### Command: `doc`
 
 Generate the documentation this will create the documentation in the `doc`
@@ -111,6 +101,9 @@ After that you may directly start to add your code.
 
 ### Command `test`
 
+As a first test a coffeelint check will be run. Only if this won't have any
+errors the automatic tests will be run.
+
 
 ### Command `build`
 
@@ -118,7 +111,6 @@ Genereate the base system out of the source code. This creates the `lib` folder
 by copying, compiling and transforming files. Everything will be done parallel.
 
 With the `--watch` option it is possible to keep the documentation updated.
-
 
 
 ### Command `push`
@@ -130,6 +122,12 @@ new version. The version can be set by signaling if it should be a `--major`,
 To publish the next bugfix version only call:
 
     > bin/make push ../node-error
+
+
+### Command: `clean`
+
+Remove all automatically generated files. This will bring you to the initial
+state of the system. To create a usable system you have to build it again.
 
 
 License

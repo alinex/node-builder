@@ -81,7 +81,8 @@ createDoc = (commander, command, cb) ->
       <title>Page Redirection</title>
     </head>
     <body>
-      If you are not redirected automatically, follow the link to the <a href='README.md.html'>README</a>.
+      If you are not redirected automatically, follow the link to the
+      <a href='README.md.html'>README</a>.
     </body>
     </html>
     """
@@ -113,7 +114,7 @@ createDoc = (commander, command, cb) ->
 
 # ### Create temporary directory
 createTmpDir = (commander, command, cb) ->
-  filename = 'alinex-make-' + crypto.randomBytes(4).readUInt32LE(0) + '-gh';
+  filename = 'alinex-make-' + crypto.randomBytes(4).readUInt32LE(0) + '-gh'
   command.tmpdir = path.join os.tmpdir(), filename
   if commander.verbose
     console.log "Create temporary directory at #{command.tmpdir}".grey

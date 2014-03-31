@@ -22,7 +22,7 @@
 # Node Modules
 # -------------------------------------------------
 
-errorHandler = require './errorHandler'
+errorHandler = require 'alinex-error'
 errorHandler.install()
 
 # include base modules
@@ -129,6 +129,23 @@ commander.command('doc <dir>')
   options.dir = dir
   run commander, options, -> process.exit 0
 
+# ### Run automatic tests
+commander.command('test <dir>')
+.description('Run automatic tests')
+.option('-w, --watch', 'Keep the process running, watch for changes and process again')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
+# ### Cleanup automatic created files
+commander.command('clean <dir>')
+.description('Cleanup automatic generated files')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
+
+
 # Run commands
 # -------------------------------------------------
 # Call the command line parsing and the given command.
@@ -141,207 +158,4 @@ unless commander.args.length
 if typeof commander.args[commander.args.length-1] is 'string'
   console.error "Command '#{commander.args[0]}' not found use --help switch.".red
   process.exit -1
-
-
-
-
-
-
-
-
-process.exit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Find local development packages
-# -------------------------------------------------
-# This is done looking into all direct included npm packages and collecting
-# all that hare added using a symbolic link.
-#
-# The list of packages maybe filtered by specifying a specific one using the
-# `-p` or `--package` option.
-getDevelPackages = (command, cb) ->
-  return packages if packages?.length
-  packages['.'] = GLOBAL.PKG if not command.package or command.package is 'core'
-  async.each fs.readdirSync(path.join GLOBAL.MODULES), (file, cb) ->
-    info = path.join GLOBAL.MODULES, file, 'package.json'
-    fs.exists info, (exists) ->
-      return cb() unless exists
-      fs.lstat info, (err, stats) ->
-        return cb err if err
-        info = JSON.parse fs.readFileSync info
-        if stats.isSymbolicLink() and ( not command.package or command.package is  info.name )
-          packages[path.join GLOBAL.MODULES, file] = info
-        cb()
-  , (err) ->
-    throw err if err
-    cb packages
-
-# Storage of collected packages
-packages = []
-
-
-
-# Run task library (for each package)
-# -------------------------------------------------
-# Load the defined task library and run it for all alinex packages.
-#
-# __Arguments:__
-#
-# * `commander`
-#   Commander instance for reading options.
-# * `command`
-#   Command specific parameters and options.
-# * `callback(err)`
-#   The callback will be called just if an error occurred or with `null` if
-#   execution finished.
-#
-# First this will call the `pre` method if exported  with the core package data
-# to do some preprocessing before calling the `run` method of the task library
-# for each module including the core.  Also if a `post` function is exported
-# this will be executed at the end.
-runPack = (commander, command, cb) ->
-  colors.mode = 'none' unless commander.colors
-
-  console.log command._description.blue.bold
-  # load task library
-  lib = require './' + command._name + 'Task'
-  # create list of jobs
-  jobs = []
-  # run pre processing if defined
-  if lib.pre?
-    jobs.push (cb) ->
-      if commander.verbose?
-        console.log "Preprocessing".bold
-      lib.pre commander, command, PKG.name, '.', cb
-  # run modules in parallel
-  getDevelPackages command, (packages) ->
-    modules = []
-    for dir, info of packages
-      modules.push [info.name, dir]
-    jobs.push (cb) ->
-      if commander.verbose?
-        console.log "Processing".bold
-      async.each modules, (entry, cb) ->
-        lib.run commander, command, entry[0], entry[1], cb
-      , cb
-    # run post processing if defined
-    if lib.post?
-      jobs.push (cb) ->
-        if commander.verbose?
-          console.log "Postprocessing".bold
-        lib.post commander, command, PKG.name, '.', cb
-    # run queue
-    async.series jobs, (err) ->
-      errorHandler.exit err if err
-      console.log 'Done'.green
-      cb()
-
-
-# Command definition
-# -------------------------------------------------
-
-# ### Clean up automatic generated files
-commander.command('clean')
-.description('Cleanup all automatic generated data')
-.option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
-.option('-p, --package <name>', 'Only work on the given module', )
-.action (options) -> runPack commander, options, -> process.exit 0
-
-# ### Build running system
-#
-# Therefore server and client files will be transformed/compiled.
-commander.command('build')
-.description('Build running system')
-.option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
-.option('-p, --package <name>', 'Only work on the given module', )
-.action (options) -> runPack commander, options, -> process.exit 0
-
-# ### Run test and lint
-commander.command('test')
-.description('Run automatic tests')
-.option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
-.option('-p, --package <name>', 'Only work on the given module', )
-.action (options) -> runPack commander, options, -> process.exit 0
-
-# ### Create new module
-commander.command('github')
-.description('Update GitHub repository')
-.option('-P, --password <password>', 'GitHub password')
-.action ->
-  unless commander.name
-    console.error "To update the GitHub repository the --password for user #{ 'xxx' } is needed.".red
-    process.exit -1
-  run commander, { options: options }
-  , 'create', 'Update GitHub repository', ->
-    process.exit 0
-
-
-
-
-# ### Copy config files
-#
-# Copy default config files if not existent.
-commander.command('config')
-.description('Copy config files')
-.action ->
-  run commander, null, 'config', 'Copy config files', ->
-    process.exit 0
-
-# ###
-commander.command('inspector')
-.description('Start system using inspector')
-.action ->
-#  if commander.required?
-#    run commander, 'build', 'Build running system', ->
-#    process.exit 0
-
-  process.exit if success then 0 else 1
-
-# ###
-commander.command('run')
-.description('Start development system')
-.action ->
-  success = true
-  if commander.required?
-    await run commander, null, 'build', 'Build running system', defer success
-
-  process.exit if success then 0 else 1
-
-# ###
-commander.command('pack')
-.description('Package system to be deployed')
-.action ->
-  success = true
-  if commander.required?
-    await run commander, null, 'build', 'Build running system', defer success
-  if success
-    await run commander, null, 'pack', 'Package system to be deployed', defer success
-  process.exit if success then 0 else 1
-
-# ###
-commander.command('deploy')
-.description('Deploy package onto server')
-.action ->
-  success = true
-  if commander.required?
-    await run commander, null, 'build', 'Build running system', defer success
-  run commander, null, 'deploy', 'Deploy package onto server'
-  process.exit if success then 0 else 1
-
 
