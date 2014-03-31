@@ -71,13 +71,14 @@ updateChangelog = (commander, command, cb) ->
     return cb err if err
     file = path.join command.dir, 'Changelog.md'
     lines = fs.readFileSync(file, 'utf-8').split /\n/
+    newlines = stdout.trim().split(/\n/).map (val) -> "- #{val}"
     changelog = lines[..5].join('\n') + """
 
       Version #{command.newVersion}
       -------------------------------------------------
-      #{'- ' + stdout.trim().split(/\n/).map '\n- '}
+      #{newlines.join '\n'}
 
-      """ + lines[5..].join('\n')
+      """ + lines[5..].join('\n')    
     console.log "Write new changelog"
     fs.writeFile file, changelog, (err) ->
       return cb err if err
