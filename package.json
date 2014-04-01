@@ -21,6 +21,7 @@
   "bin": "bin/make",
   "scripts": {
     "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
+    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c",
     "start": "bin/make"
   },
   "directories": {
@@ -29,16 +30,18 @@
   },
   "dependencies": {
     "commander": "2.x",
-    "colors": "0.x",
-    "async": "0.x",
-    "fs-extra": "0.x",
-    "request": "^2.34.0",
-    "alinex-error": "0.x",
-    "docker": "^0.2.10",
-    "coffeelint": "~1.1.0"
+    "colors": ">=0.6.0",
+    "async": ">=0.2.0",
+    "fs-extra": ">=0.4.0",
+    "request": "2.x",
+    "alinex-error": ">=0.1.0",
+    "docker": ">=0.2.10",
+    "coffeelint": "1.x"
   },
   "devDependencies": {
-    "coffee-script": "1.x"
+    "coffee-script": ">=1.7.0",
+    "mocha": "1.x",
+    "chai": "1.x"
   },
   "optionalDependencies": {},
   "engines": {

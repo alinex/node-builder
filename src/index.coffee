@@ -65,8 +65,6 @@ run = (commander, command, cb) ->
   # load task library
   lib = require './' + command._name + 'Task'
   # run modules in parallel
-  if commander.verbose?
-    console.log "Processing".bold
   lib.run commander, command, (err) ->
     errorHandler.report err if err
     console.log "Done.".green

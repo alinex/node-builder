@@ -27,8 +27,10 @@ Installation
 
 Install the package using npm:
 
-  > npm install alinex-make
+  > npm install alinex-make --production -g
+  > npm dedupe
 
+After global installation you may directly call `alinex-make` from anywhere.
 
 
 Usage

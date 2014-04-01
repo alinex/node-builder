@@ -65,156 +65,18 @@ coffeelint = (commander, command, cb) ->
 
 # ###
 test = (commander, command, cb) ->
-  return cb()
-  # Check for existing command
-  mocha = path.join BINMODULES, 'mocha'
-  unless fs.existsSync mocha
-    console.log "Skipped lint because mocha is missing".yellow
-    return cb?()
-  # Run external command
-  console.log "Testing code of " + name
-  options = extend {}, { env: process.env },
-    env:
-      NODE_ENV: 'testing'
-  proc = spawn mocha, [
-    '--reporter', 'spec'
-    '--compilers', 'coffee:iced-coffee-script'
-    '--require', 'iced-coffee-script'
-    '-c'
-    'test/server'
-  ], options
-  # Pass output to console
   if commander.verbose
-    proc.stderr.pipe process.stderr
-    proc.stdout.pipe process.stdout
+    console.log "Read package.json".grey
+  pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+  return cb() unless pack.scripts?.test?
+  console.log "Run test scripts"
+  args = pack.scripts.test.split /\s+/
+  cmd = args.shift()
+  proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
   # Error management
-  proc.on 'error', (err) ->
-    cb? err
+  proc.on 'error', cb
   proc.on 'exit', (status) ->
     if status != 0
-      status = new Error "mocha exited with status #{ status } for #{ name }"
-    cb? status
+      status = new Error "Coffeelint exited with status #{status}"
+    cb status
 
-
-
-  file = path.join command.dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file
-  command.oldVersion = pack.version
-  # calculate new version
-  if commander.verbose
-    console.log "Old version is #{command.oldVersion}".grey
-  version = pack.version.split /\./
-  if command.major
-    version[0]++
-    version[1] = version[2] = 0
-  else if command.minor
-    version[1]++
-    version[2] = 0
-  else
-    version[2]++
-  command.newVersion = pack.version = version.join '.'
-  if commander.verbose
-    console.log "New version is #{pack.version}".grey
-  # write new version number into package.json
-  console.log "Change package.json"
-  fs.writeFile file, JSON.stringify(pack, null, 2), (err) ->
-    return cb err if err
-    async.series [
-      (cb) -> updateChangelog commander, command, cb
-      (cb) -> commitChanges commander, command, cb
-      (cb) -> pushOrigin commander, command, cb
-      (cb) -> gitTag commander, command, cb
-      (cb) -> pushNpm commander, command, cb
-    ], (err) ->
-      throw err if err
-      console.log "Created v#{pack.version}.".green
-      cb()
-
-# ### add changes since last version to Changelog
-updateChangelog = (commander, command, cb) ->
-  if commander.verbose
-    console.log "Read git log".grey
-  args = [ 'log', '--pretty=format:%s' ]
-  unless command.oldVersion is '0.0.0'
-    args.push "v#{command.oldVersion}..HEAD"
-  execFile "git", args, { cwd: command.dir }, (err, stdout, stderr) ->
-    console.error stderr.trim().magenta if stderr
-    return cb err if err
-    file = path.join command.dir, 'Changelog.md'
-    lines = fs.readFileSync(file, 'utf-8').split /\n/
-    newlines = stdout.trim().split(/\n/).map (val) -> "- #{val}"
-    changelog = lines[..5].join('\n') + """
-
-      Version #{command.newVersion}
-      -------------------------------------------------
-      #{newlines.join '\n'}
-
-      """ + lines[5..].join('\n')
-    console.log "Write new changelog"
-    fs.writeFile file, changelog, (err) ->
-      return cb err if err
-      cb()
-
-# ### Commit changes in Changelog and package.json
-commitChanges = (commander, command, cb) ->
-  console.log "Commit new version information"
-  execFile "git", [
-    'add'
-    'package.json', 'Changelog.md'
-  ], { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr
-    return cb err if err
-    execFile "git", [
-      'commit'
-      '-m', "Added information for version #{command.newVersion}"
-    ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr
-      return cb err if err
-      cb()
-
-# ### Push to git origin
-pushOrigin = (commander, command, cb) ->
-  console.log "Push to git origin"
-  execFile "git", [
-    'push'
-    'origin', 'master'
-  ], { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr
-    return cb err if err
-    cb()
-
-# ### Add version tag to git
-gitTag = (commander, command, cb) ->
-  console.log "Push new tag to git origin"
-  execFile "git", [
-    'tag'
-    '-a', "v#{command.newVersion}"
-    '-m', "Created version #{command.newVersion}"
-  ], { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr
-    return cb err if err
-    execFile "git", [
-      'push'
-      'origin', "v#{command.newVersion}"
-    ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr
-      return cb err if err
-      cb()
-
-# ### Push new version to npm
-pushNpm = (commander, command, cb) ->
-  console.log "Push to npm"
-  execFile 'npm', [ 'install' ], { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr
-    return cb err if err
-    execFile 'npm', [ 'publish' ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr
-      return cb err if err
-      cb()
