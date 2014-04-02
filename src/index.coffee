@@ -112,7 +112,7 @@ commander.command('create <dir>')
 # ### Push to GitHub
 commander.command('push <dir>')
 .description('Push to git origin')
-.option('--commit <message>', 'Create new major version')
+.option('-c, --commit <message>', 'Create new major version')
 .action (dir, options) ->
   options.dir = dir
   run commander, options, -> process.exit 0
