@@ -102,14 +102,30 @@ commander.command('create <dir>')
 .description('Create new node module')
 .option('-p, --package <name>', 'Create the given module')
 .option('-P, --password <name>', 'Password to use on github')
+.option('-U, --user <name>', 'Username to use on github')
 .action (dir, options) ->
   options.dir = dir
   options.package ?= path.basename dir
   options.user = 'alinex'
   run commander, options, -> process.exit 0
 
-# ### Push to GitHub and npm
+# ### Push to GitHub
 commander.command('push <dir>')
+.description('Push to git origin')
+.option('--commit <message>', 'Create new major version')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
+# ### Push to GitHub
+commander.command('pull <dir>')
+.description('Pull from git origin')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
+# ### Publish to GitHub and npm
+commander.command('publish <dir>')
 .description('Create new node module')
 .option('--major', 'Create new major version')
 .option('--minor', 'Create new minor version')

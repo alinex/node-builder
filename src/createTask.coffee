@@ -231,13 +231,13 @@ initialCommit = (commander, command, cb) ->
     execFile "git", [ 'add', '*' ], { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and commander.verbose
       console.error stderr.trim().magenta if stderr
-      execFile "git", [ 'commit', '-m', 'Initial commit' ], { cwd: command.dir }
-      , (err, stdout, stderr) ->
+      execFile "git", [ 'commit', '-m', 'Initial commit' ]
+      , { cwd: command.dir }, (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and commander.verbose
         console.error stderr.trim().magenta if stderr
         console.log "Push to origin"
-        execFile "git", [ 'push', 'origin', 'master' ], { cwd: command.dir }
-        , (err, stdout, stderr) ->
+        execFile "git", [ 'push', 'origin', 'master' ],
+        { cwd: command.dir }, (err, stdout, stderr) ->
           console.log stdout.trim().grey if stdout and commander.verbose
           console.error stderr.trim().magenta if stderr
           cb()

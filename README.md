@@ -72,7 +72,9 @@ An example call will look like:
 
     > bin/make create ../node-error --password xxxxxxxxx --package alinex-error
 
-After that you may directly start to add your code.
+After that you may directly start to add your code. If the github repository
+should not be created under user 'alinex' you may specify another one using
+`--user`.
 
 
 ### Command `push`
