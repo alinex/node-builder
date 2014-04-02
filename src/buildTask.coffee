@@ -10,7 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{spawn} = require 'child_process'
+{spawn,execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -30,17 +30,35 @@ module.exports.run = (commander, command, cb) ->
   if commander.verbose
     console.log "Read package.json".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
-  unless pack.scripts?.prepubish?
-    console.error "Skipped because no prepublication script added".yellow
-    return cb()
-  console.log "Run prepublication script"
-  args = pack.scripts.test.split /\s+/
-  cmd = args.shift()
-  proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
-  # Error management
-  proc.on 'error', cb
-  proc.on 'exit', (status) ->
-    if status != 0
-      status = new Error "Coffeelint exited with status #{status}"
-    cb status
-
+  console.log "Install npm modules"
+  execFile 'npm', [ 'install' ], { cwd: command.dir }
+  , (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and commander.verbose
+    console.error stderr.trim().magenta if stderr and commander.verbose
+    return cb err if err
+    console.log "Update npm modules"
+    execFile 'npm', [ 'update' ], { cwd: command.dir }
+    , (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and commander.verbose
+      console.error stderr.trim().magenta if stderr and commander.verbose
+      return cb err if err
+      console.log "Reduce module duplication"
+      execFile 'npm', [ 'dedupe' ], { cwd: command.dir }
+      , (err, stdout, stderr) ->
+        console.log stdout.trim().grey if stdout and commander.verbose
+        console.error stderr.trim().magenta? if stderr and commander.verbose
+        return cb err if err or command.watch
+        unless pack.scripts?.prepublish?
+          console.log "Skipped watching because no prepublish defined in package.json".yellow
+          return cb()
+        console.log "Start watching... stop using ctrl-c".bold
+        args = pack.scripts.prepublish.split /\s+/
+        cmd = args.shift()
+        args.unshift '-w'
+        proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
+        # Error management
+        proc.on 'error', cb
+        proc.on 'exit', (status) ->
+          if status != 0
+            status = new Error "Coffeescript compile failed with status #{status}"
+          cb status

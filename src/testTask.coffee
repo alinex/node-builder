@@ -32,20 +32,20 @@ module.exports.run = (commander, command, cb) ->
 # ### Run lint against coffee script
 coffeelint = (commander, command, cb) ->
   # Check for existing command
-  coffeelint = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/coffeelint"
-  unless fs.existsSync coffeelint
+  bin = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/coffeelint"
+  unless fs.existsSync bin
     console.log "Skipped lint because coffeelint is missing".yellow
     return cb?()
   # Run external command
   if commander.verbose
     console.log "Linting code".grey
   if commander.colors
-    proc = spawn coffeelint, [
+    proc = spawn bin, [
       '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
       'src'
     ], { cwd: command.dir, stdio: 'inherit' }
   else
-    proc = spawn coffeelint, [
+    proc = spawn bin, [
       '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
       'src'
     ], { cwd: command.dir }
@@ -63,15 +63,19 @@ coffeelint = (commander, command, cb) ->
     cb status
 
 
-# ###
+# ### Run tests like defined in package.json
+# It will add the -w flag if `--watch` is set.
 test = (commander, command, cb) ->
   if commander.verbose
     console.log "Read package.json".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
-  return cb() unless pack.scripts?.test?
+  unless pack.scripts?.test?
+    console.log "Skipped because no tests defined in package.json".yellow
+    return cb()
   console.log "Run test scripts"
   args = pack.scripts.test.split /\s+/
   cmd = args.shift()
+  args.push '-w' if command.watch
   proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
   # Error management
   proc.on 'error', cb

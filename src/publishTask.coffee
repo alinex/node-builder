@@ -1,4 +1,4 @@
-# Publish new version  to GitHub and npm
+# Publish new version to GitHub and npm
 # =================================================
 
 
@@ -67,6 +67,7 @@ updateChangelog = (commander, command, cb) ->
   unless command.oldVersion is '0.0.0'
     args.push "v#{command.oldVersion}..HEAD"
   execFile "git", args, { cwd: command.dir }, (err, stdout, stderr) ->
+    console.log stderr.trim().grey if stdout and commander.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
     file = path.join command.dir, 'Changelog.md'

@@ -79,8 +79,13 @@ should not be created under user 'alinex' you may specify another one using
 
 ### Command `push`
 
+This will push the changes to the origin repository. With the `--commit` option
+it will also add and commit all other changes before doing so.
+
 
 ### Command `pull`
+
+Like `push` this will fetch the newest changes from git origin.
 
 
 ### Command `test`
@@ -132,7 +137,7 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > bin/make push ../node-error
+    > bin/make publish ../node-error
 
 
 ### Command: `clean`
@@ -155,14 +160,16 @@ of the major parts.
     | push    | -      | git push origin master                                |
     |         | commit | + git add; git commit // before                       |
     | pull    | -      | git pull                                              |
-    | test    | -      | npm test                                              |
+    | test    | -      | lint; npm test                                        |
     |         | watch  | + keep watching                                       |
     | doc     | -      | docker                                                |
     |         | watch  | + keep watching                                       |
-    | build   | -      | npm install                                           |
+    | build   | -      | npm install; npm update; npm dedupe                   |
     |         | watch  | + keep watching                                       |
     | publish | -      | git tag; git push; npm publish                        |
-    | clean   | -      | rm -r                                                 |
+    | clean   | -      | rm -r; npm prune                                      |
+    |         | dist   | + rm -r more files                                    |
+    |         | all    | + rm -r more files                                    |
 
 
 License

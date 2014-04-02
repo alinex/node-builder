@@ -152,7 +152,7 @@ commander.command('doc <dir>')
   run commander, options, -> process.exit 0
 
 # ### Run automatic tests
-commander.command('test <dir>')
+commander.command('build <dir>')
 .description('Run automatic tests')
 .option('-w, --watch', 'Keep the process running, watch for changes and process again')
 .action (dir, options) ->
@@ -162,6 +162,8 @@ commander.command('test <dir>')
 # ### Cleanup automatic created files
 commander.command('clean <dir>')
 .description('Cleanup automatic generated files')
+.option('-d, --dist', 'Clean all which is not needed in production')
+.option('-a, --all', 'Clean all which is automatically generated')
 .action (dir, options) ->
   options.dir = dir
   run commander, options, -> process.exit 0

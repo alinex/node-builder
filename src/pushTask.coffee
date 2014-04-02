@@ -37,8 +37,7 @@ module.exports.run = (commander, command, cb) ->
     , { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and commander.verbose
       console.error stderr.trim().magenta if stderr
-      return cb err if err
-    cb()
+      cb err
 
 commit = (commander, command, cb) ->
   if command.commit
