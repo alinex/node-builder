@@ -86,17 +86,18 @@ createPackage = (commander, command, cb) ->
     return cb()
   console.log "Create new package.json file"
   gitname = path.basename command.dir
+  gituser = command.user ? 'alinex'
   pack =
     name: command.package
     version: '0.0.0'
     description: ''
     copyright: PKG.copyright
     keywords: ''
-    homepage: "http://alinex.github.io/#{gitname}/"
+    homepage: "http://#{gituser}.github.io/#{gitname}/"
     repository:
       type: 'git'
-      url: "https://github.com/alinex/#{gitname}.git"
-    bugs: "https://github.com/alinex/#{gitname}/issues",
+      url: "https://github.com/#{gituser}/#{gitname}.git"
+    bugs: "https://github.com/#{gituser}/#{gitname}/issues",
     author: PKG.author
     contributors: []
     license: PKG.license
@@ -107,7 +108,7 @@ createPackage = (commander, command, cb) ->
       lib: './lib'
     dependencies: {}
     devDependencies:
-      "coffee-script": "1.x"
+      "coffee-script": ">=1.7.0"
     optionalDependencies: {}
     engines: PKG.engines
     os: []
@@ -131,7 +132,7 @@ createReadme = (commander, command, cb) ->
     License
     -------------------------------------------------
 
-    Copyright 2013-2014 Alexander Schilling
+    Copyright #{(new Date()).getFullYear()} Alexander Schilling
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -172,11 +173,14 @@ createGitHub = (commander, command, cb) ->
   if commander.verbose
     console.log "Check existing GitHub repository".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+  unless pack.repository.type is 'git'
+    return cb "Only git repositories can be added to github."
   gitname = path.basename command.dir
+  gituser = command.user ? 'alinex'
   request {
-    uri: "https://api.github.com/repos/alinex/#{gitname}"
+    uri: "https://api.github.com/repos/#{gituser}/#{gitname}"
     auth:
-      user: command.user
+      user: gituser
       pass: command.password
     headers:
       'User-Agent': command.user
@@ -237,12 +241,3 @@ initialCommit = (commander, command, cb) ->
           console.log stdout.trim().grey if stdout and commander.verbose
           console.error stderr.trim().magenta if stderr
           cb()
-
-###
-
-git pull origin master
-git push origin master
-
-add softlink to node-core
-add to node-core packages
-###

@@ -2,7 +2,7 @@ Alinex Development Utils
 =================================================
 
 This package contains some helper commands for development of the alinex
-node packages.
+node packages. This is a superset of npm and other command line tools.
 
 At the moment it is not completely general but specific to my own development.
 But feel free to change the settings within the code to match your environment.
@@ -53,6 +53,40 @@ processing of some tasks.
 `-C` or `--no-colors` can be used to disable the colored output.
 
 
+### Command `create`
+
+Create a new package from scratch. This will create:
+
+* the directory
+* make some initial files
+* init git repository
+* setup github repository
+* add and commit everything
+
+The create task needs the `--password` setting to access github
+through the api. And you may specify the `--package` setting for the npm name
+of the package. The also mandatory path will be used as the github repository
+name, too.
+
+An example call will look like:
+
+    > bin/make create ../node-error --password xxxxxxxxx --package alinex-error
+
+After that you may directly start to add your code.
+
+
+### Command `push`
+
+
+### Command `pull`
+
+
+### Command `test`
+
+As a first test a coffeelint check will be run. Only if this won't have any
+errors the automatic tests will be run.
+
+
 ### Command: `doc`
 
 Generate the documentation this will create the documentation in the `doc`
@@ -80,33 +114,6 @@ And at last you may also add the `--browser` flag to open the documentation in
 the browser after created.
 
 
-### Command `create`
-
-Create a new package from scratch. This will create:
-
-* the directory
-* init git repository
-* setup github repository
-* make initial files
-
-The create task needs the `--password` setting to access github
-through the api. And you may specify the `--package` setting for the npm name
-of the package. The also mandatory path will be used as the github repository
-name, too.
-
-An example call will look like:
-
-    > bin/make create ../node-error alinex-error --password xxxxxxxxx --package
-
-After that you may directly start to add your code.
-
-
-### Command `test`
-
-As a first test a coffeelint check will be run. Only if this won't have any
-errors the automatic tests will be run.
-
-
 ### Command `build`
 
 Genereate the base system out of the source code. This creates the `lib` folder
@@ -115,9 +122,9 @@ by copying, compiling and transforming files. Everything will be done parallel.
 With the `--watch` option it is possible to keep the documentation updated.
 
 
-### Command `push`
+### Command `publish`
 
-With the push command you can push your newest changes to github and npm as a
+With the push command you can publish your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a `--major`,
 `--minor` or bugfix version if no switch given.
 
@@ -130,6 +137,30 @@ To publish the next bugfix version only call:
 
 Remove all automatically generated files. This will bring you to the initial
 state of the system. To create a usable system you have to build it again.
+
+
+Command overview
+-------------------------------------------------
+
+The following table will give a short overview of what really is done on each
+command. This is not a full list of options and execute commands but an overview
+of the major parts.
+
+    | Command | Option | Execute (pseudo code)                                 |
+    +---------+--------+-------------------------------------------------------+
+    | create  | -      | mkdir; git init; touch files...; create github        |
+    |         |        | git add; git commit; git push                         |
+    | push    | -      | git push origin master                                |
+    |         | commit | + git add; git commit // before                       |
+    | pull    | -      | git pull                                              |
+    | test    | -      | npm test                                              |
+    |         | watch  | + keep watching                                       |
+    | doc     | -      | docker                                                |
+    |         | watch  | + keep watching                                       |
+    | build   | -      | npm install                                           |
+    |         | watch  | + keep watching                                       |
+    | publish | -      | git tag; git push; npm publish                        |
+    | clean   | -      | rm -r                                                 |
 
 
 License
