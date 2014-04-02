@@ -118,11 +118,16 @@ pushOrigin = (commander, command, cb) ->
 
 # ### Add version tag to git
 gitTag = (commander, command, cb) ->
+  file = path.join command.dir, 'package.json'
+  pack = JSON.parse fs.readFileSync file
+  changelog = ''
+  if pack.homepage?
+    changelog = " see more in [Changelog.md](#{pack.homepage}/Changelog.md.html)"
   console.log "Push new tag to git origin"
   execFile "git", [
     'tag'
     '-a', "v#{command.newVersion}"
-    '-m', "Created version #{command.newVersion}"
+    '-m', "Created version #{command.newVersion}#{changelog}"
   ], { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and commander.verbose
     console.error stderr.trim().magenta if stderr
