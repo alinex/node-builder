@@ -117,7 +117,15 @@ commander.command('push <dir>')
   options.dir = dir
   run commander, options, -> process.exit 0
 
-# ### Push to GitHub and npm
+# ### Build running system
+commander.command('test <dir>')
+.description('Run automatic tests')
+.option('-w, --watch', 'Keep the process running, watch for changes and process again')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
+# ### Create documentation
 commander.command('doc <dir>')
 .description('Create new API documentation for module')
 .option('-w, --watch', 'Keep the process running, watch for changes and process updated files')

@@ -22,7 +22,8 @@
   "scripts": {
     "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c",
-    "start": "bin/make"
+    "start": "bin/make",
+    "own": "echo 'hello'"
   },
   "directories": {
     "bin": "./bin",
@@ -44,6 +45,7 @@
     "chai": "1.x"
   },
   "optionalDependencies": {},
+  "peerDependencies": {},
   "engines": {
     "node": ">=0.10"
   },
