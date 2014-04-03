@@ -2,3 +2,5 @@ language: node_js
 node_js:
    - "0.11"
    - "0.10"
+service_name: travis-pro
+repo_token: xVb3NoUl9MIy1Yvb9w8KKHYrg6pGufIGA
