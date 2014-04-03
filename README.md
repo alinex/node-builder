@@ -28,14 +28,14 @@ tasks which were moved out into this helper tool.
 Installation
 -------------------------------------------------
 
-[![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
-
 Install the package using npm:
 
   > npm install alinex-make --production -g
   > npm dedupe
 
 After global installation you may directly call `alinex-make` from anywhere.
+
+[![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
 
 
 Usage
@@ -150,6 +150,10 @@ To publish the next bugfix version only call:
 Remove all automatically generated files. This will bring you to the initial
 state of the system. To create a usable system you have to build it again.
 
+To clean everything which you won't need for a production environment use 
+`--dist` or `--auto` to remove all automatically generated files in the
+development environment.
+
 
 Command overview
 -------------------------------------------------
@@ -174,7 +178,7 @@ of the major parts.
     | publish | -      | git tag; git push; npm publish                        |
     | clean   | -      | rm -r; npm prune                                      |
     |         | dist   | + rm -r more files                                    |
-    |         | all    | + rm -r more files                                    |
+    |         | auto   | + rm -r more files                                    |
 
 
 License

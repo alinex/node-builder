@@ -28,10 +28,12 @@ module.exports.run = (commander, command, cb) ->
   console.log "Remove unnecessary folders"
   dirs = [
     path.join command.dir, 'doc'
-    path.join command.dir, 'lib'
   ]
-  if command.all
+  if command.auto
+    dirs.push path.join command.dir, 'lib'
     dirs.push path.join command.dir, 'node_modules'
+  if command.dist
+    dirs.push path.join command.dir, 'src'
   async.each dirs, (dir, cb) ->
     fs.exists dir, (exists) ->
       return cb() unless exists
@@ -46,12 +48,44 @@ module.exports.run = (commander, command, cb) ->
         cb err
 
 cleanDistribution = (commander, command, cb) ->
-  cb() unless command.dist
+  cb() unless command.dist or true
   console.log "Remove development modules"
-  cb()
+  execFile "npm", [ 'prune', '--production' ]
+  , { cwd: command.dir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and commander.verbose
+    console.error stderr.trim().magenta if stderr
+    cb err
 
 cleanModules = (commander, command, cb) ->
   cb() unless command.dist
   console.log "Remove left over of node_modules"
-  cb()
-
+  find = [
+    [ # Remove source folders
+      '-mindepth', 2
+      '-type', 'd'
+      '-regex', '.*/node_modules/[^/]*/src'
+      '-not', '-wholename', '*/node_modules/sprintf-js/src'
+    ],
+    [ # Remove example folders
+      '-mindepth', 2
+      '-type', 'd'
+      '-regex', '.*/node_modules/[^/]*/examples?'
+    ],
+    [ # Remove markup files excluding LICENSE info
+      '-mindepth', 2
+      '-type', 'f'
+      '-name', '*.md'
+      '-not', '-iname', 'LICENSE*'
+    ]
+  ]
+  async.eachSeries find, (item, cb) ->
+    console.log "Remove #{item}"
+    item.unshift '.', '-depth'
+    item.push '-exec', 'rm', '-r', '{}', ';'
+    if commander.verbose
+      item.push '-print'
+    execFile 'find', item, { cwd: command.dir }, (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and commander.verbose
+      console.error stderr.trim().magenta if stderr
+      cb err
+  , cb

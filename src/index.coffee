@@ -163,7 +163,7 @@ commander.command('build <dir>')
 commander.command('clean <dir>')
 .description('Cleanup automatic generated files')
 .option('-d, --dist', 'Clean all which is not needed in production')
-.option('-a, --all', 'Clean all which is automatically generated')
+.option('-a, --auto', 'Clean all which is automatically generated')
 .action (dir, options) ->
   options.dir = dir
   run commander, options, -> process.exit 0
