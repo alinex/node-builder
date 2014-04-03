@@ -3,7 +3,6 @@ Alinex Development Utils
 
 [![Build Status](https://travis-ci.org/alinex/node-make.svg?branch=master)](https://travis-ci.org/alinex/node-make)
 [![Dependency Status](https://gemnasium.com/alinex/node-make.png)](https://gemnasium.com/alinex/node-make)
-[![Coverage Status](https://coveralls.io/repos/alinex/node-make/badge.png)](https://coveralls.io/r/alinex/node-make)
 
 This package contains some helper commands for development of the alinex
 node packages. This is a superset of npm and other command line tools.
