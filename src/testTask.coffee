@@ -10,7 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{spawn} = require 'child_process'
+{spawn,execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -72,15 +72,20 @@ test = (commander, command, cb) ->
   unless pack.scripts?.test?
     console.log "Skipped because no tests defined in package.json".yellow
     return cb()
-  console.log "Run test scripts"
-  args = pack.scripts.test.split /\s+/
-  cmd = args.shift()
-  args.push '-w' if command.watch
-  proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
-  # Error management
-  proc.on 'error', cb
-  proc.on 'exit', (status) ->
-    if status != 0
-      status = new Error "Coffeelint exited with status #{status}"
-    cb status
+  execFile 'npm', [ 'install' ], { cwd: command.dir }
+  , (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and commander.verbose
+    console.error stderr.trim().magenta if stderr and commander.verbose
+    return cb err if err
+    console.log "Run test scripts"
+    args = pack.scripts.test.split /\s+/
+    cmd = args.shift()
+    args.push '-w' if command.watch
+    proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
+    # Error management
+    proc.on 'error', cb
+    proc.on 'exit', (status) ->
+      if status != 0
+        status = new Error "Coffeelint exited with status #{status}"
+      cb status
 
