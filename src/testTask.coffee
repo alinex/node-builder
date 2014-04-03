@@ -59,7 +59,7 @@ coffeelint = (commander, command, cb) ->
   proc.on 'error', cb
   proc.on 'exit', (status) ->
     if status != 0
-      status = new Error "Coffeelint exited with status #{status}"
+      status = "Coffeelint exited with status #{status}"
     cb status
 
 
@@ -86,6 +86,6 @@ test = (commander, command, cb) ->
     proc.on 'error', cb
     proc.on 'exit', (status) ->
       if status != 0
-        status = new Error "Coffeelint exited with status #{status}"
+        status = "Test exited with status #{status}"
       cb status
 
