@@ -60,12 +60,12 @@ cleanModules = (commander, command, cb) ->
   cb() unless command.dist
   console.log "Remove left over of node_modules"
   find = [
-    [ # Remove source folders
-      '-mindepth', 2
-      '-type', 'd'
-      '-regex', '.*/node_modules/[^/]*/src'
-      '-not', '-wholename', '*/node_modules/sprintf-js/src'
-    ],
+#    [ # Remove source folders
+#      '-mindepth', 2
+#      '-type', 'd'
+#      '-regex', '.*/node_modules/[^/]*/src'
+#      '-not', '-wholename', '*/node_modules/sprintf-js/src'
+#    ],
     [ # Remove example folders
       '-mindepth', 2
       '-type', 'd'
