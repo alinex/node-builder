@@ -51,9 +51,11 @@ createDir = (commander, command, cb) ->
     fs.writeFile file, """
       .project
       .settings
+      .DS_Store
       *.sublime-*
       src
       doc
+      coverage
       """, cb
 
 # ### Create initial git repository
@@ -71,9 +73,11 @@ initGit = (commander, command, cb) ->
     fs.writeFile file, """
       .project
       .settings
+      .DS_Store
       *.sublime-*
       /node_modules/
       /doc/
+      /coverage/
       /lib/
       """, cb
 

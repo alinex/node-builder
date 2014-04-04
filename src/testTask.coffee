@@ -29,7 +29,26 @@ module.exports.run = (commander, command, cb) ->
     return cb err if err
     test commander, command, (err) ->
       return cb err if err
-      coverage commander, command, cb
+      coverage commander, command, (err) ->
+        return cb err if err
+        url = path.join GLOBAL.ROOT_DIR, command.dir, 'coverage', 'lcov-report', 'index.html'
+        return openUrl commander, url, cb if command.browser
+        cb()
+
+
+# ### Open the given url in the default browser
+openUrl = (commander, target, cb) ->
+  if commander.verbose
+    console.log "Open #{target} in browser".grey
+  opener = switch process.platform
+    when 'darwin' then 'open'
+    # if the first parameter to start is quoted, it uses that as the title
+    # so we pass a blank title so we can quote the file we are opening
+    when 'win32' then 'start ""'
+    # use Portlands xdg-open everywhere else
+    else path.join GLOBAL.ROOT_DIR, 'bin/xdg-open'
+  return exec opener + ' "' + escape(target) + '"', cb
+
 
 # ### Run lint against coffee script
 coffeelint = (commander, command, cb) ->
