@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/createTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/createTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -232,17 +232,18 @@ execution finished.</li>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new package.json file&quot;</span>
   <span class="nv">gitname = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+  <span class="nv">gituser = </span><span class="nx">command</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="s">&#39;alinex&#39;</span>
   <span class="nv">pack =</span>
     <span class="nv">name: </span><span class="nx">command</span><span class="p">.</span><span class="nx">package</span>
     <span class="nv">version: </span><span class="s">&#39;0.0.0&#39;</span>
     <span class="nv">description: </span><span class="s">&#39;&#39;</span>
     <span class="nv">copyright: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">copyright</span>
     <span class="nv">keywords: </span><span class="s">&#39;&#39;</span>
-    <span class="nv">homepage: </span><span class="s">&quot;http://alinex.github.io/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/&quot;</span>
+    <span class="nv">homepage: </span><span class="s">&quot;http://</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">.github.io/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/&quot;</span>
     <span class="nv">repository:</span>
       <span class="nv">type: </span><span class="s">&#39;git&#39;</span>
-      <span class="nv">url: </span><span class="s">&quot;https://github.com/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">.git&quot;</span>
-    <span class="nv">bugs: </span><span class="s">&quot;https://github.com/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/issues&quot;</span><span class="p">,</span>
+      <span class="nv">url: </span><span class="s">&quot;https://github.com/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">.git&quot;</span>
+    <span class="nv">bugs: </span><span class="s">&quot;https://github.com/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/issues&quot;</span><span class="p">,</span>
     <span class="nv">author: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">author</span>
     <span class="nv">contributors: </span><span class="p">[]</span>
     <span class="nv">license: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">license</span>
@@ -253,7 +254,7 @@ execution finished.</li>
       <span class="nv">lib: </span><span class="s">&#39;./lib&#39;</span>
     <span class="nv">dependencies: </span><span class="p">{}</span>
     <span class="nv">devDependencies:</span>
-      <span class="s">&quot;coffee-script&quot;</span><span class="o">:</span> <span class="s">&quot;1.x&quot;</span>
+      <span class="s">&quot;coffee-script&quot;</span><span class="o">:</span> <span class="s">&quot;&gt;=1.7.0&quot;</span>
     <span class="nv">optionalDependencies: </span><span class="p">{}</span>
     <span class="nv">engines: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">engines</span>
     <span class="nv">os: </span><span class="p">[]</span>
@@ -291,7 +292,7 @@ execution finished.</li>
 <span class="s">    License</span>
 <span class="s">    -------------------------------------------------</span>
 
-<span class="s">    Copyright 2013-2014 Alexander Schilling</span>
+<span class="s">    Copyright </span><span class="si">#{</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()).</span><span class="nx">getFullYear</span><span class="p">()</span><span class="si">}</span><span class="s"> Alexander Schilling</span>
 
 <span class="s">    Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
 <span class="s">    you may not use this file except in compliance with the License.</span>
@@ -360,11 +361,14 @@ execution finished.</li>
   <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check existing GitHub repository&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">type</span> <span class="o">is</span> <span class="s">&#39;git&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Only git repositories can be added to github.&quot;</span>
   <span class="nv">gitname = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+  <span class="nv">gituser = </span><span class="nx">command</span><span class="p">.</span><span class="nx">user</span> <span class="o">?</span> <span class="s">&#39;alinex&#39;</span>
   <span class="nx">request</span> <span class="p">{</span>
-    <span class="nv">uri: </span><span class="s">&quot;https://api.github.com/repos/alinex/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">uri: </span><span class="s">&quot;https://api.github.com/repos/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">auth:</span>
-      <span class="nv">user: </span><span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
+      <span class="nv">user: </span><span class="nx">gituser</span>
       <span class="nv">pass: </span><span class="nx">command</span><span class="p">.</span><span class="nx">password</span>
     <span class="nv">headers:</span>
       <span class="s">&#39;User-Agent&#39;</span><span class="o">:</span> <span class="nx">command</span><span class="p">.</span><span class="nx">user</span>
@@ -429,34 +433,16 @@ execution finished.</li>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
-      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&#39;Initial commit&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&#39;Initial commit&#39;</span> <span class="p">]</span>
+      <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to origin&quot;</span>
-        <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">],</span>
+        <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
           <span class="nx">cb</span><span class="p">()</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
-</div>
-<div class="dox">
-  <div class="summary"><p>git pull origin master
-git push origin master</p>
-  </div>
-  <div class="body"><p>add softlink to node-core
-add to node-core packages</p>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>

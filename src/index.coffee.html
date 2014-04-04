@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -47,49 +47,28 @@
         <a href="#create%20new%20module">Create new module</a>
       </div>
       <div class="heading h3">
-        <a href="#push%20to%20github%20and%20npm">Push to GitHub and npm</a>
+        <a href="#push%20to%20github">Push to GitHub</a>
       </div>
       <div class="heading h3">
-        <a href="#push%20to%20github%20and%20npm">Push to GitHub and npm</a>
-      </div>
-      <div class="heading h2">
-        <a href="#run%20commands">Run commands</a>
-      </div>
-      <div class="heading h2">
-        <a href="#find%20local%20development%20packages">Find local development packages</a>
-      </div>
-      <div class="heading h2">
-        <a href="#run%20task%20library%20(for%20each%20package)">Run task library (for each package)</a>
-      </div>
-      <div class="heading h2">
-        <a href="#command%20definition">Command definition</a>
+        <a href="#push%20to%20github">Push to GitHub</a>
       </div>
       <div class="heading h3">
-        <a href="#clean%20up%20automatic%20generated%20files">Clean up automatic generated files</a>
+        <a href="#publish%20to%20github%20and%20npm">Publish to GitHub and npm</a>
       </div>
       <div class="heading h3">
         <a href="#build%20running%20system">Build running system</a>
       </div>
       <div class="heading h3">
-        <a href="#run%20test%20and%20lint">Run test and lint</a>
+        <a href="#create%20documentation">Create documentation</a>
       </div>
       <div class="heading h3">
-        <a href="#create%20new%20module">Create new module</a>
+        <a href="#run%20automatic%20tests">Run automatic tests</a>
       </div>
       <div class="heading h3">
-        <a href="#copy%20config%20files">Copy config files</a>
+        <a href="#cleanup%20automatic%20created%20files">Cleanup automatic created files</a>
       </div>
       <div class="heading h2">
-        <a href="#%23">#</a>
-      </div>
-      <div class="heading h2">
-        <a href="#%23">#</a>
-      </div>
-      <div class="heading h2">
-        <a href="#%23">#</a>
-      </div>
-      <div class="heading h2">
-        <a href="#%23">#</a>
+        <a href="#run%20commands">Run commands</a>
       </div>
     </div>
   </div>
@@ -154,7 +133,7 @@ call may trigger multiple tasks which are done.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 
-<span class="nv">errorHandler = </span><span class="nx">require</span> <span class="s">&#39;./errorHandler&#39;</span>
+<span class="nv">errorHandler = </span><span class="nx">require</span> <span class="s">&#39;alinex-error&#39;</span>
 <span class="nx">errorHandler</span><span class="p">.</span><span class="nx">install</span><span class="p">()</span>
 
 
@@ -292,8 +271,6 @@ execution finished.</li>
 <p>run modules in parallel</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span><span class="o">?</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Processing&quot;</span><span class="p">.</span><span class="nx">bold</span>
   <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="nx">errorHandler</span><span class="p">.</span><span class="nx">report</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Done.&quot;</span><span class="p">.</span><span class="nx">green</span>
@@ -363,6 +340,7 @@ execution finished.</li>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --package &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Create the given module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-P, --password &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Password to use on github&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-U, --user &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Username to use on github&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">options</span><span class="p">.</span><span class="nx">package</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">dir</span>
@@ -375,16 +353,59 @@ execution finished.</li>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="push%20to%20github%20and%20npm">
+<div class="pilwrap" id="push%20to%20github">
   <h3>
-    <a href="#push%20to%20github%20and%20npm" name="push%20to%20github%20and%20npm" class="pilcrow">&#182;</a>
-    Push to GitHub and npm
+    <a href="#push%20to%20github" name="push%20to%20github" class="pilcrow">&#182;</a>
+    Push to GitHub
   </h3>
 </div>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;push &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Push to git origin&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-c, --commit &lt;message&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Create new major version&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="push%20to%20github">
+  <h3>
+    <a href="#push%20to%20github" name="push%20to%20github" class="pilcrow">&#182;</a>
+    Push to GitHub
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;pull &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Pull from git origin&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="publish%20to%20github%20and%20npm">
+  <h3>
+    <a href="#publish%20to%20github%20and%20npm" name="publish%20to%20github%20and%20npm" class="pilcrow">&#182;</a>
+    Publish to GitHub and npm
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;publish &lt;dir&gt;&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;--major&#39;</span><span class="p">,</span> <span class="s">&#39;Create new major version&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;--minor&#39;</span><span class="p">,</span> <span class="s">&#39;Create new minor version&#39;</span><span class="p">)</span>
@@ -398,10 +419,32 @@ execution finished.</li>
       </tr>
       <tr>
         <td class="docs">
-<div class="pilwrap" id="push%20to%20github%20and%20npm">
+<div class="pilwrap" id="build%20running%20system">
   <h3>
-    <a href="#push%20to%20github%20and%20npm" name="push%20to%20github%20and%20npm" class="pilcrow">&#182;</a>
-    Push to GitHub and npm
+    <a href="#build%20running%20system" name="build%20running%20system" class="pilcrow">&#182;</a>
+    Build running system
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;test &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process again&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="create%20documentation">
+  <h3>
+    <a href="#create%20documentation" name="create%20documentation" class="pilcrow">&#182;</a>
+    Create documentation
   </h3>
 </div>
 
@@ -411,9 +454,57 @@ execution finished.</li>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new API documentation for module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process updated files&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --publish&#39;</span><span class="p">,</span> <span class="s">&#39;Push to github pages&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-b, --browser&#39;</span><span class="p">,</span> <span class="s">&#39;Open in browser&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20automatic%20tests">
+  <h3>
+    <a href="#run%20automatic%20tests" name="run%20automatic%20tests" class="pilcrow">&#182;</a>
+    Run automatic tests
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;build &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process again&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="cleanup%20automatic%20created%20files">
+  <h3>
+    <a href="#cleanup%20automatic%20created%20files" name="cleanup%20automatic%20created%20files" class="pilcrow">&#182;</a>
+    Cleanup automatic created files
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;clean &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Cleanup automatic generated files&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-d, --dist&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is not needed in production&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-a, --auto&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is automatically generated&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
 
 
 </pre></div>
@@ -441,7 +532,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>check that it works properly</p>
         </td>
@@ -452,465 +543,6 @@ execution finished.</li>
 <span class="k">if</span> <span class="k">typeof</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="nx">commander</span><span class="p">.</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Command &#39;</span><span class="si">#{</span><span class="nx">commander</span><span class="p">.</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">&#39; not found use --help switch.&quot;</span><span class="p">.</span><span class="nx">red</span>
   <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="o">-</span><span class="mi">1</span>
-
-
-
-
-
-
-
-
-<span class="nx">process</span><span class="p">.</span><span class="nx">exit</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="find%20local%20development%20packages">
-  <h2>
-    <a href="#find%20local%20development%20packages" name="find%20local%20development%20packages" class="pilcrow">&#182;</a>
-    Find local development packages
-  </h2>
-</div>
-
-
-<p>This is done looking into all direct included npm packages and collecting
-all that hare added using a symbolic link.</p>
-
-<p>The list of packages maybe filtered by specifying a specific one using the
-<code>-p</code> or <code>--package</code> option.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">getDevelPackages = </span><span class="nf">(command, cb) -&gt;</span>
-  <span class="k">return</span> <span class="nx">packages</span> <span class="k">if</span> <span class="nx">packages</span><span class="o">?</span><span class="p">.</span><span class="nx">length</span>
-  <span class="nx">packages</span><span class="p">[</span><span class="s">&#39;.&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">PKG</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">command</span><span class="p">.</span><span class="nx">package</span> <span class="o">or</span> <span class="nx">command</span><span class="p">.</span><span class="nx">package</span> <span class="o">is</span> <span class="s">&#39;core&#39;</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">MODULES</span><span class="p">),</span> <span class="nf">(file, cb) -&gt;</span>
-    <span class="nv">info = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">MODULES</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">info</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">lstat</span> <span class="nx">info</span><span class="p">,</span> <span class="nf">(err, stats) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nv">info = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">info</span>
-        <span class="k">if</span> <span class="nx">stats</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span> <span class="o">and</span> <span class="p">(</span> <span class="o">not</span> <span class="nx">command</span><span class="p">.</span><span class="nx">package</span> <span class="o">or</span> <span class="nx">command</span><span class="p">.</span><span class="nx">package</span> <span class="o">is</span>  <span class="nx">info</span><span class="p">.</span><span class="nx">name</span> <span class="p">)</span>
-          <span class="nx">packages</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">MODULES</span><span class="p">,</span> <span class="nx">file</span><span class="p">]</span> <span class="o">=</span> <span class="nx">info</span>
-        <span class="nx">cb</span><span class="p">()</span>
-  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">cb</span> <span class="nx">packages</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
-</div>
-<p>Storage of collected packages</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">packages = </span><span class="p">[]</span>
-
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20task%20library%20(for%20each%20package)">
-  <h2>
-    <a href="#run%20task%20library%20(for%20each%20package)" name="run%20task%20library%20(for%20each%20package)" class="pilcrow">&#182;</a>
-    Run task library (for each package)
-  </h2>
-</div>
-
-
-<p>Load the defined task library and run it for all alinex packages.</p>
-
-<p><strong>Arguments:</strong></p>
-
-<ul>
-<li><code>commander</code>
-Commander instance for reading options.</li>
-<li><code>command</code>
-Command specific parameters and options.</li>
-<li><code>callback(err)</code>
-The callback will be called just if an error occurred or with <code>null</code> if
-execution finished.</li>
-</ul>
-
-<p>First this will call the <code>pre</code> method if exported  with the core package data
-to do some preprocessing before calling the <code>run</code> method of the task library
-for each module including the core.  Also if a <code>post</code> function is exported
-this will be executed at the end.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">runPack = </span><span class="nf">(commander, command, cb) -&gt;</span>
-  <span class="nv">colors.mode = </span><span class="s">&#39;none&#39;</span> <span class="k">unless</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">colors</span>
-
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">command</span><span class="p">.</span><span class="nx">_description</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
-</div>
-<p>load task library</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">lib = </span><span class="nx">require</span> <span class="s">&#39;./&#39;</span> <span class="o">+</span> <span class="nx">command</span><span class="p">.</span><span class="nx">_name</span> <span class="o">+</span> <span class="s">&#39;Task&#39;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
-</div>
-<p>create list of jobs</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">jobs = </span><span class="p">[]</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
-</div>
-<p>run pre processing if defined</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">lib</span><span class="p">.</span><span class="nx">pre</span><span class="o">?</span>
-    <span class="nx">jobs</span><span class="p">.</span><span class="nx">push</span> <span class="nf">(cb) -&gt;</span>
-      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span><span class="o">?</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Preprocessing&quot;</span><span class="p">.</span><span class="nx">bold</span>
-      <span class="nx">lib</span><span class="p">.</span><span class="nx">pre</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">PKG</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
-</div>
-<p>run modules in parallel</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">getDevelPackages</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(packages) -&gt;</span>
-    <span class="nv">modules = </span><span class="p">[]</span>
-    <span class="k">for</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">info</span> <span class="k">of</span> <span class="nx">packages</span>
-      <span class="nx">modules</span><span class="p">.</span><span class="nx">push</span> <span class="p">[</span><span class="nx">info</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">dir</span><span class="p">]</span>
-    <span class="nx">jobs</span><span class="p">.</span><span class="nx">push</span> <span class="nf">(cb) -&gt;</span>
-      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span><span class="o">?</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Processing&quot;</span><span class="p">.</span><span class="nx">bold</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">modules</span><span class="p">,</span> <span class="nf">(entry, cb) -&gt;</span>
-        <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">cb</span>
-      <span class="p">,</span> <span class="nx">cb</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
-</div>
-<p>run post processing if defined</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">lib</span><span class="p">.</span><span class="nx">post</span><span class="o">?</span>
-      <span class="nx">jobs</span><span class="p">.</span><span class="nx">push</span> <span class="nf">(cb) -&gt;</span>
-        <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span><span class="o">?</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Postprocessing&quot;</span><span class="p">.</span><span class="nx">bold</span>
-        <span class="nx">lib</span><span class="p">.</span><span class="nx">post</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">PKG</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
-</div>
-<p>run queue</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="nx">jobs</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="nx">errorHandler</span><span class="p">.</span><span class="nx">exit</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;Done&#39;</span><span class="p">.</span><span class="nx">green</span>
-      <span class="nx">cb</span><span class="p">()</span>
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="command%20definition">
-  <h2>
-    <a href="#command%20definition" name="command%20definition" class="pilcrow">&#182;</a>
-    Command definition
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="clean%20up%20automatic%20generated%20files">
-  <h3>
-    <a href="#clean%20up%20automatic%20generated%20files" name="clean%20up%20automatic%20generated%20files" class="pilcrow">&#182;</a>
-    Clean up automatic generated files
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;clean&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Cleanup all automatic generated data&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process updated files&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --package &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Only work on the given module&#39;</span><span class="p">,</span> <span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">(options) -&gt;</span> <span class="nx">runPack</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="build%20running%20system">
-  <h3>
-    <a href="#build%20running%20system" name="build%20running%20system" class="pilcrow">&#182;</a>
-    Build running system
-  </h3>
-</div>
-
-
-<p>Therefore server and client files will be transformed/compiled.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;build&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Build running system&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process updated files&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --package &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Only work on the given module&#39;</span><span class="p">,</span> <span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">(options) -&gt;</span> <span class="nx">runPack</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20test%20and%20lint">
-  <h3>
-    <a href="#run%20test%20and%20lint" name="run%20test%20and%20lint" class="pilcrow">&#182;</a>
-    Run test and lint
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process updated files&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --package &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Only work on the given module&#39;</span><span class="p">,</span> <span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">(options) -&gt;</span> <span class="nx">runPack</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="create%20new%20module">
-  <h3>
-    <a href="#create%20new%20module" name="create%20new%20module" class="pilcrow">&#182;</a>
-    Create new module
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;github&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Update GitHub repository&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-P, --password &lt;password&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;GitHub password&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-  <span class="k">unless</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">name</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;To update the GitHub repository the --password for user </span><span class="si">#{</span> <span class="s">&#39;xxx&#39;</span> <span class="si">}</span><span class="s"> is needed.&quot;</span><span class="p">.</span><span class="nx">red</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="o">-</span><span class="mi">1</span>
-  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="p">{</span> <span class="nv">options: </span><span class="nx">options</span> <span class="p">}</span>
-  <span class="p">,</span> <span class="s">&#39;create&#39;</span><span class="p">,</span> <span class="s">&#39;Update GitHub repository&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="copy%20config%20files">
-  <h3>
-    <a href="#copy%20config%20files" name="copy%20config%20files" class="pilcrow">&#182;</a>
-    Copy config files
-  </h3>
-</div>
-
-
-<p>Copy default config files if not existent.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;config&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Copy config files&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;config&#39;</span><span class="p">,</span> <span class="s">&#39;Copy config files&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="%23">
-  <h2>
-    <a href="#%23" name="%23" class="pilcrow">&#182;</a>
-    #
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;inspector&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Start system using inspector&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
-</div>
-<p>if commander.required?
-   run commander, 'build', 'Build running system', ->
-   process.exit 0</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="k">if</span> <span class="nx">success</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="%23">
-  <h2>
-    <a href="#%23" name="%23" class="pilcrow">&#182;</a>
-    #
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;run&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Start development system&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-  <span class="nv">success = </span><span class="kc">true</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">required</span><span class="o">?</span>
-    <span class="nx">await</span> <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;build&#39;</span><span class="p">,</span> <span class="s">&#39;Build running system&#39;</span><span class="p">,</span> <span class="nx">defer</span> <span class="nx">success</span>
-
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="k">if</span> <span class="nx">success</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="%23">
-  <h2>
-    <a href="#%23" name="%23" class="pilcrow">&#182;</a>
-    #
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;pack&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Package system to be deployed&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-  <span class="nv">success = </span><span class="kc">true</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">required</span><span class="o">?</span>
-    <span class="nx">await</span> <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;build&#39;</span><span class="p">,</span> <span class="s">&#39;Build running system&#39;</span><span class="p">,</span> <span class="nx">defer</span> <span class="nx">success</span>
-  <span class="k">if</span> <span class="nx">success</span>
-    <span class="nx">await</span> <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;pack&#39;</span><span class="p">,</span> <span class="s">&#39;Package system to be deployed&#39;</span><span class="p">,</span> <span class="nx">defer</span> <span class="nx">success</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="k">if</span> <span class="nx">success</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="%23">
-  <h2>
-    <a href="#%23" name="%23" class="pilcrow">&#182;</a>
-    #
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;deploy&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Deploy package onto server&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">-&gt;</span>
-  <span class="nv">success = </span><span class="kc">true</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">required</span><span class="o">?</span>
-    <span class="nx">await</span> <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;build&#39;</span><span class="p">,</span> <span class="s">&#39;Build running system&#39;</span><span class="p">,</span> <span class="nx">defer</span> <span class="nx">success</span>
-  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;deploy&#39;</span><span class="p">,</span> <span class="s">&#39;Deploy package onto server&#39;</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="k">if</span> <span class="nx">success</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
 </pre></div>
         </td>
       </tr>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-make/Changelogmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-make/Changelogmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -24,6 +24,9 @@
     <div id="headings">
       <div class="heading h1">
         <a href="#version%20changes">Version changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.1.0">Version 0.1.0</a>
       </div>
       <div class="heading h2">
         <a href="#version%200.0.3">Version 0.0.3</a>
@@ -50,6 +53,35 @@
 individual versions:</p>
 
 
+<div class="pilwrap" id="version%200.1.0">
+  <h2>
+    <a href="#version%200.1.0" name="version%200.1.0" class="pilcrow">&#182;</a>
+    Version 0.1.0
+  </h2>
+</div>
+
+
+<ul>
+<li>Added --dist and --auto flag implementation to clean task.</li>
+<li>CI tests only on node >= 0.10.</li>
+<li>Added travis contineous integration.</li>
+<li>Added -c as shortcut for commit in publish task.</li>
+<li>Added link to changelog in version tags.</li>
+<li>Added pull task to update from git origin. </li>
+<li>Fixed up all tasks to be more responsive.</li>
+<li>Added new push task which will only push to origin and renamed old one to publish.</li>
+<li>Make username in create task changeable by parameter.</li>
+<li>Initial buildTask.</li>
+<li>Added example tests.</li>
+<li>Added possibility to run tests defined in package.json.</li>
+<li>Added task clean for cleanups. Added task test with coffee script lint test.</li>
+<li>Fixed the changelog numbering.</li>
+<li>Fixed bug in changelog creation.</li>
+<li>Added --browser flag to document creation, to open the index afterwards. Fixed console output while using --watch in doc task.</li>
+<li>Fixed changelog format in make push.</li>
+</ul>
+
+
 <div class="pilwrap" id="version%200.0.3">
   <h2>
     <a href="#version%200.0.3" name="version%200.0.3" class="pilcrow">&#182;</a>
@@ -58,10 +90,12 @@ individual versions:</p>
 </div>
 
 
-<p>Bug fixes in push with setting correct version.
-Added doc task to create documentation and push it to github.
-Extract error handler in extra module alinex-error.
-Fix git log read for changelog addition.</p>
+<ul>
+<li>Bug fixes in push with setting correct version.</li>
+<li>Added doc task to create documentation and push it to github.</li>
+<li>Extract error handler in extra module alinex-error.</li>
+<li>Fix git log read for changelog addition.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.0.2">
@@ -72,9 +106,11 @@ Fix git log read for changelog addition.</p>
 </div>
 
 
-<p>Added information for version 0.0.2
-Added push task to create new versions.
-Also create the source directory on create task.</p>
+<ul>
+<li>Added information for version 0.0.2</li>
+<li>Added push task to create new versions.</li>
+<li>Also create the source directory on create task.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.0.1">
@@ -85,8 +121,10 @@ Also create the source directory on create task.</p>
 </div>
 
 
-<p>Added command for creating new packages
-Initial commit</p></div>
+<ul>
+<li>Added command for creating new packages</li>
+<li>Initial commit</li>
+</ul></div>
   </div>
 </body>
 </html>

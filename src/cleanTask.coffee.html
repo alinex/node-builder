@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cleanTask.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/cleanTaskcoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#cleanup%20all%20automatic%20generated%20files">Cleanup all automatic generated files</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#main%20routine">Main routine</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="cleanup%20all%20automatic%20generated%20files">
+  <h1>
+    <a href="#cleanup%20all%20automatic%20generated%20files" name="cleanup%20all%20automatic%20generated%20files" class="pilcrow">&#182;</a>
+    Cleanup all automatic generated files
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs-extra&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
+<span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="main%20routine">
+  <h2>
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
+  </h2>
+</div>
+
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>commander</code>
+Commander instance for reading options.</li>
+<li><code>command</code>
+Command specific parameters and options.</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred or with <code>null</code> if
+execution finished.</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove unnecessary folders&quot;</span>
+  <span class="nv">dirs = </span><span class="p">[</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
+  <span class="p">]</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">auto</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;node_modules&#39;</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dist</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">dirs</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span>
+      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Removing </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">cleanDistribution</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">cleanModules</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span>
+
+<span class="nv">cleanDistribution = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dist</span> <span class="o">or</span> <span class="kc">true</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove development modules&quot;</span>
+  <span class="nx">execFile</span> <span class="s">&quot;npm&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;prune&#39;</span><span class="p">,</span> <span class="s">&#39;--production&#39;</span> <span class="p">]</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+    <span class="nx">cb</span> <span class="nx">err</span>
+
+<span class="nv">cleanModules = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dist</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove left over of node_modules&quot;</span>
+  <span class="nv">find = </span><span class="p">[</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>[ # Remove source folders
+     '-mindepth', 2
+     '-type', 'd'
+     '-regex', '.<em>/node_modules/[^/]</em>/src'
+     '-not', '-wholename', '*/node_modules/sprintf-js/src'
+   ],</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="p">[</span> <span class="c1"># Remove example folders</span>
+      <span class="s">&#39;-mindepth&#39;</span><span class="p">,</span> <span class="mi">2</span>
+      <span class="s">&#39;-type&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
+      <span class="s">&#39;-regex&#39;</span><span class="p">,</span> <span class="s">&#39;.*/node_modules/[^/]*/examples?&#39;</span>
+    <span class="p">],</span>
+    <span class="p">[</span> <span class="c1"># Remove markup files excluding LICENSE info</span>
+      <span class="s">&#39;-mindepth&#39;</span><span class="p">,</span> <span class="mi">2</span>
+      <span class="s">&#39;-type&#39;</span><span class="p">,</span> <span class="s">&#39;f&#39;</span>
+      <span class="s">&#39;-name&#39;</span><span class="p">,</span> <span class="s">&#39;*.md&#39;</span>
+      <span class="s">&#39;-not&#39;</span><span class="p">,</span> <span class="s">&#39;-iname&#39;</span><span class="p">,</span> <span class="s">&#39;LICENSE*&#39;</span>
+    <span class="p">]</span>
+  <span class="p">]</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">find</span><span class="p">,</span> <span class="nf">(item, cb) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove </span><span class="si">#{</span><span class="nx">item</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;-depth&#39;</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-exec&#39;</span><span class="p">,</span> <span class="s">&#39;rm&#39;</span><span class="p">,</span> <span class="s">&#39;-r&#39;</span><span class="p">,</span> <span class="s">&#39;{}&#39;</span><span class="p">,</span> <span class="s">&#39;;&#39;</span>
+    <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-print&#39;</span>
+    <span class="nx">execFile</span> <span class="s">&#39;find&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+      <span class="nx">cb</span> <span class="nx">err</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-make/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-make/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -38,22 +38,31 @@
         <a href="#general%20options">General options</a>
       </div>
       <div class="heading h3">
-        <a href="#command%3A%20clean">Command: clean</a>
-      </div>
-      <div class="heading h3">
-        <a href="#command%3A%20doc">Command: doc</a>
-      </div>
-      <div class="heading h3">
         <a href="#command%20create">Command create</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20push">Command push</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20pull">Command pull</a>
       </div>
       <div class="heading h3">
         <a href="#command%20test">Command test</a>
       </div>
       <div class="heading h3">
+        <a href="#command%3A%20doc">Command: doc</a>
+      </div>
+      <div class="heading h3">
         <a href="#command%20build">Command build</a>
       </div>
       <div class="heading h3">
-        <a href="#command%20push">Command push</a>
+        <a href="#command%20publish">Command publish</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%3A%20clean">Command: clean</a>
+      </div>
+      <div class="heading h2">
+        <a href="#command%20overview">Command overview</a>
       </div>
       <div class="heading h2">
         <a href="#license">License</a>
@@ -70,8 +79,11 @@
 </div>
 
 
+<p><a href="https://travis-ci.org/alinex/node-make"><img src="https://travis-ci.org/alinex/node-make.svg?branch=master" alt="Build Status" title="" /></a>
+<a href="https://gemnasium.com/alinex/node-make"><img src="https://gemnasium.com/alinex/node-make.png" alt="Dependency Status" title="" /></a></p>
+
 <p>This package contains some helper commands for development of the alinex
-node packages.</p>
+node packages. This is a superset of npm and other command line tools.</p>
 
 <p>At the moment it is not completely general but specific to my own development.
 But feel free to change the settings within the code to match your environment.</p>
@@ -108,8 +120,13 @@ tasks which were moved out into this helper tool.</p>
 <p>Install the package using npm:</p>
 
 <blockquote>
-  <p>npm install alinex-make</p>
+  <p>npm install alinex-make --production -g
+  npm dedupe</p>
 </blockquote>
+
+<p>After global installation you may directly call <code>alinex-make</code> from anywhere.</p>
+
+<p><a href="https://nodei.co/npm/alinex-make/"><img src="https://nodei.co/npm/alinex-make.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
 
 <div class="pilwrap" id="usage">
@@ -147,20 +164,75 @@ processing of some tasks.</p>
 <p><code>-C</code> or <code>--no-colors</code> can be used to disable the colored output.</p>
 
 
-<div class="pilwrap" id="command%3A%20clean">
+<div class="pilwrap" id="command%20create">
   <h3>
-    <a href="#command%3A%20clean" name="command%3A%20clean" class="pilcrow">&#182;</a>
-    Command: <code>clean</code>
+    <a href="#command%20create" name="command%20create" class="pilcrow">&#182;</a>
+    Command <code>create</code>
   </h3>
 </div>
 
 
-<p>Remove all automatically generated files. This will bring you to the initial
-state of the system. To create a usable system you have to build it again.</p>
+<p>Create a new package from scratch. This will create:</p>
 
-<p>It will delete compiled files, generated documentation and the generated log
-files. With the <code>--all</code> option it will also delete config files, data and
-node_modules.</p>
+<ul>
+<li>the directory</li>
+<li>make some initial files</li>
+<li>init git repository</li>
+<li>setup github repository</li>
+<li>add and commit everything</li>
+</ul>
+
+<p>The create task needs the <code>--password</code> setting to access github
+through the api. And you may specify the <code>--package</code> setting for the npm name
+of the package. The also mandatory path will be used as the github repository
+name, too.</p>
+
+<p>An example call will look like:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
+</code></pre></div>
+
+
+
+<p>After that you may directly start to add your code. If the github repository
+should not be created under user 'alinex' you may specify another one using
+<code>--user</code>.</p>
+
+
+<div class="pilwrap" id="command%20push">
+  <h3>
+    <a href="#command%20push" name="command%20push" class="pilcrow">&#182;</a>
+    Command <code>push</code>
+  </h3>
+</div>
+
+
+<p>This will push the changes to the origin repository. With the <code>--commit</code> option
+it will also add and commit all other changes before doing so.</p>
+
+
+<div class="pilwrap" id="command%20pull">
+  <h3>
+    <a href="#command%20pull" name="command%20pull" class="pilcrow">&#182;</a>
+    Command <code>pull</code>
+  </h3>
+</div>
+
+
+<p>Like <code>push</code> this will fetch the newest changes from git origin.</p>
+
+
+<div class="pilwrap" id="command%20test">
+  <h3>
+    <a href="#command%20test" name="command%20test" class="pilcrow">&#182;</a>
+    Command <code>test</code>
+  </h3>
+</div>
+
+
+<p>As a first test a coffeelint check will be run. Only if this won't have any
+errors the automatic tests will be run.</p>
 
 
 <div class="pilwrap" id="command%3A%20doc">
@@ -185,7 +257,7 @@ code.</p>
 
 
 
-<p>It is also possible to update the documentation on github using an additional 
+<p>It is also possible to update the documentation on github using an additional
 switch:</p>
 
 
@@ -204,47 +276,8 @@ switch:</p>
 
 <p>But this process will never end, you have to stop it manually to end it.</p>
 
-
-<div class="pilwrap" id="command%20create">
-  <h3>
-    <a href="#command%20create" name="command%20create" class="pilcrow">&#182;</a>
-    Command <code>create</code>
-  </h3>
-</div>
-
-
-<p>Create a new package from scratch. This will create:</p>
-
-<ul>
-<li>the directory</li>
-<li>init git repository</li>
-<li>setup github repository</li>
-<li>make initial files</li>
-</ul>
-
-<p>The create task needs the <code>--password</code> setting to access github
-through the api. And you may specify the <code>--package</code> setting for the npm name
-of the package. The also mandatory path will be used as the github repository 
-name, too.</p>
-
-<p>An example call will look like:</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
-</code></pre></div>
-
-
-
-<p>After that you may directly start to add your code.</p>
-
-
-<div class="pilwrap" id="command%20test">
-  <h3>
-    <a href="#command%20test" name="command%20test" class="pilcrow">&#182;</a>
-    Command <code>test</code>
-  </h3>
-</div>
-
+<p>And at last you may also add the <code>--browser</code> flag to open the documentation in
+the browser after created.</p>
 
 
 <div class="pilwrap" id="command%20build">
@@ -261,22 +294,73 @@ by copying, compiling and transforming files. Everything will be done parallel.<
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
 
 
-<div class="pilwrap" id="command%20push">
+<div class="pilwrap" id="command%20publish">
   <h3>
-    <a href="#command%20push" name="command%20push" class="pilcrow">&#182;</a>
-    Command <code>push</code>
+    <a href="#command%20publish" name="command%20publish" class="pilcrow">&#182;</a>
+    Command <code>publish</code>
   </h3>
 </div>
 
 
-<p>With the push command you can push your newest changes to github and npm as a 
+<p>With the push command you can publish your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a <code>--major</code>,
 <code>--minor</code> or bugfix version if no switch given.</p>
 
 <p>To publish the next bugfix version only call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="command%3A%20clean">
+  <h3>
+    <a href="#command%3A%20clean" name="command%3A%20clean" class="pilcrow">&#182;</a>
+    Command: <code>clean</code>
+  </h3>
+</div>
+
+
+<p>Remove all automatically generated files. This will bring you to the initial
+state of the system. To create a usable system you have to build it again.</p>
+
+<p>To clean everything which you won't need for a production environment use 
+<code>--dist</code> or <code>--auto</code> to remove all automatically generated files in the
+development environment.</p>
+
+
+<div class="pilwrap" id="command%20overview">
+  <h2>
+    <a href="#command%20overview" name="command%20overview" class="pilcrow">&#182;</a>
+    Command overview
+  </h2>
+</div>
+
+
+<p>The following table will give a short overview of what really is done on each
+command. This is not a full list of options and execute commands but an overview
+of the major parts.</p>
+
+
+<div class="highlight"><pre><code><span class="o">|</span><span class="err"> </span><span class="nx">Command</span> <span class="o">|</span> <span class="nx">Option</span> <span class="o">|</span> <span class="nx">Execute</span> <span class="p">(</span><span class="nx">pseudo</span> <span class="nx">code</span><span class="p">)</span>                                 <span class="o">|</span>
+<span class="o">+---------+--------+-------------------------------------------------------+</span>
+<span class="o">|</span> <span class="nx">create</span>  <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">mkdir</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">init</span><span class="p">;</span> <span class="nx">touch</span> <span class="nx">files</span><span class="p">...;</span> <span class="nx">create</span> <span class="nx">github</span>        <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span><span class="err"> </span><span class="nx">git</span> <span class="nx">add</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">commit</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">push</span>                         <span class="o">|</span>
+<span class="o">|</span> <span class="nx">push</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="nx">master</span>                                <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">commit</span> <span class="o">|</span> <span class="o">+</span> <span class="nx">git</span> <span class="nx">add</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="c1">// before                       |</span>
+<span class="o">|</span> <span class="nx">pull</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">pull</span>                                              <span class="o">|</span>
+<span class="o">|</span> <span class="nx">test</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">lint</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">test</span>                                        <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="nx">doc</span>     <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">docker</span>                                                <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="nx">build</span>   <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">npm</span> <span class="nx">install</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">update</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">dedupe</span>                   <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
+<span class="o">|</span> <span class="nx">publish</span> <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">tag</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">push</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">publish</span>                        <span class="o">|</span>
+<span class="o">|</span> <span class="nx">clean</span>   <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">prune</span>                                      <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">dist</span>   <span class="o">|</span> <span class="o">+</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span> <span class="nx">more</span> <span class="nx">files</span>                                    <span class="o">|</span>
+<span class="o">|</span>         <span class="o">|</span> <span class="nx">auto</span>   <span class="o">|</span> <span class="o">+</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span> <span class="nx">more</span> <span class="nx">files</span>                                    <span class="o">|</span>
 </code></pre></div>
 
 

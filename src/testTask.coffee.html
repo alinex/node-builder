@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>testTask.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/testTaskcoffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../fileSearch.js"></script>
+  <script src="../goToLine.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+  <link rel="stylesheet" href="../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#push%20new%20version%20%20to%20github%20and%20npm">Push new version  to GitHub and npm</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#main%20routine">Main routine</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20lint%20against%20coffee%20script">Run lint against coffee script</a>
+      </div>
+      <div class="heading h3">
+        <a href="#run%20tests%20like%20defined%20in%20package.json">Run tests like defined in package.json</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="push%20new%20version%20%20to%20github%20and%20npm">
+  <h1>
+    <a href="#push%20new%20version%20%20to%20github%20and%20npm" name="push%20new%20version%20%20to%20github%20and%20npm" class="pilcrow">&#182;</a>
+    Push new version  to GitHub and npm
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
+<span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="main%20routine">
+  <h2>
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
+  </h2>
+</div>
+
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>commander</code>
+Commander instance for reading options.</li>
+<li><code>command</code>
+Command specific parameters and options.</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred or with <code>null</code> if
+execution finished.</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="nx">coffeelint</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">test</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20lint%20against%20coffee%20script">
+  <h3>
+    <a href="#run%20lint%20against%20coffee%20script" name="run%20lint%20against%20coffee%20script" class="pilcrow">&#182;</a>
+    Run lint against coffee script
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">coffeelint = </span><span class="nf">(commander, command, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Check for existing command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">bin = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&quot;node_modules/.bin/coffeelint&quot;</span>
+  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">bin</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped lint because coffeelint is missing&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Linting code&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">colors</span>
+    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">bin</span><span class="p">,</span> <span class="p">[</span>
+      <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
+      <span class="s">&#39;src&#39;</span>
+    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
+  <span class="k">else</span>
+    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">bin</span><span class="p">,</span> <span class="p">[</span>
+      <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
+      <span class="s">&#39;src&#39;</span>
+    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>unless ~data.toString().indexOf "Done."</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>Error management</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+    <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+      <span class="nv">status = </span><span class="s">&quot;Coffeelint exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nx">cb</span> <span class="nx">status</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="run%20tests%20like%20defined%20in%20package.json">
+  <h3>
+    <a href="#run%20tests%20like%20defined%20in%20package.json" name="run%20tests%20like%20defined%20in%20package.json" class="pilcrow">&#182;</a>
+    Run tests like defined in package.json
+  </h3>
+</div>
+
+
+<p>It will add the -w flag if <code>--watch</code> is set.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">test = </span><span class="nf">(commander, command, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Read package.json&quot;</span><span class="p">.</span><span class="nx">grey</span>
+  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">.</span><span class="nx">test</span><span class="o">?</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped because no tests defined in package.json&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run test scripts&quot;</span>
+    <span class="nv">args = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">test</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
+    <span class="nv">cmd = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+    <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">watch</span>
+    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>Error management</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+      <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="nv">status = </span><span class="s">&quot;Test exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">cb</span> <span class="nx">status</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
