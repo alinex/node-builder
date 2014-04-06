@@ -101,8 +101,7 @@ commander
 commander.command('create <dir>')
 .description('Create new node module')
 .option('-p, --package <name>', 'Create the given module')
-.option('-P, --password <name>', 'Password to use on github')
-.option('-U, --user <name>', 'Username to use on github')
+.option('-p, --private', 'Create a private repository')
 .action (dir, options) ->
   options.dir = dir
   options.package ?= path.basename dir
