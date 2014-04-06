@@ -125,7 +125,7 @@ createGitHub = (commander, command, cb) ->
   , (err, input) ->
     return cb err if err or not input.question is 'yes'
     console.log "Init new git repository"
-    prompt. [{
+    prompt.get [{
       message: "GitHub username:"
       name: 'username'
       required: true
@@ -139,7 +139,7 @@ createGitHub = (commander, command, cb) ->
       message: "Give a short description of this module."
       name: 'description'
       required: true
-    }], function (err, input) ->
+    }], (err, input) ->
       console.log result
       process.exit 1
 
