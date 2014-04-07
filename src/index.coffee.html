@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -339,8 +339,7 @@ execution finished.</li>
 <span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;create &lt;dir&gt;&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --package &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Create the given module&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-P, --password &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Password to use on github&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-U, --user &lt;name&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Username to use on github&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --private&#39;</span><span class="p">,</span> <span class="s">&#39;Create a private repository&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">options</span><span class="p">.</span><span class="nx">package</span> <span class="o">?=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">dir</span>
@@ -431,6 +430,7 @@ execution finished.</li>
 <span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;test &lt;dir&gt;&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process again&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-b, --browser&#39;</span><span class="p">,</span> <span class="s">&#39;Open in browser&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
@@ -501,6 +501,9 @@ execution finished.</li>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-d, --dist&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is not needed in production&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-a, --auto&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is automatically generated&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dist</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">auto</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Don&#39;t use both switches --dist and --auto together, that destroys your code.&quot;</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">2</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
