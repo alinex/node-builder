@@ -101,8 +101,7 @@ commander
 commander.command('create <dir>')
 .description('Create new node module')
 .option('-p, --package <name>', 'Create the given module')
-.option('-P, --password <name>', 'Password to use on github')
-.option('-U, --user <name>', 'Username to use on github')
+.option('-p, --private', 'Create a private repository')
 .action (dir, options) ->
   options.dir = dir
   options.package ?= path.basename dir
@@ -165,6 +164,9 @@ commander.command('clean <dir>')
 .option('-d, --dist', 'Clean all which is not needed in production')
 .option('-a, --auto', 'Clean all which is automatically generated')
 .action (dir, options) ->
+  if options.dist and options.auto
+    console.error "Don't use both switches --dist and --auto together, that destroys your code."
+    process.exit 2
   options.dir = dir
   run commander, options, -> process.exit 0
 

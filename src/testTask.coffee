@@ -27,7 +27,28 @@ colors = require 'colors'
 module.exports.run = (commander, command, cb) ->
   coffeelint commander, command, (err) ->
     return cb err if err
-    test commander, command, cb
+    test commander, command, (err) ->
+      return cb err if err
+      coverage commander, command, (err) ->
+        return cb err if err
+        url = path.join GLOBAL.ROOT_DIR, command.dir, 'coverage', 'lcov-report', 'index.html'
+        return openUrl commander, url, cb if command.browser
+        cb()
+
+
+# ### Open the given url in the default browser
+openUrl = (commander, target, cb) ->
+  if commander.verbose
+    console.log "Open #{target} in browser".grey
+  opener = switch process.platform
+    when 'darwin' then 'open'
+    # if the first parameter to start is quoted, it uses that as the title
+    # so we pass a blank title so we can quote the file we are opening
+    when 'win32' then 'start ""'
+    # use Portlands xdg-open everywhere else
+    else path.join GLOBAL.ROOT_DIR, 'bin/xdg-open'
+  return exec opener + ' "' + escape(target) + '"', cb
+
 
 # ### Run lint against coffee script
 coffeelint = (commander, command, cb) ->
@@ -50,11 +71,10 @@ coffeelint = (commander, command, cb) ->
       'src'
     ], { cwd: command.dir }
     proc.stdout.on 'data', (data) ->
-  #    unless ~data.toString().indexOf "Done."
       if commander.verbose
         console.log data.toString().trim()
     proc.stderr.on 'data', (data) ->
-      console.error data.toString().trim()
+      console.error data.toString().trim().magenta
   # Error management
   proc.on 'error', cb
   proc.on 'exit', (status) ->
@@ -88,4 +108,33 @@ test = (commander, command, cb) ->
       if status != 0
         status = "Test exited with status #{status}"
       cb status
+
+# ### Create local coverage report
+coverage = (commander, command, cb) ->
+  bin = path.join command.dir, "node_modules/.bin/istanbul"
+  unless fs.existsSync bin
+    console.log "Skipped coverage because istanbul is missing".yellow
+    return cb?()
+  if commander.verbose
+    console.log "Read package.json".grey
+  pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+  unless pack.scripts?.test?
+    console.log "Skipped because no tests defined in package.json".yellow
+    return cb()
+  args = pack.scripts.test.split /\s+/
+  tool = args.shift().replace /\/mocha$/, '/_mocha'
+  args.unshift 'cover', tool, '--'
+  proc = spawn bin, args, { cwd: command.dir }
+  proc.stdout.on 'data', (data) ->
+    if commander.verbose
+      console.log data.toString().trim()
+  proc.stderr.on 'data', (data) ->
+    console.error data.toString().trim().magenta
+  # Error management
+  proc.on 'error', cb
+  proc.on 'exit', (status) ->
+    if status != 0
+      status = new Error "Istanbul exited with status #{status}"
+    cb status
+
 

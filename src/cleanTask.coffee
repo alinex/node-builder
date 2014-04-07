@@ -28,6 +28,7 @@ module.exports.run = (commander, command, cb) ->
   console.log "Remove unnecessary folders"
   dirs = [
     path.join command.dir, 'doc'
+    path.join command.dir, 'coverage'
   ]
   if command.auto
     dirs.push path.join command.dir, 'lib'

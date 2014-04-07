@@ -87,16 +87,36 @@ should not be created under user 'alinex' you may specify another one using
 This will push the changes to the origin repository. With the `--commit` option
 it will also add and commit all other changes before doing so.
 
+    > bin/make push ../node-error
+
+or
+
+    > bin/make push ../node-error --commit "commit message"
+
 
 ### Command `pull`
 
 Like `push` this will fetch the newest changes from git origin.
+
+    > bin/make pull ../node-error
 
 
 ### Command `test`
 
 As a first test a coffeelint check will be run. Only if this won't have any
 errors the automatic tests will be run.
+
+If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
+a code coverage report will be build.
+
+    > bin/make test ../node-error
+
+Or to contineously watch:
+
+    > bin/make test ../node-error --watch
+
+And at last you may also add the `--browser` flag to open the documentation in
+the browser after created.
 
 
 ### Command: `doc`
@@ -131,7 +151,11 @@ the browser after created.
 Genereate the base system out of the source code. This creates the `lib` folder
 by copying, compiling and transforming files. Everything will be done parallel.
 
+    > bin/make build ../node-error
+
 With the `--watch` option it is possible to keep the documentation updated.
+
+    > bin/make build ../node-error --watch
 
 
 ### Command `publish`
@@ -144,15 +168,35 @@ To publish the next bugfix version only call:
 
     > bin/make publish ../node-error
 
+For the next minor version (second number) call:
+
+    > bin/make publish ../node-error --minor
+
+And for a new major version:
+
+    > bin/make publish ../node-error --major
+
 
 ### Command: `clean`
 
 Remove all automatically generated files. This will bring you to the initial
 state of the system. To create a usable system you have to build it again.
 
-To clean everything which you won't need for a production environment use 
+To clean everything which you won't need for a production environment use
 `--dist` or `--auto` to remove all automatically generated files in the
 development environment.
+
+To cleanup all safe files:
+
+    > bin/make clean ../node-error
+
+Or on the development system remove all created files:
+
+    > bin/make clean ../node-error --auto
+
+And at last for production remove development files:
+
+    > bin/make clean ../node-error --dist
 
 
 Command overview
@@ -169,7 +213,7 @@ of the major parts.
     | push    | -      | git push origin master                                |
     |         | commit | + git add; git commit // before                       |
     | pull    | -      | git pull                                              |
-    | test    | -      | lint; npm test                                        |
+    | test    | -      | lint; npm test; istanbul                              |
     |         | watch  | + keep watching                                       |
     | doc     | -      | docker                                                |
     |         | watch  | + keep watching                                       |
