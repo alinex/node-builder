@@ -10,7 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{spawn,exec} = require 'child_process'
+{spawn,exec, execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -27,13 +27,18 @@ colors = require 'colors'
 module.exports.run = (commander, command, cb) ->
   coffeelint commander, command, (err) ->
     return cb err if err
-    test commander, command, (err) ->
+    execFile 'npm', [ 'install' ], { cwd: command.dir }
+    , (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and commander.verbose
+      console.error stderr.trim().magenta if stderr and commander.verbose
       return cb err if err
-      coverage commander, command, (err) ->
+      test commander, command, (err) ->
         return cb err if err
-        url = path.join GLOBAL.ROOT_DIR, command.dir, 'coverage', 'lcov-report', 'index.html'
-        return openUrl commander, url, cb if command.browser
-        cb()
+        coverage commander, command, (err) ->
+          return cb err if err
+          url = path.join GLOBAL.ROOT_DIR, command.dir, 'coverage', 'lcov-report', 'index.html'
+          return openUrl commander, url, cb if command.browser
+          cb()
 
 
 # ### Open the given url in the default browser
