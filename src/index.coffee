@@ -136,6 +136,7 @@ commander.command('publish <dir>')
 commander.command('test <dir>')
 .description('Run automatic tests')
 .option('-w, --watch', 'Keep the process running, watch for changes and process again')
+.option('-b, --browser', 'Open in browser')
 .action (dir, options) ->
   options.dir = dir
   run commander, options, -> process.exit 0

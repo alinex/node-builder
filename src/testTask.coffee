@@ -10,7 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{spawn} = require 'child_process'
+{spawn,exec} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
