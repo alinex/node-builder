@@ -256,16 +256,16 @@ createReadme = (commander, command, cb) ->
     install: ''
   if command.github
     doc.badges = "\n[![Build Status]
-    (https://travis-ci.org/#{gituser}/#{gitname}.svg?branch=master)]
+    (https://travis-ci.org/#{gituser}/#{gitname}.svg?branch=master)]\
     (https://travis-ci.org/#{gituser}/#{gitname})
     \n[![Coverage Status]
-    (https://coveralls.io/repos/#{gituser}/#{gitname}/badge.png?branch=master)]
+    (https://coveralls.io/repos/#{gituser}/#{gitname}/badge.png?branch=master)]\
     (https://coveralls.io/r/#{gituser}/#{gitname}?branch=master)"
   unless command.private
     doc.badges += "\n[![Dependency Status]
-    (https://gemnasium.com/#{gituser}/#{gitname}.png)]
+    (https://gemnasium.com/#{gituser}/#{gitname}.png)]\
     (https://gemnasium.com/#{gituser}/#{gitname})"
-    doc.install = "\n[![NPM](https://nodei.co/npm/#{command.package}.png?downloads=true&stars=true)]
+    doc.install = "\n[![NPM](https://nodei.co/npm/#{command.package}.png?downloads=true&stars=true)]\
     (https://nodei.co/npm/#{command.package}/)"
 
   fs.writeFile file, """
