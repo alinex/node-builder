@@ -12,6 +12,7 @@ path = require 'path'
 colors = require 'colors'
 {execFile} = require 'child_process'
 request = require 'request'
+moment = require 'moment'
 
 # Main routine
 # -------------------------------------------------
@@ -75,7 +76,7 @@ updateChangelog = (commander, command, cb) ->
     newlines = stdout.trim().split(/\n/).map (val) -> "- #{val}"
     changelog = lines[..5].join('\n') + """
 
-      Version #{command.newVersion}
+      Version #{command.newVersion} (#{moment().format('YYYY-MM-DD')})
       -------------------------------------------------
       #{newlines.join '\n'}
 

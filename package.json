@@ -38,7 +38,8 @@
     "alinex-error": ">=0.1.0",
     "docker": ">=0.2.10",
     "coffeelint": "1.x",
-    "prompt": "0.2.x"
+    "prompt": "0.2.x",
+    "moment": "2.x"
   },
   "devDependencies": {
     "coffee-script": ">=1.7.0",
