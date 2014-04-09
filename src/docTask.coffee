@@ -27,13 +27,18 @@ crypto = require 'crypto'
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
 module.exports.run = (commander, command, cb) ->
-  url = path.join GLOBAL.ROOT_DIR, command.dir, 'doc', 'index.html'
+  url = path.join command.dir, 'doc', 'index.html'
   if command.watch and command.browser
     setTimeout ->
       openUrl commander, url
     , 5000
   createDoc commander, command, (err) ->
     return cb err if err
+    # check for specific doc style
+    pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+    file = path.join GLOBAL.ROOT_DIR, 'src/data', (pack.name.split /-/)[0] + '.css'
+    if fs.existsSync file
+      fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css')
     unless command.publish
       return openUrl commander, url, cb if command.browser
       cb()

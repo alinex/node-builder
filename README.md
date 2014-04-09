@@ -30,8 +30,8 @@ Installation
 
 Install the package using npm:
 
-  > npm install alinex-make --production -g
-  > npm dedupe
+    > npm install alinex-make --production -g
+    > npm dedupe
 
 After global installation you may directly call `alinex-make` from anywhere.
 
@@ -144,6 +144,11 @@ But this process will never end, you have to stop it manually to end it.
 
 And at last you may also add the `--browser` flag to open the documentation in
 the browser after created.
+
+The style of the documentation can be specified if a specific css is present
+in the alinex make package. It have to be under the path `src/data` and be called
+by the `<basename>.css` while basename is the package name before the first
+hyphen.
 
 
 ### Command `build`
