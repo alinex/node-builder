@@ -25,13 +25,14 @@ colors = require 'colors'
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
 module.exports.run = (commander, command, cb) ->
+  # check for existing git repository
   if commander.verbose
-    console.log "Read package.json".grey
-  pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
-  unless pack.repository.type is 'git'
-    return cb "Only git repositories can be pulled."
+    console.log "Check for configured git".grey
+  unless fs.existsSync path.join command.dir, '.git'
+    return cb "Only git repositories can be pushed."
+  # run the pull command
   console.log "Pull from origin"
-  execFile "git", [ 'pull', 'origin', 'master' ]
+  execFile "git", [ 'pull', '-t', '-p', 'origin', 'master' ]
   , { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and commander.verbose
     console.error stderr.trim().magenta if stderr
