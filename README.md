@@ -73,13 +73,14 @@ through the api. And you may specify the `--package` setting for the npm name
 of the package. The also mandatory path will be used as the github repository
 name, too.
 
-An example call will look like:
+Some example calls will look like:
 
-    > bin/make create ../node-error --password xxxxxxxxx --package alinex-error
+    > alinex-make create ./node-error --package alinex-error
 
-After that you may directly start to add your code. If the github repository
-should not be created under user 'alinex' you may specify another one using
-`--user`.
+    > alinex-make create ./private-module --private
+
+This process is interactive and will ask you some more details. After that you 
+may directly start to add your code. 
 
 
 ### Command `push`
@@ -87,18 +88,18 @@ should not be created under user 'alinex' you may specify another one using
 This will push the changes to the origin repository. With the `--commit` option
 it will also add and commit all other changes before doing so.
 
-    > bin/make push ../node-error
+    > alinex-make push ./node-error
 
 or
 
-    > bin/make push ../node-error --commit "commit message"
+    > alinex-make push ./node-error --commit "commit message"
 
 
 ### Command `pull`
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > bin/make pull ../node-error
+    > alinex-make pull ./node-error
 
 
 ### Command `test`
@@ -113,7 +114,7 @@ a code coverage report will be build.
 
 Or to contineously watch:
 
-    > bin/make test ../node-error --watch
+    > alinex-make test ./node-error --watch
 
 And at last you may also add the `--browser` flag to open the documentation in
 the browser after created.
@@ -129,12 +130,15 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > bin/make doc ../node-error
+    > alinex-make doc ./node-error
 
-It is also possible to update the documentation on github using an additional
-switch:
+It is also possible to update the documentation stored on any website. To
+configure this for GitHub pages, you have to do nothing, for all others you
+need to specify an `doc-publish` script in `package.json`. This may be an
+rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
+Start the document creation with publication using:
 
-    > bin/make doc ../node-error --publish
+    > alinex-make doc ./node-error --publish
 
 With the `--watch` option it is possible to keep the documentation updated.
 

@@ -26,33 +26,57 @@ crypto = require 'crypto'
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
+#
+# This task will create the documentation and publish it if switch `--publish`
+# is set. The publication can be done to github pages or using the `doc-publish`
+# script if defined.
 module.exports.run = (commander, command, cb) ->
   url = path.join command.dir, 'doc', 'index.html'
   if command.watch and command.browser
     setTimeout ->
       openUrl commander, url
     , 5000
+  # Create the html documentation out of source files
   createDoc commander, command, (err) ->
     return cb err if err
-    # check for specific doc style
+    # Check for specific doc style
     pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
     file = path.join GLOBAL.ROOT_DIR, 'src/data', (pack.name.split /-/)[0] + '.css'
+    # Use specific doc style
     if fs.existsSync file
       fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css')
+    # Check if --publish flag is set
     unless command.publish
       return openUrl commander, url, cb if command.browser
       cb()
-    async.series [
-      (cb) -> createTmpDir commander, command, cb
-      (cb) -> cloneGit commander, command, cb
-      (cb) -> checkoutPages commander, command, cb
-      (cb) -> updateDoc commander, command, cb
-      (cb) -> pushOrigin commander, command, cb
-    ], (err) ->
-      throw err if err
-      fs.remove command.tmpdir, (err) ->
+    # Publish  using script from package.json
+    if pack.scripts?['doc-publish']?
+      console.log pack.scripts['doc-publish']
+      exec pack.scripts['doc-publish'], { cwd: command.dir }, (err, stdout, stderr) ->
+        if commander.verbose
+          console.log stdout.toString().trim().grey if stdout
+        console.log stderr.toString().trim().magenta if stderr
+        return cb err if err
         return openUrl commander, url, cb if command.browser
-        cb()
+        return cb()
+    # Or publish to GitHub
+    else if ~pack.repository?.url?.indexOf 'github.com/'
+      async.series [
+        (cb) -> createTmpDir commander, command, cb
+        (cb) -> cloneGit commander, command, cb
+        (cb) -> checkoutPages commander, command, cb
+        (cb) -> updateDoc commander, command, cb
+        (cb) -> pushOrigin commander, command, cb
+      ], (err) ->
+        throw err if err
+        fs.remove command.tmpdir, (err) ->
+          return openUrl commander, url, cb if command.browser
+          return cb()
+    # Publication was not possible
+    else
+      console.error "Could not publish, specify doc-publish script in package.json".magenta
+      return openUrl commander, url, cb if command.browser
+      return cb()
 
 # ### Open the given url in the default browser
 openUrl = (commander, target, cb) ->
