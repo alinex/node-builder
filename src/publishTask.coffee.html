@@ -95,6 +95,7 @@
 <span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
+<span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
 
 </pre></div>
@@ -209,7 +210,7 @@ execution finished.</li>
     <span class="nv">newlines = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(val) -&gt;</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">val</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">changelog = </span><span class="nx">lines</span><span class="p">[..</span><span class="mi">5</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">      Version </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s"></span>
+<span class="s">      Version </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s"> (</span><span class="si">#{</span><span class="nx">moment</span><span class="p">().</span><span class="nx">format</span><span class="p">(</span><span class="s">&#39;YYYY-MM-DD&#39;</span><span class="p">)</span><span class="si">}</span><span class="s">)</span>
 <span class="s">      -------------------------------------------------</span>
 
 </pre></div>

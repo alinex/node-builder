@@ -119,10 +119,12 @@ tasks which were moved out into this helper tool.</p>
 
 <p>Install the package using npm:</p>
 
-<blockquote>
-  <p>npm install alinex-make --production -g
-  npm dedupe</p>
-</blockquote>
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">production</span> <span class="o">-</span><span class="nx">g</span>
+<span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">dedupe</span>
+</code></pre></div>
+
+
 
 <p>After global installation you may directly call <code>alinex-make</code> from anywhere.</p>
 
@@ -318,6 +320,11 @@ switch:</p>
 
 <p>And at last you may also add the <code>--browser</code> flag to open the documentation in
 the browser after created.</p>
+
+<p>The style of the documentation can be specified if a specific css is present
+in the alinex make package. It have to be under the path <code>src/data</code> and be called
+by the <code>&lt;basename&gt;.css</code> while basename is the package name before the first
+hyphen.</p>
 
 
 <div class="pilwrap" id="command%20build">

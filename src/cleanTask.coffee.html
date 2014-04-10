@@ -144,12 +144,23 @@ execution finished.</li>
   <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dist</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove left over of node_modules&quot;</span>
   <span class="nv">find = </span><span class="p">[</span>
-    <span class="p">[</span> <span class="c1"># Remove source folders</span>
-      <span class="s">&#39;-mindepth&#39;</span><span class="p">,</span> <span class="mi">2</span>
-      <span class="s">&#39;-type&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
-      <span class="s">&#39;-regex&#39;</span><span class="p">,</span> <span class="s">&#39;.*/node_modules/[^/]*/src&#39;</span>
-      <span class="s">&#39;-not&#39;</span><span class="p">,</span> <span class="s">&#39;-wholename&#39;</span><span class="p">,</span> <span class="s">&#39;*/node_modules/sprintf-js/src&#39;</span>
-    <span class="p">],</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>[ # Remove source folders
+     '-mindepth', 2
+     '-type', 'd'
+     '-regex', '.<em>/node_modules/[^/]</em>/src'
+     '-not', '-wholename', '*/node_modules/sprintf-js/src'
+   ],</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="p">[</span> <span class="c1"># Remove example folders</span>
       <span class="s">&#39;-mindepth&#39;</span><span class="p">,</span> <span class="mi">2</span>
       <span class="s">&#39;-type&#39;</span><span class="p">,</span> <span class="s">&#39;d&#39;</span>
