@@ -57,15 +57,7 @@ createDir = (commander, command, cb) ->
       return cb err if err
       # create .npmignore file
       file = path.join command.dir, '.npmignore'
-      fs.writeFile file, """
-        .project
-        .settings
-        .DS_Store
-        *.sublime-*
-        src
-        doc
-        coverage
-        """, cb
+      fs.copy path.join(GLOBAL.ROOT_DIR, '.npmignore'), file, cb
 
 # ### Create initial git repository
 # It will set the `command.git` variable to the local uri
@@ -91,16 +83,7 @@ initGit = (commander, command, cb) ->
       file = path.join command.dir, '.gitignore'
       return cb err if err or fs.existsSync file
       command.git = 'file://' + fs.realpathSync command.dir
-      fs.writeFile file, """
-        .project
-        .settings
-        .DS_Store
-        *.sublime-*
-        /node_modules/
-        /doc/
-        /coverage/
-        /lib/
-        """, cb
+      fs.copy path.join(GLOBAL.ROOT_DIR, '.gitignore'), file, cb
 
 # ### Create new GitHub repository if not existing
 # It will set the `command.github` variable
