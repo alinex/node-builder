@@ -41,14 +41,14 @@ module.exports.run = (commander, command, cb) ->
       cb err
 
 commit = (commander, command, cb) ->
-  if command.commit
+  if command.message
     console.log "Adding changed files to git"
     execFile "git", [ 'add', '-A' ]
     , { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and commander.verbose
       console.error stderr.trim().magenta if stderr
       return cb err if err
-      execFile "git", [ 'commit', '-m', command.commit ]
+      execFile "git", [ 'commit', '-m', command.message ]
       , { cwd: command.dir }, (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and commander.verbose
         console.error stderr.trim().magenta if stderr
@@ -58,4 +58,4 @@ commit = (commander, command, cb) ->
       return cb err if err
       return cb() if ~stdout.indexOf 'nothing to commit'
       console.log stdout
-      cb "Skipped push because not all changes are committed, use '--commit message'."
+      cb "Skipped push because not all changes are committed, use '--message <message>'."

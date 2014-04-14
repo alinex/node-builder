@@ -79,20 +79,20 @@ Some example calls will look like:
 
     > alinex-make create ./private-module --private
 
-This process is interactive and will ask you some more details. After that you 
-may directly start to add your code. 
+This process is interactive and will ask you some more details. After that you
+may directly start to add your code.
 
 
 ### Command `push`
 
-This will push the changes to the origin repository. With the `--commit` option
+This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
     > alinex-make push ./node-error
 
 or
 
-    > alinex-make push ./node-error --commit "commit message"
+    > alinex-make push ./node-error --message "commit message"
 
 
 ### Command `pull`
