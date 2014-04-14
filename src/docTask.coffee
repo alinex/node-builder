@@ -41,7 +41,9 @@ module.exports.run = (commander, command, cb) ->
     return cb err if err
     # Check for specific doc style
     pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
-    file = path.join GLOBAL.ROOT_DIR, 'src/data', (pack.name.split /-/)[0] + '.css'
+    file = path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
+    unless fs.existsSync file
+      file = path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
     # Use specific doc style
     if fs.existsSync file
       fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css')

@@ -234,6 +234,17 @@ of the major parts.
     |         | auto   | + rm -r more files                                    |
 
 
+Configuration
+-------------------------------------------------
+
+### Document Template
+
+You may specify a different document layout by creating a file named like the
+main part of your package (name till the first hyphen). Use the file
+`/var/src/docstyle/default.css` as a default and store your own in
+`/var/local/docstyle/<basename>.css`.
+
+
 License
 -------------------------------------------------
 
