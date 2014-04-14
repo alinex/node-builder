@@ -1,0 +1,11 @@
+#!/bin/bash
+
+uglify_opts= "-m -c -p relative"
+
+echo "Clean lib folder"
+rm -rf lib
+
+echo "Compile coffee to java script"
+node_modules/.bin/coffee -c -m -o lib src
+
+echo "Done."
