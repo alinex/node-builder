@@ -123,6 +123,14 @@ commander.command('pull <dir>')
   options.dir = dir
   run commander, options, -> process.exit 0
 
+# ### Compile the code as necessary
+commander.command('compile <dir>')
+.description('Create new node module')
+.option('-u, --uglify', 'Use uglify to compress')
+.action (dir, options) ->
+  options.dir = dir
+  run commander, options, -> process.exit 0
+
 # ### Publish to GitHub and npm
 commander.command('publish <dir>')
 .description('Create new node module')
