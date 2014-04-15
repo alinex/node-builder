@@ -7,8 +7,7 @@ Alinex Development Utils
 This package contains some helper commands for development of the alinex
 node packages. This is a superset of npm and other command line tools.
 
-At the moment it is not completely general but specific to my own development.
-But feel free to change the settings within the code to match your environment.
+It may help a lot while developing to automatize the consequently done tasks.
 
 
 Motivation
@@ -28,12 +27,18 @@ tasks which were moved out into this helper tool.
 Installation
 -------------------------------------------------
 
-Install the package using npm:
+It may be installed globally as an universal helper or integrated into a package
+as development dependency.
 
-    > npm install alinex-make --production -g
-    > npm dedupe
+Install the package globally using npm:
+
+    > npm install alinex-make --production
 
 After global installation you may directly call `alinex-make` from anywhere.
+
+Or you may integrate it into your own package
+
+    > npm install alinex-make --save-devs
 
 [![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
 
@@ -43,7 +48,7 @@ Usage
 
 The tool will be called with
 
-    > bin/make [general options] <command> [command options]
+    > alinex-make [general options] <command> [command options]
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
