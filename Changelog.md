@@ -4,6 +4,39 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.1.1 (2014-04-15)
+-------------------------------------------------
+- Small documentation fixes.
+- Make commit message option standard conform using -m
+- Use uglify-js to compress lib code.
+- Changes the alinex layout.
+- Extend ignore files for new filestructure.
+- Use gitignore and npmignore from this package as template.
+- Move the docstyle to the new filestructure position and document it.
+- Fixed line hight in documentation.
+- Added support for doc-publish scripts.
+- merge
+- Added support for individual styles in doc pages.
+- Added support for individual styles in doc pages.
+- Also push and pull git repositories without an package.json file.
+- Fix writing copyright name in create task.
+- Fixed whitespace in badge urls.
+- Add the date to the version changelog.
+- Fixed merge conflict
+- Run install before running tests.
+- Fixed browser call in testTask.
+- Adding travis ci to auto creation mode for public repositories in create task.
+- Merge branch 'master' of https://github.com/alinex/node-make
+- Fixed coffescript syntax error in create task.
+- Add interactive mode to create task.
+- Added --browser option to open local coverage report in test task.
+- Try to push to coveralls.
+- Add support for coverage report using istambul in test task.
+- Fixed response message of test task.
+- Automatically install before running tests.
+- Removed node_modules/.../src deletion in cleanTask because buggy.
+- Pretty up the changelog.
+
 Version 0.1.0
 -------------------------------------------------
 - Added --dist and --auto flag implementation to clean task.
