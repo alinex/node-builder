@@ -20,7 +20,7 @@
   "main": "./lib/index.js",
   "bin": "bin/make",
   "scripts": {
-    "prepublish": "bin/develop/prepublish-uglify",
+    "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c",
     "start": "bin/make"
   },

@@ -34,13 +34,55 @@ module.exports.run = (commander, command, cb) ->
   console.log "Remove old lib directory"
   fs.remove lib, (err) ->
     return cb err if err
-    # run coffee script compile  
-    #tmp = 
-    console.log "Compile coffee script files"
-    execFile "node_modules/.bin/coffee", [ '-c', '-m', '-o', lib, src ]
-    , { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr
-      cb err
+    coffee commander, command, cb
 
-# compile 
+# ### Compile coffee script
+coffee = (commander, command, cb) ->  
+  src = path.join command.dir, 'src'
+  lib = path.join command.dir, 'lib'
+  console.log "Compile coffee script files"
+  cmd = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/coffee"
+  execFile cmd, [ '-c', '-m', '-o', lib, src ]
+  , { cwd: command.dir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and commander.verbose
+    console.error stderr.trim().magenta if stderr    
+    cb err if err or not command.uglify
+    # run uglify afterwards
+    uglify commander, lib, lib, cb
+
+uglify = (commander, from, to, cb) ->
+  console.log "Uglify js in #{from} to #{to}"
+  list = []
+  for file in walk from
+    file = file[from.length..]
+    continue unless file.match /\.js$/
+    list.push
+      js: path.join from, file
+      map: path.join from, path.basename(file, path.extname file) + '.map'
+      tojs: path.join to, file
+      tomap: path.join to, path.basename(file, path.extname file) + '.map'
+  async.each list, (item, cb) ->
+    cmd = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/uglifyjs"
+    console.log item
+    execFile cmd, [ 
+      item.js,
+      '--in-source-map', item.map
+      '--source-map', item.tomap
+      '-o', item.tojs
+    ], (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and commander.verbose
+      console.error stderr.trim().magenta if stderr    
+      cb err
+  , (err) -> cb err
+
+walk = (dir) ->
+  results = []
+  list = fs.readdirSync dir
+  list.forEach (file) ->
+    file = path.join dir, file
+    stat = fs.statSync file
+    if stat && stat.isDirectory()
+      results = results.concat walk file
+    else 
+      results.push file
+  results
