@@ -110,6 +110,23 @@ Like `push` this will fetch the newest changes from git origin.
     > alinex-make pull ./node-error
 
 
+### Command `compile`
+
+This task is used to compile the sources into for runtime optimized library.
+
+    > alinex-make compile
+
+Or give an directory and use uglify to compress the javascript.
+
+    > alinex-make compile ../node-error --uglify
+
+Mostly this task will be added as prepublish script to the `package.json` like:
+
+    "scripts": {
+      "prepublish": "node_modules/.bin/alinex-make compile -u"
+    }
+
+
 ### Command `test`
 
 As a first test a coffeelint check will be run. Only if this won't have any

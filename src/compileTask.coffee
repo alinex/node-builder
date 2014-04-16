@@ -24,7 +24,7 @@ colors = require 'colors'
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (commander, command, cb) ->  
+module.exports.run = (commander, command, cb) ->
   # check for existing source files
   src = path.join command.dir, 'src'
   unless fs.existsSync src
@@ -37,7 +37,7 @@ module.exports.run = (commander, command, cb) ->
     coffee commander, command, cb
 
 # ### Compile coffee script
-coffee = (commander, command, cb) ->  
+coffee = (commander, command, cb) ->
   src = path.join command.dir, 'src'
   lib = path.join command.dir, 'lib'
   console.log "Compile coffee script files"
@@ -45,15 +45,17 @@ coffee = (commander, command, cb) ->
   execFile cmd, [ '-c', '-m', '-o', lib, src ]
   , { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr    
+    console.error stderr.trim().magenta if stderr
     cb err if err or not command.uglify
     # run uglify afterwards
     uglify commander, lib, lib, cb
 
+# ### Run uglify for all javascript in directory
 uglify = (commander, from, to, cb) ->
   console.log "Uglify js in #{from} to #{to}"
+  # collect files to work on
   list = []
-  for file in walk from
+  for file in walkSync from
     file = file[from.length..]
     continue unless file.match /\.js$/
     list.push
@@ -61,28 +63,32 @@ uglify = (commander, from, to, cb) ->
       map: path.join from, path.basename(file, path.extname file) + '.map'
       tojs: path.join to, file
       tomap: path.join to, path.basename(file, path.extname file) + '.map'
+  # parallel uglify call
   async.each list, (item, cb) ->
     cmd = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/uglifyjs"
     console.log item
-    execFile cmd, [ 
+    args = [
       item.js,
-      '--in-source-map', item.map
       '--source-map', item.tomap
       '-o', item.tojs
-    ], (err, stdout, stderr) ->
+    ]
+    if fs.existsSync item.map
+      args.push '--in-source-map', item.map
+    execFile cmd, args, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr    
+      console.error stderr.trim().magenta if stderr
       cb err
   , (err) -> cb err
 
-walk = (dir) ->
+# ### Walk through directory and collect files
+walkSync = (dir) ->
   results = []
   list = fs.readdirSync dir
   list.forEach (file) ->
     file = path.join dir, file
     stat = fs.statSync file
     if stat && stat.isDirectory()
-      results = results.concat walk file
-    else 
+      results = results.concat walkSync file
+    else
       results.push file
   results
