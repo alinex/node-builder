@@ -9,6 +9,9 @@ node packages. This is a superset of npm and other command line tools.
 
 It may help a lot while developing to automatize the consequently done tasks.
 
+It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
+following the code standards defined there.
+
 
 Motivation
 -------------------------------------------------
