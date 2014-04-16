@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-make/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/alex/a3/node-make/README.md", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -65,6 +65,12 @@
         <a href="#command%20overview">Command overview</a>
       </div>
       <div class="heading h2">
+        <a href="#configuration">Configuration</a>
+      </div>
+      <div class="heading h3">
+        <a href="#document%20template">Document Template</a>
+      </div>
+      <div class="heading h2">
         <a href="#license">License</a>
       </div>
     </div>
@@ -85,8 +91,10 @@
 <p>This package contains some helper commands for development of the alinex
 node packages. This is a superset of npm and other command line tools.</p>
 
-<p>At the moment it is not completely general but specific to my own development.
-But feel free to change the settings within the code to match your environment.</p>
+<p>It may help a lot while developing to automatize the consequently done tasks.</p>
+
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
+following the code standards defined there.</p>
 
 
 <div class="pilwrap" id="motivation">
@@ -117,16 +125,26 @@ tasks which were moved out into this helper tool.</p>
 </div>
 
 
-<p>Install the package using npm:</p>
+<p>It may be installed globally as an universal helper or integrated into a package
+as development dependency.</p>
+
+<p>Install the package globally using npm:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">production</span> <span class="o">-</span><span class="nx">g</span>
-<span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">dedupe</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">production</span>
 </code></pre></div>
 
 
 
 <p>After global installation you may directly call <code>alinex-make</code> from anywhere.</p>
+
+<p>Or you may integrate it into your own package</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">devs</span>
+</code></pre></div>
+
+
 
 <p><a href="https://nodei.co/npm/alinex-make/"><img src="https://nodei.co/npm/alinex-make.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
@@ -142,7 +160,7 @@ tasks which were moved out into this helper tool.</p>
 <p>The tool will be called with</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span>
 </code></pre></div>
 
 
@@ -189,17 +207,18 @@ through the api. And you may specify the <code>--package</code> setting for the 
 of the package. The also mandatory path will be used as the github repository
 name, too.</p>
 
-<p>An example call will look like:</p>
+<p>Some example calls will look like:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">password</span> <span class="nx">xxxxxxxxx</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
+
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="kr">private</span><span class="o">-</span><span class="nx">module</span> <span class="o">--</span><span class="kr">private</span>
 </code></pre></div>
 
 
 
-<p>After that you may directly start to add your code. If the github repository
-should not be created under user 'alinex' you may specify another one using
-<code>--user</code>.</p>
+<p>This process is interactive and will ask you some more details. After that you
+may directly start to add your code.</p>
 
 
 <div class="pilwrap" id="command%20push">
@@ -210,11 +229,11 @@ should not be created under user 'alinex' you may specify another one using
 </div>
 
 
-<p>This will push the changes to the origin repository. With the <code>--commit</code> option
+<p>This will push the changes to the origin repository. With the <code>--message</code> option
 it will also add and commit all other changes before doing so.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
 </code></pre></div>
 
 
@@ -222,7 +241,7 @@ it will also add and commit all other changes before doing so.</p>
 <p>or</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">commit</span> <span class="s2">&quot;commit message&quot;</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">message</span> <span class="s2">&quot;commit message&quot;</span>
 </code></pre></div>
 
 
@@ -239,7 +258,7 @@ it will also add and commit all other changes before doing so.</p>
 <p>Like <code>push</code> this will fetch the newest changes from git origin.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">pull</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
 </code></pre></div>
 
 
@@ -268,7 +287,7 @@ a code coverage report will be build.</p>
 <p>Or to contineously watch:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">test</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
 </code></pre></div>
 
 
@@ -294,16 +313,19 @@ any language and generate HTML pages with the documentation beside the
 code.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
 </code></pre></div>
 
 
 
-<p>It is also possible to update the documentation on github using an additional
-switch:</p>
+<p>It is also possible to update the documentation stored on any website. To
+configure this for GitHub pages, you have to do nothing, for all others you
+need to specify an <code>doc-publish</code> script in <code>package.json</code>. This may be an
+rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
+Start the document creation with publication using:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">publish</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">publish</span>
 </code></pre></div>
 
 
@@ -463,6 +485,29 @@ of the major parts.</p>
 </code></pre></div>
 
 
+
+
+<div class="pilwrap" id="configuration">
+  <h2>
+    <a href="#configuration" name="configuration" class="pilcrow">&#182;</a>
+    Configuration
+  </h2>
+</div>
+
+
+
+<div class="pilwrap" id="document%20template">
+  <h3>
+    <a href="#document%20template" name="document%20template" class="pilcrow">&#182;</a>
+    Document Template
+  </h3>
+</div>
+
+
+<p>You may specify a different document layout by creating a file named like the
+main part of your package (name till the first hyphen). Use the file
+<code>/var/src/docstyle/default.css</code> as a default and store your own in
+<code>/var/local/docstyle/&lt;basename&gt;.css</code>.</p>
 
 
 <div class="pilwrap" id="license">

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/index.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -51,6 +51,9 @@
       </div>
       <div class="heading h3">
         <a href="#push%20to%20github">Push to GitHub</a>
+      </div>
+      <div class="heading h3">
+        <a href="#compile%20the%20code%20as%20necessary">Compile the code as necessary</a>
       </div>
       <div class="heading h3">
         <a href="#publish%20to%20github%20and%20npm">Publish to GitHub and npm</a>
@@ -363,7 +366,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;push &lt;dir&gt;&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Push to git origin&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-c, --commit &lt;message&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Create new major version&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-m, --message &lt;message&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Give comment to commit&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
@@ -385,6 +388,28 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;pull &lt;dir&gt;&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Pull from git origin&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="compile%20the%20code%20as%20necessary">
+  <h3>
+    <a href="#compile%20the%20code%20as%20necessary" name="compile%20the%20code%20as%20necessary" class="pilcrow">&#182;</a>
+    Compile the code as necessary
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;compile &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-u, --uglify&#39;</span><span class="p">,</span> <span class="s">&#39;Use uglify to compress&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
   <span class="nv">options.dir = </span><span class="nx">dir</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
@@ -535,7 +560,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>check that it works properly</p>
         </td>

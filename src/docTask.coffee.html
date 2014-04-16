@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/docTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/docTask.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -128,6 +128,10 @@ Command specific parameters and options.</li>
 The callback will be called just if an error occurred or with <code>null</code> if
 execution finished.</li>
 </ul>
+
+<p>This task will create the documentation and publish it if switch <code>--publish</code>
+is set. The publication can be done to github pages or using the <code>doc-publish</code>
+script if defined.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
@@ -136,8 +140,6 @@ execution finished.</li>
     <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
       <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span>
     <span class="p">,</span> <span class="mi">5000</span>
-  <span class="nx">createDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -147,27 +149,117 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
-<p>check for specific doc style</p>
+<p>Create the html documentation out of source files</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">createDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Check for specific doc style</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-    <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;src/data&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.css&#39;</span>
+    <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/local/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.css&#39;</span>
+    <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
+      <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/src/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.css&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Use specific doc style</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">copySync</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;doc-style.css&#39;</span><span class="p">)</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Check if --publish flag is set</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">publish</span>
       <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
       <span class="nx">cb</span><span class="p">()</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">createTmpDir</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>Publish  using script from package.json</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="o">?</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span>
+      <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
-        <span class="nx">cb</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>Or publish to GitHub</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
+      <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">createTmpDir</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="p">],</span> <span class="nf">(err) -&gt;</span>
+        <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>Publication was not possible</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">else</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span><span class="p">.</span><span class="nx">magenta</span>
+      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>
@@ -196,7 +288,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>if the first parameter to start is quoted, it uses that as the title
 so we pass a blank title so we can quote the file we are opening</p>
@@ -210,7 +302,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>use Portlands xdg-open everywhere else</p>
         </td>
@@ -246,7 +338,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>create index.html</p>
         </td>
@@ -293,7 +385,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>Error management</p>
         </td>
