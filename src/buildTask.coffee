@@ -54,11 +54,11 @@ module.exports.run = (commander, command, cb) ->
         console.log "Start watching... stop using ctrl-c".bold
         args = pack.scripts.prepublish.split /\s+/
         cmd = args.shift()
-        args.unshift '-w'
+        args.push '-w'
         proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
         # Error management
         proc.on 'error', cb
         proc.on 'exit', (status) ->
           if status != 0
-            status = new Error "Coffeescript compile failed with status #{status}"
+            status = new Error "Compile failed with status #{status}"
           cb status

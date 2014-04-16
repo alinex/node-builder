@@ -109,18 +109,18 @@ commander.command('create <dir>')
   run commander, options, -> process.exit 0
 
 # ### Push to GitHub
-commander.command('push <dir>')
+commander.command('push [dir]')
 .description('Push to git origin')
 .option('-m, --message <message>', 'Give comment to commit')
 .action (dir, options) ->
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 # ### Push to GitHub
-commander.command('pull <dir>')
+commander.command('pull [dir]')
 .description('Pull from git origin')
 .action (dir, options) ->
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 # ### Compile the code as necessary
@@ -131,44 +131,44 @@ commander.command('compile [dir]')
   options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
+# ### Run automatic tests
+commander.command('build [dir]')
+.description('Run automatic tests')
+.option('-w, --watch', 'Keep the process running, watch for changes and process again')
+.action (dir, options) ->
+  options.dir = dir ? '.'
+  run commander, options, -> process.exit 0
+
 # ### Publish to GitHub and npm
-commander.command('publish <dir>')
+commander.command('publish [dir]')
 .description('Create new node module')
 .option('--major', 'Create new major version')
 .option('--minor', 'Create new minor version')
 .action (dir, options) ->
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 # ### Build running system
-commander.command('test <dir>')
+commander.command('test [dir]')
 .description('Run automatic tests')
 .option('-w, --watch', 'Keep the process running, watch for changes and process again')
 .option('-b, --browser', 'Open in browser')
 .action (dir, options) ->
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 # ### Create documentation
-commander.command('doc <dir>')
+commander.command('doc [dir]')
 .description('Create new API documentation for module')
 .option('-w, --watch', 'Keep the process running, watch for changes and process updated files')
 .option('-p, --publish', 'Push to github pages')
 .option('-b, --browser', 'Open in browser')
 .action (dir, options) ->
-  options.dir = dir
-  run commander, options, -> process.exit 0
-
-# ### Run automatic tests
-commander.command('build <dir>')
-.description('Run automatic tests')
-.option('-w, --watch', 'Keep the process running, watch for changes and process again')
-.action (dir, options) ->
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 # ### Cleanup automatic created files
-commander.command('clean <dir>')
+commander.command('clean [dir]')
 .description('Cleanup automatic generated files')
 .option('-d, --dist', 'Clean all which is not needed in production')
 .option('-a, --auto', 'Clean all which is automatically generated')
@@ -176,7 +176,7 @@ commander.command('clean <dir>')
   if options.dist and options.auto
     console.error "Don't use both switches --dist and --auto together, that destroys your code."
     process.exit 2
-  options.dir = dir
+  options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
 

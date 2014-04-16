@@ -36,12 +36,14 @@ as development dependency.
 Install the package globally using npm:
 
     > npm install alinex-make --production
+    > alinex-make --help
 
 After global installation you may directly call `alinex-make` from anywhere.
 
 Or you may integrate it into your own package
 
     > npm install alinex-make --save-devs
+    > ./node_modules/.bin/alinex-make --help
 
 [![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
 
@@ -55,6 +57,11 @@ The tool will be called with
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
+
+Most commands have an optional directory name as first plain parameter which
+can be used to specify on which directory to work. It should point to the
+base package directory of a module. If not specified the command will run from
+the current directory.
 
 
 ### General options
@@ -127,6 +134,20 @@ Mostly this task will be added as prepublish script to the `package.json` like:
     }
 
 
+### Command `build`
+
+!!! Maybe this will be removed later in favor of the compile task.
+
+Genereate the base system out of the source code. This creates the `lib` folder
+by copying, compiling and transforming files. Everything will be done parallel.
+
+    > bin/make build ../node-error
+
+With the `--watch` option it is possible to keep the documentation updated.
+
+    > bin/make build ../node-error --watch
+
+
 ### Command `test`
 
 As a first test a coffeelint check will be run. Only if this won't have any
@@ -178,18 +199,6 @@ The style of the documentation can be specified if a specific css is present
 in the alinex make package. It have to be under the path `src/data` and be called
 by the `<basename>.css` while basename is the package name before the first
 hyphen.
-
-
-### Command `build`
-
-Genereate the base system out of the source code. This creates the `lib` folder
-by copying, compiling and transforming files. Everything will be done parallel.
-
-    > bin/make build ../node-error
-
-With the `--watch` option it is possible to keep the documentation updated.
-
-    > bin/make build ../node-error --watch
 
 
 ### Command `publish`
