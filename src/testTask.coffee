@@ -118,8 +118,6 @@ coverage = (command, cb) ->
   unless fs.existsSync bin
     console.log "Skipped coverage because istanbul is missing".yellow
     return cb?()
-  if command.verbose
-    console.log "Read package.json".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
   unless pack.scripts?.test?
     console.log "Skipped because no tests defined in package.json".yellow
@@ -128,9 +126,6 @@ coverage = (command, cb) ->
   tool = args.shift().replace /\/mocha$/, '/_mocha'
   args.unshift 'cover', tool, '--'
   proc = spawn bin, args, { cwd: command.dir }
-  proc.stdout.on 'data', (data) ->
-    if command.verbose
-      console.log data.toString().trim()
   proc.stderr.on 'data', (data) ->
     console.error data.toString().trim().magenta
   # Error management
