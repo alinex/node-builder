@@ -17,6 +17,9 @@
 # Each task is made available as separate task module with the `run` method
 # to be called for each alinex package. The given command on the command line
 # call may trigger multiple tasks which are done.
+#
+# Each task will get a `command` object which holds all the information from the
+# command line call.
 
 
 # Node Modules
@@ -127,14 +130,6 @@ commander.command('pull [dir]')
 commander.command('compile [dir]')
 .description('Create new node module')
 .option('-u, --uglify', 'Use uglify to compress')
-.action (dir, options) ->
-  options.dir = dir ? '.'
-  run commander, options, -> process.exit 0
-
-# ### Run automatic tests
-commander.command('build [dir]')
-.description('Run automatic tests')
-.option('-w, --watch', 'Keep the process running, watch for changes and process again')
 .action (dir, options) ->
   options.dir = dir ? '.'
   run commander, options, -> process.exit 0

@@ -17,33 +17,31 @@ colors = require 'colors'
 #
 # __Arguments:__
 #
-# * `commander`
-#   Commander instance for reading options.
 # * `command`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (commander, command, cb) ->
-  coffeelint commander, command, (err) ->
+module.exports.run = (command, cb) ->
+  coffeelint command, (err) ->
     return cb err if err
     execFile 'npm', [ 'install' ], { cwd: command.dir }
     , (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
-      console.error stderr.trim().magenta if stderr and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
+      console.error stderr.trim().magenta if stderr and command.verbose
       return cb err if err
-      test commander, command, (err) ->
+      test command, (err) ->
         return cb err if err
-        coverage commander, command, (err) ->
+        coverage command, (err) ->
           return cb err if err
           url = path.join GLOBAL.ROOT_DIR, command.dir, 'coverage', 'lcov-report', 'index.html'
-          return openUrl commander, url, cb if command.browser
+          return openUrl command, url, cb if command.browser
           cb()
 
 
 # ### Open the given url in the default browser
-openUrl = (commander, target, cb) ->
-  if commander.verbose
+openUrl = (command, target, cb) ->
+  if command.verbose
     console.log "Open #{target} in browser".grey
   opener = switch process.platform
     when 'darwin' then 'open'
@@ -56,16 +54,16 @@ openUrl = (commander, target, cb) ->
 
 
 # ### Run lint against coffee script
-coffeelint = (commander, command, cb) ->
+coffeelint = (command, cb) ->
   # Check for existing command
   bin = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/coffeelint"
   unless fs.existsSync bin
     console.log "Skipped lint because coffeelint is missing".yellow
     return cb?()
   # Run external command
-  if commander.verbose
+  if command.verbose
     console.log "Linting code".grey
-  if commander.colors
+  if command.colors
     proc = spawn bin, [
       '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
       'src'
@@ -76,7 +74,7 @@ coffeelint = (commander, command, cb) ->
       'src'
     ], { cwd: command.dir }
     proc.stdout.on 'data', (data) ->
-      if commander.verbose
+      if command.verbose
         console.log data.toString().trim()
     proc.stderr.on 'data', (data) ->
       console.error data.toString().trim().magenta
@@ -90,8 +88,8 @@ coffeelint = (commander, command, cb) ->
 
 # ### Run tests like defined in package.json
 # It will add the -w flag if `--watch` is set.
-test = (commander, command, cb) ->
-  if commander.verbose
+test = (command, cb) ->
+  if command.verbose
     console.log "Read package.json".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
   unless pack.scripts?.test?
@@ -99,8 +97,8 @@ test = (commander, command, cb) ->
     return cb()
   execFile 'npm', [ 'install' ], { cwd: command.dir }
   , (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
-    console.error stderr.trim().magenta if stderr and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
+    console.error stderr.trim().magenta if stderr and command.verbose
     return cb err if err
     console.log "Run test scripts"
     args = pack.scripts.test.split /\s+/
@@ -115,12 +113,12 @@ test = (commander, command, cb) ->
       cb status
 
 # ### Create local coverage report
-coverage = (commander, command, cb) ->
+coverage = (command, cb) ->
   bin = path.join command.dir, "node_modules/.bin/istanbul"
   unless fs.existsSync bin
     console.log "Skipped coverage because istanbul is missing".yellow
     return cb?()
-  if commander.verbose
+  if command.verbose
     console.log "Read package.json".grey
   pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
   unless pack.scripts?.test?
@@ -131,7 +129,7 @@ coverage = (commander, command, cb) ->
   args.unshift 'cover', tool, '--'
   proc = spawn bin, args, { cwd: command.dir }
   proc.stdout.on 'data', (data) ->
-    if commander.verbose
+    if command.verbose
       console.log data.toString().trim()
   proc.stderr.on 'data', (data) ->
     console.error data.toString().trim().magenta

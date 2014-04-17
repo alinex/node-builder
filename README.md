@@ -134,20 +134,6 @@ Mostly this task will be added as prepublish script to the `package.json` like:
     }
 
 
-### Command `build`
-
-!!! Maybe this will be removed later in favor of the compile task.
-
-Genereate the base system out of the source code. This creates the `lib` folder
-by copying, compiling and transforming files. Everything will be done parallel.
-
-    > bin/make build ../node-error
-
-With the `--watch` option it is possible to keep the documentation updated.
-
-    > bin/make build ../node-error --watch
-
-
 ### Command `test`
 
 As a first test a coffeelint check will be run. Only if this won't have any

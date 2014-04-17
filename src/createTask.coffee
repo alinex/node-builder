@@ -19,34 +19,32 @@ prompt = require 'prompt'
 #
 # __Arguments:__
 #
-# * `commander`
-#   Commander instance for reading options.
 # * `command`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (commander, command, cb) ->
+module.exports.run = (command, cb) ->
   prompt.start()
   async.series [
-    (cb) -> createDir commander, command, cb
-    (cb) -> initGit commander, command, cb
-    (cb) -> createGitHub commander, command, cb
-    (cb) -> createPackage commander, command, cb
-    (cb) -> createTravis commander, command, cb
-    (cb) -> createReadme commander, command, cb
-    (cb) -> createChangelog commander, command, cb
-    (cb) -> initialCommit commander, command, cb
+    (cb) -> createDir command, cb
+    (cb) -> initGit command, cb
+    (cb) -> createGitHub command, cb
+    (cb) -> createPackage command, cb
+    (cb) -> createTravis command, cb
+    (cb) -> createReadme command, cb
+    (cb) -> createChangelog command, cb
+    (cb) -> initialCommit command, cb
   ], (err) ->
     throw err if err
     console.log "You may now work with the new package.".yellow
     cb()
 
 # ### Create the directory
-createDir = (commander, command, cb) ->
+createDir = (command, cb) ->
   # check if directory already exist
   if fs.existsSync command.dir
-    if commander.verbose
+    if command.verbose
       console.log "Directory #{command.dir} already exists.".grey
     return cb()
   # create directory
@@ -61,9 +59,9 @@ createDir = (commander, command, cb) ->
 
 # ### Create initial git repository
 # It will set the `command.git` variable to the local uri
-initGit = (commander, command, cb) ->
+initGit = (command, cb) ->
   # check for existing git repository
-  if commander.verbose
+  if command.verbose
     console.log "Check for configured git".grey
   if fs.existsSync path.join command.dir, '.git'
     command.git = 'file://' + fs.realpathSync command.dir
@@ -78,7 +76,7 @@ initGit = (commander, command, cb) ->
     return cb err if err or not input.question is 'yes'
     console.log "Init new git repository"
     execFile "git", [ 'init' ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
       file = path.join command.dir, '.gitignore'
       return cb err if err or fs.existsSync file
@@ -87,10 +85,10 @@ initGit = (commander, command, cb) ->
 
 # ### Create new GitHub repository if not existing
 # It will set the `command.github` variable
-createGitHub = (commander, command, cb) ->
+createGitHub = (command, cb) ->
   return cb() if command.private
   # check for existing package with github url
-  if commander.verbose
+  if command.verbose
     console.log "Check for configured git".grey
   file = path.join command.dir, 'package.json'
   if fs.existsSync file
@@ -106,7 +104,7 @@ createGitHub = (commander, command, cb) ->
   # check for other remote origin  
   execFile "git", [ 'remote', 'show', 'origin' ], { cwd: command.dir }, (err, stdout, stderr) ->
     unless err
-      console.log stdout.trim().grey if stdout and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
       console.log "Skipped GitHub because other origin exists already"
       return cb()
     # create github repository
@@ -175,14 +173,14 @@ createGitHub = (commander, command, cb) ->
               'remote'
               'add', 'origin', command.github
             ], { cwd: command.dir }, (err, stdout, stderr) ->
-              console.log stdout.trim().grey if stdout and commander.verbose
+              console.log stdout.trim().grey if stdout and command.verbose
               console.error stderr.trim().magenta if stderr
               cb err
 
 # ### Create new package.json
-createPackage = (commander, command, cb) ->
+createPackage = (command, cb) ->
   # check if package.json exists
-  if commander.verbose
+  if command.verbose
     console.log "Check for existing package.json".grey
   file = path.join command.dir, 'package.json'
   if fs.existsSync file
@@ -225,8 +223,8 @@ createPackage = (commander, command, cb) ->
   fs.writeFile file, JSON.stringify(pack, null, 2), cb
 
 # ### Create a README.md file
-createReadme = (commander, command, cb) ->
-  if commander.verbose
+createReadme = (command, cb) ->
+  if command.verbose
     console.log "Check for README.md".grey
   file = path.join command.dir, 'README.md'
   if fs.existsSync file
@@ -284,8 +282,8 @@ createReadme = (commander, command, cb) ->
     """, cb
 
 # ### Create an initial changelog
-createChangelog = (commander, command, cb) ->
-  if commander.verbose
+createChangelog = (command, cb) ->
+  if command.verbose
     console.log "Check for existing changelog".grey
   file = path.join command.dir, 'Changelog.md'
   if fs.existsSync file
@@ -302,10 +300,10 @@ createChangelog = (commander, command, cb) ->
     """, cb
 
 # ### Create a travis configuration file
-createTravis = (commander, command, cb) ->
+createTravis = (command, cb) ->
   unless command.github
     return cb()
-  if commander.verbose
+  if command.verbose
     console.log "Check for existing travis configuration".grey
   file = path.join command.dir, '.travis.yml'
   if fs.existsSync file
@@ -334,22 +332,22 @@ createTravis = (commander, command, cb) ->
     """, cb
 
 # ### Make initial commit
-initialCommit = (commander, command, cb) ->
-  if commander.verbose
+initialCommit = (command, cb) ->
+  if command.verbose
     console.log "Check if git already used".grey
   execFile "git", [ 'log' ], { cwd: command.dir }, (err, stdout, stderr) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
     execFile "git", [ 'add', '*' ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
       , { cwd: command.dir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and commander.verbose
+        console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
         console.log "Push to origin"
         execFile "git", [ 'push', 'origin', 'master' ],
         { cwd: command.dir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and commander.verbose
+          console.log stdout.trim().grey if stdout and command.verbose
           console.error stderr.trim().magenta if stderr
           cb()

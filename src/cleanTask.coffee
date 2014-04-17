@@ -17,14 +17,12 @@ colors = require 'colors'
 #
 # __Arguments:__
 #
-# * `commander`
-#   Commander instance for reading options.
 # * `command`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (commander, command, cb) ->
+module.exports.run = (command, cb) ->
   console.log "Remove unnecessary folders"
   dirs = [
     path.join command.dir, 'doc'
@@ -38,26 +36,26 @@ module.exports.run = (commander, command, cb) ->
   async.each dirs, (dir, cb) ->
     fs.exists dir, (exists) ->
       return cb() unless exists
-      if commander.verbose
+      if command.verbose
         console.log "Removing #{dir}".grey
       fs.remove dir, cb
   , (err) ->
     return cb err if err
-    cleanDistribution commander, command, (err) ->
+    cleanDistribution command, (err) ->
       return cb err if err
-      cleanModules commander, command, (err) ->
+      cleanModules command, (err) ->
         cb err
 
-cleanDistribution = (commander, command, cb) ->
+cleanDistribution = (command, cb) ->
   cb() unless command.dist or true
   console.log "Remove development modules"
   execFile "npm", [ 'prune', '--production' ]
   , { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     cb err
 
-cleanModules = (commander, command, cb) ->
+cleanModules = (command, cb) ->
   cb() unless command.dist
   console.log "Remove left over of node_modules"
   find = [
@@ -83,10 +81,10 @@ cleanModules = (commander, command, cb) ->
     console.log "Remove #{item}"
     item.unshift '.', '-depth'
     item.push '-exec', 'rm', '-r', '{}', ';'
-    if commander.verbose
+    if command.verbose
       item.push '-print'
     execFile 'find', item, { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
       cb err
   , cb

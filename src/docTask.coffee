@@ -19,8 +19,6 @@ crypto = require 'crypto'
 #
 # __Arguments:__
 #
-# * `commander`
-#   Commander instance for reading options.
 # * `command`
 #   Command specific parameters and options.
 # * `callback(err)`
@@ -30,14 +28,14 @@ crypto = require 'crypto'
 # This task will create the documentation and publish it if switch `--publish`
 # is set. The publication can be done to github pages or using the `doc-publish`
 # script if defined.
-module.exports.run = (commander, command, cb) ->
+module.exports.run = (command, cb) ->
   url = path.join command.dir, 'doc', 'index.html'
   if command.watch and command.browser
     setTimeout ->
-      openUrl commander, url
+      openUrl command, url
     , 5000
   # Create the html documentation out of source files
-  createDoc commander, command, (err) ->
+  createDoc command, (err) ->
     return cb err if err
     # Check for specific doc style
     pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
@@ -49,40 +47,40 @@ module.exports.run = (commander, command, cb) ->
       fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css')
     # Check if --publish flag is set
     unless command.publish
-      return openUrl commander, url, cb if command.browser
+      return openUrl command, url, cb if command.browser
       cb()
     # Publish  using script from package.json
     if pack.scripts?['doc-publish']?
       console.log pack.scripts['doc-publish']
       exec pack.scripts['doc-publish'], { cwd: command.dir }, (err, stdout, stderr) ->
-        if commander.verbose
+        if command.verbose
           console.log stdout.toString().trim().grey if stdout
         console.log stderr.toString().trim().magenta if stderr
         return cb err if err
-        return openUrl commander, url, cb if command.browser
+        return openUrl command, url, cb if command.browser
         return cb()
     # Or publish to GitHub
     else if ~pack.repository?.url?.indexOf 'github.com/'
       async.series [
-        (cb) -> createTmpDir commander, command, cb
-        (cb) -> cloneGit commander, command, cb
-        (cb) -> checkoutPages commander, command, cb
-        (cb) -> updateDoc commander, command, cb
-        (cb) -> pushOrigin commander, command, cb
+        (cb) -> createTmpDir command, cb
+        (cb) -> cloneGit command, cb
+        (cb) -> checkoutPages command, cb
+        (cb) -> updateDoc command, cb
+        (cb) -> pushOrigin command, cb
       ], (err) ->
         throw err if err
         fs.remove command.tmpdir, (err) ->
-          return openUrl commander, url, cb if command.browser
+          return openUrl command, url, cb if command.browser
           return cb()
     # Publication was not possible
     else
       console.error "Could not publish, specify doc-publish script in package.json".magenta
-      return openUrl commander, url, cb if command.browser
+      return openUrl command, url, cb if command.browser
       return cb()
 
 # ### Open the given url in the default browser
-openUrl = (commander, target, cb) ->
-  if commander.verbose
+openUrl = (command, target, cb) ->
+  if command.verbose
     console.log "Open #{target} in browser".grey
   opener = switch process.platform
     when 'darwin' then 'open'
@@ -94,10 +92,10 @@ openUrl = (commander, target, cb) ->
   return exec opener + ' "' + escape(target) + '"', cb
 
 # ### Create initial git repository
-createDoc = (commander, command, cb) ->
+createDoc = (command, cb) ->
   docPath = path.join command.dir, 'doc'
   if fs.existsSync docPath
-    if commander.verbose
+    if command.verbose
       console.log "Remove old documentation".grey
     fs.removeSync docPath
   # create index.html
@@ -132,7 +130,7 @@ createDoc = (commander, command, cb) ->
   ]
   proc.stdout.on 'data', (data) ->
     unless ~data.toString().indexOf "Done."
-      if commander.verbose
+      if command.verbose
         console.log data.toString().trim().grey
   proc.stderr.on 'data', (data) ->
     console.error data.toString().trim().magenta
@@ -144,15 +142,15 @@ createDoc = (commander, command, cb) ->
     cb status
 
 # ### Create temporary directory
-createTmpDir = (commander, command, cb) ->
+createTmpDir = (command, cb) ->
   filename = 'alinex-make-' + crypto.randomBytes(4).readUInt32LE(0) + '-gh'
   command.tmpdir = path.join os.tmpdir(), filename
-  if commander.verbose
+  if command.verbose
     console.log "Create temporary directory at #{command.tmpdir}".grey
   fs.mkdirs command.tmpdir, cb
 
 # ### Clone git repository
-cloneGit = (commander, command, cb) ->
+cloneGit = (command, cb) ->
   file = path.join command.dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
   console.log "Cloning git repository"
@@ -161,17 +159,17 @@ cloneGit = (commander, command, cb) ->
     pack.repository.url
     command.tmpdir
   ], (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     cb err
 
 # ### Checkout gh-pages branch
-checkoutPages = (commander, command, cb) ->
+checkoutPages = (command, cb) ->
   console.log "Checkout gh-pages branch"
   execFile 'git', [
     'checkout', 'gh-pages'
   ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb() unless err
     execFile 'git', [
@@ -179,50 +177,50 @@ checkoutPages = (commander, command, cb) ->
       '--orphan'
       'gh-pages'
     ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and commander.verbose
+      console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
       cb err
 
 # ### Update the documentation
-updateDoc = (commander, command, cb) ->
+updateDoc = (command, cb) ->
   console.log "Update documentation"
-  if commander.verbose
+  if command.verbose
     console.log "Remove old documentation".grey
   execFile 'git', [
     'rm', '-rf', '.'
   ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
-    if commander.verbose
+    if command.verbose
       console.log "Copy new documentation into repository".grey
     fs.copy path.join(command.dir, 'doc'), command.tmpdir, (err) ->
       return cb err if err
-      if commander.verbose
+      if command.verbose
         console.log "Add files to git".grey
       execFile 'git', [
         'add', '*'
       ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and commander.verbose
+        console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
         return cb err if err
-        if commander.verbose
+        if command.verbose
           console.log "Commit changes".grey
         execFile 'git', [
           'commit'
           '-m', "Updated documentation"
         ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and commander.verbose
+          console.log stdout.trim().grey if stdout and command.verbose
           console.error stderr.trim().magenta if stderr
           cb err
 
 # ### Push to git origin
-pushOrigin = (commander, command, cb) ->
+pushOrigin = (command, cb) ->
   console.log "Push to git origin"
   execFile "git", [
     'push'
     'origin', 'gh-pages'
   ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and commander.verbose
+    console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
     cb()
