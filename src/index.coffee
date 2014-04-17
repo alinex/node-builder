@@ -63,12 +63,13 @@ process.title = 'alinex-make'
 #   execution finished.
 run = (commander, command, cb) ->
   colors.mode = 'none' unless commander.colors
-
+  command.colors = commander.colors
+  command.verbose = commander.verbose
   console.log command._description.blue.bold
   # load task library
   lib = require './' + command._name + 'Task'
   # run modules in parallel
-  lib.run commander, command, (err) ->
+  lib.run command, (err) ->
     errorHandler.report err if err
     console.log "Done.".green
     cb()
@@ -128,7 +129,7 @@ commander.command('pull [dir]')
 
 # ### Compile the code as necessary
 commander.command('compile [dir]')
-.description('Create new node module')
+.description('Compile the code as necessary')
 .option('-u, --uglify', 'Use uglify to compress')
 .action (dir, options) ->
   options.dir = dir ? '.'
