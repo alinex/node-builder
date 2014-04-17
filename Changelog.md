@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.1 (2014-04-17)
+-------------------------------------------------
+- Integrated coffee script compilation into code. Optimized uglify to work also if installed in higher module.
+- Removed commander object in favor of combined command object.
+
 Version 0.2.0 (2014-04-17)
 -------------------------------------------------
 - Make most tasks to allow optional directory parameter, use current as default.
