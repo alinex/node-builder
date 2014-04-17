@@ -1,6 +1,6 @@
-# Task to compile source files like needed
+# Helper tool
 # =================================================
-
+# This contains some functions used within the tasks. They might be 
 
 # Node modules
 # -------------------------------------------------
@@ -13,8 +13,10 @@ colors = require 'colors'
 {execFile} = require 'child_process'
 coffee = require 'coffee-script'
 
-# Main routine
+# Helper tools
 # -------------------------------------------------
+
+# ### Find files in directory (recursive)
 #
 # __Arguments:__
 #
@@ -60,6 +62,17 @@ filefind = module.exports.filefind = (dir, filter, cb) ->
       # include file in list
       cb null, [ file ]
 
+# ### Find binary in node_modules or parent
+#
+# __Arguments:__
+#
+# * `bin`
+#   name of the binary to search for
+# * `dir`
+#   Module directory to start search from.
+# * `callback(err, file)`
+#   The callback will be called just if an error occurred or after finished.
+#   The file is the path to the binary if found.
 findbin = module.exports.findbin = (bin, dir, cb) ->
   unless cb
     cb = dir
