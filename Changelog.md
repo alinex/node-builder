@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.0 (2014-04-17)
+-------------------------------------------------
+- Make most tasks to allow optional directory parameter, use current as default.
+- Optimized the compile task to run on current directory per default.
+- Integrated --uglify support for compile of coffee files.
+- Added link to the alinex documentation.
+- Add compile task which will run coffee script compiler.
+
 Version 0.1.1 (2014-04-15)
 -------------------------------------------------
 - Small documentation fixes.
