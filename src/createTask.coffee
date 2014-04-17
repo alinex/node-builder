@@ -101,7 +101,7 @@ createGitHub = (command, cb) ->
     if ~pack.repository.url.indexOf 'github.com/'
       command.github = pack.repository.url
       return cb()
-  # check for other remote origin  
+  # check for other remote origin
   execFile "git", [ 'remote', 'show', 'origin' ], { cwd: command.dir }, (err, stdout, stderr) ->
     unless err
       console.log stdout.trim().grey if stdout and command.verbose
@@ -206,7 +206,7 @@ createPackage = (command, cb) ->
     license: PKG.license
     main: './lib/index.js'
     scripts:
-      prepublish: "node_modules/.bin/coffee -c -m -o lib src"
+      prepublish: "node_modules/.bin/alinex-make compile -u"
       test: "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c"
     directories:
       lib: './lib'
@@ -215,7 +215,8 @@ createPackage = (command, cb) ->
       "coffee-script": ">=1.7.0",
       "mocha": "1.x",
       "chai": "1.x",
-      "istanbul": "0.2.x"
+      "istanbul": "0.2.x",
+      "alinex-make": "0.2.x"
     optionalDependencies: {}
     engines: PKG.engines
     os: []
@@ -310,17 +311,17 @@ createTravis = (command, cb) ->
     return cb()
   gituser = path.basename path.dirname command.github
   console.log "Create new travis-ci configuration"
-  console.log "Log into https://travis-ci.org/profile/#{gituser} 
+  console.log "Log into https://travis-ci.org/profile/#{gituser}
     and activate Travis CI".yellow.bold
-  console.log "Log into https://coveralls.io/repos/new?name=#{gituser} 
+  console.log "Log into https://coveralls.io/repos/new?name=#{gituser}
     and activate coveralls".yellow.bold
-  console.log "Log into https://gemnasium.com/projects/new_from_github 
-    and activate dependency checks".yellow.bold    
+  console.log "Log into https://gemnasium.com/projects/new_from_github
+    and activate dependency checks".yellow.bold
   coveralls = "
-    COVERALLS_SERVICE_NAME=travis-ci 
-    COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo 
-    node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- 
-    --compilers coffee:coffee-script/register --reporter spec 
+    COVERALLS_SERVICE_NAME=travis-ci
+    COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo
+    node_modules/.bin/istanbul cover node_modules/.bin/_mocha --
+    --compilers coffee:coffee-script/register --reporter spec
     && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
   fs.writeFile file, """
     language: node_js
