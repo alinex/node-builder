@@ -45,6 +45,8 @@ Or you may integrate it into your own package
     > npm install alinex-make --save-devs
     > ./node_modules/.bin/alinex-make --help
 
+By integrating it you won't need all the development tools within your package.
+
 [![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
 
 

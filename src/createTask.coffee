@@ -206,16 +206,12 @@ createPackage = (command, cb) ->
     license: PKG.license
     main: './lib/index.js'
     scripts:
-      prepublish: "node_modules/.bin/alinex-make compile -u"
-      test: "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c"
+      prepublish: "node_modules/.bin/alinex-make compile"
+      test: "node_modules/.bin/alinex-make test"
     directories:
       lib: './lib'
     dependencies: {}
     devDependencies:
-      "coffee-script": ">=1.7.0",
-      "mocha": "1.x",
-      "chai": "1.x",
-      "istanbul": "0.2.x",
       "alinex-make": "0.2.x"
     optionalDependencies: {}
     engines: PKG.engines
