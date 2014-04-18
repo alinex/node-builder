@@ -164,7 +164,8 @@ You may also create an html coverage report:
     > alinex-make test --coverage
 
 And at last you can add the `--browser` flag to open the coverage report
-automatically in the browser.
+automatically in the browser. Also `--coveralls` may be added to send the
+results to coveralls.
 
 This task can also be added to the `package.json` to be called using `npm test`:
 

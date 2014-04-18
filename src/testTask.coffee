@@ -131,8 +131,8 @@ coverage = (command, cb) ->
       return cb err if err
       proc = spawn cmd, [
         'cover'
-        '--'
         mocha
+        '--'
         '--compilers', 'coffee:coffee-script/register'
         '--reporter', 'spec'
         '-c'
@@ -145,7 +145,26 @@ coverage = (command, cb) ->
       proc.on 'error', cb
       proc.on 'exit', (status) ->
         if status != 0
-          status = new Error "Istanbul exited with status #{status}"
-        cb status
+          return cb "Istanbul exited with status #{status}"
+        if command.coveralls
+          return coveralls command, cb
+        cb()
 
-
+# ### Send coverage data to coveralls
+coveralls = (command, cb) ->
+  file = path.join command.dir, 'coverage', 'lcov.info'
+  exec "cat #{file} | ./node_modules/coveralls/bin/coveralls.js --verbose",
+  (err, stdout, stderr) ->
+    console.log stdout.toString().trim() if stdout
+    cb err
+#  return
+#  filein = fs.createReadStream path.join command.dir, 'coverage', 'lcov.info'
+#  filein.pipe process.stdout
+#  args = []
+#  args.push '--verbose' if command.verbose
+#  coveralls = spawn './node_modules/coveralls/bin/coveralls.js', args,
+#    cwd: command.dir
+#  filein.pipe coveralls
+#  filein.on 'end', ->
+#    console.log '--------'
+#    cb()
