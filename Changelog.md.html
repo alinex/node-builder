@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-make/Changelog.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/alex/a3/node-make/Changelogmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -24,6 +24,18 @@
     <div id="headings">
       <div class="heading h1">
         <a href="#version%20changes">Version changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.2.3%20(2014-04-18)">Version 0.2.3 (2014-04-18)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.2.2%20(2014-04-18)">Version 0.2.2 (2014-04-18)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.2.1%20(2014-04-17)">Version 0.2.1 (2014-04-17)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%200.2.0%20(2014-04-17)">Version 0.2.0 (2014-04-17)</a>
       </div>
       <div class="heading h2">
         <a href="#version%200.1.1%20(2014-04-15)">Version 0.1.1 (2014-04-15)</a>
@@ -54,6 +66,68 @@
 
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+
+
+<div class="pilwrap" id="version%200.2.3%20(2014-04-18)">
+  <h2>
+    <a href="#version%200.2.3%20(2014-04-18)" name="version%200.2.3%20(2014-04-18)" class="pilcrow">&#182;</a>
+    Version 0.2.3 (2014-04-18)
+  </h2>
+</div>
+
+
+<ul>
+<li>Added coveralls support to test task.</li>
+</ul>
+
+
+<div class="pilwrap" id="version%200.2.2%20(2014-04-18)">
+  <h2>
+    <a href="#version%200.2.2%20(2014-04-18)" name="version%200.2.2%20(2014-04-18)" class="pilcrow">&#182;</a>
+    Version 0.2.2 (2014-04-18)
+  </h2>
+</div>
+
+
+<ul>
+<li>Removed mocha, coffee, chai... in create task because included in alinex-make.</li>
+<li>Make test task use internal mocha and istanbul.</li>
+<li>Move mocha tests in correct directory. Updated documentation to show the optional dir parameter.</li>
+<li>Remove output from second mocha run for istanbul.</li>
+<li>Add alinex-make as build tool on create.</li>
+<li>Added some documentation to the tools.findbin() method.</li>
+</ul>
+
+
+<div class="pilwrap" id="version%200.2.1%20(2014-04-17)">
+  <h2>
+    <a href="#version%200.2.1%20(2014-04-17)" name="version%200.2.1%20(2014-04-17)" class="pilcrow">&#182;</a>
+    Version 0.2.1 (2014-04-17)
+  </h2>
+</div>
+
+
+<ul>
+<li>Integrated coffee script compilation into code. Optimized uglify to work also if installed in higher module.</li>
+<li>Removed commander object in favor of combined command object.</li>
+</ul>
+
+
+<div class="pilwrap" id="version%200.2.0%20(2014-04-17)">
+  <h2>
+    <a href="#version%200.2.0%20(2014-04-17)" name="version%200.2.0%20(2014-04-17)" class="pilcrow">&#182;</a>
+    Version 0.2.0 (2014-04-17)
+  </h2>
+</div>
+
+
+<ul>
+<li>Make most tasks to allow optional directory parameter, use current as default.</li>
+<li>Optimized the compile task to run on current directory per default.</li>
+<li>Integrated --uglify support for compile of coffee files.</li>
+<li>Added link to the alinex documentation.</li>
+<li>Add compile task which will run coffee script compiler.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.1.1%20(2014-04-15)">

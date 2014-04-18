@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/docTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/docTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -120,8 +120,6 @@
 <p><strong>Arguments:</strong></p>
 
 <ul>
-<li><code>commander</code>
-Commander instance for reading options.</li>
 <li><code>command</code>
 Command specific parameters and options.</li>
 <li><code>callback(err)</code>
@@ -134,11 +132,11 @@ is set. The publication can be done to github pages or using the <code>doc-publi
 script if defined.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">module.exports.run = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nv">url = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;index.html&#39;</span>
   <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">watch</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
     <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
-      <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span>
+      <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span>
     <span class="p">,</span> <span class="mi">5000</span>
 
 </pre></div>
@@ -152,7 +150,7 @@ script if defined.</p>
 <p>Create the html documentation out of source files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">createDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="nx">createDoc</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
@@ -197,7 +195,7 @@ script if defined.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">publish</span>
-      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
       <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
@@ -214,11 +212,11 @@ script if defined.</p>
     <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="o">?</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span>
       <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+        <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
         <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
@@ -234,15 +232,15 @@ script if defined.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
       <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">createTmpDir</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">createTmpDir</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
       <span class="p">],</span> <span class="nf">(err) -&gt;</span>
         <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
           <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
@@ -258,7 +256,7 @@ script if defined.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="k">else</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span><span class="p">.</span><span class="nx">magenta</span>
-      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -276,8 +274,8 @@ script if defined.</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">openUrl = </span><span class="nf">(commander, target, cb) -&gt;</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+<span class="nv">openUrl = </span><span class="nf">(command, target, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Open </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s"> in browser&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nv">opener = </span><span class="k">switch</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span>
     <span class="k">when</span> <span class="s">&#39;darwin&#39;</span> <span class="k">then</span> <span class="s">&#39;open&#39;</span>
@@ -325,10 +323,10 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">createDoc = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">createDoc = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nv">docPath = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">docPath</span>
-    <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove old documentation&quot;</span><span class="p">.</span><span class="nx">grey</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">removeSync</span> <span class="nx">docPath</span>
 
@@ -374,7 +372,7 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="p">]</span>
   <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
     <span class="k">unless</span> <span class="o">~</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">indexOf</span> <span class="s">&quot;Done.&quot;</span>
-      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span>
   <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span>
@@ -411,10 +409,10 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">createTmpDir = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">createTmpDir = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nv">filename = </span><span class="s">&#39;alinex-make-&#39;</span> <span class="o">+</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">randomBytes</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">readUInt32LE</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;-gh&#39;</span>
   <span class="nv">command.tmpdir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">os</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">(),</span> <span class="nx">filename</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create temporary directory at </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">cb</span>
 
@@ -433,7 +431,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">cloneGit = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">cloneGit = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Cloning git repository&quot;</span>
@@ -442,7 +440,7 @@ so we pass a blank title so we can quote the file we are opening</p>
     <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span>
     <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span>
   <span class="p">],</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="nx">cb</span> <span class="nx">err</span>
 
@@ -461,12 +459,12 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">checkoutPages = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">checkoutPages = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Checkout gh-pages branch&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;checkout&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
   <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">err</span>
     <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
@@ -474,7 +472,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <span class="s">&#39;--orphan&#39;</span>
       <span class="s">&#39;gh-pages&#39;</span>
     <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nx">cb</span> <span class="nx">err</span>
 
@@ -493,34 +491,34 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">updateDoc = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">updateDoc = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Update documentation&quot;</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove old documentation&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;rm&#39;</span><span class="p">,</span> <span class="s">&#39;-rf&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span>
   <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
-    <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Copy new documentation into repository&quot;</span><span class="p">.</span><span class="nx">grey</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">),</span> <span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Add files to git&quot;</span><span class="p">.</span><span class="nx">grey</span>
       <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
         <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span>
       <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Commit changes&quot;</span><span class="p">.</span><span class="nx">grey</span>
         <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
           <span class="s">&#39;commit&#39;</span>
           <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Updated documentation&quot;</span>
         <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
           <span class="nx">cb</span> <span class="nx">err</span>
 
@@ -539,13 +537,13 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">pushOrigin = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">pushOrigin = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to git origin&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;push&#39;</span>
     <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
   <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">cb</span><span class="p">()</span>

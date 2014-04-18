@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/index.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -65,9 +65,6 @@
         <a href="#create%20documentation">Create documentation</a>
       </div>
       <div class="heading h3">
-        <a href="#run%20automatic%20tests">Run automatic tests</a>
-      </div>
-      <div class="heading h3">
         <a href="#cleanup%20automatic%20created%20files">Cleanup automatic created files</a>
       </div>
       <div class="heading h2">
@@ -120,6 +117,9 @@ aren't caught will end in an error and abort with exit code 2.</p>
 <p>Each task is made available as separate task module with the <code>run</code> method
 to be called for each alinex package. The given command on the command line
 call may trigger multiple tasks which are done.</p>
+
+<p>Each task will get a <code>command</code> object which holds all the information from the
+command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre></pre></div>
         </td>
@@ -247,7 +247,8 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">run = </span><span class="nf">(commander, command, cb) -&gt;</span>
   <span class="nv">colors.mode = </span><span class="s">&#39;none&#39;</span> <span class="k">unless</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">colors</span>
-
+  <span class="nv">command.colors = </span><span class="nx">commander</span><span class="p">.</span><span class="nx">colors</span>
+  <span class="nv">command.verbose = </span><span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">command</span><span class="p">.</span><span class="nx">_description</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span>
 
 </pre></div>
@@ -274,7 +275,7 @@ execution finished.</li>
 <p>run modules in parallel</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="nx">errorHandler</span><span class="p">.</span><span class="nx">report</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Done.&quot;</span><span class="p">.</span><span class="nx">green</span>
     <span class="nx">cb</span><span class="p">()</span>
@@ -364,11 +365,11 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;push &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;push [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Push to git origin&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-m, --message &lt;message&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;Give comment to commit&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -386,10 +387,10 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;pull &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;pull [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Pull from git origin&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -407,11 +408,11 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;compile &lt;dir&gt;&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;compile [dir]&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Compile the code as necessary&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-u, --uglify&#39;</span><span class="p">,</span> <span class="s">&#39;Use uglify to compress&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -429,12 +430,12 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;publish &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;publish [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new node module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;--major&#39;</span><span class="p">,</span> <span class="s">&#39;Create new major version&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;--minor&#39;</span><span class="p">,</span> <span class="s">&#39;Create new minor version&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -452,12 +453,14 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;test &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;test [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process again&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-c, --coverage&#39;</span><span class="p">,</span> <span class="s">&#39;Create coverage report&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;--coveralls&#39;</span><span class="p">,</span> <span class="s">&#39;Send coverage to coveralls&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-b, --browser&#39;</span><span class="p">,</span> <span class="s">&#39;Open in browser&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -475,35 +478,13 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;doc &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;doc [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Create new API documentation for module&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process updated files&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-p, --publish&#39;</span><span class="p">,</span> <span class="s">&#39;Push to github pages&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-b, --browser&#39;</span><span class="p">,</span> <span class="s">&#39;Open in browser&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
-  <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap" id="run%20automatic%20tests">
-  <h3>
-    <a href="#run%20automatic%20tests" name="run%20automatic%20tests" class="pilcrow">&#182;</a>
-    Run automatic tests
-  </h3>
-</div>
-
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;build &lt;dir&gt;&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Run automatic tests&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-w, --watch&#39;</span><span class="p">,</span> <span class="s">&#39;Keep the process running, watch for changes and process again&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">action</span> <span class="nf">(dir, options) -&gt;</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -521,7 +502,7 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;clean &lt;dir&gt;&#39;</span><span class="p">)</span>
+<span class="nx">commander</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s">&#39;clean [dir]&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">description</span><span class="p">(</span><span class="s">&#39;Cleanup automatic generated files&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-d, --dist&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is not needed in production&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;-a, --auto&#39;</span><span class="p">,</span> <span class="s">&#39;Clean all which is automatically generated&#39;</span><span class="p">)</span>
@@ -529,7 +510,7 @@ execution finished.</li>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dist</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">auto</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="s">&quot;Don&#39;t use both switches --dist and --auto together, that destroys your code.&quot;</span>
     <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">2</span>
-  <span class="nv">options.dir = </span><span class="nx">dir</span>
+  <span class="nv">options.dir = </span><span class="nx">dir</span> <span class="o">?</span> <span class="s">&#39;.&#39;</span>
   <span class="nx">run</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">0</span>
 
 
@@ -560,7 +541,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>check that it works properly</p>
         </td>

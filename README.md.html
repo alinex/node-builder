@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/alex/a3/node-make/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/alex/a3/node-make/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -47,22 +47,19 @@
         <a href="#command%20pull">Command pull</a>
       </div>
       <div class="heading h3">
+        <a href="#command%20compile">Command compile</a>
+      </div>
+      <div class="heading h3">
         <a href="#command%20test">Command test</a>
       </div>
       <div class="heading h3">
         <a href="#command%3A%20doc">Command: doc</a>
       </div>
       <div class="heading h3">
-        <a href="#command%20build">Command build</a>
-      </div>
-      <div class="heading h3">
         <a href="#command%20publish">Command publish</a>
       </div>
       <div class="heading h3">
         <a href="#command%3A%20clean">Command: clean</a>
-      </div>
-      <div class="heading h2">
-        <a href="#command%20overview">Command overview</a>
       </div>
       <div class="heading h2">
         <a href="#configuration">Configuration</a>
@@ -132,6 +129,7 @@ as development dependency.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">production</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">help</span>
 </code></pre></div>
 
 
@@ -142,9 +140,12 @@ as development dependency.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">devs</span>
+<span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="nx">node_modules</span><span class="o">/</span><span class="p">.</span><span class="nx">bin</span><span class="o">/</span><span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">--</span><span class="nx">help</span>
 </code></pre></div>
 
 
+
+<p>By integrating it you won't need all the development tools within your package.</p>
 
 <p><a href="https://nodei.co/npm/alinex-make/"><img src="https://nodei.co/npm/alinex-make.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
 
@@ -165,8 +166,21 @@ as development dependency.</p>
 
 
 
+<p>but if not installed globally you may run</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">node_modules</span><span class="o">/</span><span class="p">.</span><span class="nx">bin</span><span class="o">/</span><span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span>
+</code></pre></div>
+
+
+
 <p>With the option <code>--help</code> a screen explaining all commands and options will be
 displayed. The major commands will be described here.</p>
+
+<p>Most commands have an optional directory name as first plain parameter which
+can be used to specify on which directory to work. It should point to the
+base package directory of a module. If not specified the command will run from
+the current directory.</p>
 
 
 <div class="pilwrap" id="general%20options">
@@ -211,7 +225,6 @@ name, too.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
-
 <span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="kr">private</span><span class="o">-</span><span class="nx">module</span> <span class="o">--</span><span class="kr">private</span>
 </code></pre></div>
 
@@ -233,12 +246,13 @@ may directly start to add your code.</p>
 it will also add and commit all other changes before doing so.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
 
-<p>or</p>
+<p>or to also commit the last changes</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">message</span> <span class="s2">&quot;commit message&quot;</span>
@@ -258,7 +272,46 @@ it will also add and commit all other changes before doing so.</p>
 <p>Like <code>push</code> this will fetch the newest changes from git origin.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">pull</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="command%20compile">
+  <h3>
+    <a href="#command%20compile" name="command%20compile" class="pilcrow">&#182;</a>
+    Command <code>compile</code>
+  </h3>
+</div>
+
+
+<p>This task is used to compile the sources into for runtime optimized library.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">compile</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">compile</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+</code></pre></div>
+
+
+
+<p>Or give an directory and use uglify to compress the <strong>just now experimental</strong>
+extension. It works for live server but will break source maps for node-error
+and makes your coverage report unreadable.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">compile</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">uglify</span>
+</code></pre></div>
+
+
+
+<p>Mostly this task will be added as prepublish script to the <code>package.json</code> like:</p>
+
+
+<div class="highlight"><pre><code><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;prepublish&quot;</span><span class="o">:</span> <span class="s2">&quot;node_modules/.bin/alinex-make compile -u&quot;</span>
+<span class="p">}</span>
 </code></pre></div>
 
 
@@ -279,12 +332,13 @@ errors the automatic tests will be run.</p>
 a code coverage report will be build.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">test</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">test</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
 
-<p>Or to contineously watch:</p>
+<p>Or to contineously watch it:</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
@@ -292,8 +346,27 @@ a code coverage report will be build.</p>
 
 
 
-<p>And at last you may also add the <code>--browser</code> flag to open the documentation in
-the browser after created.</p>
+<p>You may also create an html coverage report:</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">test</span> <span class="o">--</span><span class="nx">coverage</span>
+</code></pre></div>
+
+
+
+<p>And at last you can add the <code>--browser</code> flag to open the coverage report
+automatically in the browser. Also <code>--coveralls</code> may be added to send the
+results to coveralls.</p>
+
+<p>This task can also be added to the <code>package.json</code> to be called using <code>npm test</code>:</p>
+
+
+<div class="highlight"><pre><code><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;node_modules/.bin/alinex-make test&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="command%3A%20doc">
@@ -313,7 +386,8 @@ any language and generate HTML pages with the documentation beside the
 code.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">doc</span>                   <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>      <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -349,32 +423,6 @@ by the <code>&lt;basename&gt;.css</code> while basename is the package name befo
 hyphen.</p>
 
 
-<div class="pilwrap" id="command%20build">
-  <h3>
-    <a href="#command%20build" name="command%20build" class="pilcrow">&#182;</a>
-    Command <code>build</code>
-  </h3>
-</div>
-
-
-<p>Genereate the base system out of the source code. This creates the <code>lib</code> folder
-by copying, compiling and transforming files. Everything will be done parallel.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">build</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
-</code></pre></div>
-
-
-
-<p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
-
-
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">build</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
-</code></pre></div>
-
-
-
-
 <div class="pilwrap" id="command%20publish">
   <h3>
     <a href="#command%20publish" name="command%20publish" class="pilcrow">&#182;</a>
@@ -390,7 +438,8 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>To publish the next bugfix version only call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">publish</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -398,7 +447,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>For the next minor version (second number) call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">minor</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">minor</span>
 </code></pre></div>
 
 
@@ -406,7 +455,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>And for a new major version:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">major</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">major</span>
 </code></pre></div>
 
 
@@ -430,7 +479,8 @@ development environment.</p>
 <p>To cleanup all safe files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">clean</span>                 <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
+<span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>    <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -438,7 +488,7 @@ development environment.</p>
 <p>Or on the development system remove all created files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">auto</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">auto</span>
 </code></pre></div>
 
 
@@ -446,42 +496,7 @@ development environment.</p>
 <p>And at last for production remove development files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">dist</span>
-</code></pre></div>
-
-
-
-
-<div class="pilwrap" id="command%20overview">
-  <h2>
-    <a href="#command%20overview" name="command%20overview" class="pilcrow">&#182;</a>
-    Command overview
-  </h2>
-</div>
-
-
-<p>The following table will give a short overview of what really is done on each
-command. This is not a full list of options and execute commands but an overview
-of the major parts.</p>
-
-
-<div class="highlight"><pre><code><span class="o">|</span><span class="err"> </span><span class="nx">Command</span> <span class="o">|</span> <span class="nx">Option</span> <span class="o">|</span> <span class="nx">Execute</span> <span class="p">(</span><span class="nx">pseudo</span> <span class="nx">code</span><span class="p">)</span>                                 <span class="o">|</span>
-<span class="o">+---------+--------+-------------------------------------------------------+</span>
-<span class="o">|</span> <span class="nx">create</span>  <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">mkdir</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">init</span><span class="p">;</span> <span class="nx">touch</span> <span class="nx">files</span><span class="p">...;</span> <span class="nx">create</span> <span class="nx">github</span>        <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span>        <span class="o">|</span><span class="err"> </span><span class="nx">git</span> <span class="nx">add</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">commit</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">push</span>                         <span class="o">|</span>
-<span class="o">|</span> <span class="nx">push</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">push</span> <span class="nx">origin</span> <span class="nx">master</span>                                <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">commit</span> <span class="o">|</span> <span class="o">+</span> <span class="nx">git</span> <span class="nx">add</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">commit</span> <span class="c1">// before                       |</span>
-<span class="o">|</span> <span class="nx">pull</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">pull</span>                                              <span class="o">|</span>
-<span class="o">|</span> <span class="nx">test</span>    <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">lint</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">test</span><span class="p">;</span> <span class="nx">istanbul</span>                              <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
-<span class="o">|</span> <span class="nx">doc</span>     <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">docker</span>                                                <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
-<span class="o">|</span> <span class="nx">build</span>   <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">npm</span> <span class="nx">install</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">update</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">dedupe</span>                   <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">watch</span>  <span class="o">|</span> <span class="o">+</span> <span class="nx">keep</span> <span class="nx">watching</span>                                       <span class="o">|</span>
-<span class="o">|</span> <span class="nx">publish</span> <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">git</span> <span class="nx">tag</span><span class="p">;</span> <span class="nx">git</span> <span class="nx">push</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">publish</span>                        <span class="o">|</span>
-<span class="o">|</span> <span class="nx">clean</span>   <span class="o">|</span> <span class="o">-</span>      <span class="o">|</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span><span class="p">;</span> <span class="nx">npm</span> <span class="nx">prune</span>                                      <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">dist</span>   <span class="o">|</span> <span class="o">+</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span> <span class="nx">more</span> <span class="nx">files</span>                                    <span class="o">|</span>
-<span class="o">|</span>         <span class="o">|</span> <span class="nx">auto</span>   <span class="o">|</span> <span class="o">+</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">r</span> <span class="nx">more</span> <span class="nx">files</span>                                    <span class="o">|</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">dist</span>
 </code></pre></div>
 
 

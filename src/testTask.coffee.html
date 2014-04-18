@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/testTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/testTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -42,6 +42,9 @@
       </div>
       <div class="heading h3">
         <a href="#create%20local%20coverage%20report">Create local coverage report</a>
+      </div>
+      <div class="heading h3">
+        <a href="#send%20coverage%20data%20to%20coveralls">Send coverage data to coveralls</a>
       </div>
     </div>
   </div>
@@ -91,6 +94,7 @@
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
 <span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">tools = </span><span class="nx">require</span> <span class="s">&#39;./tools&#39;</span>
 
 
 </pre></div>
@@ -109,8 +113,6 @@
 <p><strong>Arguments:</strong></p>
 
 <ul>
-<li><code>commander</code>
-Commander instance for reading options.</li>
 <li><code>command</code>
 Command specific parameters and options.</li>
 <li><code>callback(err)</code>
@@ -119,20 +121,20 @@ execution finished.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(commander, command, cb) -&gt;</span>
-  <span class="nx">coffeelint</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+<span class="nv">module.exports.run = </span><span class="nf">(command, cb) -&gt;</span>
+  <span class="nx">coffeelint</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
     <span class="p">,</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">test</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="nx">testMocha</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">coverage</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">coverage</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
           <span class="nv">url = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;coverage&#39;</span><span class="p">,</span> <span class="s">&#39;lcov-report&#39;</span><span class="p">,</span> <span class="s">&#39;index.html&#39;</span>
-          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">commander</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
+          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">coverage</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">browser</span>
           <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -151,8 +153,8 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">openUrl = </span><span class="nf">(commander, target, cb) -&gt;</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
+<span class="nv">openUrl = </span><span class="nf">(command, target, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Open </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s"> in browser&quot;</span><span class="p">.</span><span class="nx">grey</span>
   <span class="nv">opener = </span><span class="k">switch</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span>
     <span class="k">when</span> <span class="s">&#39;darwin&#39;</span> <span class="k">then</span> <span class="s">&#39;open&#39;</span>
@@ -201,7 +203,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">coffeelint = </span><span class="nf">(commander, command, cb) -&gt;</span>
+<span class="nv">coffeelint = </span><span class="nf">(command, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -214,10 +216,10 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Check for existing command</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">bin = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&quot;node_modules/.bin/coffeelint&quot;</span>
-  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">bin</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped lint because coffeelint is missing&quot;</span><span class="p">.</span><span class="nx">yellow</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
+  <span class="nx">tools</span><span class="p">.</span><span class="nx">findbin</span> <span class="s">&#39;coffeelint&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+    <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped lint because coffeelint is missing&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -230,23 +232,22 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Run external command</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Linting code&quot;</span><span class="p">.</span><span class="nx">grey</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">colors</span>
-    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">bin</span><span class="p">,</span> <span class="p">[</span>
-      <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
-      <span class="s">&#39;src&#39;</span>
-    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
-  <span class="k">else</span>
-    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">bin</span><span class="p">,</span> <span class="p">[</span>
-      <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
-      <span class="s">&#39;src&#39;</span>
-    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-      <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Linting coffee code&quot;</span>
+    <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">colors</span>
+      <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
+        <span class="s">&#39;src&#39;</span>
+      <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
+    <span class="k">else</span>
+      <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">&#39;-f&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;coffeelint.json&#39;</span>
+        <span class="s">&#39;src&#39;</span>
+      <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+        <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span>
 
 </pre></div>
         </td>
@@ -259,11 +260,11 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Error management</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
-    <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
-      <span class="nv">status = </span><span class="s">&quot;Coffeelint exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">cb</span> <span class="nx">status</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+      <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="nv">status = </span><span class="s">&quot;Coffeelint exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">cb</span> <span class="nx">status</span>
 
 
 
@@ -283,23 +284,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>It will add the -w flag if <code>--watch</code> is set.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">test = </span><span class="nf">(commander, command, cb) -&gt;</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Read package.json&quot;</span><span class="p">.</span><span class="nx">grey</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">.</span><span class="nx">test</span><span class="o">?</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped because no tests defined in package.json&quot;</span><span class="p">.</span><span class="nx">yellow</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-  <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
-  <span class="p">,</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span> <span class="o">and</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run test scripts&quot;</span>
-    <span class="nv">args = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">test</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-    <span class="nv">cmd = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
-    <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">watch</span>
-    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
+<span class="nv">testMocha = </span><span class="nf">(command, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -308,6 +293,57 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+</div>
+<p>check if there are any mocha tests</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span>
+  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">dir</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;No mocha test dir found at </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">.&quot;</span><span class="p">.</span><span class="nx">magenta</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+</div>
+<p>Check for existing command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">tools</span><span class="p">.</span><span class="nx">findbin</span> <span class="s">&#39;mocha&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run mocha tests&quot;</span>
+    <span class="nv">args = </span><span class="p">[</span>
+      <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
+      <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
+      <span class="s">&#39;-c&#39;</span>
+      <span class="s">&#39;test/mocha&#39;</span>
+    <span class="p">]</span>
+    <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">watch</span>
+    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span> <span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>Error management</p>
         </td>
@@ -333,26 +369,9 @@ so we pass a blank title so we can quote the file we are opening</p>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">coverage = </span><span class="nf">(commander, command, cb) -&gt;</span>
-  <span class="nv">bin = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&quot;node_modules/.bin/istanbul&quot;</span>
-  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">bin</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped coverage because istanbul is missing&quot;</span><span class="p">.</span><span class="nx">yellow</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Read package.json&quot;</span><span class="p">.</span><span class="nx">grey</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">.</span><span class="nx">test</span><span class="o">?</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped because no tests defined in package.json&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+<span class="nv">coverage = </span><span class="nf">(command, cb) -&gt;</span>
+  <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">coverage</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-  <span class="nv">args = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">.</span><span class="nx">test</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\s+/</span>
-  <span class="nv">tool = </span><span class="nx">args</span><span class="p">.</span><span class="nx">shift</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">/\/mocha$/</span><span class="p">,</span> <span class="s">&#39;/_mocha&#39;</span>
-  <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;cover&#39;</span><span class="p">,</span> <span class="nx">tool</span><span class="p">,</span> <span class="s">&#39;--&#39;</span>
-  <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">bin</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-    <span class="k">if</span> <span class="nx">commander</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span>
 
 </pre></div>
         </td>
@@ -360,16 +379,118 @@ so we pass a blank title so we can quote the file we are opening</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+</div>
+<p>check if there are any mocha tests</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">dir = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span>
+  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">dir</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Coverage only works on mocha tests.&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>Check for existing command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">tools</span><span class="p">.</span><span class="nx">findbin</span> <span class="s">&#39;istanbul&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run istanbul coverage report&quot;</span>
+    <span class="nx">tools</span><span class="p">.</span><span class="nx">findbin</span> <span class="s">&#39;_mocha&#39;</span><span class="p">,</span> <span class="nf">(err, mocha) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s">&#39;cover&#39;</span>
+        <span class="nx">mocha</span>
+        <span class="s">&#39;--&#39;</span>
+        <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
+        <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
+        <span class="s">&#39;-c&#39;</span>
+        <span class="s">&#39;test/mocha&#39;</span>
+      <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">}</span>
+      <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>Error management</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
-    <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
-      <span class="nv">status = </span><span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Istanbul exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">cb</span> <span class="nx">status</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+        <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Istanbul exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">coveralls</span>
+          <span class="k">return</span> <span class="nx">coveralls</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="send%20coverage%20data%20to%20coveralls">
+  <h3>
+    <a href="#send%20coverage%20data%20to%20coveralls" name="send%20coverage%20data%20to%20coveralls" class="pilcrow">&#182;</a>
+    Send coverage data to coveralls
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">coveralls = </span><span class="nf">(command, cb) -&gt;</span>
+  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;coverage&#39;</span><span class="p">,</span> <span class="s">&#39;lcov.info&#39;</span>
+  <span class="nx">exec</span> <span class="s">&quot;cat </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> | ./node_modules/coveralls/bin/coveralls.js --verbose&quot;</span><span class="p">,</span>
+  <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span>
+    <span class="nx">cb</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<p>return
+ filein = fs.createReadStream path.join command.dir, 'coverage', 'lcov.info'
+ filein.pipe process.stdout
+ args = []
+ args.push '--verbose' if command.verbose
+ coveralls = spawn './node_modules/coveralls/bin/coveralls.js', args,
+   cwd: command.dir
+ filein.pipe coveralls
+ filein.on 'end', ->
+   console.log '--------'
+   cb()</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>
