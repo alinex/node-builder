@@ -195,7 +195,7 @@ createPackage = (command, cb) ->
     description: ''
     copyright: "#{PKG.author?.name ? ''} #{(new Date()).getFullYear()}"
     private: command.private ? false
-    keywords: ''
+    keywords: []
     homepage: if command.github then "http://#{gituser}.github.io/#{gitname}/" else ""
     repository:
       type: 'git'
