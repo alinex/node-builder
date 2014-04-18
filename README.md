@@ -129,7 +129,9 @@ This task is used to compile the sources into for runtime optimized library.
     > alinex-make compile               # from within the package directory
     > alinex-make compile ./node-error  # or from anywhere else
 
-Or give an directory and use uglify to compress the javascript.
+Or give an directory and use uglify to compress the **just now experimental**
+extension. It works for live server but will break source maps for node-error
+and makes your coverage report unreadable.
 
     > alinex-make compile ../node-error --uglify
 
@@ -155,8 +157,12 @@ Or to contineously watch it:
 
     > alinex-make test ./node-error --watch
 
-And at last you may also add the `--browser` flag to open the documentation in
-the browser after created.
+You may also create an html coverage report:
+
+    > alinex-make test --coverage
+
+And at last you can add the `--browser` flag to open the coverage report
+automatically in the browser.
 
 This task can also be added to the `package.json` to be called using `npm test`:
 

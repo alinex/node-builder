@@ -1,6 +1,7 @@
 # Helper tool
 # =================================================
-# This contains some functions used within the tasks. They might be 
+# This contains some functions used within the tasks. They might be moved to
+# other modules later if they are relevant in general.
 
 # Node modules
 # -------------------------------------------------
@@ -33,7 +34,7 @@ filefind = module.exports.filefind = (dir, filter, cb) ->
     cb = filter
     filter = null
   # check for existing directory
-  fs.lstat dir, (err, stats) ->    
+  fs.lstat dir, (err, stats) ->
     return cb err if err
     if stats.isDirectory()
       # read files
@@ -50,7 +51,7 @@ filefind = module.exports.filefind = (dir, filter, cb) ->
             list = list.concat files if files
           cb null, list
     else
-      # it's a file entry      
+      # it's a file entry
       file = dir
       # check filter rules
       unless filter

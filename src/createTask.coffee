@@ -247,7 +247,8 @@ createReadme = (command, cb) ->
     doc.badges += "\n[![Dependency Status]
     (https://gemnasium.com/#{gituser}/#{gitname}.png)]\
     (https://gemnasium.com/#{gituser}/#{gitname})"
-    doc.install = "\n[![NPM](https://nodei.co/npm/#{command.package}.png?downloads=true&stars=true)]\
+    doc.install = "\n\
+    [![NPM](https://nodei.co/npm/#{command.package}.png?downloads=true&stars=true)]\
     (https://nodei.co/npm/#{command.package}/)"
 
   fs.writeFile file, """

@@ -25,7 +25,7 @@ tools = require './tools'
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (command, cb) ->  
+module.exports.run = (command, cb) ->
   # check for existing source files
   src = path.join command.dir, 'src'
   unless fs.existsSync src
@@ -63,15 +63,15 @@ compileCoffee = (command, cb) ->
         filepathjs = path.join lib, path.dirname(file)[src.length..], jsfile
         filepathmap = path.join lib, path.dirname(file)[src.length..], mapfile
         async.parallel [
-          (cb) -> 
+          (cb) ->
             fs.mkdirs path.dirname(filepathjs), (err) ->
               return cb err if err
               fs.writeFile filepathjs, compiled.js, cb
-          (cb) -> 
+          (cb) ->
             fs.mkdirs path.dirname(filepathmap), (err) ->
               return cb err if err
               fs.writeFile filepathmap, compiled.v3SourceMap, cb
-        ], (err) -> 
+        ], (err) ->
           return cb err if err or not command.uglify
           console.log "Uglify #{jsfile}".grey if command.verbose
           uglify
@@ -91,7 +91,7 @@ uglify = (item, cb) ->
       item.fromjs,
       '--source-map', item.tomap
       '-o', item.tojs
-    ]    
+    ]
     args.push '--in-source-map', item.frommap if item.frommap
     execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
