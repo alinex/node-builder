@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.3 (2014-04-18)
+-------------------------------------------------
+- Added coveralls support to test task.
+
 Version 0.2.2 (2014-04-18)
 -------------------------------------------------
 - Removed mocha, coffee, chai... in create task because included in alinex-make.
