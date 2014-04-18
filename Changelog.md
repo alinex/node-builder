@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.2 (2014-04-18)
+-------------------------------------------------
+- Removed mocha, coffee, chai... in create task because included in alinex-make.
+- Make test task use internal mocha and istanbul.
+- Move mocha tests in correct directory. Updated documentation to show the optional dir parameter.
+- Remove output from second mocha run for istanbul.
+- Add alinex-make as build tool on create.
+- Added some documentation to the tools.findbin() method.
+
 Version 0.2.1 (2014-04-17)
 -------------------------------------------------
 - Integrated coffee script compilation into code. Optimized uglify to work also if installed in higher module.
