@@ -317,9 +317,7 @@ createTravis = (command, cb) ->
   coveralls = "
     COVERALLS_SERVICE_NAME=travis-ci
     COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo
-    node_modules/.bin/istanbul cover node_modules/.bin/_mocha --
-    --compilers coffee:coffee-script/register --reporter spec
-    && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose"
+    node_modules/.bin/alinex-make test -c --coveralls"
   fs.writeFile file, """
     language: node_js
     node_js:
