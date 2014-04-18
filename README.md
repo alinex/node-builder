@@ -55,6 +55,10 @@ The tool will be called with
 
     > alinex-make [general options] <command> [command options]
 
+but if not installed globally you may run
+
+    > node_modules/.bin/alinex-make [general options] <command> [command options]
+
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
 
@@ -91,7 +95,6 @@ name, too.
 Some example calls will look like:
 
     > alinex-make create ./node-error --package alinex-error
-
     > alinex-make create ./private-module --private
 
 This process is interactive and will ask you some more details. After that you
@@ -103,9 +106,10 @@ may directly start to add your code.
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
-    > alinex-make push ./node-error
+    > alinex-make push                  # from within the package directory
+    > alinex-make push ./node-error     # or from anywhere else
 
-or
+or to also commit the last changes
 
     > alinex-make push ./node-error --message "commit message"
 
@@ -114,14 +118,16 @@ or
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > alinex-make pull ./node-error
+    > alinex-make pull                  # from within the package directory
+    > alinex-make pull ./node-error     # or from anywhere else
 
 
 ### Command `compile`
 
 This task is used to compile the sources into for runtime optimized library.
 
-    > alinex-make compile
+    > alinex-make compile               # from within the package directory
+    > alinex-make compile ./node-error  # or from anywhere else
 
 Or give an directory and use uglify to compress the javascript.
 
@@ -142,14 +148,21 @@ errors the automatic tests will be run.
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
-    > bin/make test ../node-error
+    > alinex-make test                  # from within the package directory
+    > alinex-make test ./node-error     # or from anywhere else
 
-Or to contineously watch:
+Or to contineously watch it:
 
     > alinex-make test ./node-error --watch
 
 And at last you may also add the `--browser` flag to open the documentation in
 the browser after created.
+
+This task can also be added to the `package.json` to be called using `npm test`:
+
+    "scripts": {
+      "test": "node_modules/.bin/alinex-make test"
+    }
 
 
 ### Command: `doc`
@@ -162,7 +175,8 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > alinex-make doc ./node-error
+    > alinex-make doc                   # from within the package directory
+    > alinex-make doc ./node-error      # or from anywhere else
 
 It is also possible to update the documentation stored on any website. To
 configure this for GitHub pages, you have to do nothing, for all others you
@@ -195,15 +209,16 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > bin/make publish ../node-error
+    > alinex-make publish               # from within the package directory
+    > alinex-make publish ./node-error  # or from anywhere else
 
 For the next minor version (second number) call:
 
-    > bin/make publish ../node-error --minor
+    > alinex-make publish ../node-error --minor
 
 And for a new major version:
 
-    > bin/make publish ../node-error --major
+    > alinex-make publish ../node-error --major
 
 
 ### Command: `clean`
@@ -217,41 +232,16 @@ development environment.
 
 To cleanup all safe files:
 
-    > bin/make clean ../node-error
+    > alinex-make clean                 # from within the package directory
+    > alinex-make clean ./node-error    # or from anywhere else
 
 Or on the development system remove all created files:
 
-    > bin/make clean ../node-error --auto
+    > alinex-make clean ../node-error --auto
 
 And at last for production remove development files:
 
-    > bin/make clean ../node-error --dist
-
-
-Command overview
--------------------------------------------------
-
-The following table will give a short overview of what really is done on each
-command. This is not a full list of options and execute commands but an overview
-of the major parts.
-
-    | Command | Option | Execute (pseudo code)                                 |
-    +---------+--------+-------------------------------------------------------+
-    | create  | -      | mkdir; git init; touch files...; create github        |
-    |         |        | git add; git commit; git push                         |
-    | push    | -      | git push origin master                                |
-    |         | commit | + git add; git commit // before                       |
-    | pull    | -      | git pull                                              |
-    | test    | -      | lint; npm test; istanbul                              |
-    |         | watch  | + keep watching                                       |
-    | doc     | -      | docker                                                |
-    |         | watch  | + keep watching                                       |
-    | build   | -      | npm install; npm update; npm dedupe                   |
-    |         | watch  | + keep watching                                       |
-    | publish | -      | git tag; git push; npm publish                        |
-    | clean   | -      | rm -r; npm prune                                      |
-    |         | dist   | + rm -r more files                                    |
-    |         | auto   | + rm -r more files                                    |
+    > alinex-make clean ../node-error --dist
 
 
 Configuration

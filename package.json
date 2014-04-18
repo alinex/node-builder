@@ -21,7 +21,7 @@
   "bin": "bin/make",
   "scripts": {
     "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
-    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c",
+    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c test/mocha",
     "start": "bin/make"
   },
   "directories": {
