@@ -3,7 +3,7 @@
   "version": "0.2.3",
   "description": "Helper commands for development of npm packages.",
   "copyright": "Alexander Schilling 2013-2014",
-  "keywords": ["make", "build", "doc", "create", "compile", "test", "publish"],
+  "keywords": ["make", "build", "doc", "create", "tool", "compile", "test", "publish"],
   "homepage": "http://alinex.github.io/node-make",
   "repository": {
     "type": "git",
