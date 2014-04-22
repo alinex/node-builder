@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/createTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/createTask.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -459,7 +459,7 @@ execution finished.</li>
     <span class="nv">description: </span><span class="s">&#39;&#39;</span>
     <span class="nv">copyright: </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">PKG</span><span class="p">.</span><span class="nx">author</span><span class="o">?</span><span class="p">.</span><span class="nx">name</span> <span class="o">?</span> <span class="s">&#39;&#39;</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()).</span><span class="nx">getFullYear</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">private: </span><span class="nx">command</span><span class="p">.</span><span class="nx">private</span> <span class="o">?</span> <span class="kc">false</span>
-    <span class="nv">keywords: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">keywords: </span><span class="p">[]</span>
     <span class="nv">homepage: </span><span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">github</span> <span class="k">then</span> <span class="s">&quot;http://</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">.github.io/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/&quot;</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
     <span class="nv">repository:</span>
       <span class="nv">type: </span><span class="s">&#39;git&#39;</span>
@@ -645,9 +645,7 @@ execution finished.</li>
   <span class="nv">coveralls = </span><span class="s">&quot;</span>
 <span class="s">    COVERALLS_SERVICE_NAME=travis-ci</span>
 <span class="s">    COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo</span>
-<span class="s">    node_modules/.bin/istanbul cover node_modules/.bin/_mocha --</span>
-<span class="s">    --compilers coffee:coffee-script/register --reporter spec</span>
-<span class="s">    &amp;&amp; cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js --verbose&quot;</span>
+<span class="s">    node_modules/.bin/alinex-make test -c --coveralls&quot;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">    language: node_js</span>
 <span class="s">    node_js:</span>
