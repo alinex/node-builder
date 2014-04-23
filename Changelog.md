@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.4 (2014-04-23)
+-------------------------------------------------
+- Fix coveralls to use correct path.
+- Added keywords.
+- Made keywords an array like specified for package.json.
+- Change to use alinex-make for tests in newly created modules.
+
 Version 0.2.3 (2014-04-18)
 -------------------------------------------------
 - Added coveralls support to test task.
