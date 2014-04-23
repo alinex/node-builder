@@ -153,7 +153,8 @@ coverage = (command, cb) ->
 # ### Send coverage data to coveralls
 coveralls = (command, cb) ->
   file = path.join command.dir, 'coverage', 'lcov.info'
-  exec "cat #{file} | ./node_modules/coveralls/bin/coveralls.js --verbose",
+  coveralls = path.join GLOBAL.ROOT_DIR, 'node_modules/coveralls/bin/coveralls.js'
+  exec "cat #{file} | #{coveralls} --verbose",
   (err, stdout, stderr) ->
     console.log stdout.toString().trim() if stdout
     cb err
