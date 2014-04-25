@@ -145,18 +145,16 @@ createDoc = (command, cb) ->
       if err
         console.warn err.toString().magenta
         return cb()
-      console.log "Correcting local links".code if command.verbose
+      console.log "Correcting local links".grey if command.verbose
       execFile cmd, [
-        '(<a href="(?![#\/]|\w+:\/\/)[^?#"]+)(.*?")'
-        '$1.html$2'
+        '(<a href="(?![#\/]|(ht|f)tps?://)[^?#"]+)(.*?)"'
+        '$1.html$2"'
         path.join command.dir, 'doc'
         '-r'
       ], (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
         cb err
-
-
 
 # ### Create temporary directory
 createTmpDir = (command, cb) ->
