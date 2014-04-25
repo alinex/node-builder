@@ -25,7 +25,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Form me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -430,6 +430,31 @@
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.vg</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#aa0000</span> <span class="p">}</span> <span class="c">/* Name.Variable.Global */</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.vi</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#aa0000</span> <span class="p">}</span> <span class="c">/* Name.Variable.Instance */</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.il</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#009999</span> <span class="p">}</span> <span class="c">/* Literal.Number.Integer.Long */</span>
+
+<span class="k">@media</span> <span class="nt">print</span> <span class="p">{</span>
+  <span class="nc">.sidebar</span> <span class="nf">#sidebar_wrapper</span><span class="o">,</span>
+  <span class="nc">.sidebar</span> <span class="nf">#sidebar-toggle</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.sidebar</span> <span class="nf">#container</span> <span class="p">{</span>
+    <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="k">bottom</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nf">#fork</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> 
+  <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">145px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">145px</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png)</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">10000</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#fork</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png)</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
         </td>
       </tr>
