@@ -159,7 +159,7 @@ createDoc = (command, cb) ->
         return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
         execFile cmd, [
           '(<div id="container">)'
-          '$1<a id="fork" href="'+pack.repository.url+'"></a>'
+          '$1<a id="fork" href="'+pack.repository.url+'" title="Form me on GitHub"></a>'
           path.join command.dir, 'doc'
           '-r'
         ], (err, stdout, stderr) ->
