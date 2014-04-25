@@ -154,7 +154,18 @@ createDoc = (command, cb) ->
       ], (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
-        cb err
+        return cb err if err
+        pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+        return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+        execFile cmd, [
+          '(<div id="container">)'
+          '$1<a id="fork" href="'+pack.repository.url+'"></a>'
+          path.join command.dir, 'doc'
+          '-r'
+        ], (err, stdout, stderr) ->
+          console.log stdout.trim().grey if stdout and command.verbose
+          console.error stderr.trim().magenta if stderr
+          cb err
 
 # ### Create temporary directory
 createTmpDir = (command, cb) ->
