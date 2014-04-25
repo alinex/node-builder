@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.5 (2014-04-25)
+-------------------------------------------------
+- Optimize accessibility of fork label.
+- Add a "Fork me on GitHub" label with link.
+- Fix bug in regex for html link correction.
+- Support local links in GitHub and docker output to work.
+- Added print style without menu for the alinex documentation.
+
 Version 0.2.4 (2014-04-23)
 -------------------------------------------------
 - Fix coveralls to use correct path.
