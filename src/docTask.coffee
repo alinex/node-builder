@@ -14,6 +14,8 @@ colors = require 'colors'
 os = require 'os'
 crypto = require 'crypto'
 
+tools = require './tools'
+
 # Main routine
 # -------------------------------------------------
 #
@@ -136,10 +138,25 @@ createDoc = (command, cb) ->
     console.error data.toString().trim().magenta
   # Error management
   proc.on 'error', cb
-  proc.on 'exit', (status) ->
-    if status != 0
-      status = new Error "Docker exited with status #{status}"
-    cb status
+  proc.on 'exit', (status) ->    
+    return cb new Error "Docker exited with status #{status}" if status != 0
+    # correct internal links
+    tools.findbin 'replace', (err, cmd) ->
+      if err
+        console.warn err.toString().magenta
+        return cb()
+      console.log "Correcting local links".code if command.verbose
+      execFile cmd, [
+        '(<a href="(?![#\/]|\w+:\/\/)[^?#"]+)(.*?")'
+        '$1.html$2'
+        path.join command.dir, 'doc'
+        '-r'
+      ], (err, stdout, stderr) ->
+        console.log stdout.trim().grey if stdout and command.verbose
+        console.error stderr.trim().magenta if stderr
+        cb err
+
+
 
 # ### Create temporary directory
 createTmpDir = (command, cb) ->
