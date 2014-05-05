@@ -138,7 +138,7 @@ createDoc = (command, cb) ->
     console.error data.toString().trim().magenta
   # Error management
   proc.on 'error', cb
-  proc.on 'exit', (status) ->    
+  proc.on 'exit', (status) ->
     return cb new Error "Docker exited with status #{status}" if status != 0
     # correct internal links
     tools.findbin 'replace', (err, cmd) ->
@@ -159,7 +159,7 @@ createDoc = (command, cb) ->
         return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
         execFile cmd, [
           '(<div id="container">)'
-          '$1<a id="fork" href="'+pack.repository.url+'" title="Form me on GitHub"></a>'
+          '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
           path.join command.dir, 'doc'
           '-r'
         ], (err, stdout, stderr) ->
