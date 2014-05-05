@@ -55,7 +55,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Form me on GitHub"></a><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -391,7 +391,7 @@ so we pass a blank title so we can quote the file we are opening</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>    
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Docker exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
 
 </pre></div>
@@ -423,7 +423,7 @@ so we pass a blank title so we can quote the file we are opening</p>
         <span class="k">return</span> <span class="nx">cb</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
         <span class="nx">execFile</span> <span class="nx">cmd</span><span class="p">,</span> <span class="p">[</span>
           <span class="s">&#39;(&lt;div id=&quot;container&quot;&gt;)&#39;</span>
-          <span class="s">&#39;$1&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Form me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
+          <span class="s">&#39;$1&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
           <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
           <span class="s">&#39;-r&#39;</span>
         <span class="p">],</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
