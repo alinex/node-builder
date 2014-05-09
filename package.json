@@ -43,7 +43,6 @@
     "prompt": "0.2.x",
     "async": ">=0.2.0",
     "moment": "2.x",
-    "fs-extra": ">=0.4.0",
     "request": "2.x",
     "alinex-error": ">=0.1.0",
     "coffeelint": "1.x",
@@ -54,7 +53,8 @@
     "istanbul": "0.2.x",
     "coveralls": "2.x",
     "docker": ">=0.2.10",
-    "replace": "0.2.x"
+    "replace": "0.2.x",
+    "alinex-fs": "0.1.x"
   },
   "devDependencies": {},
   "optionalDependencies": {},

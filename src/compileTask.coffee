@@ -7,13 +7,11 @@
 
 # include base modules
 async = require 'async'
-fs = require 'fs-extra'
+fs = require 'alinex-fs'
 path = require 'path'
 colors = require 'colors'
 {execFile} = require 'child_process'
 coffee = require 'coffee-script'
-
-tools = require './tools'
 
 # Main routine
 # -------------------------------------------------
@@ -42,7 +40,7 @@ compileCoffee = (command, cb) ->
   src = path.join command.dir, 'src'
   lib = path.join command.dir, 'lib'
   # find files to compile
-  tools.filefind src, /\.coffee$/, (err, files) ->
+  fs.find src, { include: '*.coffee' }, (err, files) ->
     return cb err if err
     return cb() unless files
     console.log "Compile coffee script"
@@ -85,7 +83,7 @@ compileCoffee = (command, cb) ->
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
-  tools.findbin 'uglifyjs', (err, cmd) ->
+  fs.npmbin 'uglifyjs', (err, cmd) ->
     return cb err if err
     args = [
       item.fromjs,

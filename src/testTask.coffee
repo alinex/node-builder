@@ -11,7 +11,6 @@ fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
 {spawn,exec, execFile} = require 'child_process'
-tools = require './tools'
 
 # Main routine
 # -------------------------------------------------
@@ -57,7 +56,7 @@ openUrl = (command, target, cb) ->
 # ### Run lint against coffee script
 coffeelint = (command, cb) ->
   # Check for existing command
-  tools.findbin 'coffeelint', (err, cmd) ->
+  fs.npmbin 'coffeelint', (err, cmd) ->
     if err
       console.log "Skipped lint because coffeelint is missing".yellow
       return cb?()
@@ -95,7 +94,7 @@ testMocha = (command, cb) ->
     console.log "No mocha test dir found at #{dir}.".magenta
     return cb()
   # Check for existing command
-  tools.findbin 'mocha', (err, cmd) ->
+  fs.npmbin 'mocha', (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run mocha tests"
@@ -123,11 +122,11 @@ coverage = (command, cb) ->
   unless fs.existsSync dir
     return cb "Coverage only works on mocha tests."
   # Check for existing command
-  tools.findbin 'istanbul', (err, cmd) ->
+  fs.npmbin 'istanbul', (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run istanbul coverage report"
-    tools.findbin '_mocha', (err, mocha) ->
+    fs.npmbin '_mocha', (err, mocha) ->
       return cb err if err
       proc = spawn cmd, [
         'cover'

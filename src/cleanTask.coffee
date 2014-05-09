@@ -7,7 +7,7 @@
 
 # include base modules
 async = require 'async'
-fs = require 'fs-extra'
+fs = require 'alinex-fs'
 path = require 'path'
 colors = require 'colors'
 {execFile} = require 'child_process'
@@ -60,7 +60,7 @@ cleanModules = (command, cb) ->
   console.log "Remove left over of node_modules"
   find = [
     # Remove example folders
-    [ 
+    [
       '-mindepth', 2
       '-type', 'd'
       '-regex', '.*/node_modules/[^/]*/examples?'

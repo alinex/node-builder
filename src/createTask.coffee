@@ -7,7 +7,7 @@
 
 # include base modules
 async = require 'async'
-fs = require 'fs-extra'
+fs = require 'alinex-fs'
 path = require 'path'
 colors = require 'colors'
 {execFile} = require 'child_process'
