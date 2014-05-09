@@ -44,7 +44,8 @@ module.exports.run = (command, cb) ->
       file = path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
     # Use specific doc style
     if fs.existsSync file
-      fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css')
+      fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css'), 
+        overwrite: true
     # Check if --publish flag is set
     unless command.publish
       return openUrl command, url, cb if command.browser

@@ -27,6 +27,7 @@
 
 errorHandler = require 'alinex-error'
 errorHandler.install()
+errorHandler.config.stack.modules = true
 
 # include base modules
 commander = require 'commander'
