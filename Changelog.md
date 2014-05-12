@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.6 (2014-05-12)
+-------------------------------------------------
+- Fixed bug in finding binaries.
+- Fixed bug in doc to allow overwrting file.
+- Replaced own tools (using fs-extra) with alinex-fs.
+- Fixed layout problem in alinex-style.
+- Fixed typo in documentation: github link text.
+
 Version 0.2.5 (2014-04-25)
 -------------------------------------------------
 - Optimize accessibility of fork label.
