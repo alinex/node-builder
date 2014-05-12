@@ -140,7 +140,7 @@ createDoc = (command, cb) ->
   proc.on 'exit', (status) ->
     return cb new Error "Docker exited with status #{status}" if status != 0
     # correct internal links
-    fs.npmbin 'replace', (err, cmd) ->
+    fs.npmbin 'replace', path.dirname(__dirname), (err, cmd) ->
       if err
         console.warn err.toString().magenta
         return cb()

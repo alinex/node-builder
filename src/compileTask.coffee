@@ -83,7 +83,7 @@ compileCoffee = (command, cb) ->
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
-  fs.npmbin 'uglifyjs', (err, cmd) ->
+  fs.npmbin 'uglifyjs', path.dirname(__dirname), (err, cmd) ->
     return cb err if err
     args = [
       item.fromjs,

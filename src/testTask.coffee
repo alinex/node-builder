@@ -7,7 +7,7 @@
 
 # include base modules
 async = require 'async'
-fs = require 'fs'
+fs = require 'alinex-fs'
 path = require 'path'
 colors = require 'colors'
 {spawn,exec, execFile} = require 'child_process'
@@ -56,7 +56,7 @@ openUrl = (command, target, cb) ->
 # ### Run lint against coffee script
 coffeelint = (command, cb) ->
   # Check for existing command
-  fs.npmbin 'coffeelint', (err, cmd) ->
+  fs.npmbin 'coffeelint', path.dirname(__dirname), (err, cmd) ->
     if err
       console.log "Skipped lint because coffeelint is missing".yellow
       return cb?()
@@ -94,7 +94,7 @@ testMocha = (command, cb) ->
     console.log "No mocha test dir found at #{dir}.".magenta
     return cb()
   # Check for existing command
-  fs.npmbin 'mocha', (err, cmd) ->
+  fs.npmbin 'mocha', path.dirname(__dirname), (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run mocha tests"
@@ -122,11 +122,11 @@ coverage = (command, cb) ->
   unless fs.existsSync dir
     return cb "Coverage only works on mocha tests."
   # Check for existing command
-  fs.npmbin 'istanbul', (err, cmd) ->
+  fs.npmbin 'istanbul', path.dirname(__dirname), (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run istanbul coverage report"
-    fs.npmbin '_mocha', (err, mocha) ->
+    fs.npmbin '_mocha', path.dirname(__dirname), (err, mocha) ->
       return cb err if err
       proc = spawn cmd, [
         'cover'
