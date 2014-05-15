@@ -27,7 +27,7 @@ module.exports.run = (command, cb) ->
   if command.verbose
     console.log "Check for configured git".grey
   unless fs.existsSync path.join command.dir, '.git'
-    return cb "Only git repositories can be pushed."
+    return cb "Only git repositories can be pulled."
   # run the pull command
   console.log "Pull from origin"
   execFile "git", [ 'pull', '-t', '-p', 'origin', 'master' ]
