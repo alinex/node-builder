@@ -216,7 +216,6 @@ createPackage = (command, cb) ->
     optionalDependencies: {}
     engines: PKG.engines
     os: []
-  pack.devDependencies.coveralls = "2.x" if command.github
   fs.writeFile file, JSON.stringify(pack, null, 2), cb
 
 # ### Create a README.md file
