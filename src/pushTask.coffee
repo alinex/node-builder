@@ -10,7 +10,7 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 colors = require 'colors'
-{execFile} = require 'child_process'
+{exec,execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -52,7 +52,7 @@ commit = (command, cb) ->
         console.error stderr.trim().magenta if stderr
         cb err
   else
-    execFile "git", [ 'status' ], { cwd: command.dir }, (err, stdout, stderr) ->
+    exec 'LANG=C git status', { cwd: command.dir }, (err, stdout, stderr) ->
       return cb err if err
       return cb() if ~stdout.indexOf 'nothing to commit'
       console.log stdout
