@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:test')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -25,6 +26,7 @@ colors = require 'colors'
 module.exports.run = (command, cb) ->
   coffeelint command, (err) ->
     return cb err if err
+    debug "exec #{command.dir}> npm install"
     execFile 'npm', [ 'install' ], { cwd: command.dir }
     , (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
@@ -50,7 +52,8 @@ openUrl = (command, target, cb) ->
     when 'win32' then 'start ""'
     # use Portlands xdg-open everywhere else
     else path.join GLOBAL.ROOT_DIR, 'bin/xdg-open'
-  return exec opener + ' "' + escape(target) + '"', cb
+  debug "exec> #{opener} \"#{encodeURI target}\""
+  return exec opener + ' "' + encodeURI(target) + '"', cb
 
 
 # ### Run lint against coffee script
@@ -62,6 +65,7 @@ coffeelint = (command, cb) ->
       return cb?()
     # Run external command
     console.log "Linting coffee code"
+    debug "exec #{command.dir}> #{cmd} -f #{path.join GLOBAL.ROOT_DIR, 'coffeelint.json'} src"
     if command.colors
       proc = spawn cmd, [
         '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
@@ -105,7 +109,8 @@ testMocha = (command, cb) ->
       'test/mocha'
     ]
     args.unshift '-w' if command.watch
-    proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit' }
+    debug "exec #{command.dir}> #{cmd} #{args.join ' '}"
+    proc = spawn cmd, args, { cwd: command.dir, stdio: 'inherit', env: process.env }
     # Error management
     proc.on 'error', cb
     proc.on 'exit', (status) ->
@@ -128,7 +133,7 @@ coverage = (command, cb) ->
     console.log "Run istanbul coverage report"
     fs.npmbin '_mocha', path.dirname(__dirname), (err, mocha) ->
       return cb err if err
-      proc = spawn cmd, [
+      args = [
         'cover'
         mocha
         '--'
@@ -136,7 +141,9 @@ coverage = (command, cb) ->
         '--reporter', 'spec'
         '-c'
         'test/mocha'
-      ], { cwd: command.dir }
+      ]
+      debug "exec #{command.dir}> #{cmd} #{args.join ' '}"
+      proc = spawn cmd, args, { cwd: command.dir }
       if command.verbose
         proc.stderr.on 'data', (data) ->
           console.error data.toString().trim().grey
@@ -153,18 +160,7 @@ coverage = (command, cb) ->
 coveralls = (command, cb) ->
   file = path.join command.dir, 'coverage', 'lcov.info'
   coveralls = path.join GLOBAL.ROOT_DIR, 'node_modules/coveralls/bin/coveralls.js'
-  exec "cat #{file} | #{coveralls} --verbose",
-  (err, stdout, stderr) ->
+  debug "exec> cat #{file} | #{coveralls} --verbose"
+  exec "cat #{file} | #{coveralls} --verbose", (err, stdout, stderr) ->
     console.log stdout.toString().trim() if stdout
     cb err
-#  return
-#  filein = fs.createReadStream path.join command.dir, 'coverage', 'lcov.info'
-#  filein.pipe process.stdout
-#  args = []
-#  args.push '--verbose' if command.verbose
-#  coveralls = spawn './node_modules/coveralls/bin/coveralls.js', args,
-#    cwd: command.dir
-#  filein.pipe coveralls
-#  filein.on 'end', ->
-#    console.log '--------'
-#    cb()

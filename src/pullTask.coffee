@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:pull')
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
@@ -30,6 +31,7 @@ module.exports.run = (command, cb) ->
     return cb "Only git repositories can be pulled."
   # run the pull command
   console.log "Pull from origin"
+  debug "exec #{command.dir}> git pull -t -p origin master"
   execFile "git", [ 'pull', '-t', '-p', 'origin', 'master' ]
   , { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and command.verbose

@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:create')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -75,6 +76,7 @@ initGit = (command, cb) ->
   , (err, input) ->
     return cb err if err or not input.question is 'yes'
     console.log "Init new git repository"
+    debug "exec #{command.dir}> git init"
     execFile "git", [ 'init' ], { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
@@ -102,6 +104,7 @@ createGitHub = (command, cb) ->
       command.github = pack.repository.url
       return cb()
   # check for other remote origin
+  debug "exec #{command.dir}> git remote show origin"
   execFile "git", [ 'remote', 'show', 'origin' ], { cwd: command.dir }, (err, stdout, stderr) ->
     unless err
       console.log stdout.trim().grey if stdout and command.verbose
@@ -148,6 +151,7 @@ createGitHub = (command, cb) ->
           unless answer.message is 'Not Found'
             return cb answer.message
           console.log "Create new GitHub repository"
+          debug "POST https://api.github.com/user/repos"
           request {
             uri: "https://api.github.com/user/repos"
             auth:
@@ -169,6 +173,7 @@ createGitHub = (command, cb) ->
             unless response?.statusCode is 201
               return cb "GitHub status was #{response.statusCode} in try to create repository"
             console.log "Connect with GitHub repository"
+            debug "exec #{command.dir}> git remote add origin #{command.github}"
             execFile "git", [
               'remote'
               'add', 'origin', command.github
@@ -330,17 +335,21 @@ createTravis = (command, cb) ->
 initialCommit = (command, cb) ->
   if command.verbose
     console.log "Check if git already used".grey
+  debug "exec #{command.dir}> git log"
   execFile "git", [ 'log' ], { cwd: command.dir }, (err, stdout, stderr) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
+    debug "exec #{command.dir}> git add *"
     execFile "git", [ 'add', '*' ], { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
+      debug "exec #{command.dir}> git commit -m \"Initial commit\""
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
       , { cwd: command.dir }, (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
         console.log "Push to origin"
+        debug "exec #{command.dir}> git push origin master"
         execFile "git", [ 'push', 'origin', 'master' ],
         { cwd: command.dir }, (err, stdout, stderr) ->
           console.log stdout.trim().grey if stdout and command.verbose

@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:doc')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -52,7 +53,7 @@ module.exports.run = (command, cb) ->
       cb()
     # Publish  using script from package.json
     if pack.scripts?['doc-publish']?
-      console.log pack.scripts['doc-publish']
+      debug "exec #{command.dir}> #{pack.scripts['doc-publish']}"
       exec pack.scripts['doc-publish'], { cwd: command.dir }, (err, stdout, stderr) ->
         if command.verbose
           console.log stdout.toString().trim().grey if stdout
@@ -90,7 +91,8 @@ openUrl = (command, target, cb) ->
     when 'win32' then 'start ""'
     # use Portlands xdg-open everywhere else
     else path.join GLOBAL.ROOT_DIR, 'bin/xdg-open'
-  return exec opener + ' "' + escape(target) + '"', cb
+  debug "exec> #{opener} \"#{encodeURI target}\""
+  return exec opener + ' "' + encodeURI(target) + '"', cb
 
 # ### Create initial git repository
 createDoc = (command, cb) ->
@@ -120,7 +122,7 @@ createDoc = (command, cb) ->
   docker = path.join GLOBAL.ROOT_DIR, "node_modules/.bin/docker"
   unless fs.existsSync docker
     return cb "Missing docker installation in #{docker}."
-  proc = spawn docker, [
+  args = [
     '-i', command.dir
     '-u'
     if command.watch then '-w' else ''
@@ -129,6 +131,8 @@ createDoc = (command, cb) ->
     '-c', 'autumn'
     '--extras', 'fileSearch,goToLine'
   ]
+  debug "exec> #{docker} #{args.join ' '}"
+  proc = spawn docker, args
   proc.stdout.on 'data', (data) ->
     unless ~data.toString().indexOf "Done."
       if command.verbose
@@ -145,23 +149,27 @@ createDoc = (command, cb) ->
         console.warn err.toString().magenta
         return cb()
       console.log "Correcting local links".grey if command.verbose
-      execFile cmd, [
+      args = [
         '(<a href="(?![#\/]|(ht|f)tps?://)[^?#"]+)(.*?)"'
         '$1.html$2"'
         path.join command.dir, 'doc'
         '-r'
-      ], (err, stdout, stderr) ->
+      ]
+      debug "exec> #{cmd} #{args.join ' '}"      
+      execFile cmd, args, (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and command.verbose
         console.error stderr.trim().magenta if stderr
         return cb err if err
         pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
         return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
-        execFile cmd, [
+        args = [
           '(<div id="container">)'
           '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
           path.join command.dir, 'doc'
           '-r'
-        ], (err, stdout, stderr) ->
+        ]
+        debug "exec> #{cmd} #{args.join ' '}"        
+        execFile cmd, args, (err, stdout, stderr) ->
           console.log stdout.trim().grey if stdout and command.verbose
           console.error stderr.trim().magenta if stderr
           cb err
@@ -179,6 +187,7 @@ cloneGit = (command, cb) ->
   file = path.join command.dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
   console.log "Cloning git repository"
+  debug "exec> git clone #{pack.repository.url} #{command.tmpdir}"
   execFile 'git', [
     'clone'
     pack.repository.url
@@ -191,12 +200,14 @@ cloneGit = (command, cb) ->
 # ### Checkout gh-pages branch
 checkoutPages = (command, cb) ->
   console.log "Checkout gh-pages branch"
+  debug "exec #{command.tmpdir}> git checkout gh-pages"
   execFile 'git', [
     'checkout', 'gh-pages'
   ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb() unless err
+    debug "exec #{command.tmpdir}> git checkout --orphan gh-pages"
     execFile 'git', [
       'checkout'
       '--orphan'
@@ -211,6 +222,7 @@ updateDoc = (command, cb) ->
   console.log "Update documentation"
   if command.verbose
     console.log "Remove old documentation".grey
+  debug "exec #{command.tmpdir}> git rm -rf ."
   execFile 'git', [
     'rm', '-rf', '.'
   ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
@@ -222,6 +234,7 @@ updateDoc = (command, cb) ->
       return cb err if err
       if command.verbose
         console.log "Add files to git".grey
+      debug "exec #{command.tmpdir}> git add *"
       execFile 'git', [
         'add', '*'
       ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
@@ -230,6 +243,7 @@ updateDoc = (command, cb) ->
         return cb err if err
         if command.verbose
           console.log "Commit changes".grey
+        debug "exec #{command.tmpdir}> git commit -m \"Updated documentation\""
         execFile 'git', [
           'commit'
           '-m', "Updated documentation"
@@ -241,6 +255,7 @@ updateDoc = (command, cb) ->
 # ### Push to git origin
 pushOrigin = (command, cb) ->
   console.log "Push to git origin"
+  debug "exec #{command.tmpdir}> git push origin gh-pages"
   execFile "git", [
     'push'
     'origin', 'gh-pages'

@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:clean')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -49,6 +50,7 @@ module.exports.run = (command, cb) ->
 cleanDistribution = (command, cb) ->
   cb() unless command.dist or true
   console.log "Remove development modules"
+  debug "exec #{command.dir}> npm prune --production"
   execFile "npm", [ 'prune', '--production' ]
   , { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and command.verbose
@@ -79,6 +81,7 @@ cleanModules = (command, cb) ->
     item.push '-exec', 'rm', '-r', '{}', ';'
     if command.verbose
       item.push '-print'
+    debug "exec #{command.dir}> find #{item}"
     execFile 'find', item, { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr

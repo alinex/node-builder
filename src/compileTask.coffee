@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:compile')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -91,6 +92,7 @@ uglify = (item, cb) ->
       '-o', item.tojs
     ]
     args.push '--in-source-map', item.frommap if item.frommap
+    debug "exec #{item.dir}> #{cmd} #{args.join ' '}"
     execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr

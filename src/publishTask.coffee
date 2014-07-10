@@ -6,6 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
+debug = require('debug')('make:publish')
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
@@ -65,6 +66,7 @@ updateChangelog = (command, cb) ->
   args = [ 'log', '--pretty=format:%s' ]
   unless command.oldVersion is '0.0.0'
     args.push "v#{command.oldVersion}..HEAD"
+  debug "exec #{command.dir}> git #{args.join ' '}"
   execFile "git", args, { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stderr.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
@@ -87,6 +89,7 @@ updateChangelog = (command, cb) ->
 # ### Commit changes in Changelog and package.json
 commitChanges = (command, cb) ->
   console.log "Commit new version information"
+  debug "exec #{command.dir}> git add package.json Changelog.md"
   execFile "git", [
     'add'
     'package.json', 'Changelog.md'
@@ -94,6 +97,7 @@ commitChanges = (command, cb) ->
     console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
+    debug "exec #{command.dir}> git commit \"Added information for version #{command.newVersion}\""
     execFile "git", [
       'commit'
       '-m', "Added information for version #{command.newVersion}"
@@ -106,6 +110,7 @@ commitChanges = (command, cb) ->
 # ### Push to git origin
 pushOrigin = (command, cb) ->
   console.log "Push to git origin"
+  debug "exec #{command.dir}> git push origin master"
   execFile "git", [
     'push'
     'origin', 'master'
@@ -123,6 +128,7 @@ gitTag = (command, cb) ->
   if pack.homepage?
     changelog = " see more in [Changelog.md](#{pack.homepage}/Changelog.md.html)"
   console.log "Push new tag to git origin"
+  debug "exec #{command.dir}> git tag -a v#{command.newVersion} -m \"Created version #{command.newVersion}#{changelog}\""
   execFile "git", [
     'tag'
     '-a', "v#{command.newVersion}"
@@ -131,6 +137,7 @@ gitTag = (command, cb) ->
     console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
+    debug "exec #{command.dir}> git push origin v#{command.newVersion}"
     execFile "git", [
       'push'
       'origin', "v#{command.newVersion}"
@@ -143,10 +150,12 @@ gitTag = (command, cb) ->
 # ### Push new version to npm
 pushNpm = (command, cb) ->
   console.log "Push to npm"
+  debug "exec #{command.dir}> npm install"
   execFile 'npm', [ 'install' ], { cwd: command.dir }, (err, stdout, stderr) ->
     console.log stdout.trim().grey if stdout and command.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
+    debug "exec #{command.dir}> npm publish"
     execFile 'npm', [ 'publish' ], { cwd: command.dir }, (err, stdout, stderr) ->
       console.log stdout.trim().grey if stdout and command.verbose
       console.error stderr.trim().magenta if stderr
