@@ -4,6 +4,16 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.7 (2014-07-10)
+-------------------------------------------------
+- Added debug messages to all tasks.
+- Use english language in status call to correctly detect if something has changed.
+- Merged .gitignore
+- Changed gitignore template to be more specific.
+- Made gitignore more specific.
+- Remove adding of coveralls into created package.json.
+- Fixed typo error in console output.
+
 Version 0.2.6 (2014-05-12)
 -------------------------------------------------
 - Fixed bug in finding binaries.
