@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/compileTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/compileTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -80,14 +80,13 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;make:compile&#39;</span><span class="p">)</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs-extra&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">coffee = </span><span class="nx">require</span> <span class="s">&#39;coffee-script&#39;</span>
-
-<span class="nv">tools = </span><span class="nx">require</span> <span class="s">&#39;./tools&#39;</span>
 
 
 </pre></div>
@@ -178,7 +177,7 @@ execution finished.</li>
 <p>find files to compile</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">tools</span><span class="p">.</span><span class="nx">filefind</span> <span class="nx">src</span><span class="p">,</span> <span class="sr">/\.coffee$/</span><span class="p">,</span> <span class="nf">(err, files) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">src</span><span class="p">,</span> <span class="p">{</span> <span class="nv">include: </span><span class="s">&#39;*.coffee&#39;</span> <span class="p">},</span> <span class="nf">(err, files) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">files</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile coffee script&quot;</span>
@@ -246,7 +245,7 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">uglify = </span><span class="nf">(item, cb) -&gt;</span>
-  <span class="nx">tools</span><span class="p">.</span><span class="nx">findbin</span> <span class="s">&#39;uglifyjs&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;uglifyjs&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nv">args = </span><span class="p">[</span>
       <span class="nx">item</span><span class="p">.</span><span class="nx">fromjs</span><span class="p">,</span>
@@ -254,6 +253,7 @@ execution finished.</li>
       <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">tojs</span>
     <span class="p">]</span>
     <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--in-source-map&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">frommap</span> <span class="k">if</span> <span class="nx">item</span><span class="p">.</span><span class="nx">frommap</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">item</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">execFile</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">item</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>

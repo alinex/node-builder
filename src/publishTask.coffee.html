@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/alex/a3/node-make/src/publishTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/publishTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -89,6 +89,7 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;make:publish&#39;</span><span class="p">)</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
@@ -199,6 +200,7 @@ execution finished.</li>
   <span class="nv">args = </span><span class="p">[</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&#39;--pretty=format:%s&#39;</span> <span class="p">]</span>
   <span class="k">unless</span> <span class="nx">command</span><span class="p">.</span><span class="nx">oldVersion</span> <span class="o">is</span> <span class="s">&#39;0.0.0&#39;</span>
     <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">oldVersion</span><span class="si">}</span><span class="s">..HEAD&quot;</span>
+  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
@@ -246,6 +248,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">commitChanges = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Commit new version information&quot;</span>
+  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git add package.json Changelog.md&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;add&#39;</span>
     <span class="s">&#39;package.json&#39;</span><span class="p">,</span> <span class="s">&#39;Changelog.md&#39;</span>
@@ -253,6 +256,7 @@ execution finished.</li>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git commit \&quot;Added information for version </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
       <span class="s">&#39;commit&#39;</span>
       <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Added information for version </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
@@ -279,6 +283,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">pushOrigin = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to git origin&quot;</span>
+  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git push origin master&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;push&#39;</span>
     <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span>
@@ -310,6 +315,7 @@ execution finished.</li>
   <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="o">?</span>
     <span class="nv">changelog = </span><span class="s">&quot; see more in [Changelog.md](</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="si">}</span><span class="s">/Changelog.md.html)&quot;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push new tag to git origin&quot;</span>
+  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git tag -a v</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s"> -m \&quot;Created version </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}#{</span><span class="nx">changelog</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;tag&#39;</span>
     <span class="s">&#39;-a&#39;</span><span class="p">,</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
@@ -318,6 +324,7 @@ execution finished.</li>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git push origin v</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
       <span class="s">&#39;push&#39;</span>
       <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
@@ -344,10 +351,12 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">pushNpm = </span><span class="nf">(command, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to npm&quot;</span>
+  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; npm install&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; npm publish&quot;</span>
     <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;publish&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
