@@ -51,7 +51,7 @@
     "uglify-js": "2.x",
     "mocha": "1.x",
     "chai": "1.x",
-    "istanbul": "0.2.x",
+    "istanbul": "0.3.x || 0.2.x",
     "coveralls": "2.x",
     "docker": ">=0.2.10",
     "replace": "0.2.x",
