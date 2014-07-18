@@ -47,6 +47,15 @@ module.exports.run = (command, cb) ->
     if fs.existsSync file
       fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css'), 
         overwrite: true
+    # Check for specific doc script
+    pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+    file = path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
+    unless fs.existsSync file
+      file = path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
+    # Use specific doc style
+    if fs.existsSync file
+      fs.copySync file, path.join(command.dir, 'doc', 'doc-script.js'), 
+        overwrite: true
     # Check if --publish flag is set
     unless command.publish
       return openUrl command, url, cb if command.browser
