@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.8 (2014-07-18)
+-------------------------------------------------
+- Support script changes for specific doc styles like alinex.
+- Upgraded istanbul package to version 0.3.
+- Optimized changelog.
+
 Version 0.2.7 (2014-07-10)
 -------------------------------------------------
 - Added debug messages to all tasks.
