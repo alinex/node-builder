@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.9 (2014-07-18)
+-------------------------------------------------
+- 
+
 Version 0.2.8 (2014-07-18)
 -------------------------------------------------
 - Support script changes for specific doc styles like alinex.
