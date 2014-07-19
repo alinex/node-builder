@@ -9,6 +9,11 @@ node packages. This is a superset of npm and other command line tools.
 
 It may help a lot while developing to automatize the consequently done tasks.
 
+- easy to use build tool
+- supporting complete process
+- specialized for the alinex modules
+- extensible
+
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
 
@@ -262,6 +267,9 @@ You may specify a different document layout by creating a file named like the
 main part of your package (name till the first hyphen). Use the file
 `/var/src/docstyle/default.css` as a default and store your own in
 `/var/local/docstyle/<basename>.css`.
+
+Also the javascript may be changed for each package basename in `<basename>.js`
+like done for the css.
 
 
 License
