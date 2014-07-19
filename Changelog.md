@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.9 (2014-07-19)
+-------------------------------------------------
+- Changed alinex document style.
+- Fixed bug which broke anchor links in doc.
+- Fixed execute rights to open browser.
+- Removed incorrect version change.
+- Added information for version 0.2.9
+
 Version 0.2.8 (2014-07-18)
 -------------------------------------------------
 - Support script changes for specific doc styles like alinex.
