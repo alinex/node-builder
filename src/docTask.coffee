@@ -159,8 +159,8 @@ createDoc = (command, cb) ->
         return cb()
       console.log "Correcting local links".grey if command.verbose
       args = [
-        '(<a href="(?![#\/]|(?=ht|f)tps?://)[^?#"]+)(.*?)"'
-        '$1.html$2"'
+        '(<a href="(?!#|.+?://(?!alinex.github.io))[^?#]+[^/?#])(.*?")'
+        '$1.html$2'
         path.join command.dir, 'doc'
         '-r'
       ]
