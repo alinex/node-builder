@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.2.10 (2014-08-08)
+-------------------------------------------------
+- Upgraded debug module version.
+- More contrast for instance variables in alinex style.
+- Again fix for the document link optimization.
+- Fixed link optimization for alinex modules.
+- Updated documentation.
+
 Version 0.2.9 (2014-07-19)
 -------------------------------------------------
 - Changed alinex document style.
