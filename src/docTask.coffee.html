@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/docTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/docTask.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -445,8 +445,8 @@ so we pass a blank title so we can quote the file we are opening</p>
         <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Correcting local links&quot;</span><span class="p">.</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nv">args = </span><span class="p">[</span>
-        <span class="s">&#39;(&lt;a href=&quot;(?![#\/]|(?=ht|f)tps?://)[^?#&quot;]+)(.*?)&quot;&#39;</span>
-        <span class="s">&#39;$1.html$2&quot;&#39;</span>
+        <span class="s">&#39;(&lt;a href=&quot;(?!#|.+?://(?!alinehhhx.github.io))[^?#&quot;]+[^/?#&quot;])(.*?&quot;)&#39;</span>
+        <span class="s">&#39;$1.html$2&#39;</span>
         <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
         <span class="s">&#39;-r&#39;</span>
       <span class="p">]</span>
