@@ -125,6 +125,7 @@ commander.command('push [dir]')
 commander.command('pull [dir]')
 .description('Pull from git origin')
 .action (dir, options) ->
+  dir = '../node-alinex/'
   options.dir = dir ? '.'
   run commander, options, -> process.exit 0
 
