@@ -126,6 +126,14 @@ argv = yargs
 argv.done = []
 # implement some global switches
 colors.mode = 'none' if argv.nocolors
+# add additional dependent commands
+cmds = []
+for command in argv._
+  switch command
+    when 'publish'
+      cmds.push 'push'
+  cmds.push command
+argv._ = cmds
 
 # Run the commands
 # -------------------------------------------------

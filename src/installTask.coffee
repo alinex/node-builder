@@ -50,6 +50,7 @@ npmInstall = (dir, options, cb) ->
   # Error management
   proc.on 'error', cb
   proc.on 'exit', (status) ->
+    argv.done.push 'compile' # this is called by npm
     if status != 0
       status = "npm exited with status #{status}"
     cb status
