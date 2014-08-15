@@ -88,6 +88,9 @@ argv = yargs
 # push options
 .alias('m', 'message')
 .describe('m', 'push: text for commit message')
+# compile options
+.alias('u', 'uglify')
+.describe('u', 'compile: run uglify for each file')
 # publish options
 .describe('minor', 'publish: change to next minor version')
 .describe('major', 'publish: change to next major version')
@@ -106,20 +109,25 @@ argv = yargs
 .alias('h', 'help')
 .showHelpOnFail(false, "Specify --help for available options")
 .check (argv, options) ->
-  unless argv.command in Object.keys commands
-    return "Unknown command: #{argv.command}"
+  # optimize the arguments for processing
+  argv._ = ['.'] unless argv._.length
+  argv.command = [argv.command] unless Array.isArray argv.command
+  # additional checks
+  for command in argv.command
+    unless command in Object.keys commands
+      return "Unknown command: #{argv.command}"
   true
 .argv
-argv.command = [argv.command] unless Array.isArray argv.command
-argv._ = ['.'] unless argv._.length
-
+argv.done = []
+# implement some global switches
 colors.mode = 'none' if argv.nocolors
-console.log argv
 
 # Run the commands
 # -------------------------------------------------
 async.eachSeries argv.command, (command, cb) ->
-  console.log commands[argv.command].blue.bold
+  # skip if command already done
+  return cb() if command in argv.done
+  console.log commands[command].blue.bold
   # list possible commands
   if command is 'list'
     console.log "\nThe following commands are possible:\n"
@@ -131,7 +139,10 @@ async.eachSeries argv.command, (command, cb) ->
   async.eachSeries argv._, (dir, cb) ->
     console.log "#{command} #{dir}".blue
     lib.run dir, argv, cb
-  , cb
+  , (err) ->
+    return cb err if err
+    argv.done.push command
+    cb()
 , (err) ->
   throw err if err
   # check for existing command

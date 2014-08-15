@@ -18,47 +18,49 @@ colors = require 'colors'
 #
 # __Arguments:__
 #
-# * `command`
+# * `dir`
+#   Directory to operate on
+# * `options`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (command, cb) ->
+module.exports.run = (dir, options, cb) ->
   console.log "Remove unnecessary folders"
   dirs = [
-    path.join command.dir, 'doc'
-    path.join command.dir, 'coverage'
+    path.join dir, 'doc'
+    path.join dir, 'coverage'
   ]
-  if command.auto
-    dirs.push path.join command.dir, 'lib'
-    dirs.push path.join command.dir, 'node_modules'
-  if command.dist
-    dirs.push path.join command.dir, 'src'
+  if options.auto
+    dirs.push path.join dir, 'lib'
+    dirs.push path.join dir, 'node_modules'
+  if options.dist
+    dirs.push path.join dir, 'src'
   async.each dirs, (dir, cb) ->
     fs.exists dir, (exists) ->
       return cb() unless exists
-      if command.verbose
+      if options.verbose
         console.log "Removing #{dir}".grey
       fs.remove dir, cb
   , (err) ->
     return cb err if err
-    cleanDistribution command, (err) ->
+    cleanDistribution dir, options, (err) ->
       return cb err if err
-      cleanModules command, (err) ->
+      cleanModules dir, options, (err) ->
         cb err
 
-cleanDistribution = (command, cb) ->
-  cb() unless command.dist or true
+cleanDistribution = (dir, options, cb) ->
+  return cb() unless options.dist or true
   console.log "Remove development modules"
-  debug "exec #{command.dir}> npm prune --production"
+  debug "exec #{dir}> npm prune --production"
   execFile "npm", [ 'prune', '--production' ]
-  , { cwd: command.dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+  , { cwd: dir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     cb err
 
-cleanModules = (command, cb) ->
-  cb() unless command.dist
+cleanModules = (dir, options, cb) ->
+  return cb() unless options.dist
   console.log "Remove left over of node_modules"
   find = [
     # Remove example folders
@@ -79,11 +81,11 @@ cleanModules = (command, cb) ->
     console.log "Remove #{item}"
     item.unshift '.', '-depth'
     item.push '-exec', 'rm', '-r', '{}', ';'
-    if command.verbose
+    if options.verbose
       item.push '-print'
-    debug "exec #{command.dir}> find #{item}"
-    execFile 'find', item, { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and command.verbose
+    debug "exec #{dir}> find #{item}"
+    execFile 'find', item, { cwd: dir }, (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and options.verbose
       console.error stderr.trim().magenta if stderr
       cb err
   , cb

@@ -18,23 +18,24 @@ colors = require 'colors'
 #
 # __Arguments:__
 #
-# * `command`
+# * `dir`
+#   Directory to operate on
+# * `options`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (dir, command, cb) ->
+module.exports.run = (dir, options, cb) ->
   # check for existing git repository
-  if command.verbose
+  if options.verbose
     console.log "Check for configured git".grey
   unless fs.existsSync path.join dir, '.git'
     return cb "Only git repositories can be pulled, yet. But #{dir} is no git repository."
-  # run the pull command
+  # run the pull options
   console.log "Pull from origin"
   debug "exec #{dir}> git pull -t -p origin master"
-#  console.log '--------------------', command
   execFile "git", [ 'pull', '-t', '-p', 'origin', 'master' ]
   , { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     cb err

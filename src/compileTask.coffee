@@ -19,27 +19,29 @@ coffee = require 'coffee-script'
 #
 # __Arguments:__
 #
-# * `command`
+# * `dir`
+#   Directory to operate on
+# * `options`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (command, cb) ->
+module.exports.run = (dir, options, cb) ->
   # check for existing source files
-  src = path.join command.dir, 'src'
+  src = path.join dir, 'src'
   unless fs.existsSync src
     return cb "No source files found."
   # cleanup old files
-  lib = path.join command.dir, 'lib'
+  lib = path.join dir, 'lib'
   console.log "Remove old lib directory"
   fs.remove lib, (err) ->
     return cb err if err
-    compileCoffee command, cb
+    compileCoffee dir, options, cb
 
 # ### Compile coffee script
-compileCoffee = (command, cb) ->
-  src = path.join command.dir, 'src'
-  lib = path.join command.dir, 'lib'
+compileCoffee = (dir, options, cb) ->
+  src = path.join dir, 'src'
+  lib = path.join dir, 'lib'
   # find files to compile
   fs.find src, { include: '*.coffee' }, (err, files) ->
     return cb err if err
@@ -50,11 +52,11 @@ compileCoffee = (command, cb) ->
         return cb err if err
         jsfile = path.basename(file, '.coffee') + '.js'
         mapfile = path.basename(file, '.coffee') + '.map'
-        console.log "Compile #{file}".grey if command.verbose
+        console.log "Compile #{file}".grey if options.verbose
         compiled = coffee.compile data,
           filename: path.basename file
           generatedFile: jsfile
-          sourceRoot: path.relative path.dirname(file), command.dir
+          sourceRoot: path.relative path.dirname(file), dir
           sourceFiles: [ file ]
           sourceMap: true
         compiled.js += "\n//# sourceMappingURL=#{path.basename mapfile}"
@@ -71,8 +73,8 @@ compileCoffee = (command, cb) ->
               return cb err if err
               fs.writeFile filepathmap, compiled.v3SourceMap, cb
         ], (err) ->
-          return cb err if err or not command.uglify
-          console.log "Uglify #{jsfile}".grey if command.verbose
+          return cb err if err or not options.uglify
+          console.log "Uglify #{jsfile}".grey if options.verbose
           uglify
             dir: path.dirname filepathjs
             fromjs: jsfile
@@ -94,6 +96,6 @@ uglify = (item, cb) ->
     args.push '--in-source-map', item.frommap if item.frommap
     debug "exec #{item.dir}> #{cmd} #{args.join ' '}"
     execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and command.verbose
+      console.log stdout.trim().grey if stdout and options.verbose
       console.error stderr.trim().magenta if stderr
       cb err

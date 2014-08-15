@@ -20,52 +20,54 @@ prompt = require 'prompt'
 #
 # __Arguments:__
 #
-# * `command`
+# * `dir`
+#   Directory to operate on
+# * `options`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
-module.exports.run = (command, cb) ->
+module.exports.run = (dir, options, cb) ->
   prompt.start()
   async.series [
-    (cb) -> createDir command, cb
-    (cb) -> initGit command, cb
-    (cb) -> createGitHub command, cb
-    (cb) -> createPackage command, cb
-    (cb) -> createTravis command, cb
-    (cb) -> createReadme command, cb
-    (cb) -> createChangelog command, cb
-    (cb) -> initialCommit command, cb
+    (cb) -> createDir dir, options, cb
+    (cb) -> initGit dir, options, cb
+    (cb) -> createGitHub dir, options, cb
+    (cb) -> createPackage dir, options, cb
+    (cb) -> createTravis dir, options, cb
+    (cb) -> createReadme dir, options, cb
+    (cb) -> createChangelog dir, options, cb
+    (cb) -> initialCommit dir, options, cb
   ], (err) ->
     throw err if err
     console.log "You may now work with the new package.".yellow
     cb()
 
 # ### Create the directory
-createDir = (command, cb) ->
+createDir = (dir, options, cb) ->
   # check if directory already exist
-  if fs.existsSync command.dir
-    if command.verbose
-      console.log "Directory #{command.dir} already exists.".grey
+  if fs.existsSync options.dir
+    if options.verbose
+      console.log "Directory #{options.dir} already exists.".grey
     return cb()
   # create directory
-  console.log "Create directory #{command.dir}"
-  fs.mkdirs path.join(command.dir, 'src'), (err) ->
+  console.log "Create directory #{options.dir}"
+  fs.mkdirs path.join(options.dir, 'src'), (err) ->
     return cb err if err
-    fs.mkdirs path.join(command.dir, 'test'), (err) ->
+    fs.mkdirs path.join(options.dir, 'test'), (err) ->
       return cb err if err
       # create .npmignore file
-      file = path.join command.dir, '.npmignore'
+      file = path.join options.dir, '.npmignore'
       fs.copy path.join(GLOBAL.ROOT_DIR, '.npmignore'), file, cb
 
 # ### Create initial git repository
-# It will set the `command.git` variable to the local uri
-initGit = (command, cb) ->
+# It will set the `options.git` variable to the local uri
+initGit = (dir, options, cb) ->
   # check for existing git repository
-  if command.verbose
+  if options.verbose
     console.log "Check for configured git".grey
-  if fs.existsSync path.join command.dir, '.git'
-    command.git = 'file://' + fs.realpathSync command.dir
+  if fs.existsSync path.join options.dir, '.git'
+    options.git = 'file://' + fs.realpathSync options.dir
     return cb()
   # create a new repository
   prompt.get
@@ -76,23 +78,23 @@ initGit = (command, cb) ->
   , (err, input) ->
     return cb err if err or not input.question is 'yes'
     console.log "Init new git repository"
-    debug "exec #{command.dir}> git init"
-    execFile "git", [ 'init' ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and command.verbose
+    debug "exec #{options.dir}> git init"
+    execFile "git", [ 'init' ], { cwd: options.dir }, (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and options.verbose
       console.error stderr.trim().magenta if stderr
-      file = path.join command.dir, '.gitignore'
+      file = path.join options.dir, '.gitignore'
       return cb err if err or fs.existsSync file
-      command.git = 'file://' + fs.realpathSync command.dir
+      options.git = 'file://' + fs.realpathSync options.dir
       fs.copy path.join(GLOBAL.ROOT_DIR, '.gitignore'), file, cb
 
 # ### Create new GitHub repository if not existing
-# It will set the `command.github` variable
-createGitHub = (command, cb) ->
-  return cb() if command.private
+# It will set the `options.github` variable
+createGitHub = (dir, options, cb) ->
+  return cb() if options.private
   # check for existing package with github url
-  if command.verbose
+  if options.verbose
     console.log "Check for configured git".grey
-  file = path.join command.dir, 'package.json'
+  file = path.join options.dir, 'package.json'
   if fs.existsSync file
     pack = JSON.parse fs.readFileSync file
     unless pack.repository.type is 'git'
@@ -101,13 +103,13 @@ createGitHub = (command, cb) ->
     console.log pack.repository.url
     console.log ~pack.repository.url.indexOf 'github.com/'
     if ~pack.repository.url.indexOf 'github.com/'
-      command.github = pack.repository.url
+      options.github = pack.repository.url
       return cb()
   # check for other remote origin
-  debug "exec #{command.dir}> git remote show origin"
-  execFile "git", [ 'remote', 'show', 'origin' ], { cwd: command.dir }, (err, stdout, stderr) ->
+  debug "exec #{options.dir}> git remote show origin"
+  execFile "git", [ 'remote', 'show', 'origin' ], { cwd: options.dir }, (err, stdout, stderr) ->
     unless err
-      console.log stdout.trim().grey if stdout and command.verbose
+      console.log stdout.trim().grey if stdout and options.verbose
       console.log "Skipped GitHub because other origin exists already"
       return cb()
     # create github repository
@@ -134,8 +136,8 @@ createGitHub = (command, cb) ->
         name: 'description'
         required: true
       }], (err, input) ->
-        gitname = path.basename command.dir
-        command.github = "https://github.com/#{input.username}/#{gitname}"
+        gitname = path.basename options.dir
+        options.github = "https://github.com/#{input.username}/#{gitname}"
         request {
           uri: "https://api.github.com/repos/#{input.username}/#{gitname}"
           auth:
@@ -173,39 +175,39 @@ createGitHub = (command, cb) ->
             unless response?.statusCode is 201
               return cb "GitHub status was #{response.statusCode} in try to create repository"
             console.log "Connect with GitHub repository"
-            debug "exec #{command.dir}> git remote add origin #{command.github}"
+            debug "exec #{options.dir}> git remote add origin #{options.github}"
             execFile "git", [
               'remote'
-              'add', 'origin', command.github
-            ], { cwd: command.dir }, (err, stdout, stderr) ->
-              console.log stdout.trim().grey if stdout and command.verbose
+              'add', 'origin', options.github
+            ], { cwd: options.dir }, (err, stdout, stderr) ->
+              console.log stdout.trim().grey if stdout and options.verbose
               console.error stderr.trim().magenta if stderr
               cb err
 
 # ### Create new package.json
-createPackage = (command, cb) ->
+createPackage = (dir, options, cb) ->
   # check if package.json exists
-  if command.verbose
+  if options.verbose
     console.log "Check for existing package.json".grey
-  file = path.join command.dir, 'package.json'
+  file = path.join options.dir, 'package.json'
   if fs.existsSync file
     console.log "Skipped package.json creation, because already exists".yellow
     return cb()
   console.log "Create new package.json file"
-  gitname = path.basename command.dir
-  gituser = path.basename path.dirname command.github
+  gitname = path.basename options.dir
+  gituser = path.basename path.dirname options.github
   pack =
-    name: command.package
+    name: options.package
     version: '0.0.0'
     description: ''
     copyright: "#{PKG.author?.name ? ''} #{(new Date()).getFullYear()}"
-    private: command.private ? false
+    private: options.private ? false
     keywords: []
-    homepage: if command.github then "http://#{gituser}.github.io/#{gitname}/" else ""
+    homepage: if options.github then "http://#{gituser}.github.io/#{gitname}/" else ""
     repository:
       type: 'git'
-      url: command.github ? command.git
-    bugs: if command.github then "#{command.github}/issues" else ""
+      url: options.github ? options.git
+    bugs: if options.github then "#{options.github}/issues" else ""
     author: PKG.author
     contributors: []
     license: PKG.license
@@ -224,35 +226,35 @@ createPackage = (command, cb) ->
   fs.writeFile file, JSON.stringify(pack, null, 2), cb
 
 # ### Create a README.md file
-createReadme = (command, cb) ->
-  if command.verbose
+createReadme = (dir, options, cb) ->
+  if options.verbose
     console.log "Check for README.md".grey
-  file = path.join command.dir, 'README.md'
+  file = path.join options.dir, 'README.md'
   if fs.existsSync file
     return cb()
   console.log "Create new README.md file"
-  gitname = path.basename command.dir
-  gituser = path.basename path.dirname command.github
+  gitname = path.basename options.dir
+  gituser = path.basename path.dirname options.github
   doc =
     badges: ''
     install: ''
-  if command.github
+  if options.github
     doc.badges = "\n[![Build Status]
     (https://travis-ci.org/#{gituser}/#{gitname}.svg?branch=master)]\
     (https://travis-ci.org/#{gituser}/#{gitname})
     \n[![Coverage Status]
     (https://coveralls.io/repos/#{gituser}/#{gitname}/badge.png?branch=master)]\
     (https://coveralls.io/r/#{gituser}/#{gitname}?branch=master)"
-  unless command.private
+  unless options.private
     doc.badges += "\n[![Dependency Status]
     (https://gemnasium.com/#{gituser}/#{gitname}.png)]\
     (https://gemnasium.com/#{gituser}/#{gitname})"
     doc.install = "\n\
-    [![NPM](https://nodei.co/npm/#{command.package}.png?downloads=true&stars=true)]\
-    (https://nodei.co/npm/#{command.package}/)"
+    [![NPM](https://nodei.co/npm/#{options.package}.png?downloads=true&stars=true)]\
+    (https://nodei.co/npm/#{options.package}/)"
 
   fs.writeFile file, """
-    Package: #{command.package}
+    Package: #{options.package}
     =================================================
     #{doc.badges}
 
@@ -284,10 +286,10 @@ createReadme = (command, cb) ->
     """, cb
 
 # ### Create an initial changelog
-createChangelog = (command, cb) ->
-  if command.verbose
+createChangelog = (dir, options, cb) ->
+  if options.verbose
     console.log "Check for existing changelog".grey
-  file = path.join command.dir, 'Changelog.md'
+  file = path.join options.dir, 'Changelog.md'
   if fs.existsSync file
     return cb()
   console.log "Create new changelog file"
@@ -302,15 +304,15 @@ createChangelog = (command, cb) ->
     """, cb
 
 # ### Create a travis configuration file
-createTravis = (command, cb) ->
-  unless command.github
+createTravis = (dir, options, cb) ->
+  unless options.github
     return cb()
-  if command.verbose
+  if options.verbose
     console.log "Check for existing travis configuration".grey
-  file = path.join command.dir, '.travis.yml'
+  file = path.join options.dir, '.travis.yml'
   if fs.existsSync file
     return cb()
-  gituser = path.basename path.dirname command.github
+  gituser = path.basename path.dirname options.github
   console.log "Create new travis-ci configuration"
   console.log "Log into https://travis-ci.org/profile/#{gituser}
     and activate Travis CI".yellow.bold
@@ -332,26 +334,26 @@ createTravis = (command, cb) ->
     """, cb
 
 # ### Make initial commit
-initialCommit = (command, cb) ->
-  if command.verbose
+initialCommit = (dir, options, cb) ->
+  if options.verbose
     console.log "Check if git already used".grey
-  debug "exec #{command.dir}> git log"
-  execFile "git", [ 'log' ], { cwd: command.dir }, (err, stdout, stderr) ->
+  debug "exec #{options.dir}> git log"
+  execFile "git", [ 'log' ], { cwd: options.dir }, (err, stdout, stderr) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
-    debug "exec #{command.dir}> git add *"
-    execFile "git", [ 'add', '*' ], { cwd: command.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and command.verbose
+    debug "exec #{options.dir}> git add *"
+    execFile "git", [ 'add', '*' ], { cwd: options.dir }, (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and options.verbose
       console.error stderr.trim().magenta if stderr
-      debug "exec #{command.dir}> git commit -m \"Initial commit\""
+      debug "exec #{options.dir}> git commit -m \"Initial commit\""
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
-      , { cwd: command.dir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and command.verbose
+      , { cwd: options.dir }, (err, stdout, stderr) ->
+        console.log stdout.trim().grey if stdout and options.verbose
         console.error stderr.trim().magenta if stderr
         console.log "Push to origin"
-        debug "exec #{command.dir}> git push origin master"
+        debug "exec #{options.dir}> git push origin master"
         execFile "git", [ 'push', 'origin', 'master' ],
-        { cwd: command.dir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and command.verbose
+        { cwd: options.dir }, (err, stdout, stderr) ->
+          console.log stdout.trim().grey if stdout and options.verbose
           console.error stderr.trim().magenta if stderr
           cb()

@@ -20,7 +20,9 @@ crypto = require 'crypto'
 #
 # __Arguments:__
 #
-# * `command`
+# * `dir`
+#   Directory to operate on
+# * `options`
 #   Command specific parameters and options.
 # * `callback(err)`
 #   The callback will be called just if an error occurred or with `null` if
@@ -29,69 +31,70 @@ crypto = require 'crypto'
 # This task will create the documentation and publish it if switch `--publish`
 # is set. The publication can be done to github pages or using the `doc-publish`
 # script if defined.
-module.exports.run = (command, cb) ->
-  url = path.join command.dir, 'doc', 'index.html'
-  if command.watch and command.browser
+module.exports.run = (dir, options, cb) ->
+  url = path.join dir, 'doc', 'index.html'
+  if options.watch and options.browser
     setTimeout ->
-      openUrl command, url
+      openUrl options, url
     , 5000
   # Create the html documentation out of source files
-  createDoc command, (err) ->
+  createDoc dir, options, (err) ->
     return cb err if err
     # Check for specific doc style
-    pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+    pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
     file = path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
     unless fs.existsSync file
       file = path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
     # Use specific doc style
     if fs.existsSync file
-      fs.copySync file, path.join(command.dir, 'doc', 'doc-style.css'), 
+      fs.copySync file, path.join(dir, 'doc', 'doc-style.css'),
         overwrite: true
     # Check for specific doc script
-    pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+    pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
     file = path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
     unless fs.existsSync file
       file = path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
     # Use specific doc style
     if fs.existsSync file
-      fs.copySync file, path.join(command.dir, 'doc', 'doc-script.js'), 
+      fs.copySync file, path.join(dir, 'doc', 'doc-script.js'),
         overwrite: true
     # Check if --publish flag is set
-    unless command.publish
-      return openUrl command, url, cb if command.browser
+    unless options.publish
+      return openUrl options, url, cb if options.browser
       cb()
-    # Publish  using script from package.json
+    # Publish using script from package.json
     if pack.scripts?['doc-publish']?
-      debug "exec #{command.dir}> #{pack.scripts['doc-publish']}"
-      exec pack.scripts['doc-publish'], { cwd: command.dir }, (err, stdout, stderr) ->
-        if command.verbose
+      debug "exec #{dir}> #{pack.scripts['doc-publish']}"
+      exec pack.scripts['doc-publish'], { cwd: dir }, (err, stdout, stderr) ->
+        if options.verbose
           console.log stdout.toString().trim().grey if stdout
         console.log stderr.toString().trim().magenta if stderr
         return cb err if err
-        return openUrl command, url, cb if command.browser
+        return openUrl options, url, cb if options.browser
         return cb()
     # Or publish to GitHub
     else if ~pack.repository?.url?.indexOf 'github.com/'
-      async.series [
-        (cb) -> createTmpDir command, cb
-        (cb) -> cloneGit command, cb
-        (cb) -> checkoutPages command, cb
-        (cb) -> updateDoc command, cb
-        (cb) -> pushOrigin command, cb
-      ], (err) ->
-        throw err if err
-        fs.remove command.tmpdir, (err) ->
-          return openUrl command, url, cb if command.browser
-          return cb()
+      createTmpDir dir, options, (err, tmpdir) ->
+        return cb err if err
+        async.series [
+          (cb) -> cloneGit dir, tmpdir, options, cb
+          (cb) -> checkoutPages dir, tmpdir, options, cb
+          (cb) -> updateDoc dir, tmpdir, options, cb
+          (cb) -> pushOrigin dir, tmpdir, options, cb
+        ], (err) ->
+          throw err if err
+          fs.remove tmpdir, (err) ->
+            return openUrl options, url, cb if options.browser
+            return cb()
     # Publication was not possible
     else
       console.error "Could not publish, specify doc-publish script in package.json".magenta
-      return openUrl command, url, cb if command.browser
+      return openUrl options, url, cb if options.browser
       return cb()
 
 # ### Open the given url in the default browser
-openUrl = (command, target, cb) ->
-  if command.verbose
+openUrl = (options, target, cb) ->
+  if options.verbose
     console.log "Open #{target} in browser".grey
   opener = switch process.platform
     when 'darwin' then 'open'
@@ -104,10 +107,10 @@ openUrl = (command, target, cb) ->
   return exec opener + ' "' + encodeURI(target) + '"', cb
 
 # ### Create initial git repository
-createDoc = (command, cb) ->
-  docPath = path.join command.dir, 'doc'
+createDoc = (dir, options, cb) ->
+  docPath = path.join dir, 'doc'
   if fs.existsSync docPath
-    if command.verbose
+    if options.verbose
       console.log "Remove old documentation".grey
     fs.removeSync docPath
   # create index.html
@@ -132,11 +135,11 @@ createDoc = (command, cb) ->
   unless fs.existsSync docker
     return cb "Missing docker installation in #{docker}."
   args = [
-    '-i', command.dir
+    '-i', dir
     '-u'
-    if command.watch then '-w' else ''
+    if options.watch then '-w' else ''
     '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
-    '-o', path.join command.dir, 'doc'
+    '-o', path.join dir, 'doc'
     '-c', 'autumn'
     '--extras', 'fileSearch,goToLine'
   ]
@@ -144,7 +147,7 @@ createDoc = (command, cb) ->
   proc = spawn docker, args
   proc.stdout.on 'data', (data) ->
     unless ~data.toString().indexOf "Done."
-      if command.verbose
+      if options.verbose
         console.log data.toString().trim().grey
   proc.stderr.on 'data', (data) ->
     console.error data.toString().trim().magenta
@@ -157,119 +160,121 @@ createDoc = (command, cb) ->
       if err
         console.warn err.toString().magenta
         return cb()
-      console.log "Correcting local links".grey if command.verbose
+      console.log "Correcting local links".grey if options.verbose
       args = [
         '(<a href="(?!#|.+?://(?!alinehhhx.github.io))[^?#"]+[^/?#"])(.*?")'
         '$1.html$2'
-        path.join command.dir, 'doc'
+        path.join dir, 'doc'
         '-r'
       ]
-      debug "exec> #{cmd} #{args.join ' '}"      
+      debug "exec> #{cmd} #{args.join ' '}"
       execFile cmd, args, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and command.verbose
+        console.log stdout.trim().grey if stdout and options.verbose
         console.error stderr.trim().magenta if stderr
         return cb err if err
-        pack = JSON.parse fs.readFileSync path.join command.dir, 'package.json'
+        pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
         return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
         args = [
           '(<div id="container">)'
           '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
-          path.join command.dir, 'doc'
+          path.join dir, 'doc'
           '-r'
         ]
-        debug "exec> #{cmd} #{args.join ' '}"        
+        debug "exec> #{cmd} #{args.join ' '}"
         execFile cmd, args, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and command.verbose
+          console.log stdout.trim().grey if stdout and options.verbose
           console.error stderr.trim().magenta if stderr
           cb err
 
 # ### Create temporary directory
-createTmpDir = (command, cb) ->
+createTmpDir = (dir, options, cb) ->
   filename = 'alinex-make-' + crypto.randomBytes(4).readUInt32LE(0) + '-gh'
-  command.tmpdir = path.join os.tmpdir(), filename
-  if command.verbose
-    console.log "Create temporary directory at #{command.tmpdir}".grey
-  fs.mkdirs command.tmpdir, cb
+  tmpdir = path.join os.tmpdir(), filename
+  if options.verbose
+    console.log "Create temporary directory at #{tmpdir}".grey
+  fs.mkdirs tmpdir, (err) ->
+    return cb err if err
+    cb null, tmpdir
 
 # ### Clone git repository
-cloneGit = (command, cb) ->
-  file = path.join command.dir, 'package.json'
+cloneGit = (dir, tmpdir, options, cb) ->
+  file = path.join dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
   console.log "Cloning git repository"
-  debug "exec> git clone #{pack.repository.url} #{command.tmpdir}"
+  debug "exec> git clone #{pack.repository.url} #{tmpdir}"
   execFile 'git', [
     'clone'
     pack.repository.url
-    command.tmpdir
+    tmpdir
   ], (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     cb err
 
 # ### Checkout gh-pages branch
-checkoutPages = (command, cb) ->
+checkoutPages = (dir, tmpdir, options, cb) ->
   console.log "Checkout gh-pages branch"
-  debug "exec #{command.tmpdir}> git checkout gh-pages"
+  debug "exec #{tmpdir}> git checkout gh-pages"
   execFile 'git', [
     'checkout', 'gh-pages'
-  ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     return cb() unless err
-    debug "exec #{command.tmpdir}> git checkout --orphan gh-pages"
+    debug "exec #{tmpdir}> git checkout --orphan gh-pages"
     execFile 'git', [
       'checkout'
       '--orphan'
       'gh-pages'
-    ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and command.verbose
+    ], { cwd: tmpdir }, (err, stdout, stderr) ->
+      console.log stdout.trim().grey if stdout and options.verbose
       console.error stderr.trim().magenta if stderr
       cb err
 
 # ### Update the documentation
-updateDoc = (command, cb) ->
+updateDoc = (dir, tmpdir, options, cb) ->
   console.log "Update documentation"
-  if command.verbose
+  if options.verbose
     console.log "Remove old documentation".grey
-  debug "exec #{command.tmpdir}> git rm -rf ."
+  debug "exec #{tmpdir}> git rm -rf ."
   execFile 'git', [
     'rm', '-rf', '.'
-  ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
-    if command.verbose
+    if options.verbose
       console.log "Copy new documentation into repository".grey
-    fs.copy path.join(command.dir, 'doc'), command.tmpdir, (err) ->
+    fs.copy path.join(dir, 'doc'), tmpdir, (err) ->
       return cb err if err
-      if command.verbose
+      if options.verbose
         console.log "Add files to git".grey
-      debug "exec #{command.tmpdir}> git add *"
+      debug "exec #{tmpdir}> git add *"
       execFile 'git', [
         'add', '*'
-      ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and command.verbose
+      ], { cwd: tmpdir }, (err, stdout, stderr) ->
+        console.log stdout.trim().grey if stdout and options.verbose
         console.error stderr.trim().magenta if stderr
         return cb err if err
-        if command.verbose
+        if options.verbose
           console.log "Commit changes".grey
-        debug "exec #{command.tmpdir}> git commit -m \"Updated documentation\""
+        debug "exec #{tmpdir}> git commit -m \"Updated documentation\""
         execFile 'git', [
           'commit'
           '-m', "Updated documentation"
-        ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and command.verbose
+        ], { cwd: tmpdir }, (err, stdout, stderr) ->
+          console.log stdout.trim().grey if stdout and options.verbose
           console.error stderr.trim().magenta if stderr
           cb err
 
 # ### Push to git origin
-pushOrigin = (command, cb) ->
+pushOrigin = (dir, tmpdir, options, cb) ->
   console.log "Push to git origin"
-  debug "exec #{command.tmpdir}> git push origin gh-pages"
+  debug "exec #{tmpdir}> git push origin gh-pages"
   execFile "git", [
     'push'
     'origin', 'gh-pages'
-  ], { cwd: command.tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and command.verbose
+  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+    console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     return cb err if err
     cb()
