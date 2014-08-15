@@ -4,6 +4,16 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.3.0 (2014-08-15)
+-------------------------------------------------
+- Fixed bug in test task and added examples.
+- Added install task.
+- Restructured all tasks to use new yargs option parsing.
+- Finished yargs integration with pull command.
+- Start restructuring options parsing.
+- Merge branch 'master' of https://github.com/alinex/node-make
+- Upgraded to new debug version.
+
 Version 0.2.10 (2014-08-08)
 -------------------------------------------------
 - Upgraded debug module version.
