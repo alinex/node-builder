@@ -28,19 +28,19 @@ colors = require 'colors'
 module.exports.run = (dir, options, cb) ->
   coffeelint dir, options, (err) ->
     return cb err if err
-    debug "exec #{dir}> npm install"
-    execFile 'npm', [ 'install' ], { cwd: dir }
-    , (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr and options.verbose
+#    debug "exec #{dir}> npm install"
+#    execFile 'npm', [ 'install' ], { cwd: dir }
+#    , (err, stdout, stderr) ->
+#      console.log stdout.trim().grey if stdout and options.verbose
+#      console.error stderr.trim().magenta if stderr and options.verbose
+#      return cb err if err
+    testMocha dir, options, (err) ->
       return cb err if err
-      testMocha dir, options, (err) ->
+      coverage dir, options, (err) ->
         return cb err if err
-        coverage dir, options, (err) ->
-          return cb err if err
-          url = path.join GLOBAL.ROOT_DIR, dir, 'coverage', 'lcov-report', 'index.html'
-          return openUrl options, url, cb if options.coverage and options.browser
-          cb()
+        url = path.join GLOBAL.ROOT_DIR, dir, 'coverage', 'lcov-report', 'index.html'
+        return openUrl options, url, cb if options.coverage and options.browser
+        cb()
 
 
 # ### Open the given url in the default browser
@@ -95,9 +95,9 @@ coffeelint = (dir, options, cb) ->
 # It will add the -w flag if `--watch` is set.
 testMocha = (dir, options, cb) ->
   # check if there are any mocha tests
-  dir = path.join dir, 'test', 'mocha'
-  unless fs.existsSync dir
-    console.log "No mocha test dir found at #{dir}.".magenta
+  mochadir = path.join dir, 'test', 'mocha'
+  unless fs.existsSync mochadir
+    console.log "No mocha test dir found at #{mochadir}.".magenta
     return cb()
   # Check for existing options
   fs.npmbin 'mocha', path.dirname(__dirname), (err, cmd) ->
@@ -125,8 +125,8 @@ coverage = (dir, options, cb) ->
   unless options.coverage
     return cb()
   # check if there are any mocha tests
-  dir = path.join dir, 'test', 'mocha'
-  unless fs.existsSync dir
+  mochadir = path.join dir, 'test', 'mocha'
+  unless fs.existsSync mochadir
     return cb "Coverage only works on mocha tests."
   # Check for existing options
   fs.npmbin 'istanbul', path.dirname(__dirname), (err, cmd) ->

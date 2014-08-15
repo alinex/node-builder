@@ -71,7 +71,9 @@ argv = yargs
   Usage: $0 [-vC] -c command... [dir]...
   """)
 # examples
-.example('$0 -f', 'count the lines in the given file')
+.example('$0 -c compile -c test', 'to rerun the tests after code changes')
+.example('$0 -c install --update -c test -c push -c publish --minor -c doc --publish',
+  'to do the complete publishing cycle')
 # commands
 .demand('c')
 .alias('c', 'command')
@@ -113,7 +115,7 @@ argv = yargs
 .showHelpOnFail(false, "Specify --help for available options")
 .check (argv, options) ->
   # optimize the arguments for processing
-  argv._ = ['.'] unless argv._.length
+  argv._ = ['./'] unless argv._.length
   argv.command = [argv.command] unless Array.isArray argv.command
   # additional checks
   for command in argv.command
