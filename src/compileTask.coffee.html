@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/compileTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/compileTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -105,7 +105,9 @@
 <p><strong>Arguments:</strong></p>
 
 <ul>
-<li><code>command</code>
+<li><code>dir</code>
+Directory to operate on</li>
+<li><code>options</code>
 Command specific parameters and options.</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred or with <code>null</code> if
@@ -113,7 +115,7 @@ execution finished.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(command, cb) -&gt;</span>
+<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -126,7 +128,7 @@ execution finished.</li>
 <p>check for existing source files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
+  <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
   <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">src</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;No source files found.&quot;</span>
 
@@ -141,11 +143,11 @@ execution finished.</li>
 <p>cleanup old files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">lib = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
+  <span class="nv">lib = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove old lib directory&quot;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">lib</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">compileCoffee</span> <span class="nx">command</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">compileCoffee</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -162,9 +164,9 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">compileCoffee = </span><span class="nf">(command, cb) -&gt;</span>
-  <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
-  <span class="nv">lib = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
+<span class="nv">compileCoffee = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
+  <span class="nv">lib = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
 
 </pre></div>
         </td>
@@ -186,11 +188,11 @@ execution finished.</li>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nv">jsfile = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="s">&#39;.coffee&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.js&#39;</span>
         <span class="nv">mapfile = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="s">&#39;.coffee&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.map&#39;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nv">compiled = </span><span class="nx">coffee</span><span class="p">.</span><span class="nx">compile</span> <span class="nx">data</span><span class="p">,</span>
           <span class="nv">filename: </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">file</span>
           <span class="nv">generatedFile: </span><span class="nx">jsfile</span>
-          <span class="nv">sourceRoot: </span><span class="nx">path</span><span class="p">.</span><span class="nx">relative</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span>
+          <span class="nv">sourceRoot: </span><span class="nx">path</span><span class="p">.</span><span class="nx">relative</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span> <span class="nx">dir</span>
           <span class="nv">sourceFiles: </span><span class="p">[</span> <span class="nx">file</span> <span class="p">]</span>
           <span class="nv">sourceMap: </span><span class="kc">true</span>
         <span class="nx">compiled</span><span class="p">.</span><span class="nx">js</span> <span class="o">+=</span> <span class="s">&quot;\n//</span><span class="err">#</span><span class="s"> sourceMappingURL=</span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">mapfile</span><span class="si">}</span><span class="s">&quot;</span>
@@ -218,8 +220,8 @@ execution finished.</li>
               <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
               <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">filepathmap</span><span class="p">,</span> <span class="nx">compiled</span><span class="p">.</span><span class="nx">v3SourceMap</span><span class="p">,</span> <span class="nx">cb</span>
         <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">command</span><span class="p">.</span><span class="nx">uglify</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Uglify </span><span class="si">#{</span><span class="nx">jsfile</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">options</span><span class="p">.</span><span class="nx">uglify</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Uglify </span><span class="si">#{</span><span class="nx">jsfile</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">uglify</span>
             <span class="nv">dir: </span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">filepathjs</span>
             <span class="nv">fromjs: </span><span class="nx">jsfile</span>
@@ -255,7 +257,7 @@ execution finished.</li>
     <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--in-source-map&#39;</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">frommap</span> <span class="k">if</span> <span class="nx">item</span><span class="p">.</span><span class="nx">frommap</span>
     <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">item</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">execFile</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">item</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nx">cb</span> <span class="nx">err</span>
 </pre></div>

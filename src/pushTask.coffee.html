@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/pushTask.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/pushTaskcoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -98,7 +98,9 @@
 <p><strong>Arguments:</strong></p>
 
 <ul>
-<li><code>command</code>
+<li><code>dir</code>
+Directory to operate on</li>
+<li><code>options</code>
 Command specific parameters and options.</li>
 <li><code>callback(err)</code>
 The callback will be called just if an error occurred or with <code>null</code> if
@@ -106,7 +108,7 @@ execution finished.</li>
 </ul>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(command, cb) -&gt;</span>
+<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -119,10 +121,10 @@ execution finished.</li>
 <p>check for existing git repository</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for configured git&quot;</span><span class="p">.</span><span class="nx">grey</span>
-  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Only git repositories can be pushed.&quot;</span>
+  <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Only git repositories can be pushed, yet. But </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> is no git repository.&quot;</span>
 
 </pre></div>
         </td>
@@ -132,41 +134,41 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
-<p>run the push command</p>
+<p>run the push options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">commit</span> <span class="nx">command</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="nx">commit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to origin&quot;</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git push --tags --prune origin master&quot;</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git push --tags --prune origin master&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;--tags&#39;</span><span class="p">,</span> <span class="s">&#39;--prune&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">]</span>
-    <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nx">cb</span> <span class="nx">err</span>
 
-<span class="nv">commit = </span><span class="nf">(command, cb) -&gt;</span>
-  <span class="k">if</span> <span class="nx">command</span><span class="p">.</span><span class="nx">message</span>
+<span class="nv">commit = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">message</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Adding changed files to git&quot;</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git add -A&quot;</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git add -A&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;-A&#39;</span> <span class="p">]</span>
-    <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git commit -m </span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">command</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="nx">command</span><span class="p">.</span><span class="nx">message</span> <span class="p">]</span>
-      <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">command</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git commit -m </span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">options</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">message</span> <span class="p">]</span>
+      <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="nx">cb</span> <span class="nx">err</span>
   <span class="k">else</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; LANG=C git status&quot;</span>
-    <span class="nx">exec</span> <span class="s">&#39;LANG=C git status&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">command</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; LANG=C git status&quot;</span>
+    <span class="nx">exec</span> <span class="s">&#39;LANG=C git status&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">~</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;nothing to commit&#39;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span>
-      <span class="nx">cb</span> <span class="s">&quot;Skipped push because not all changes are committed, use &#39;--message &lt;message&gt;&#39;.&quot;</span>
+      <span class="nx">cb</span> <span class="s">&quot;Skipped push for </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> because not all changes are committed, use &#39;--message &lt;message&gt;&#39;.&quot;</span>
 </pre></div>
         </td>
       </tr>
