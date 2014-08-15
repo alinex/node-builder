@@ -52,6 +52,7 @@ process.title = 'alinex-make'
 commands =
   list: "show the list of possible commands"
   create: "create a new package"
+  install: "installation of package with dependent packages"
   compile: "compile code"
   pull: "pull newest version from repository"
   push: "push changes to repository"
@@ -91,6 +92,8 @@ argv = yargs
 # compile options
 .alias('u', 'uglify')
 .describe('u', 'compile: run uglify for each file')
+# install options
+.describe('update', 'install: update packages to newest possible version')
 # publish options
 .describe('minor', 'publish: change to next minor version')
 .describe('major', 'publish: change to next major version')

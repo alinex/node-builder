@@ -68,7 +68,7 @@ coffeelint = (dir, options, cb) ->
     # Run external options
     console.log "Linting coffee code"
     debug "exec #{dir}> #{cmd} -f #{path.join GLOBAL.ROOT_DIR, 'coffeelint.json'} src"
-    if options.colors
+    if options.nocolors
       proc = spawn cmd, [
         '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
         'src'
@@ -102,7 +102,7 @@ testMocha = (dir, options, cb) ->
   # Check for existing options
   fs.npmbin 'mocha', path.dirname(__dirname), (err, cmd) ->
     return cb err if err
-    # Run external options
+    # Run external command
     console.log "Run mocha tests"
     args = [
       '--compilers', 'coffee:coffee-script/register'
@@ -131,7 +131,7 @@ coverage = (dir, options, cb) ->
   # Check for existing options
   fs.npmbin 'istanbul', path.dirname(__dirname), (err, cmd) ->
     return cb err if err
-    # Run external options
+    # Run external command
     console.log "Run istanbul coverage report"
     fs.npmbin '_mocha', path.dirname(__dirname), (err, mocha) ->
       return cb err if err

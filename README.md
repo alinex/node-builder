@@ -148,6 +148,19 @@ Mostly this task will be added as prepublish script to the `package.json` like:
     }
 
 
+### Command `install`
+
+This task is a handy addition to include the npm install and npm update commands:
+
+    > alinex-make -c install               # from within the package directory
+    > alinex-make -c install ./node-error  # or from anywhere else
+
+Or give an directory and use update to also update all packages to the newest
+possible one.
+
+    > alinex-make -c install ../node-error --update
+
+
 ### Command `test`
 
 As a first test a coffeelint check will be run. Only if this won't have any
