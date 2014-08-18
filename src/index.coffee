@@ -155,6 +155,8 @@ async.eachSeries argv.command, (command, cb) ->
   , (err) ->
     return cb err if err
     argv.done.push command
+    if command is 'install'
+      argv.done.push 'compile' # this is called by npm
     cb()
 , (err) ->
   throw err if err
