@@ -47,7 +47,7 @@
     "colors": ">=0.6.0",
     "commander": "2.x",
     "coveralls": "2.x",
-    "debug": "1.x || 0.9.x || 0.8.x",
+    "debug": "0.8.0 - 2.x",
     "docker": ">=0.2.10",
     "istanbul": "0.3.x || 0.2.x",
     "mocha": "1.x",
