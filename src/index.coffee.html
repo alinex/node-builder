@@ -468,6 +468,25 @@ command line call.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">colors.mode = </span><span class="s">&#39;none&#39;</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
 
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+</div>
+<p>add additional dependent commands</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">cmds = </span><span class="p">[]</span>
+<span class="k">for</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
+  <span class="k">switch</span> <span class="nx">command</span>
+    <span class="k">when</span> <span class="s">&#39;publish&#39;</span>
+      <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;push&#39;</span>
+  <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
+<span class="nv">argv._ = </span><span class="nx">cmds</span>
+
 
 </pre></div>
         </td>
@@ -491,7 +510,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>skip if command already done</p>
         </td>
@@ -505,7 +524,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>list possible commands</p>
         </td>
@@ -521,7 +540,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>load task library</p>
         </td>
@@ -534,7 +553,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
 <p>run modules in parallel for each directory</p>
         </td>
@@ -545,6 +564,8 @@ command line call.</p>
   <span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
+    <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;install&#39;</span>
+      <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;compile&#39;</span> <span class="c1"># this is called by npm</span>
     <span class="nx">cb</span><span class="p">()</span>
 <span class="p">,</span> <span class="nf">(err) -&gt;</span>
   <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -555,7 +576,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
 <p>check for existing command</p>
         </td>
