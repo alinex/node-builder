@@ -1,6 +1,6 @@
 {
   "name": "alinex-make",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Helper commands for development of npm packages.",
   "copyright": "Alexander Schilling 2013-2014",
   "keywords": [

@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.0 (2014-09-27)
+-------------------------------------------------
+- Updated submodule replace to version 0.3.x.
+
 Version 0.3.2 (2014-09-17)
 -------------------------------------------------
 - Fixed small bug preventing alinex layout to be used.
