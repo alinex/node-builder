@@ -10,7 +10,7 @@ debug = require('debug')('make:test')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {spawn,exec, execFile} = require 'child_process'
 
 # Main routine
@@ -46,7 +46,7 @@ npmInstall = (dir, options, cb) ->
       if options.verbose
         console.log data.toString().trim()
     proc.stderr.on 'data', (data) ->
-      console.error data.toString().trim().magenta
+      console.error chalk.magenta data.toString().trim()
   # Error management
   proc.on 'error', cb
   proc.on 'exit', (status) ->
@@ -69,10 +69,10 @@ npmUpdate = (dir, options, cb) ->
         console.log data.toString().trim()
     proc.stderr.on 'data', (data) ->
       if options.verbose
-        console.error data.toString().trim().magenta
+        console.error chalk.magenta data.toString().trim()
   # Error management
   proc.on 'error', cb
   proc.on 'exit', (status) ->
     if status != 0
-      console.log "npm update exited with status #{status}".red
+      console.log chalk.red "npm update exited with status #{status}"
     cb()

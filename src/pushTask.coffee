@@ -10,7 +10,7 @@ debug = require('debug')('make:push')
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {exec,execFile} = require 'child_process'
 
 # Main routine
@@ -28,7 +28,7 @@ colors = require 'colors'
 module.exports.run = (dir, options, cb) ->
   # check for existing git repository
   if options.verbose
-    console.log "Check for configured git".grey
+    console.log chalk.grey "Check for configured git"
   unless fs.existsSync path.join dir, '.git'
     return cb "Only git repositories can be pushed, yet. But #{dir} is no git repository."
   # run the push options
@@ -38,8 +38,8 @@ module.exports.run = (dir, options, cb) ->
     debug "exec #{dir}> git push --tags --prune origin master"
     execFile "git", [ 'push', '--tags', '--prune', 'origin', 'master' ]
     , { cwd: dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       cb err
 
 commit = (dir, options, cb) ->
@@ -48,14 +48,14 @@ commit = (dir, options, cb) ->
     debug "exec #{dir}> git add -A"
     execFile "git", [ 'add', '-A' ]
     , { cwd: dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
       debug "exec #{dir}> git commit -m #{JSON.stringify options.message}"
       execFile "git", [ 'commit', '-m', options.message ]
       , { cwd: dir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and options.verbose
-        console.error stderr.trim().magenta if stderr
+        console.log chalk.grey stdout.trim() if stdout and options.verbose
+        console.error chalk.magenta stderr.trim() if stderr
         cb err
   else
     debug "exec #{dir}> LANG=C git status"

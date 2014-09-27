@@ -10,7 +10,7 @@ debug = require('debug')('make:doc')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {exec, execFile, spawn} = require 'child_process'
 os = require 'os'
 crypto = require 'crypto'
@@ -67,8 +67,8 @@ module.exports.run = (dir, options, cb) ->
       debug "exec #{dir}> #{pack.scripts['doc-publish']}"
       exec pack.scripts['doc-publish'], { cwd: dir }, (err, stdout, stderr) ->
         if options.verbose
-          console.log stdout.toString().trim().grey if stdout
-        console.log stderr.toString().trim().magenta if stderr
+          console.log chalk.grey stdout.toString().trim() if stdout
+        console.log chalk.magenta stderr.toString().trim() if stderr
         return cb err if err
         return openUrl options, url, cb if options.browser
         return cb()
@@ -88,14 +88,14 @@ module.exports.run = (dir, options, cb) ->
             return cb()
     # Publication was not possible
     else
-      console.error "Could not publish, specify doc-publish script in package.json".magenta
+      console.error chalk.magenta "Could not publish, specify doc-publish script in package.json"
       return openUrl options, url, cb if options.browser
       return cb()
 
 # ### Open the given url in the default browser
 openUrl = (options, target, cb) ->
   if options.verbose
-    console.log "Open #{target} in browser".grey
+    console.log chalk.grey "Open #{target} in browser"
   opener = switch process.platform
     when 'darwin' then 'open'
     # if the first parameter to start is quoted, it uses that as the title
@@ -111,7 +111,7 @@ createDoc = (dir, options, cb) ->
   docPath = path.join dir, 'doc'
   if fs.existsSync docPath
     if options.verbose
-      console.log "Remove old documentation".grey
+      console.log chalk.grey "Remove old documentation"
     fs.removeSync docPath
   # create index.html
   fs.mkdirsSync docPath
@@ -148,9 +148,9 @@ createDoc = (dir, options, cb) ->
   proc.stdout.on 'data', (data) ->
     unless ~data.toString().indexOf "Done."
       if options.verbose
-        console.log data.toString().trim().grey
+        console.log chalk.grey data.toString().trim()
   proc.stderr.on 'data', (data) ->
-    console.error data.toString().trim().magenta
+    console.error chalk.magenta data.toString().trim()
   # Error management
   proc.on 'error', cb
   proc.on 'exit', (status) ->
@@ -158,9 +158,9 @@ createDoc = (dir, options, cb) ->
     # correct internal links
     fs.npmbin 'replace', path.dirname(__dirname), (err, cmd) ->
       if err
-        console.warn err.toString().magenta
+        console.warn chalk.magenta err.toString()
         return cb()
-      console.log "Correcting local links".grey if options.verbose
+      console.log chalk.grey "Correcting local links" if options.verbose
       args = [
         '(<a href="(?!#|.+?://(?!alinex.github.io))[^?#"]+[^/?#"])(.*?")'
         '$1.html$2'
@@ -169,8 +169,8 @@ createDoc = (dir, options, cb) ->
       ]
       debug "exec> #{cmd} #{args.join ' '}"
       execFile cmd, args, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and options.verbose
-        console.error stderr.trim().magenta if stderr
+        console.log chalk.grey stdout.trim() if stdout and options.verbose
+        console.error chalk.magenta stderr.trim() if stderr
         return cb err if err
         pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
         return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
@@ -182,8 +182,8 @@ createDoc = (dir, options, cb) ->
         ]
         debug "exec> #{cmd} #{args.join ' '}"
         execFile cmd, args, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and options.verbose
-          console.error stderr.trim().magenta if stderr
+          console.log chalk.grey stdout.trim() if stdout and options.verbose
+          console.error chalk.magenta stderr.trim() if stderr
           cb err
 
 # ### Create temporary directory
@@ -191,7 +191,7 @@ createTmpDir = (dir, options, cb) ->
   filename = 'alinex-make-' + crypto.randomBytes(4).readUInt32LE(0) + '-gh'
   tmpdir = path.join os.tmpdir(), filename
   if options.verbose
-    console.log "Create temporary directory at #{tmpdir}".grey
+    console.log chalk.grey "Create temporary directory at #{tmpdir}"
   fs.mkdirs tmpdir, (err) ->
     return cb err if err
     cb null, tmpdir
@@ -207,8 +207,8 @@ cloneGit = (dir, tmpdir, options, cb) ->
     pack.repository.url
     tmpdir
   ], (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     cb err
 
 # ### Checkout gh-pages branch
@@ -218,8 +218,8 @@ checkoutPages = (dir, tmpdir, options, cb) ->
   execFile 'git', [
     'checkout', 'gh-pages'
   ], { cwd: tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb() unless err
     debug "exec #{tmpdir}> git checkout --orphan gh-pages"
     execFile 'git', [
@@ -227,15 +227,15 @@ checkoutPages = (dir, tmpdir, options, cb) ->
       '--orphan'
       'gh-pages'
     ], { cwd: tmpdir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       cb err
 
 # ### Update the documentation
 updateDoc = (dir, tmpdir, options, cb) ->
   console.log "Update documentation"
   if options.verbose
-    console.log "Remove old documentation".grey
+    console.log chalk.grey "Remove old documentation"
   debug "exec #{tmpdir}> git rm -rf ."
   execFile 'git', [
     'rm', '-rf', '.'
@@ -243,11 +243,11 @@ updateDoc = (dir, tmpdir, options, cb) ->
     console.log stdout.trim().grey if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     if options.verbose
-      console.log "Copy new documentation into repository".grey
+      console.log chalk.grey "Copy new documentation into repository"
     fs.copy path.join(dir, 'doc'), tmpdir, (err) ->
       return cb err if err
       if options.verbose
-        console.log "Add files to git".grey
+        console.log chalk.grey "Add files to git"
       debug "exec #{tmpdir}> git add *"
       execFile 'git', [
         'add', '*'
@@ -256,14 +256,14 @@ updateDoc = (dir, tmpdir, options, cb) ->
         console.error stderr.trim().magenta if stderr
         return cb err if err
         if options.verbose
-          console.log "Commit changes".grey
+          console.log chalk.grey "Commit changes"
         debug "exec #{tmpdir}> git commit -m \"Updated documentation\""
         execFile 'git', [
           'commit'
           '-m', "Updated documentation"
         ], { cwd: tmpdir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and options.verbose
-          console.error stderr.trim().magenta if stderr
+          console.log chalk.grey stdout.trim() if stdout and options.verbose
+          console.error chalk.magenta stderr.trim() if stderr
           cb err
 
 # ### Push to git origin
@@ -274,8 +274,8 @@ pushOrigin = (dir, tmpdir, options, cb) ->
     'push'
     'origin', 'gh-pages'
   ], { cwd: tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     cb()
 

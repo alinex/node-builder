@@ -10,7 +10,7 @@ debug = require('debug')('make:publish')
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {execFile} = require 'child_process'
 request = require 'request'
 moment = require 'moment'
@@ -33,7 +33,7 @@ module.exports.run = (dir, options, cb) ->
   options.oldVersion = pack.version
   # calculate new version
   if options.verbose
-    console.log "Old version is #{options.oldVersion}".grey
+    console.log chalk.grey "Old version is #{options.oldVersion}"
   version = pack.version.split /\./
   if options.major
     version[0]++
@@ -45,7 +45,7 @@ module.exports.run = (dir, options, cb) ->
     version[2]++
   options.newVersion = pack.version = version.join '.'
   if options.verbose
-    console.log "New version is #{pack.version}".grey
+    console.log chalk.grey "New version is #{pack.version}"
   # write new version number into package.json
   console.log "Change package.json"
   fs.writeFile file, JSON.stringify(pack, null, 2), (err) ->
@@ -58,20 +58,20 @@ module.exports.run = (dir, options, cb) ->
       (cb) -> pushNpm dir, options, cb
     ], (err) ->
       throw err if err
-      console.log "Created v#{pack.version}.".green
+      console.log chalk.green "Created v#{pack.version}."
       cb()
 
 # ### add changes since last version to Changelog
 updateChangelog = (dir, options, cb) ->
   if options.verbose
-    console.log "Read git log".grey
+    console.log chalk.grey "Read git log"
   args = [ 'log', '--pretty=format:%s' ]
   unless options.oldVersion is '0.0.0'
     args.push "v#{options.oldVersion}..HEAD"
   debug "exec #{dir}> git #{args.join ' '}"
   execFile "git", args, { cwd: dir }, (err, stdout, stderr) ->
-    console.log stderr.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stderr.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     file = path.join dir, 'Changelog.md'
     lines = fs.readFileSync(file, 'utf-8').split /\n/
@@ -96,16 +96,16 @@ commitChanges = (dir, options, cb) ->
     'add'
     'package.json', 'Changelog.md'
   ], { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     debug "exec #{dir}> git commit \"Added information for version #{options.newVersion}\""
     execFile "git", [
       'commit'
       '-m', "Added information for version #{options.newVersion}"
     ], { cwd: dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
       cb()
 
@@ -117,8 +117,8 @@ pushOrigin = (dir, options, cb) ->
     'push'
     'origin', 'master'
   ], { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     cb()
 
@@ -136,16 +136,16 @@ gitTag = (dir, options, cb) ->
     '-a', "v#{options.newVersion}"
     '-m', "Created version #{options.newVersion}#{changelog}"
   ], { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     debug "exec #{dir}> git push origin v#{options.newVersion}"
     execFile "git", [
       'push'
       'origin', "v#{options.newVersion}"
     ], { cwd: dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
       cb()
 
@@ -154,12 +154,12 @@ pushNpm = (dir, options, cb) ->
   console.log "Push to npm"
   debug "exec #{dir}> npm install"
   execFile 'npm', [ 'install' ], { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     debug "exec #{dir}> npm publish"
     execFile 'npm', [ 'publish' ], { cwd: dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
       cb()

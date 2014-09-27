@@ -29,7 +29,7 @@
 yargs = require 'yargs'
 fs = require 'fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 async = require 'async'
 # include alinex modules
 errorHandler = require 'alinex-error'
@@ -125,7 +125,7 @@ argv = yargs
 .argv
 argv.done = []
 # implement some global switches
-colors.mode = 'none' if argv.nocolors
+chalk.enabled = false if argv.nocolors
 # add additional dependent commands
 cmds = []
 for command in argv._
@@ -140,7 +140,7 @@ argv._ = cmds
 async.eachSeries argv.command, (command, cb) ->
   # skip if command already done
   return cb() if command in argv.done
-  console.log commands[command].blue.bold
+  console.log chalk.blue.bold commands[command]
   # list possible commands
   if command is 'list'
     console.log "\nThe following commands are possible:\n"
@@ -150,7 +150,7 @@ async.eachSeries argv.command, (command, cb) ->
   lib = require "./#{command}Task"
   # run modules in parallel for each directory
   async.eachSeries argv._, (dir, cb) ->
-    console.log "#{command} #{dir}".blue
+    console.log chalk.blue "#{command} #{dir}"
     lib.run dir, argv, cb
   , (err) ->
     return cb err if err
@@ -161,4 +161,4 @@ async.eachSeries argv.command, (command, cb) ->
 , (err) ->
   throw err if err
   # check for existing command
-  console.log "Done.".green
+  console.log chalk.green "Done."

@@ -10,7 +10,7 @@ debug = require('debug')('make:test')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {spawn,exec, execFile} = require 'child_process'
 
 # Main routine
@@ -46,7 +46,7 @@ module.exports.run = (dir, options, cb) ->
 # ### Open the given url in the default browser
 openUrl = (options, target, cb) ->
   if options.verbose
-    console.log "Open #{target} in browser".grey
+    console.log chalk.grey "Open #{target} in browser"
   opener = switch process.platform
     when 'darwin' then 'open'
     # if the first parameter to start is quoted, it uses that as the title
@@ -63,7 +63,7 @@ coffeelint = (dir, options, cb) ->
   # Check for existing options
   fs.npmbin 'coffeelint', path.dirname(__dirname), (err, cmd) ->
     if err
-      console.log "Skipped lint because coffeelint is missing".yellow
+      console.log chalk.yellow "Skipped lint because coffeelint is missing"
       return cb?()
     # Run external options
     console.log "Linting coffee code"
@@ -82,7 +82,7 @@ coffeelint = (dir, options, cb) ->
         if options.verbose
           console.log data.toString().trim()
       proc.stderr.on 'data', (data) ->
-        console.error data.toString().trim().magenta
+        console.error chalk.magenta data.toString().trim()
     # Error management
     proc.on 'error', cb
     proc.on 'exit', (status) ->
@@ -97,7 +97,7 @@ testMocha = (dir, options, cb) ->
   # check if there are any mocha tests
   mochadir = path.join dir, 'test', 'mocha'
   unless fs.existsSync mochadir
-    console.log "No mocha test dir found at #{mochadir}.".magenta
+    console.log chalk.magenta "No mocha test dir found at #{mochadir}."
     return cb()
   # Check for existing options
   fs.npmbin 'mocha', path.dirname(__dirname), (err, cmd) ->
@@ -148,7 +148,7 @@ coverage = (dir, options, cb) ->
       proc = spawn cmd, args, { cwd: dir }
       if options.verbose
         proc.stderr.on 'data', (data) ->
-          console.error data.toString().trim().grey
+          console.error chalk.grey data.toString().trim()
       # Error management
       proc.on 'error', cb
       proc.on 'exit', (status) ->

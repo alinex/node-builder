@@ -10,7 +10,7 @@ debug = require('debug')('make:create')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {execFile} = require 'child_process'
 request = require 'request'
 prompt = require 'prompt'
@@ -40,7 +40,7 @@ module.exports.run = (dir, options, cb) ->
     (cb) -> initialCommit dir, options, cb
   ], (err) ->
     throw err if err
-    console.log "You may now work with the new package.".yellow
+    console.log chalk.yellow "You may now work with the new package."
     cb()
 
 # ### Create the directory
@@ -48,7 +48,7 @@ createDir = (dir, options, cb) ->
   # check if directory already exist
   if fs.existsSync options.dir
     if options.verbose
-      console.log "Directory #{options.dir} already exists.".grey
+      console.log chalk.grey "Directory #{options.dir} already exists."
     return cb()
   # create directory
   console.log "Create directory #{options.dir}"
@@ -65,7 +65,7 @@ createDir = (dir, options, cb) ->
 initGit = (dir, options, cb) ->
   # check for existing git repository
   if options.verbose
-    console.log "Check for configured git".grey
+    console.log chalk.grey "Check for configured git"
   if fs.existsSync path.join options.dir, '.git'
     options.git = 'file://' + fs.realpathSync options.dir
     return cb()
@@ -80,8 +80,8 @@ initGit = (dir, options, cb) ->
     console.log "Init new git repository"
     debug "exec #{options.dir}> git init"
     execFile "git", [ 'init' ], { cwd: options.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       file = path.join options.dir, '.gitignore'
       return cb err if err or fs.existsSync file
       options.git = 'file://' + fs.realpathSync options.dir
@@ -93,12 +93,12 @@ createGitHub = (dir, options, cb) ->
   return cb() if options.private
   # check for existing package with github url
   if options.verbose
-    console.log "Check for configured git".grey
+    console.log chalk.grey "Check for configured git"
   file = path.join options.dir, 'package.json'
   if fs.existsSync file
     pack = JSON.parse fs.readFileSync file
     unless pack.repository.type is 'git'
-      console.out "Only git repositories can be added to github.".yellow
+      console.out chalk.yellow "Only git repositories can be added to github."
       return cb()
     console.log pack.repository.url
     console.log ~pack.repository.url.indexOf 'github.com/'
@@ -109,7 +109,7 @@ createGitHub = (dir, options, cb) ->
   debug "exec #{options.dir}> git remote show origin"
   execFile "git", [ 'remote', 'show', 'origin' ], { cwd: options.dir }, (err, stdout, stderr) ->
     unless err
-      console.log stdout.trim().grey if stdout and options.verbose
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.log "Skipped GitHub because other origin exists already"
       return cb()
     # create github repository
@@ -180,18 +180,18 @@ createGitHub = (dir, options, cb) ->
               'remote'
               'add', 'origin', options.github
             ], { cwd: options.dir }, (err, stdout, stderr) ->
-              console.log stdout.trim().grey if stdout and options.verbose
-              console.error stderr.trim().magenta if stderr
+              console.log chalk.grey stdout.trim() if stdout and options.verbose
+              console.error chalk.magenta stderr.trim() if stderr
               cb err
 
 # ### Create new package.json
 createPackage = (dir, options, cb) ->
   # check if package.json exists
   if options.verbose
-    console.log "Check for existing package.json".grey
+    console.log chalk.grey "Check for existing package.json"
   file = path.join options.dir, 'package.json'
   if fs.existsSync file
-    console.log "Skipped package.json creation, because already exists".yellow
+    console.log chalk.yellow "Skipped package.json creation, because already exists"
     return cb()
   console.log "Create new package.json file"
   gitname = path.basename options.dir
@@ -228,7 +228,7 @@ createPackage = (dir, options, cb) ->
 # ### Create a README.md file
 createReadme = (dir, options, cb) ->
   if options.verbose
-    console.log "Check for README.md".grey
+    console.log chalk.grey "Check for README.md"
   file = path.join options.dir, 'README.md'
   if fs.existsSync file
     return cb()
@@ -288,7 +288,7 @@ createReadme = (dir, options, cb) ->
 # ### Create an initial changelog
 createChangelog = (dir, options, cb) ->
   if options.verbose
-    console.log "Check for existing changelog".grey
+    console.log chalk.grey "Check for existing changelog"
   file = path.join options.dir, 'Changelog.md'
   if fs.existsSync file
     return cb()
@@ -308,18 +308,18 @@ createTravis = (dir, options, cb) ->
   unless options.github
     return cb()
   if options.verbose
-    console.log "Check for existing travis configuration".grey
+    console.log chalk.grey "Check for existing travis configuration"
   file = path.join options.dir, '.travis.yml'
   if fs.existsSync file
     return cb()
   gituser = path.basename path.dirname options.github
   console.log "Create new travis-ci configuration"
-  console.log "Log into https://travis-ci.org/profile/#{gituser}
-    and activate Travis CI".yellow.bold
-  console.log "Log into https://coveralls.io/repos/new?name=#{gituser}
-    and activate coveralls".yellow.bold
-  console.log "Log into https://gemnasium.com/projects/new_from_github
-    and activate dependency checks".yellow.bold
+  console.log chalk.yellow.bold "Log into https://travis-ci.org/profile/#{gituser}
+    and activate Travis CI"
+  console.log chalk.yellow.bold "Log into https://coveralls.io/repos/new?name=#{gituser}
+    and activate coveralls"
+  console.log chalk.yellow.bold "Log into https://gemnasium.com/projects/new_from_github
+    and activate dependency checks"
   coveralls = "
     COVERALLS_SERVICE_NAME=travis-ci
     COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo
@@ -336,24 +336,24 @@ createTravis = (dir, options, cb) ->
 # ### Make initial commit
 initialCommit = (dir, options, cb) ->
   if options.verbose
-    console.log "Check if git already used".grey
+    console.log chalk.grey "Check if git already used"
   debug "exec #{options.dir}> git log"
   execFile "git", [ 'log' ], { cwd: options.dir }, (err, stdout, stderr) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
     debug "exec #{options.dir}> git add *"
     execFile "git", [ 'add', '*' ], { cwd: options.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       debug "exec #{options.dir}> git commit -m \"Initial commit\""
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
       , { cwd: options.dir }, (err, stdout, stderr) ->
-        console.log stdout.trim().grey if stdout and options.verbose
-        console.error stderr.trim().magenta if stderr
+        console.log chalk.grey stdout.trim() if stdout and options.verbose
+        console.error chalk.magenta stderr.trim() if stderr
         console.log "Push to origin"
         debug "exec #{options.dir}> git push origin master"
         execFile "git", [ 'push', 'origin', 'master' ],
         { cwd: options.dir }, (err, stdout, stderr) ->
-          console.log stdout.trim().grey if stdout and options.verbose
-          console.error stderr.trim().magenta if stderr
+          console.log chalk.grey stdout.trim() if stdout and options.verbose
+          console.error chalk.magenta stderr.trim() if stderr
           cb()

@@ -10,7 +10,7 @@ debug = require('debug')('make:pull')
 async = require 'async'
 fs = require 'fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {execFile} = require 'child_process'
 
 # Main routine
@@ -28,7 +28,7 @@ colors = require 'colors'
 module.exports.run = (dir, options, cb) ->
   # check for existing git repository
   if options.verbose
-    console.log "Check for configured git".grey
+    console.log chalk.grey "Check for configured git"
   unless fs.existsSync path.join dir, '.git'
     return cb "Only git repositories can be pulled, yet. But #{dir} is no git repository."
   # run the pull options
@@ -36,6 +36,6 @@ module.exports.run = (dir, options, cb) ->
   debug "exec #{dir}> git pull -t -p origin master"
   execFile "git", [ 'pull', '-t', '-p', 'origin', 'master' ]
   , { cwd: dir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
-    console.error stderr.trim().magenta if stderr
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    console.error chalk.magenta stderr.trim() if stderr
     cb err

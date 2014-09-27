@@ -10,7 +10,7 @@ debug = require('debug')('make:compile')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
-colors = require 'colors'
+chalk = require 'chalk'
 {execFile} = require 'child_process'
 coffee = require 'coffee-script'
 
@@ -52,7 +52,7 @@ compileCoffee = (dir, options, cb) ->
         return cb err if err
         jsfile = path.basename(file, '.coffee') + '.js'
         mapfile = path.basename(file, '.coffee') + '.map'
-        console.log "Compile #{file}".grey if options.verbose
+        console.log chalk.grey "Compile #{file}" if options.verbose
         compiled = coffee.compile data,
           filename: path.basename file
           generatedFile: jsfile
@@ -74,7 +74,7 @@ compileCoffee = (dir, options, cb) ->
               fs.writeFile filepathmap, compiled.v3SourceMap, cb
         ], (err) ->
           return cb err if err or not options.uglify
-          console.log "Uglify #{jsfile}".grey if options.verbose
+          console.log chalk.grey "Uglify #{jsfile}" if options.verbose
           uglify
             dir: path.dirname filepathjs
             fromjs: jsfile
@@ -96,6 +96,6 @@ uglify = (item, cb) ->
     args.push '--in-source-map', item.frommap if item.frommap
     debug "exec #{item.dir}> #{cmd} #{args.join ' '}"
     execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
-      console.log stdout.trim().grey if stdout and options.verbose
-      console.error stderr.trim().magenta if stderr
+      console.log chalk.grey stdout.trim() if stdout and options.verbose
+      console.error chalk.magenta stderr.trim() if stderr
       cb err
