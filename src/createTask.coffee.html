@@ -102,7 +102,7 @@
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
 <span class="nv">prompt = </span><span class="nx">require</span> <span class="s">&#39;prompt&#39;</span>
@@ -147,7 +147,7 @@ execution finished.</li>
     <span class="nf">(cb) -&gt;</span> <span class="nx">initialCommit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">],</span> <span class="nf">(err) -&gt;</span>
     <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;You may now work with the new package.&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;You may now work with the new package.&quot;</span>
     <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -180,7 +180,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Directory </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s"> already exists.&quot;</span><span class="p">.</span><span class="nx">grey</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Directory </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s"> already exists.&quot;</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
@@ -245,7 +245,7 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for configured git&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for configured git&quot;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span>
     <span class="nv">options.git = </span><span class="s">&#39;file://&#39;</span> <span class="o">+</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">realpathSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
@@ -271,8 +271,8 @@ execution finished.</li>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Init new git repository&quot;</span>
     <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git init&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;init&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.gitignore&#39;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span> <span class="o">or</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
       <span class="nv">options.git = </span><span class="s">&#39;file://&#39;</span> <span class="o">+</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">realpathSync</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span>
@@ -310,12 +310,12 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for configured git&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for configured git&quot;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
     <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
     <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">type</span> <span class="o">is</span> <span class="s">&#39;git&#39;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">out</span> <span class="s">&quot;Only git repositories can be added to github.&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">out</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Only git repositories can be added to github.&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
@@ -337,7 +337,7 @@ execution finished.</li>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git remote show origin&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;remote&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="k">unless</span> <span class="nx">err</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped GitHub because other origin exists already&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
@@ -419,8 +419,8 @@ execution finished.</li>
               <span class="s">&#39;remote&#39;</span>
               <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">github</span>
             <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+              <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
               <span class="nx">cb</span> <span class="nx">err</span>
 
 
@@ -452,10 +452,10 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing package.json&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for existing package.json&quot;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped package.json creation, because already exists&quot;</span><span class="p">.</span><span class="nx">yellow</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Skipped package.json creation, because already exists&quot;</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new package.json file&quot;</span>
   <span class="nv">gitname = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span>
@@ -506,7 +506,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">createReadme = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for README.md&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for README.md&quot;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;README.md&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
@@ -602,7 +602,7 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">createChangelog = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing changelog&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for existing changelog&quot;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;Changelog.md&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
@@ -636,18 +636,18 @@ execution finished.</li>
   <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">github</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check for existing travis configuration&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for existing travis configuration&quot;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.travis.yml&#39;</span>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
   <span class="nv">gituser = </span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">options</span><span class="p">.</span><span class="nx">github</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create new travis-ci configuration&quot;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Log into https://travis-ci.org/profile/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s"></span>
-<span class="s">    and activate Travis CI&quot;</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Log into https://coveralls.io/repos/new?name=</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s"></span>
-<span class="s">    and activate coveralls&quot;</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Log into https://gemnasium.com/projects/new_from_github</span>
-<span class="s">    and activate dependency checks&quot;</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Log into https://travis-ci.org/profile/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s"></span>
+<span class="s">    and activate Travis CI&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Log into https://coveralls.io/repos/new?name=</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s"></span>
+<span class="s">    and activate coveralls&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Log into https://gemnasium.com/projects/new_from_github</span>
+<span class="s">    and activate dependency checks&quot;</span>
   <span class="nv">coveralls = </span><span class="s">&quot;</span>
 <span class="s">    COVERALLS_SERVICE_NAME=travis-ci</span>
 <span class="s">    COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo</span>
@@ -678,26 +678,26 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">initialCommit = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Check if git already used&quot;</span><span class="p">.</span><span class="nx">grey</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check if git already used&quot;</span>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git log&quot;</span>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;log&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initial commit&quot;</span>
     <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git add *&quot;</span>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git commit -m \&quot;Initial commit\&quot;&quot;</span>
       <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&#39;Initial commit&#39;</span> <span class="p">]</span>
       <span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to origin&quot;</span>
         <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git push origin master&quot;</span>
         <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">],</span>
         <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">options</span><span class="p">.</span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
           <span class="nx">cb</span><span class="p">()</span>
 </pre></div>
         </td>

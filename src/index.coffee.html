@@ -124,7 +124,7 @@ command line call.</p>
 <span class="nv">yargs = </span><span class="nx">require</span> <span class="s">&#39;yargs&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">colors = </span><span class="nx">require</span> <span class="s">&#39;colors&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 
 </pre></div>
@@ -466,7 +466,7 @@ command line call.</p>
 <p>implement some global switches</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">colors.mode = </span><span class="s">&#39;none&#39;</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
+<span class="nv">chalk.enabled = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">nocolors</span>
 
 </pre></div>
         </td>
@@ -516,7 +516,7 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">].</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span>
 
 </pre></div>
         </td>
@@ -559,7 +559,7 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span><span class="p">.</span><span class="nx">blue</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">argv</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -581,7 +581,7 @@ command line call.</p>
 <p>check for existing command</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Done.&quot;</span><span class="p">.</span><span class="nx">green</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;Done.&quot;</span>
 </pre></div>
         </td>
       </tr>
