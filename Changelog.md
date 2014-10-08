@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.5 (2014-10-08)
+-------------------------------------------------
+- 
+
 Version 0.4.4 (2014-10-08)
 -------------------------------------------------
 - Fixed npm package to include /var/src folder.
