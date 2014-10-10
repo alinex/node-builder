@@ -50,6 +50,7 @@
     "debug": ">=0.8.0 <3.0.0",
     "docker": ">=0.2.10",
     "istanbul": "0.3.x || 0.2.x",
+    "marked-man": "0.1.x",
     "mocha": "1.x",
     "moment": "2.x",
     "prompt": "0.2.x",

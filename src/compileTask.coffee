@@ -11,7 +11,7 @@ async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
 chalk = require 'chalk'
-{execFile} = require 'child_process'
+{exec,execFile} = require 'child_process'
 coffee = require 'coffee-script'
 
 # Main routine
@@ -36,7 +36,9 @@ module.exports.run = (dir, options, cb) ->
   console.log "Remove old lib directory"
   fs.remove lib, (err) ->
     return cb err if err
-    compileCoffee dir, options, cb
+    compileCoffee dir, options, (err) ->
+      return cb err if err
+      compileMan dir, options, cb
 
 # ### Compile coffee script
 compileCoffee = (dir, options, cb) ->
@@ -83,6 +85,24 @@ compileCoffee = (dir, options, cb) ->
             tomap: mapfile
           , cb
     , cb
+
+# ### Compile coffee script
+compileMan = (dir, options, cb) ->
+  file = path.join dir, 'package.json'
+  pack = JSON.parse fs.readFileSync file
+  return cb() unless pack.man?
+  console.log "Compile man pages"
+  src = path.join dir, 'src'
+  if typeof pack.man is 'string'
+    input = "#{src}/#{pack.man}.md"
+    unless fs.existsSync input
+      return cb new Error "The file '#{input}' didn't exist."
+    fs.mkdirs path.dirname("#{dir}/#{pack.man}"), (err) ->
+      console.log chalk.grey "Create #{pack.man}" if options.verbose
+      exec "#{__dirname}/../node_modules/.bin/marked-man #{input} > #{dir}/#{pack.man}", cb
+  else
+    console.log "Array definition for man pages not implemented, yet."
+    cb()
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->

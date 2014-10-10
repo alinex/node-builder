@@ -147,6 +147,9 @@ Mostly this task will be added as prepublish script to the `package.json` like:
       "prepublish": "node_modules/.bin/alinex-make compile -u"
     }
 
+Also this will make man files from mardown documents in `src/man` if they
+are referenced in the package.json.
+
 
 ### Command `install`
 
