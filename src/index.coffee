@@ -128,12 +128,11 @@ argv.done = []
 chalk.enabled = false if argv.nocolors
 # add additional dependent commands
 cmds = []
-for command in argv._
+for command in argv.command
   switch command
     when 'publish'
       cmds.push 'push'
   cmds.push command
-argv._ = cmds
 
 
 # Run the commands
