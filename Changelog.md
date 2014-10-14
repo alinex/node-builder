@@ -6,23 +6,11 @@ individual versions:
 
 Version 0.4.5 (2014-10-08)
 -------------------------------------------------
-- 
-
-Version 0.4.4 (2014-10-08)
--------------------------------------------------
 - Fixed npm package to include /var/src folder.
 
 Version 0.4.3 (2014-09-27)
 -------------------------------------------------
 - Replace colors with chalk submodule.
-
-Version 0.4.2 (2014-09-27)
--------------------------------------------------
-- 
-
-Version 0.4.1 (2014-09-27)
--------------------------------------------------
-- 
 
 Version 0.4.0 (2014-09-27)
 -------------------------------------------------
@@ -161,7 +149,7 @@ Version 0.1.0
 - Added travis contineous integration.
 - Added -c as shortcut for commit in publish task.
 - Added link to changelog in version tags.
-- Added pull task to update from git origin. 
+- Added pull task to update from git origin.
 - Fixed up all tasks to be more responsive.
 - Added new push task which will only push to origin and renamed old one to publish.
 - Make username in create task changeable by parameter.
