@@ -46,18 +46,18 @@ module.exports.run = (dir, options, cb) ->
 # ### Create the directory
 createDir = (dir, options, cb) ->
   # check if directory already exist
-  if fs.existsSync options.dir
+  if fs.existsSync dir
     if options.verbose
-      console.log chalk.grey "Directory #{options.dir} already exists."
+      console.log chalk.grey "Directory #{dir} already exists."
     return cb()
   # create directory
-  console.log "Create directory #{options.dir}"
-  fs.mkdirs path.join(options.dir, 'src'), (err) ->
+  console.log "Create directory #{dir}"
+  fs.mkdirs path.join(dir, 'src'), (err) ->
     return cb err if err
-    fs.mkdirs path.join(options.dir, 'test'), (err) ->
+    fs.mkdirs path.join(dir, 'test'), (err) ->
       return cb err if err
       # create .npmignore file
-      file = path.join options.dir, '.npmignore'
+      file = path.join dir, '.npmignore'
       fs.copy path.join(GLOBAL.ROOT_DIR, '.npmignore'), file, cb
 
 # ### Create initial git repository
@@ -66,8 +66,8 @@ initGit = (dir, options, cb) ->
   # check for existing git repository
   if options.verbose
     console.log chalk.grey "Check for configured git"
-  if fs.existsSync path.join options.dir, '.git'
-    options.git = 'file://' + fs.realpathSync options.dir
+  if fs.existsSync path.join dir, '.git'
+    options.git = 'file://' + fs.realpathSync dir
     return cb()
   # create a new repository
   prompt.get
@@ -76,15 +76,15 @@ initGit = (dir, options, cb) ->
     warning: 'You must respond with yes or no',
     default: 'yes'
   , (err, input) ->
-    return cb err if err or not input.question is 'yes'
+    return cb err if err or input.question isnt 'yes'
     console.log "Init new git repository"
-    debug "exec #{options.dir}> git init"
-    execFile "git", [ 'init' ], { cwd: options.dir }, (err, stdout, stderr) ->
+    debug "exec #{dir}> git init"
+    execFile "git", [ 'init' ], { cwd: dir }, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
-      file = path.join options.dir, '.gitignore'
+      file = path.join dir, '.gitignore'
       return cb err if err or fs.existsSync file
-      options.git = 'file://' + fs.realpathSync options.dir
+      options.git = 'file://' + fs.realpathSync dir
       fs.copy path.join(GLOBAL.ROOT_DIR, '.gitignore'), file, cb
 
 # ### Create new GitHub repository if not existing
@@ -94,7 +94,7 @@ createGitHub = (dir, options, cb) ->
   # check for existing package with github url
   if options.verbose
     console.log chalk.grey "Check for configured git"
-  file = path.join options.dir, 'package.json'
+  file = path.join dir, 'package.json'
   if fs.existsSync file
     pack = JSON.parse fs.readFileSync file
     unless pack.repository.type is 'git'
@@ -106,8 +106,8 @@ createGitHub = (dir, options, cb) ->
       options.github = pack.repository.url
       return cb()
   # check for other remote origin
-  debug "exec #{options.dir}> git remote show origin"
-  execFile "git", [ 'remote', 'show', 'origin' ], { cwd: options.dir }, (err, stdout, stderr) ->
+  debug "exec #{dir}> git remote show origin"
+  execFile "git", [ 'remote', 'show', 'origin' ], { cwd: dir }, (err, stdout, stderr) ->
     unless err
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.log "Skipped GitHub because other origin exists already"
@@ -119,7 +119,8 @@ createGitHub = (dir, options, cb) ->
       warning: 'You must respond with yes or no',
       default: 'yes'
     , (err, input) ->
-      return cb err if err or not input.question is 'yes'
+      console.log input
+      return cb err if err or input.question isnt 'yes'
       console.log "Init new git repository"
       prompt.get [{
         message: "GitHub username:"
@@ -136,7 +137,7 @@ createGitHub = (dir, options, cb) ->
         name: 'description'
         required: true
       }], (err, input) ->
-        gitname = path.basename options.dir
+        gitname = path.basename dir
         options.github = "https://github.com/#{input.username}/#{gitname}"
         request {
           uri: "https://api.github.com/repos/#{input.username}/#{gitname}"
@@ -175,11 +176,11 @@ createGitHub = (dir, options, cb) ->
             unless response?.statusCode is 201
               return cb "GitHub status was #{response.statusCode} in try to create repository"
             console.log "Connect with GitHub repository"
-            debug "exec #{options.dir}> git remote add origin #{options.github}"
+            debug "exec #{dir}> git remote add origin #{options.github}"
             execFile "git", [
               'remote'
               'add', 'origin', options.github
-            ], { cwd: options.dir }, (err, stdout, stderr) ->
+            ], { cwd: dir }, (err, stdout, stderr) ->
               console.log chalk.grey stdout.trim() if stdout and options.verbose
               console.error chalk.magenta stderr.trim() if stderr
               cb err
@@ -189,12 +190,12 @@ createPackage = (dir, options, cb) ->
   # check if package.json exists
   if options.verbose
     console.log chalk.grey "Check for existing package.json"
-  file = path.join options.dir, 'package.json'
+  file = path.join dir, 'package.json'
   if fs.existsSync file
     console.log chalk.yellow "Skipped package.json creation, because already exists"
     return cb()
   console.log "Create new package.json file"
-  gitname = path.basename options.dir
+  gitname = path.basename dir
   gituser = path.basename path.dirname options.github
   pack =
     name: options.package
@@ -229,11 +230,11 @@ createPackage = (dir, options, cb) ->
 createReadme = (dir, options, cb) ->
   if options.verbose
     console.log chalk.grey "Check for README.md"
-  file = path.join options.dir, 'README.md'
+  file = path.join dir, 'README.md'
   if fs.existsSync file
     return cb()
   console.log "Create new README.md file"
-  gitname = path.basename options.dir
+  gitname = path.basename dir
   gituser = path.basename path.dirname options.github
   doc =
     badges: ''
@@ -289,7 +290,7 @@ createReadme = (dir, options, cb) ->
 createChangelog = (dir, options, cb) ->
   if options.verbose
     console.log chalk.grey "Check for existing changelog"
-  file = path.join options.dir, 'Changelog.md'
+  file = path.join dir, 'Changelog.md'
   if fs.existsSync file
     return cb()
   console.log "Create new changelog file"
@@ -309,7 +310,7 @@ createTravis = (dir, options, cb) ->
     return cb()
   if options.verbose
     console.log chalk.grey "Check for existing travis configuration"
-  file = path.join options.dir, '.travis.yml'
+  file = path.join dir, '.travis.yml'
   if fs.existsSync file
     return cb()
   gituser = path.basename path.dirname options.github
@@ -337,23 +338,23 @@ createTravis = (dir, options, cb) ->
 initialCommit = (dir, options, cb) ->
   if options.verbose
     console.log chalk.grey "Check if git already used"
-  debug "exec #{options.dir}> git log"
-  execFile "git", [ 'log' ], { cwd: options.dir }, (err, stdout, stderr) ->
+  debug "exec #{dir}> git log"
+  execFile "git", [ 'log' ], { cwd: dir }, (err, stdout, stderr) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
-    debug "exec #{options.dir}> git add *"
-    execFile "git", [ 'add', '*' ], { cwd: options.dir }, (err, stdout, stderr) ->
+    debug "exec #{dir}> git add *"
+    execFile "git", [ 'add', '*' ], { cwd: dir }, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
-      debug "exec #{options.dir}> git commit -m \"Initial commit\""
+      debug "exec #{dir}> git commit -m \"Initial commit\""
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
-      , { cwd: options.dir }, (err, stdout, stderr) ->
+      , { cwd: dir }, (err, stdout, stderr) ->
         console.log chalk.grey stdout.trim() if stdout and options.verbose
         console.error chalk.magenta stderr.trim() if stderr
         console.log "Push to origin"
-        debug "exec #{options.dir}> git push origin master"
+        debug "exec #{dir}> git push origin master"
         execFile "git", [ 'push', 'origin', 'master' ],
-        { cwd: options.dir }, (err, stdout, stderr) ->
+        { cwd: dir }, (err, stdout, stderr) ->
           console.log chalk.grey stdout.trim() if stdout and options.verbose
           console.error chalk.magenta stderr.trim() if stderr
           cb()
