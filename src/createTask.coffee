@@ -220,7 +220,7 @@ createPackage = (dir, options, cb) ->
       lib: './lib'
     dependencies: {}
     devDependencies:
-      "alinex-make": "0.2.x"
+      "alinex-make": "0.4.x"
     optionalDependencies: {}
     engines: PKG.engines
     os: []
