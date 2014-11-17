@@ -214,8 +214,8 @@ createPackage = (dir, options, cb) ->
     license: PKG.license
     main: './lib/index.js'
     scripts:
-      prepublish: "node_modules/.bin/alinex-make compile"
-      test: "node_modules/.bin/alinex-make test"
+      prepublish: "node_modules/.bin/alinex-make -c compile"
+      test: "node_modules/.bin/alinex-make -c test"
     directories:
       lib: './lib'
     dependencies: {}
