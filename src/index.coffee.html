@@ -480,12 +480,11 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">cmds = </span><span class="p">[]</span>
-<span class="k">for</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span>
+<span class="k">for</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">command</span>
   <span class="k">switch</span> <span class="nx">command</span>
     <span class="k">when</span> <span class="s">&#39;publish&#39;</span>
       <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;push&#39;</span>
   <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
-<span class="nv">argv._ = </span><span class="nx">cmds</span>
 
 
 

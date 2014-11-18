@@ -35,6 +35,9 @@
         <a href="#compile%20coffee%20script">Compile coffee script</a>
       </div>
       <div class="heading h3">
+        <a href="#compile%20coffee%20script">Compile coffee script</a>
+      </div>
+      <div class="heading h3">
         <a href="#run%20uglify%20for%20all%20javascript%20in%20directory">Run uglify for all javascript in directory</a>
       </div>
     </div>
@@ -85,7 +88,7 @@
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="p">{</span><span class="nx">exec</span><span class="p">,</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">coffee = </span><span class="nx">require</span> <span class="s">&#39;coffee-script&#39;</span>
 
 
@@ -147,7 +150,9 @@ execution finished.</li>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove old lib directory&quot;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">lib</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">compileCoffee</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">compileCoffee</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">compileMan</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -230,6 +235,38 @@ execution finished.</li>
             <span class="nv">tomap: </span><span class="nx">mapfile</span>
           <span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="compile%20coffee%20script">
+  <h3>
+    <a href="#compile%20coffee%20script" name="compile%20coffee%20script" class="pilcrow">&#182;</a>
+    Compile coffee script
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">compileMan = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="o">?</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile man pages&quot;</span>
+  <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">man</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+    <span class="nv">input = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">src</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="si">}</span><span class="s">.md&quot;</span>
+    <span class="k">unless</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">input</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The file &#39;</span><span class="si">#{</span><span class="nx">input</span><span class="si">}</span><span class="s">&#39; didn&#39;t exist.&quot;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="si">}</span><span class="s">&quot;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Create </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">exec</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">__dirname</span><span class="si">}</span><span class="s">/../node_modules/.bin/marked-man </span><span class="si">#{</span><span class="nx">input</span><span class="si">}</span><span class="s"> &gt; </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="k">else</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Array definition for man pages not implemented, yet.&quot;</span>
+    <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>
