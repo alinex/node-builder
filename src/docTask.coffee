@@ -173,7 +173,7 @@ createDoc = (dir, options, cb) ->
         console.error chalk.magenta stderr.trim() if stderr
         return cb err if err
         pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-        return cb unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+        return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
         args = [
           '(<div id="container">)'
           '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
