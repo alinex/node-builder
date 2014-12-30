@@ -33,9 +33,12 @@ module.exports.run = (dir, options, cb) ->
     return cb "Only git repositories can be checked, yet. But #{dir} is no git repository."
   # run the pull options
   console.log "Changes since last publication:"
-  cmdline = "git log `git tag | tail -1`..HEAD --format=oneline"
+  cmdline = "git log `git tag | tail -1`..HEAD --format=oneline | sed -e 's/\\w* //'"
   debug "exec #{dir}> #{cmdline}"
   exec cmdline, { cwd: dir }, (err, stdout, stderr) ->
-    console.log chalk.grey stdout.trim() if stdout and options.verbose
+    if stdout
+      console.log chalk.yellow "- #{line}" for line in stdout.trim().split /\n/
+    else
+      console.log chalk.yellow "Nothing changed."
     console.error chalk.magenta stderr.trim() if stderr
     cb err

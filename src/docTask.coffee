@@ -63,34 +63,36 @@ module.exports.run = (dir, options, cb) ->
       return openUrl options, url, cb if options.browser
       cb()
     # Publish using script from package.json
-    if pack.scripts?['doc-publish']?
-      debug "exec #{dir}> #{pack.scripts['doc-publish']}"
-      exec pack.scripts['doc-publish'], { cwd: dir }, (err, stdout, stderr) ->
-        if options.verbose
-          console.log chalk.grey stdout.toString().trim() if stdout
-        console.log chalk.magenta stderr.toString().trim() if stderr
-        return cb err if err
+    if options.publish
+      if pack.scripts?['doc-publish']?
+        debug "exec #{dir}> #{pack.scripts['doc-publish']}"
+        exec pack.scripts['doc-publish'], { cwd: dir }, (err, stdout, stderr) ->
+          if options.verbose
+            console.log chalk.grey stdout.toString().trim() if stdout
+          console.log chalk.magenta stderr.toString().trim() if stderr
+          return cb err if err
+          return openUrl options, url, cb if options.browser
+          return cb()
+      # Or publish to GitHub
+      else if ~pack.repository?.url?.indexOf 'github.com/'
+        createTmpDir dir, options, (err, tmpdir) ->
+          return cb err if err
+          async.series [
+            (cb) -> cloneGit dir, tmpdir, options, cb
+            (cb) -> checkoutPages dir, tmpdir, options, cb
+            (cb) -> updateDoc dir, tmpdir, options, cb
+            (cb) -> pushOrigin dir, tmpdir, options, cb
+          ], (err) ->
+            throw err if err
+            fs.remove tmpdir, (err) ->
+              return openUrl options, url, cb if options.browser
+              return cb()
+      # Publication was not possible
+      else
+        console.error chalk.magenta "Could not publish, specify doc-publish script in package.json"
         return openUrl options, url, cb if options.browser
         return cb()
-    # Or publish to GitHub
-    else if ~pack.repository?.url?.indexOf 'github.com/'
-      createTmpDir dir, options, (err, tmpdir) ->
-        return cb err if err
-        async.series [
-          (cb) -> cloneGit dir, tmpdir, options, cb
-          (cb) -> checkoutPages dir, tmpdir, options, cb
-          (cb) -> updateDoc dir, tmpdir, options, cb
-          (cb) -> pushOrigin dir, tmpdir, options, cb
-        ], (err) ->
-          throw err if err
-          fs.remove tmpdir, (err) ->
-            return openUrl options, url, cb if options.browser
-            return cb()
-    # Publication was not possible
-    else
-      console.error chalk.magenta "Could not publish, specify doc-publish script in package.json"
-      return openUrl options, url, cb if options.browser
-      return cb()
+    return cb()
 
 # ### Open the given url in the default browser
 openUrl = (options, target, cb) ->

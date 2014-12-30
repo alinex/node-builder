@@ -127,6 +127,10 @@ Like `push` this will fetch the newest changes from git origin.
     > alinex-make -c pull                  # from within the package directory
     > alinex-make -c pull ./node-error     # or from anywhere else
 
+    Pull from origin
+    Von https://github.com/alinex/node-make
+     * branch            master     -> FETCH_HEAD
+
 
 ### Command `compile`
 
@@ -134,6 +138,10 @@ This task is used to compile the sources into for runtime optimized library.
 
     > alinex-make -c compile               # from within the package directory
     > alinex-make -c compile ./node-error  # or from anywhere else
+
+    Remove old lib directory
+    Compile coffee script
+
 
 Or give an directory and use uglify to compress the **just now experimental**
 extension. It works for live server but will break source maps for node-error
@@ -175,6 +183,14 @@ a code coverage report will be build.
     > alinex-make -c test                  # from within the package directory
     > alinex-make -c test ./node-error     # or from anywhere else
 
+    Linting coffee code
+    Run mocha tests
+
+      Simple mocha test
+        ✓ should add two numbers
+
+      1 passing (9ms)
+
 Or to contineously watch it:
 
     > alinex-make -c test ./node-error --watch
@@ -207,6 +223,9 @@ code.
     > alinex-make -c doc                   # from within the package directory
     > alinex-make -c doc ./node-error      # or from anywhere else
 
+    Create html documentation
+    Done.
+
 It is also possible to update the documentation stored on any website. To
 configure this for GitHub pages, you have to do nothing, for all others you
 need to specify an `doc-publish` script in `package.json`. This may be an
@@ -238,11 +257,11 @@ Use this to check if you should make a new publication or if it can wait.
     > alinex-make -c changes
 
     Changes since last publication:
-    a06c5ec4e8817559fb1a7a23a0a8089b64db9b5b Small bugfix in creating docs for non alinex packages.
-    f3493e26e95d80a138603a67a4b0cd06bf214668 Fixed internal links in documentation.
-    64f36d72edaf5c210b4adce4ffc5a9d2c49434d9 Changed created script calls to support newer make.
-    2aed0a133f7ad8e4ebe93150c0ad53230051817f Updated to use newest make version in created files.
-    f8b639a1872e6f9f356bdcfd132706306386f956 Fixed create task which was completely buggy since last rewrite.
+    - Small bugfix in creating docs for non alinex packages.
+    - Fixed internal links in documentation.
+    - Changed created script calls to support newer make.
+    - Updated to use newest make version in created files.
+    - Fixed create task which was completely buggy since last rewrite.
 
 
 ### Command `publish`
