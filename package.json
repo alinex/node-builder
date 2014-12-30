@@ -59,7 +59,7 @@
     "yargs": "1.x"
   },
   "devDependencies": {
-    "chai": "1.x",
+    "chai": "1.x"
   },
   "optionalDependencies": {},
   "peerDependencies": {},
