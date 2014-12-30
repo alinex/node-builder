@@ -59,6 +59,9 @@
         <a href="#command%3A%20doc">Command: doc</a>
       </div>
       <div class="heading h3">
+        <a href="#command%20changes">Command changes</a>
+      </div>
+      <div class="heading h3">
         <a href="#command%20publish">Command publish</a>
       </div>
       <div class="heading h3">
@@ -100,7 +103,7 @@ node packages. This is a superset of npm and other command line tools.</p>
 <li>extensible</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex.html">Alinex Universe</a>
+<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
 following the code standards defined there.</p>
 
 
@@ -283,6 +286,10 @@ it will also add and commit all other changes before doing so.</p>
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
 <span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+
+<span class="nx">Pull</span> <span class="nx">from</span> <span class="nx">origin</span>
+<span class="nx">Von</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/alinex/node-make</span>
+ <span class="o">*</span> <span class="nx">branch</span>            <span class="nx">master</span>     <span class="o">-&gt;</span> <span class="nx">FETCH_HEAD</span>
 </code></pre></div>
 
 
@@ -301,6 +308,9 @@ it will also add and commit all other changes before doing so.</p>
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
 <span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+
+<span class="nx">Remove</span> <span class="nx">old</span> <span class="nx">lib</span> <span class="nx">directory</span>
+<span class="nx">Compile</span> <span class="nx">coffee</span> <span class="nx">script</span>
 </code></pre></div>
 
 
@@ -373,6 +383,14 @@ a code coverage report will be build.</p>
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
 <span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+
+<span class="nx">Linting</span> <span class="nx">coffee</span> <span class="nx">code</span>
+<span class="nx">Run</span> <span class="nx">mocha</span> <span class="nx">tests</span>
+
+  <span class="nx">Simple</span> <span class="nx">mocha</span> <span class="nx">test</span>
+    <span class="err">✓</span> <span class="nx">should</span> <span class="nx">add</span> <span class="nx">two</span> <span class="nx">numbers</span>
+
+  <span class="mi">1</span> <span class="nx">passing</span> <span class="p">(</span><span class="mi">9</span><span class="nx">ms</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -460,6 +478,31 @@ the browser after created.</p>
 in the alinex make package. It have to be under the path <code>src/data</code> and be called
 by the <code>&lt;basename&gt;.css</code> while basename is the package name before the first
 hyphen.</p>
+
+
+<div class="pilwrap" id="command%20changes">
+  <h3>
+    <a href="#command%20changes" name="command%20changes" class="pilcrow">&#182;</a>
+    Command <code>changes</code>
+  </h3>
+</div>
+
+
+<p>This will list all changes (checkins) which are done since the last publication.
+Use this to check if you should make a new publication or if it can wait.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">make</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">changes</span>
+
+<span class="nx">Changes</span> <span class="nx">since</span> <span class="nx">last</span> <span class="nx">publication</span><span class="o">:</span>
+<span class="o">-</span> <span class="nx">Small</span> <span class="nx">bugfix</span> <span class="k">in</span> <span class="nx">creating</span> <span class="nx">docs</span> <span class="k">for</span> <span class="nx">non</span> <span class="nx">alinex</span> <span class="nx">packages</span><span class="p">.</span>
+<span class="o">-</span> <span class="nx">Fixed</span> <span class="nx">internal</span> <span class="nx">links</span> <span class="k">in</span> <span class="nx">documentation</span><span class="p">.</span>
+<span class="o">-</span> <span class="nx">Changed</span> <span class="nx">created</span> <span class="nx">script</span> <span class="nx">calls</span> <span class="nx">to</span> <span class="nx">support</span> <span class="nx">newer</span> <span class="nx">make</span><span class="p">.</span>
+<span class="o">-</span> <span class="nx">Updated</span> <span class="nx">to</span> <span class="nx">use</span> <span class="nx">newest</span> <span class="nx">make</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">created</span> <span class="nx">files</span><span class="p">.</span>
+<span class="o">-</span> <span class="nx">Fixed</span> <span class="nx">create</span> <span class="nx">task</span> <span class="nx">which</span> <span class="nx">was</span> <span class="nx">completely</span> <span class="nx">buggy</span> <span class="nx">since</span> <span class="nx">last</span> <span class="nx">rewrite</span><span class="p">.</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="command%20publish">
