@@ -41,11 +41,9 @@
     "alinex-error": ">=0.1.0",
     "alinex-fs": "0.1.x",
     "async": ">=0.2.0",
-    "chai": "1.x",
     "chalk": "0.5.x",
     "coffee-script": ">=1.7.0",
     "coffeelint": "1.x",
-    "commander": "2.x",
     "coveralls": "2.x",
     "debug": ">=0.8.0 <3.0.0",
     "docker": ">=0.2.10",
@@ -60,7 +58,9 @@
     "uglify-js": "2.x",
     "yargs": "1.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "1.x",
+  },
   "optionalDependencies": {},
   "peerDependencies": {},
   "engines": {
