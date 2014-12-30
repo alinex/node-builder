@@ -275,6 +275,19 @@ To publish the next bugfix version only call:
     > alinex-make -c publish               # from within the package directory
     > alinex-make -c publish ./node-error  # or from anywhere else
 
+    Change package.json
+    Write new changelog
+    Commit new version information
+    Push to git origin
+    To https://github.com/alinex/node-make
+       a06c5ec..c93df17  master -> master
+    Push new tag to git origin
+    To https://github.com/alinex/node-make
+     * [new tag]         v0.4.6 -> v0.4.6
+    Push to npm
+    Created v0.4.6.
+
+
 For the next minor version (second number) call:
 
     > alinex-make -c publish ../node-error --minor
