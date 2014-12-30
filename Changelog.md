@@ -4,6 +4,25 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 0.4.6 (2014-12-30)
+-------------------------------------------------
+- Fix typo in package.json.
+- Moved chai to dev dependencies.
+- Only publish docs if specified as option.
+- Added changes command.
+- Small bugfix in creating docs for non alinex packages.
+- Fixed internal links in documentation.
+- Changed created script calls to support newer make.
+- Updated to use newest make version in created files.
+- Fixed create task which was completely buggy since last rewrite.
+- Updated packages to allow mocha 2.0.
+- Removed empty version entries.
+- Small fix in command line parsing.
+- Support compiling markdown into man pages.
+- Fixed package.json version check.
+- Fixed package.json version notation.
+- Submodule tough-cookie working again.
+
 Version 0.4.5 (2014-10-08)
 -------------------------------------------------
 - Fixed npm package to include /var/src folder.
