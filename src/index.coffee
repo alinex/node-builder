@@ -60,6 +60,7 @@ commands =
   doc: "create documentation pages"
   test: "run automatic tests"
   clean: "cleanup files"
+  changes: "list unpublished changes"
 
 
 # Start argument parsing
