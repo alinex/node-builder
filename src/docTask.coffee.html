@@ -244,15 +244,16 @@ script if defined.</p>
 <p>Publish using script from package.json</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="o">?</span>
-      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">publish</span>
+      <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="o">?</span>
+        <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+          <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
+          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -265,19 +266,19 @@ script if defined.</p>
 <p>Or publish to GitHub</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
-      <span class="nx">createTmpDir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, tmpdir) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-          <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-          <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-          <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-          <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-            <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-            <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
+        <span class="nx">createTmpDir</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err, tmpdir) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+          <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+            <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+            <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+            <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+            <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+          <span class="p">],</span> <span class="nf">(err) -&gt;</span>
+            <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+            <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+              <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
+              <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -290,10 +291,11 @@ script if defined.</p>
 <p>Publication was not possible</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">else</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span>
-      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span>
+        <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>
