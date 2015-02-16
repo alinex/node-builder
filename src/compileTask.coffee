@@ -68,7 +68,7 @@ compileCoffee = (dir, options, cb) ->
         async.parallel [
           (cb) ->
             fs.mkdirs path.dirname(filepathjs), (err) ->
-              return cb err if err
+              return cb err if err and err.code isnt 'EEXIST'
               fs.writeFile filepathjs, compiled.js, cb
           (cb) ->
             fs.mkdirs path.dirname(filepathmap), (err) ->
