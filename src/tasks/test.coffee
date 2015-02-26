@@ -61,7 +61,7 @@ openUrl = (options, target, cb) ->
 # ### Run lint against coffee script
 coffeelint = (dir, options, cb) ->
   # Check for existing options
-  fs.npmbin 'coffeelint', path.dirname(__dirname), (err, cmd) ->
+  fs.npmbin 'coffeelint', (err, cmd) ->
     if err
       console.log chalk.yellow "Skipped lint because coffeelint is missing"
       return cb?()
@@ -100,7 +100,7 @@ testMocha = (dir, options, cb) ->
     console.log chalk.magenta "No mocha test dir found at #{mochadir}."
     return cb()
   # Check for existing options
-  fs.npmbin 'mocha', path.dirname(__dirname), (err, cmd) ->
+  fs.npmbin 'mocha', (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run mocha tests"
