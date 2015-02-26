@@ -1,8 +1,8 @@
 Alinex Development Utils
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-make.svg?branch=master)](https://travis-ci.org/alinex/node-make)
-[![Dependency Status](https://gemnasium.com/alinex/node-make.png)](https://gemnasium.com/alinex/node-make)
+[![Build Status](https://travis-ci.org/alinex/node-builder.svg?branch=master)](https://travis-ci.org/alinex/node-builder)
+[![Dependency Status](https://gemnasium.com/alinex/node-builder.png)](https://gemnasium.com/alinex/node-builder)
 
 This package contains some helper commands for development of the alinex
 node packages. This is a superset of npm and other command line tools.
@@ -40,19 +40,19 @@ as development dependency.
 
 Install the package globally using npm:
 
-    > npm install alinex-make --production
-    > alinex-make --help
+    > npm install -g alinex-builder --production
+    > builder --help
 
-After global installation you may directly call `alinex-make` from anywhere.
+After global installation you may directly call `builder` from anywhere.
 
 Or you may integrate it into your own package
 
-    > npm install alinex-make --save-devs
-    > ./node_modules/.bin/alinex-make --help
+    > npm install alinex-builder --save-devs
+    > ./node_modules/.bin/builder --help
 
 By integrating it you won't need all the development tools within your package.
 
-[![NPM](https://nodei.co/npm/alinex-make.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-make/)
+[![NPM](https://nodei.co/npm/alinex-builder.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-builder/)
 
 
 Usage
@@ -60,11 +60,11 @@ Usage
 
 The tool will be called with
 
-    > alinex-make [general options] -c <command> [command options] [dirs]
+    > builder [general options] -c <command> [command options] [dirs]
 
 but if not installed globally you may run
 
-    > node_modules/.bin/alinex-make [general options] -c <command> ...
+    > node_modules/.bin/builder [general options] -c <command> ...
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
@@ -81,6 +81,22 @@ This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
 `-C` or `--no-colors` can be used to disable the colored output.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Command `create`

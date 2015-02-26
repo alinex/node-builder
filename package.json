@@ -1,8 +1,8 @@
 {
-  "name": "alinex-make",
+  "name": "alinex-builder",
   "version": "0.4.6",
-  "description": "Helper commands for development of npm packages.",
-  "copyright": "Alexander Schilling 2013-2014",
+  "description": "Build tools for development of npm packages.",
+  "copyright": "Alexander Schilling 2013-2015",
   "keywords": [
     "make",
     "build",
@@ -13,12 +13,12 @@
     "test",
     "publish"
   ],
-  "homepage": "http://alinex.github.io/node-make",
+  "homepage": "http://alinex.github.io/node-builder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alinex/node-make"
+    "url": "https://github.com/alinex/node-builder"
   },
-  "bugs": "https://github.com/alinex/node-make/issues",
+  "bugs": "https://github.com/alinex/node-builder/issues",
   "author": {
     "name": "Alexander Schilling",
     "email": "info@alinex.de",
@@ -27,11 +27,11 @@
   "contributors": [],
   "license": "Apache-2.0",
   "main": "./lib/index.js",
-  "bin": "bin/make",
+  "bin": "bin/builder",
   "scripts": {
     "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c test/mocha",
-    "start": "bin/make"
+    "start": "bin/builder"
   },
   "directories": {
     "bin": "./bin",
@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "alinex-error": ">=0.1.0",
-    "alinex-fs": "0.1.x",
+    "alinex-fs": "0.2.x",
     "async": ">=0.2.0",
-    "chalk": "0.5.x",
+    "chalk": "1.x",
     "coffee-script": ">=1.7.0",
     "coffeelint": "1.x",
     "coveralls": "2.x",
@@ -56,10 +56,10 @@
     "request": "2.x",
     "tough-cookie": "0.12.x",
     "uglify-js": "2.x",
-    "yargs": "1.x"
+    "yargs": "3.x"
   },
   "devDependencies": {
-    "chai": "1.x"
+    "chai": "2.x"
   },
   "optionalDependencies": {},
   "peerDependencies": {},
