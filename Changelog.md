@@ -4,6 +4,21 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.0 (2015-02-26)
+-------------------------------------------------
+- Fixed bug in test task which didn't find coffeelint or mocha.
+- Converted most of the other tasks.
+- Reworked changes task.
+- Updated pull and push task to be open for more repositories.
+- Moved task into special subdir.
+- Updated compile task to work parallel.
+- Rename package to name `builder`.
+- Merge pull request #2 from jbnicolai/update-chalk-v1.0.0
+- Updates chalk to 1.0.0.
+- Ignore mkdir error if the directory is was already created.
+- Make CLI argument parsing more strict.
+- Added example output for publish command.
+
 Version 0.4.6 (2014-12-30)
 -------------------------------------------------
 - Fix typo in package.json.
