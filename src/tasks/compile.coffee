@@ -9,11 +9,9 @@
 fs = require 'alinex-fs'
 Spawn = require 'alinex-spawn'
 # include other modules
-debug = require('debug')('make:compile')
 path = require 'path'
 async = require 'async'
 chalk = require 'chalk'
-{exec,execFile} = require 'child_process'
 coffee = require 'coffee-script'
 
 # Main routine
@@ -125,7 +123,6 @@ uglify = (item, cb) ->
       '-o', item.tojs
     ]
     args.push '--in-source-map', item.frommap if item.frommap
-    debug "exec #{item.dir}> #{cmd} #{args.join ' '}"
     proc = new Spawn
       cmd: cmd
       args: args
