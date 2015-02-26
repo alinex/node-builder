@@ -12,7 +12,6 @@ async = require 'async'
 fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'
-{exec,execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -33,7 +32,7 @@ module.exports.run = (dir, options, cb) ->
     return cb err if err
     for r in results
       return cb() if r
-    cb new Error "No supported repository to be pulled detected."
+    cb new Error "No supported repository to be pushed detected."
 
 git = (dir, options, cb) ->
   # check for existing git repository

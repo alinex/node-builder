@@ -28,9 +28,6 @@ chalk = require 'chalk'
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
-  # check for existing git repository
-  if options.verbose
-    console.log chalk.grey "Check for configured git"
   async.parallel [
     (cb) -> git dir, options, cb
   ], (err, results) ->
@@ -40,6 +37,9 @@ module.exports.run = (dir, options, cb) ->
     cb new Error "No supported repository to be pulled detected."
 
 git = (dir, options, cb) ->
+  # check for existing git repository
+  if options.verbose
+    console.log chalk.grey "Check for configured git"
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
     # run the pull options
@@ -48,7 +48,7 @@ git = (dir, options, cb) ->
       cmd: 'git'
       args: [ 'pull', '-t', '-p', 'origin', 'master' ]
       cwd: dir
-    proc.run (err, stdout, stderr, code) ->
+    proc.run (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       cb err, true

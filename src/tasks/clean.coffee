@@ -5,13 +5,13 @@
 # Node modules
 # -------------------------------------------------
 
+# include alinex modules
+Spawn = require 'alinex-spawn'
 # include base modules
-debug = require('debug')('make:clean')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
 chalk = require 'chalk'
-{execFile} = require 'child_process'
 
 # Main routine
 # -------------------------------------------------
@@ -27,16 +27,19 @@ chalk = require 'chalk'
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
   console.log "Remove unnecessary folders"
+
   dirs = [
     path.join dir, 'doc'
     path.join dir, 'coverage'
   ]
   if options.auto
     dirs.push path.join dir, 'lib'
+    dirs.push path.join dir, 'man'
     dirs.push path.join dir, 'node_modules'
   if options.dist
     dirs.push path.join dir, 'src'
   async.each dirs, (dir, cb) ->
+    console.log dir
     fs.exists dir, (exists) ->
       return cb() unless exists
       if options.verbose
@@ -50,11 +53,13 @@ module.exports.run = (dir, options, cb) ->
         cb err
 
 cleanDistribution = (dir, options, cb) ->
-  return cb() unless options.dist or true
+  return cb() unless options.dist
   console.log "Remove development modules"
-  debug "exec #{dir}> npm prune --production"
-  execFile "npm", [ 'prune', '--production' ]
-  , { cwd: dir }, (err, stdout, stderr) ->
+  proc = new Spawn
+    cmd: 'npm'
+    args: [ 'prune', '--production' ]
+    cwd: dir
+  proc.run (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     cb err
@@ -62,30 +67,13 @@ cleanDistribution = (dir, options, cb) ->
 cleanModules = (dir, options, cb) ->
   return cb() unless options.dist
   console.log "Remove left over of node_modules"
-  find = [
-    # Remove example folders
-    [
-      '-mindepth', 2
-      '-type', 'd'
-      '-regex', '.*/node_modules/[^/]*/examples?'
-    ],
-    # Remove markup files excluding LICENSE info
-    [
-      '-mindepth', 2
-      '-type', 'f'
-      '-name', '*.md'
-      '-not', '-iname', 'LICENSE*'
-    ]
+  selection = [
+    include: 'LICENSE'
+  ,
+    maxdepth: 2
+    type: 'dir'
+    include: 'example?(s)'
   ]
-  async.eachSeries find, (item, cb) ->
-    console.log "Remove #{item}"
-    item.unshift '.', '-depth'
-    item.push '-exec', 'rm', '-r', '{}', ';'
-    if options.verbose
-      item.push '-print'
-    debug "exec #{dir}> find #{item}"
-    execFile 'find', item, { cwd: dir }, (err, stdout, stderr) ->
-      console.log chalk.grey stdout.trim() if stdout and options.verbose
-      console.error chalk.magenta stderr.trim() if stderr
-      cb err
+  async.each selection, (spec, cb) ->
+    fs.remove dir, spec, cb
   , cb

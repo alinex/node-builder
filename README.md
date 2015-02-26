@@ -100,8 +100,8 @@ name, too.
 
 Some example calls will look like:
 
-    > alinex-make -c create ./node-error --package alinex-error
-    > alinex-make -c create ./private-module --private
+    > builder -c create ./node-error --package alinex-error
+    > bulder -c create ./private-module --private
 
 This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
@@ -117,7 +117,7 @@ it will also add and commit all other changes before doing so.
 
 or to also commit the last changes
 
-    > alinex-make -c push ./node-error --message "commit message"
+    > builder -c push ./node-error --message "commit message"
 
 
 ### Command `pull`
@@ -160,17 +160,12 @@ Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
 
 
-### Command `install`
+### Command `update`
 
 This task is a handy addition to include the npm install and npm update commands:
 
-    > alinex-make -c install               # from within the package directory
-    > alinex-make -c install ./node-error  # or from anywhere else
-
-Or give an directory and use update to also update all packages to the newest
-possible one.
-
-    > alinex-make -c install ../node-error --update
+    > builder -c update               # from within the package directory
+    > builder -c update ./node-error  # or from anywhere else
 
 
 ### Command `test`
@@ -181,8 +176,8 @@ errors the automatic tests will be run.
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
-    > alinex-make -c test                  # from within the package directory
-    > alinex-make -c test ./node-error     # or from anywhere else
+    > builder -c test                  # from within the package directory
+    > builder -c test ./node-error     # or from anywhere else
 
     Linting coffee code
     Run mocha tests
@@ -194,11 +189,11 @@ a code coverage report will be build.
 
 Or to contineously watch it:
 
-    > alinex-make -c test ./node-error --watch
+    > builder -c test ./node-error --watch
 
 You may also create an html coverage report:
 
-    > alinex-make -c test --coverage
+    > builder -c test --coverage
 
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
@@ -207,7 +202,7 @@ results to coveralls.
 This task can also be added to the `package.json` to be called using `npm test`:
 
     "scripts": {
-      "test": "node_modules/.bin/alinex-make test"
+      "test": "node_modules/.bin/builder test"
     }
 
 
@@ -221,8 +216,8 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > alinex-make -c doc                   # from within the package directory
-    > alinex-make -c doc ./node-error      # or from anywhere else
+    > builder -c doc                   # from within the package directory
+    > builder -c doc ./node-error      # or from anywhere else
 
     Create html documentation
     Done.
@@ -233,7 +228,7 @@ need to specify an `doc-publish` script in `package.json`. This may be an
 rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
-    > alinex-make -c doc ./node-error --publish
+    > builder -c doc ./node-error --publish
 
 With the `--watch` option it is possible to keep the documentation updated.
 
@@ -273,8 +268,8 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > alinex-make -c publish               # from within the package directory
-    > alinex-make -c publish ./node-error  # or from anywhere else
+    > builder -c publish               # from within the package directory
+    > builder -c publish ./node-error  # or from anywhere else
 
     Change package.json
     Write new changelog
@@ -291,11 +286,11 @@ To publish the next bugfix version only call:
 
 For the next minor version (second number) call:
 
-    > alinex-make -c publish ../node-error --minor
+    > builder -c publish ../node-error --minor
 
 And for a new major version:
 
-    > alinex-make -c publish ../node-error --major
+    > builder -c publish ../node-error --major
 
 
 ### Command: `clean`
@@ -309,16 +304,16 @@ development environment.
 
 To cleanup all safe files:
 
-    > alinex-make -c clean                 # from within the package directory
-    > alinex-make -c clean ./node-error    # or from anywhere else
+    > builder -c clean                 # from within the package directory
+    > builder -c clean ./node-error    # or from anywhere else
 
 Or on the development system remove all created files:
 
-    > alinex-make -c clean ../node-error --auto
+    > builder -c clean ../node-error --auto
 
 And at last for production remove development files:
 
-    > alinex-make -c clean ../node-error --dist
+    > builder -c clean ../node-error --dist
 
 
 Configuration

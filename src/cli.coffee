@@ -49,7 +49,7 @@ GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
 commands =
   list: "show the list of possible commands"
   create: "create a new package"
-  install: "installation of package with dependent packages"
+  update: "update and installation of package with dependent packages"
   compile: "compile code"
   pull: "pull newest version from repository"
   push: "push changes to repository"
@@ -92,8 +92,6 @@ argv = yargs
 # compile options
 .alias('u', 'uglify')
 .describe('u', 'compile: run uglify for each file')
-# install options
-.describe('update', 'install: update packages to newest possible version')
 # publish options
 .describe('minor', 'publish: change to next minor version')
 .describe('major', 'publish: change to next major version')
@@ -154,7 +152,7 @@ async.eachSeries argv.command, (command, cb) ->
   , (err) ->
     return cb err if err
     argv.done.push command
-    if command is 'install'
+    if command is 'update'
       argv.done.push 'compile' # this is called by npm
     cb()
 , (err) ->
