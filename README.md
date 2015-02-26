@@ -112,8 +112,8 @@ may directly start to add your code.
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
-    > alinex-make -c push                  # from within the package directory
-    > alinex-make -c push ./node-error     # or from anywhere else
+    > builder -c push                  # from within the package directory
+    > builder -c push ./node-error     # or from anywhere else
 
 or to also commit the last changes
 
@@ -124,8 +124,8 @@ or to also commit the last changes
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > alinex-make -c pull                  # from within the package directory
-    > alinex-make -c pull ./node-error     # or from anywhere else
+    > builder -c pull                  # from within the package directory
+    > builder -c pull ./node-error     # or from anywhere else
 
     Pull from origin
     Von https://github.com/alinex/node-make
@@ -255,7 +255,7 @@ hyphen.
 This will list all changes (checkins) which are done since the last publication.
 Use this to check if you should make a new publication or if it can wait.
 
-    > alinex-make -c changes
+    > builder -c changes
 
     Changes since last publication:
     - Small bugfix in creating docs for non alinex packages.
