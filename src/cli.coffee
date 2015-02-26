@@ -146,7 +146,7 @@ async.eachSeries argv.command, (command, cb) ->
     console.log "- #{key} - #{title}" for key, title of commands
     return cb()
   # load task library
-  lib = require "./#{command}Task"
+  lib = require "./tasks/#{command}"
   # run modules in parallel for each directory
   async.eachSeries argv._, (dir, cb) ->
     console.log chalk.blue "#{command} #{dir}"

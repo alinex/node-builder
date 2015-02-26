@@ -106,17 +106,18 @@ compileMan = (dir, options, cb) ->
       fs.exists input, (exists) ->
         return cb new Error "The file '#{input}' didn't exist." unless exists
         console.log chalk.grey "Create #{pack.man}" if options.verbose
-        proc = new Spawn
-          cmd: path.join __dirname, '../node_modules/.bin/marked-man'
-          args: [ input ]
-        proc.run (err, stdout, stderr, code) ->
-          return cb err if err
-          fs.writeFile path.join(dir, name), stdout, cb
+        fs.npmbin 'marked-man', (err, cmd) ->
+          proc = new Spawn
+            cmd: cmd
+            args: [ input ]
+          proc.run (err, stdout, stderr, code) ->
+            return cb err if err
+            fs.writeFile path.join(dir, name), stdout, cb
     , cb
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
-  fs.npmbin 'uglifyjs', path.dirname(__dirname), (err, cmd) ->
+  fs.npmbin 'uglifyjs', (err, cmd) ->
     return cb err if err
     args = [
       item.fromjs,
