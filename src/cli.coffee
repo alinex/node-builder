@@ -45,9 +45,6 @@ GLOBAL.ROOT_DIR = path.dirname __dirname
 # Read in package configuration
 GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
 
-# set the process title
-process.title = 'alinex-make'
-
 # list of possible commands
 commands =
   list: "show the list of possible commands"

@@ -83,6 +83,22 @@ processing of some tasks.
 `-C` or `--no-colors` can be used to disable the colored output.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Command `create`
 
 Create a new package from scratch. This will create:
@@ -136,11 +152,10 @@ Like `push` this will fetch the newest changes from git origin.
 
 This task is used to compile the sources into for runtime optimized library.
 
-    > builder -c compile               # from within the package directory
-    > builder -c compile ./node-error  # or from anywhere else
+    > alinex-make -c compile               # from within the package directory
+    > alinex-make -c compile ./node-error  # or from anywhere else
 
-    Remove old directories
-    Compile man pages
+    Remove old lib directory
     Compile coffee script
 
 
@@ -148,12 +163,12 @@ Or give an directory and use uglify to compress the **just now experimental**
 extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.
 
-    > builder -c compile ../node-error --uglify
+    > alinex-make -c compile ../node-error --uglify
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
     "scripts": {
-      "prepublish": "node_modules/.bin/builder -c compile -u"
+      "prepublish": "node_modules/.bin/alinex-make compile -u"
     }
 
 Also this will make man files from mardown documents in `src/man` if they

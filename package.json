@@ -27,7 +27,10 @@
   "contributors": [],
   "license": "Apache-2.0",
   "main": "./lib/index.js",
-  "bin": "bin/builder",
+  "bin": {
+    "builder": "./bin/builder"
+  },
+  "man": "./man/builder.1",
   "scripts": {
     "prepublish": "node_modules/.bin/coffee -c -m -o lib src",
     "test": "node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c test/mocha",
@@ -40,6 +43,7 @@
   "dependencies": {
     "alinex-error": ">=0.1.0",
     "alinex-fs": "0.2.x",
+    "alinex-spawn": "^0.1.6",
     "async": ">=0.2.0",
     "chalk": "1.x",
     "coffee-script": ">=1.7.0",

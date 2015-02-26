@@ -5,11 +5,13 @@
 # Node modules
 # -------------------------------------------------
 
-# include base modules
-debug = require('debug')('make:compile')
-async = require 'async'
+# include alinex modules
 fs = require 'alinex-fs'
+Spawn = require 'alinex-spawn'
+# include other modules
+debug = require('debug')('make:compile')
 path = require 'path'
+async = require 'async'
 chalk = require 'chalk'
 {exec,execFile} = require 'child_process'
 coffee = require 'coffee-script'
@@ -32,13 +34,14 @@ module.exports.run = (dir, options, cb) ->
   unless fs.existsSync src
     return cb "No source files found."
   # cleanup old files
-  lib = path.join dir, 'lib'
-  console.log "Remove old lib directory"
-  fs.remove lib, (err) ->
+  console.log "Remove old directories"
+  async.each [path.join(dir, 'lib'), path.join(dir, 'man')], fs.remove, (err) ->
     return cb err if err
-    compileCoffee dir, options, (err) ->
-      return cb err if err
-      compileMan dir, options, cb
+    # compile
+    async.parallel [
+      (cb) -> compileCoffee dir, options, cb
+      (cb) -> compileMan dir, options, cb
+    ], cb
 
 # ### Compile coffee script
 compileCoffee = (dir, options, cb) ->
@@ -86,23 +89,30 @@ compileCoffee = (dir, options, cb) ->
           , cb
     , cb
 
-# ### Compile coffee script
+# ### Compile man pages
 compileMan = (dir, options, cb) ->
   file = path.join dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
   return cb() unless pack.man?
   console.log "Compile man pages"
   src = path.join dir, 'src'
-  if typeof pack.man is 'string'
-    input = "#{src}/#{pack.man}.md"
-    unless fs.existsSync input
-      return cb new Error "The file '#{input}' didn't exist."
-    fs.mkdirs path.dirname("#{dir}/#{pack.man}"), (err) ->
-      console.log chalk.grey "Create #{pack.man}" if options.verbose
-      exec "#{__dirname}/../node_modules/.bin/marked-man #{input} > #{dir}/#{pack.man}", cb
-  else
-    console.log "Array definition for man pages not implemented, yet."
-    cb()
+  # create output directory
+  fs.mkdirs path.join(dir, 'man'), (err) ->
+    return cb err if err
+    # make all manpages
+    pack.man = [pack.man] if typeof pack.man is 'string'
+    async.each pack.man, (name, cb) ->
+      input = "#{src}/#{name}.md"
+      fs.exists input, (exists) ->
+        return cb new Error "The file '#{input}' didn't exist." unless exists
+        console.log chalk.grey "Create #{pack.man}" if options.verbose
+        proc = new Spawn
+          cmd: path.join __dirname, '../node_modules/.bin/marked-man'
+          args: [ input ]
+        proc.run (err, stdout, stderr, code) ->
+          return cb err if err
+          fs.writeFile path.join(dir, name), stdout, cb
+    , cb
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
@@ -115,7 +125,12 @@ uglify = (item, cb) ->
     ]
     args.push '--in-source-map', item.frommap if item.frommap
     debug "exec #{item.dir}> #{cmd} #{args.join ' '}"
-    execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
+    proc = new Spawn
+      cmd: cmd
+      args: args
+      cwd: item.dir
+    proc.run (err, stdout, stderr, code) ->
+#    execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       cb err
