@@ -83,7 +83,7 @@ processing of some tasks.
 `-C` or `--no-colors` can be used to disable the colored output.
 
 
-### Command `create`
+### create
 
 Create a new package from scratch. This will create:
 
@@ -107,7 +107,7 @@ This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
 
 
-### Command `push`
+### push
 
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
@@ -120,7 +120,7 @@ or to also commit the last changes
     > builder -c push ./node-error --message "commit message"
 
 
-### Command `pull`
+### pull
 
 Like `push` this will fetch the newest changes from git origin.
 
@@ -132,7 +132,7 @@ Like `push` this will fetch the newest changes from git origin.
      * branch            master     -> FETCH_HEAD
 
 
-### Command `compile`
+### compile
 
 This task is used to compile the sources into for runtime optimized library.
 
@@ -160,7 +160,7 @@ Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
 
 
-### Command `update`
+### update
 
 This task is a handy addition to include the npm install and npm update commands:
 
@@ -180,7 +180,7 @@ be updated in the package.json.
     Done.
 
 
-### Command `test`
+### test
 
 As a first test a coffeelint check will be run. Only if this won't have any
 errors the automatic tests will be run.
@@ -218,7 +218,7 @@ This task can also be added to the `package.json` to be called using `npm test`:
     }
 
 
-### Command: `doc`
+### doc
 
 Generate the documentation this will create the documentation in the `doc`
 folder. It includes the API documentation with code. Each module will get his
@@ -257,7 +257,7 @@ by the `<basename>.css` while basename is the package name before the first
 hyphen.
 
 
-### Command `changes`
+### changes
 
 This will list all changes (checkins) which are done since the last publication.
 Use this to check if you should make a new publication or if it can wait.
@@ -272,7 +272,7 @@ Use this to check if you should make a new publication or if it can wait.
     - Fixed create task which was completely buggy since last rewrite.
 
 
-### Command `publish`
+### publish
 
 With the push command you can publish your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a `--major`,
@@ -305,7 +305,7 @@ And for a new major version:
     > builder -c publish ../node-error --major
 
 
-### Command: `clean`
+### clean
 
 Remove all automatically generated files. This will bring you to the initial
 state of the system. To create a usable system you have to build it again.
@@ -330,6 +330,9 @@ And at last for production remove development files:
 
 Configuration
 -------------------------------------------------
+
+The only thing you may configure using configuration files is the layout of the
+documentation.
 
 ### Document Template
 
