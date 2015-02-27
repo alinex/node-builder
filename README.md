@@ -40,7 +40,7 @@ as development dependency.
 
 Install the package globally using npm:
 
-    > npm install -g alinex-builder --production
+    > sudo npm install -g alinex-builder --production
     > builder --help
 
 After global installation you may directly call `builder` from anywhere.
