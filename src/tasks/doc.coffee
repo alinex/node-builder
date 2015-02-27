@@ -9,10 +9,11 @@
 Spawn = require 'alinex-spawn'
 fs = require 'alinex-fs'
 # include base modules
+debug = require('debug')('builder')
 async = require 'async'
 path = require 'path'
 chalk = require 'chalk'
-{exec} = require 'child_process'
+{exec,execFile} = require 'child_process'
 os = require 'os'
 crypto = require 'crypto'
 
@@ -48,7 +49,7 @@ module.exports.run = (dir, options, cb) ->
           path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
           path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
         ], fs.exists, (files) ->
-          return if files.length
+          return cb() unless files.length
           fs.copy files[0], path.join(dir, 'doc', 'doc-style.css'),
             overwrite: true
           , cb
@@ -57,7 +58,7 @@ module.exports.run = (dir, options, cb) ->
           path.join GLOBAL.ROOT_DIR, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
           path.join GLOBAL.ROOT_DIR, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
         ], fs.exists, (files) ->
-          return if files.length
+          return cb() unless files.length
           fs.copy files[0], path.join(dir, 'doc', 'doc-script.js'),
             overwrite: true
           , cb
