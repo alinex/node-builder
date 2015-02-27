@@ -54,7 +54,7 @@ createDir = (dir, options, cb) ->
   console.log "Create directory #{dir}"
   fs.mkdirs path.join(dir, 'src'), (err) ->
     return cb err if err
-    fs.mkdirs path.join(dir, 'test'), (err) ->
+    fs.mkdirs path.join(dir, 'test', 'mocha'), (err) ->
       return cb err if err
       # create .npmignore file
       file = path.join dir, '.npmignore'
