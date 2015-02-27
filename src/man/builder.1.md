@@ -1,70 +1,55 @@
 Alinex Development Utils
 =================================================
 
-[![Build Status](https://travis-ci.org/alinex/node-builder.svg?branch=master)](https://travis-ci.org/alinex/node-builder)
-[![Dependency Status](https://gemnasium.com/alinex/node-builder.png)](https://gemnasium.com/alinex/node-builder)
-
-This package contains some helper commands for development of the alinex
-node packages. This is a superset of npm and other command line tools.
-
-It may help a lot while developing to automatize the consequently done tasks.
-
-- easy to use build tool
-- supporting complete process
-- specialized for the alinex modules
-- extensible
-
-It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
-following the code standards defined there.
-
-
-Motivation
--------------------------------------------------
-While developing an automated build tool always help saving time and make things
-magic and smooth.
-
-My first intention was to use the standardized tools so I looked at Bower and
-Cake. To have more possibilities above the tasks I decided to create a Cakefile.
-This was a good way but over time it got bloated.
-
-Because the general tasks are easy but have to be modularized I decided to
-separate them into build tasks which stay in the package and overall management
-tasks which were moved out into this helper tool.
-
-
-Installation
--------------------------------------------------
-
-It may be installed globally as an universal helper or integrated into a package
-as development dependency.
-
-Install the package globally using npm:
-
-    > npm install -g alinex-builder --production
-    > builder --help
-
-After global installation you may directly call `builder` from anywhere.
-
-Or you may integrate it into your own package
-
-    > npm install alinex-builder --save-devs
-    > ./node_modules/.bin/builder --help
-
-By integrating it you won't need all the development tools within your package.
-
-[![NPM](https://nodei.co/npm/alinex-builder.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-builder/)
+The builder helps you to develop node modules.
 
 
 Usage
 -------------------------------------------------
 
+    builder [-vC] -c command... [dir]...
+
+You can give the following commands:
+
+    - list - show the list of possible commands
+    - create - create a new package
+    - update - update and installation of package with dependent packages
+    - compile - compile code
+    - pull - pull newest version from repository
+    - push - push changes to repository
+    - publish - publish package in npm
+    - doc - create documentation pages
+    - test - run automatic tests
+    - clean - cleanup files
+    - changes - list unpublished changes
+
+And the available options are:
+
+    -c, --command   command to execute (use list to see more)           [required]
+    -C, --nocolors  turn of color output
+    -v, --verbose   run in verbose mode
+    --private       create: private repository
+    --package       create: set package name
+    -m, --message   push: text for commit message
+    -u, --uglify    compile: run uglify for each file
+    --minor         publish: change to next minor version
+    --major         publish: change to next major version
+    --coverage      test: create coverage report
+    --coveralls     test: send coverage to coveralls
+    --watch         test,doc: keep process running while watching for changes
+    --browser       test,doc: open in browser
+    --publish       doc: push to github pages
+    --dist          clean: all which is not needed in production
+    --auto          clean: all which is created automatically
+    -h, --help      Show help
+
+
+Commands and options
+-------------------------------------------------
+
 The tool will be called with
 
-    > builder [general options] -c <command> [command options] [dirs]
-
-but if not installed globally you may run
-
-    > node_modules/.bin/builder [general options] -c <command> ...
+    builder [general options] -c <command> [command options] [dirs]
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
@@ -73,7 +58,6 @@ Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
 command will run from the current directory.
 
-
 ### General options
 
 `-v`or `--verbose` will display a lot of information of what is going on.
@@ -81,23 +65,6 @@ This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
 `-C` or `--no-colors` can be used to disable the colored output.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### Command `create`
 
@@ -116,8 +83,8 @@ name, too.
 
 Some example calls will look like:
 
-    > alinex-make -c create ./node-error --package alinex-error
-    > alinex-make -c create ./private-module --private
+    > builder -c create ./node-error --package alinex-error
+    > bulder -c create ./private-module --private
 
 This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
@@ -128,20 +95,20 @@ may directly start to add your code.
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
-    > alinex-make -c push                  # from within the package directory
-    > alinex-make -c push ./node-error     # or from anywhere else
+    > builder -c push                  # from within the package directory
+    > builder -c push ./node-error     # or from anywhere else
 
 or to also commit the last changes
 
-    > alinex-make -c push ./node-error --message "commit message"
+    > builder -c push ./node-error --message "commit message"
 
 
 ### Command `pull`
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > alinex-make -c pull                  # from within the package directory
-    > alinex-make -c pull ./node-error     # or from anywhere else
+    > builder -c pull                  # from within the package directory
+    > builder -c pull ./node-error     # or from anywhere else
 
     Pull from origin
     Von https://github.com/alinex/node-make
@@ -152,10 +119,11 @@ Like `push` this will fetch the newest changes from git origin.
 
 This task is used to compile the sources into for runtime optimized library.
 
-    > alinex-make -c compile               # from within the package directory
-    > alinex-make -c compile ./node-error  # or from anywhere else
+    > builder -c compile               # from within the package directory
+    > builder -c compile ./node-error  # or from anywhere else
 
-    Remove old lib directory
+    Remove old directories
+    Compile man pages
     Compile coffee script
 
 
@@ -163,29 +131,36 @@ Or give an directory and use uglify to compress the **just now experimental**
 extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.
 
-    > alinex-make -c compile ../node-error --uglify
+    > builder -c compile ../node-error --uglify
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
     "scripts": {
-      "prepublish": "node_modules/.bin/alinex-make compile -u"
+      "prepublish": "node_modules/.bin/builder -c compile -u"
     }
 
 Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
 
 
-### Command `install`
+### Command `update`
 
 This task is a handy addition to include the npm install and npm update commands:
 
-    > alinex-make -c install               # from within the package directory
-    > alinex-make -c install ./node-error  # or from anywhere else
+    > builder -c update               # from within the package directory
+    > builder -c update ./node-error  # or from anywhere else
 
-Or give an directory and use update to also update all packages to the newest
-possible one.
+At the end this task will list all direct subpackages which are outdated and may
+be updated in the package.json.
 
-    > alinex-make -c install ../node-error --update
+    update and installation of package with dependent packages
+    update ./
+    Install through npm
+    Update npm packages
+    List outdated packages
+    Package               Current  Wanted     Latest  Location
+    Nothing to upgrade in this package found.
+    Done.
 
 
 ### Command `test`
@@ -196,8 +171,8 @@ errors the automatic tests will be run.
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
-    > alinex-make -c test                  # from within the package directory
-    > alinex-make -c test ./node-error     # or from anywhere else
+    > builder -c test                  # from within the package directory
+    > builder -c test ./node-error     # or from anywhere else
 
     Linting coffee code
     Run mocha tests
@@ -209,11 +184,11 @@ a code coverage report will be build.
 
 Or to contineously watch it:
 
-    > alinex-make -c test ./node-error --watch
+    > builder -c test ./node-error --watch
 
 You may also create an html coverage report:
 
-    > alinex-make -c test --coverage
+    > builder -c test --coverage
 
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
@@ -222,7 +197,7 @@ results to coveralls.
 This task can also be added to the `package.json` to be called using `npm test`:
 
     "scripts": {
-      "test": "node_modules/.bin/alinex-make test"
+      "test": "node_modules/.bin/builder test"
     }
 
 
@@ -236,8 +211,8 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > alinex-make -c doc                   # from within the package directory
-    > alinex-make -c doc ./node-error      # or from anywhere else
+    > builder -c doc                   # from within the package directory
+    > builder -c doc ./node-error      # or from anywhere else
 
     Create html documentation
     Done.
@@ -248,7 +223,7 @@ need to specify an `doc-publish` script in `package.json`. This may be an
 rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
-    > alinex-make -c doc ./node-error --publish
+    > builder -c doc ./node-error --publish
 
 With the `--watch` option it is possible to keep the documentation updated.
 
@@ -270,7 +245,7 @@ hyphen.
 This will list all changes (checkins) which are done since the last publication.
 Use this to check if you should make a new publication or if it can wait.
 
-    > alinex-make -c changes
+    > builder -c changes
 
     Changes since last publication:
     - Small bugfix in creating docs for non alinex packages.
@@ -288,8 +263,8 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > alinex-make -c publish               # from within the package directory
-    > alinex-make -c publish ./node-error  # or from anywhere else
+    > builder -c publish               # from within the package directory
+    > builder -c publish ./node-error  # or from anywhere else
 
     Change package.json
     Write new changelog
@@ -306,11 +281,11 @@ To publish the next bugfix version only call:
 
 For the next minor version (second number) call:
 
-    > alinex-make -c publish ../node-error --minor
+    > builder -c publish ../node-error --minor
 
 And for a new major version:
 
-    > alinex-make -c publish ../node-error --major
+    > builder -c publish ../node-error --major
 
 
 ### Command: `clean`
@@ -324,16 +299,16 @@ development environment.
 
 To cleanup all safe files:
 
-    > alinex-make -c clean                 # from within the package directory
-    > alinex-make -c clean ./node-error    # or from anywhere else
+    > builder -c clean                 # from within the package directory
+    > builder -c clean ./node-error    # or from anywhere else
 
 Or on the development system remove all created files:
 
-    > alinex-make -c clean ../node-error --auto
+    > builder -c clean ../node-error --auto
 
 And at last for production remove development files:
 
-    > alinex-make -c clean ../node-error --dist
+    > builder -c clean ../node-error --dist
 
 
 Configuration

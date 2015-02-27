@@ -70,7 +70,7 @@ argv = yargs
   """)
 # examples
 .example('$0 -c compile -c test', 'to rerun the tests after code changes')
-.example('$0 -c update -c test -c push -c publish --minor -c doc --publish',
+.example('$0 -c clean --auto -c update -c test -c publish --minor -c doc --publish',
   'to do the complete publishing cycle')
 # commands
 .demand('c')
