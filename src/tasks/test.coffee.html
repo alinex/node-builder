@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>testTask.coffee</title>
+  <title>test.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../doc-style.css" />
-  <script src="../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/testTaskcoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/testcoffee", defaultSidebar = true;
   </script>
-  <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
 </head>
 <body>
   <div id="sidebar_wrapper">
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -231,7 +231,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Check for existing options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;coffeelint&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;coffeelint&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Skipped lint because coffeelint is missing&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="o">?</span><span class="p">()</span>
@@ -329,7 +329,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Check for existing options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;mocha&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;mocha&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>

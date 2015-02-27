@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>update.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/updatecoffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#install%20a%20package%20with%20newest%20node-modules">Install a package with newest node-modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#main%20routine">Main routine</a>
+      </div>
+      <div class="heading h3">
+        <a href="#install%20necessary%20modules">Install necessary modules</a>
+      </div>
+      <div class="heading h3">
+        <a href="#update%20all%20modules">Update all modules</a>
+      </div>
+      <div class="heading h3">
+        <a href="#list%20outdated%20modules">List outdated modules</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="install%20a%20package%20with%20newest%20node-modules">
+  <h1>
+    <a href="#install%20a%20package%20with%20newest%20node-modules" name="install%20a%20package%20with%20newest%20node-modules" class="pilcrow">&#182;</a>
+    Install a package with newest node-modules
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">Spawn = </span><span class="nx">require</span> <span class="s">&#39;alinex-spawn&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="main%20routine">
+  <h2>
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
+  </h2>
+</div>
+
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>dir</code>
+Directory to operate on</li>
+<li><code>options</code>
+Command specific parameters and options.</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred or with <code>null</code> if
+execution finished.</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">npmInstall</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">npmUpdate</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">npmOutdated</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">],</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="install%20necessary%20modules">
+  <h3>
+    <a href="#install%20necessary%20modules" name="install%20necessary%20modules" class="pilcrow">&#182;</a>
+    Install necessary modules
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">npmInstall = </span><span class="nf">(dir, options, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Install through npm&quot;</span>
+  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+    <span class="nv">priority: </span><span class="mi">9</span>
+    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
+    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="update%20all%20modules">
+  <h3>
+    <a href="#update%20all%20modules" name="update%20all%20modules" class="pilcrow">&#182;</a>
+    Update all modules
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">npmUpdate = </span><span class="nf">(dir, options, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Update npm packages&quot;</span>
+  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+    <span class="nv">priority: </span><span class="mi">9</span>
+    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;update&#39;</span> <span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
+    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="list%20outdated%20modules">
+  <h3>
+    <a href="#list%20outdated%20modules" name="list%20outdated%20modules" class="pilcrow">&#182;</a>
+    List outdated modules
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">npmOutdated = </span><span class="nf">(dir, options, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+</div>
+<p>Run external command</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;List outdated packages&quot;</span>
+  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+    <span class="nv">priority: </span><span class="mi">9</span>
+    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;outdated&#39;</span> <span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
+    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
+  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout) -&gt;</span>
+    <span class="nv">num = </span><span class="o">-</span><span class="mi">1</span> <span class="c1"># start negative because header line is always there</span>
+    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="k">continue</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">line</span> <span class="o">or</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\s&gt;\s/</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">line</span>
+      <span class="nx">num</span><span class="o">++</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade in this package found.&quot;</span> <span class="k">unless</span> <span class="nx">num</span>
+    <span class="nx">cb</span><span class="p">()</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

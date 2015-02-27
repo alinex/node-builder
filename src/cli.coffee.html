@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>index.coffee</title>
+  <title>cli.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3/node-make/src/indexcoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-builder/src/clicoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -195,27 +195,13 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
-<p>set the process title</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">process.title = </span><span class="s">&#39;alinex-make&#39;</span>
-
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
-</div>
 <p>list of possible commands</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">commands =</span>
   <span class="nv">list: </span><span class="s">&quot;show the list of possible commands&quot;</span>
   <span class="nv">create: </span><span class="s">&quot;create a new package&quot;</span>
-  <span class="nv">install: </span><span class="s">&quot;installation of package with dependent packages&quot;</span>
+  <span class="nv">update: </span><span class="s">&quot;update and installation of package with dependent packages&quot;</span>
   <span class="nv">compile: </span><span class="s">&quot;compile code&quot;</span>
   <span class="nv">pull: </span><span class="s">&quot;pull newest version from repository&quot;</span>
   <span class="nv">push: </span><span class="s">&quot;push changes to repository&quot;</span>
@@ -254,13 +240,13 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
 </div>
 <p>examples</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -c compile -c test&#39;</span><span class="p">,</span> <span class="s">&#39;to rerun the tests after code changes&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -c install --update -c test -c push -c publish --minor -c doc --publish&#39;</span><span class="p">,</span>
+<span class="p">.</span><span class="nx">example</span><span class="p">(</span><span class="s">&#39;$0 -c update -c test -c push -c publish --minor -c doc --publish&#39;</span><span class="p">,</span>
   <span class="s">&#39;to do the complete publishing cycle&#39;</span><span class="p">)</span>
 
 </pre></div>
@@ -269,7 +255,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>commands</p>
         </td>
@@ -284,7 +270,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>general options</p>
         </td>
@@ -302,7 +288,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>create options</p>
         </td>
@@ -316,7 +302,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
 </div>
 <p>push options</p>
         </td>
@@ -330,7 +316,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
 </div>
 <p>compile options</p>
         </td>
@@ -344,20 +330,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
-</div>
-<p>install options</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;update&#39;</span><span class="p">,</span> <span class="s">&#39;install: update packages to newest possible version&#39;</span><span class="p">)</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
 </div>
 <p>publish options</p>
         </td>
@@ -371,7 +344,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
 <p>publish options</p>
         </td>
@@ -387,7 +360,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
 <p>doc options</p>
         </td>
@@ -400,7 +373,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
 <p>clean options</p>
         </td>
@@ -414,7 +387,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>general help</p>
         </td>
@@ -430,7 +403,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>optimize the arguments for processing</p>
         </td>
@@ -444,7 +417,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
 </div>
 <p>additional checks</p>
         </td>
@@ -463,7 +436,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
 </div>
 <p>implement some global switches</p>
         </td>
@@ -476,7 +449,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
+  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
 </div>
 <p>add additional dependent commands</p>
         </td>
@@ -512,7 +485,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
+  <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
 <p>skip if command already done</p>
         </td>
@@ -526,7 +499,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
+  <a class="pilcrow" href="#section-27" id="section-27">&#182;</a>
 </div>
 <p>list possible commands</p>
         </td>
@@ -542,12 +515,12 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
+  <a class="pilcrow" href="#section-28" id="section-28">&#182;</a>
 </div>
 <p>load task library</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">lib = </span><span class="nx">require</span> <span class="s">&quot;./</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s">Task&quot;</span>
+  <span class="nv">lib = </span><span class="nx">require</span> <span class="s">&quot;./tasks/</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s">&quot;</span>
 
 </pre></div>
         </td>
@@ -555,7 +528,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
+  <a class="pilcrow" href="#section-29" id="section-29">&#182;</a>
 </div>
 <p>run modules in parallel for each directory</p>
         </td>
@@ -566,7 +539,7 @@ command line call.</p>
   <span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
-    <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;install&#39;</span>
+    <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;update&#39;</span>
       <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;compile&#39;</span> <span class="c1"># this is called by npm</span>
     <span class="nx">cb</span><span class="p">()</span>
 <span class="p">,</span> <span class="nf">(err) -&gt;</span>
@@ -578,7 +551,7 @@ command line call.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
+  <a class="pilcrow" href="#section-30" id="section-30">&#182;</a>
 </div>
 <p>check for existing command</p>
         </td>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-make/Changelogmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-builder/Changelogmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -24,6 +24,15 @@
     <div id="headings">
       <div class="heading h1">
         <a href="#version%20changes">Version changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%201.0.2%20(2015-02-27)">Version 1.0.2 (2015-02-27)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%201.0.1%20(2015-02-27)">Version 1.0.1 (2015-02-27)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%201.0.0%20(2015-02-26)">Version 1.0.0 (2015-02-26)</a>
       </div>
       <div class="heading h2">
         <a href="#version%200.4.6%20(2014-12-30)">Version 0.4.6 (2014-12-30)</a>
@@ -97,7 +106,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-make" title="Fork me on GitHub"></a><div class="docs markdown">
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="version%20changes">
   <h1>
     <a href="#version%20changes" name="version%20changes" class="pilcrow">&#182;</a>
@@ -108,6 +117,57 @@
 
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+
+
+<div class="pilwrap" id="version%201.0.2%20(2015-02-27)">
+  <h2>
+    <a href="#version%201.0.2%20(2015-02-27)" name="version%201.0.2%20(2015-02-27)" class="pilcrow">&#182;</a>
+    Version 1.0.2 (2015-02-27)
+  </h2>
+</div>
+
+
+<ul>
+- 
+</ul>
+
+
+<div class="pilwrap" id="version%201.0.1%20(2015-02-27)">
+  <h2>
+    <a href="#version%201.0.1%20(2015-02-27)" name="version%201.0.1%20(2015-02-27)" class="pilcrow">&#182;</a>
+    Version 1.0.1 (2015-02-27)
+  </h2>
+</div>
+
+
+<ul>
+<li>Added create task and list outdated in update task.</li>
+<li>Added new node version to travis.</li>
+</ul>
+
+
+<div class="pilwrap" id="version%201.0.0%20(2015-02-26)">
+  <h2>
+    <a href="#version%201.0.0%20(2015-02-26)" name="version%201.0.0%20(2015-02-26)" class="pilcrow">&#182;</a>
+    Version 1.0.0 (2015-02-26)
+  </h2>
+</div>
+
+
+<ul>
+<li>Fixed bug in test task which didn't find coffeelint or mocha.</li>
+<li>Converted most of the other tasks.</li>
+<li>Reworked changes task.</li>
+<li>Updated pull and push task to be open for more repositories.</li>
+<li>Moved task into special subdir.</li>
+<li>Updated compile task to work parallel.</li>
+<li>Rename package to name <code>builder</code>.</li>
+<li>Merge pull request #2 from jbnicolai/update-chalk-v1.0.0</li>
+<li>Updates chalk to 1.0.0.</li>
+<li>Ignore mkdir error if the directory is was already created.</li>
+<li>Make CLI argument parsing more strict.</li>
+<li>Added example output for publish command.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%200.4.6%20(2014-12-30)">

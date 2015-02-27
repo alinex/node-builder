@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>changes.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/changescoffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+  <script src="../../fileSearch.js"></script>
+  <script src="../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../fileSearch.css" />
+  <link rel="stylesheet" href="../../goToLine.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#task%20to%20list%20all%20unpublished%20changes">Task to list all unpublished changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#node%20modules">Node modules</a>
+      </div>
+      <div class="heading h2">
+        <a href="#main%20routine">Main routine</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="task%20to%20list%20all%20unpublished%20changes">
+  <h1>
+    <a href="#task%20to%20list%20all%20unpublished%20changes" name="task%20to%20list%20all%20unpublished%20changes" class="pilcrow">&#182;</a>
+    Task to list all unpublished changes
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="node%20modules">
+  <h2>
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">Spawn = </span><span class="nx">require</span> <span class="s">&#39;alinex-spawn&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include base modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="main%20routine">
+  <h2>
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
+  </h2>
+</div>
+
+
+<p><strong>Arguments:</strong></p>
+
+<ul>
+<li><code>dir</code>
+Directory to operate on</li>
+<li><code>options</code>
+Command specific parameters and options.</li>
+<li><code>callback(err)</code>
+The callback will be called just if an error occurred or with <code>null</code> if
+execution finished.</li>
+</ul>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">git</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">],</span> <span class="nf">(err, results) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">for</span> <span class="nx">r</span> <span class="k">in</span> <span class="nx">results</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">r</span>
+    <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;No supported repository to be checked detected.&quot;</span>
+
+<span class="nv">git = </span><span class="nf">(dir, options, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>check for existing git repository</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for configured git&quot;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span><span class="p">),</span> <span class="nf">(exists) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span> <span class="c1"># no git repository</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>run the pull options</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Changes since last publication:&quot;</span>
+    <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+      <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
+      <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;tag&#39;</span> <span class="p">]</span>
+      <span class="nv">cwd: </span><span class="nx">dir</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="nv">tags = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+        <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
+        <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">tags</span><span class="p">[</span><span class="nx">tags</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s">..HEAD&quot;</span><span class="p">,</span> <span class="s">&quot;--format=oneline&quot;</span> <span class="p">]</span>
+        <span class="nv">cwd: </span><span class="nx">dir</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">if</span> <span class="nx">stdout</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">line</span><span class="p">[</span><span class="mi">41</span><span class="p">..]</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+        <span class="k">else</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Nothing changed.&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">true</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
