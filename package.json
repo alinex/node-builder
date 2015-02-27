@@ -1,6 +1,6 @@
 {
   "name": "alinex-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build tools for development of npm packages.",
   "copyright": "Alexander Schilling 2013-2015",
   "keywords": [

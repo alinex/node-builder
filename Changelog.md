@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.1 (2015-02-27)
+-------------------------------------------------
+- Added create task and list outdated in update task.
+- Added new node version to travis.
+
 Version 1.0.0 (2015-02-26)
 -------------------------------------------------
 - Fixed bug in test task which didn't find coffeelint or mocha.
