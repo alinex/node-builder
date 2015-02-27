@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.3 (2015-02-27)
+-------------------------------------------------
+- Fixed some bugs preventing doc task to publish.
+
 Version 1.0.2 (2015-02-27)
 -------------------------------------------------
 - 
