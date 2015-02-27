@@ -167,6 +167,18 @@ This task is a handy addition to include the npm install and npm update commands
     > builder -c update               # from within the package directory
     > builder -c update ./node-error  # or from anywhere else
 
+At the end this task will list all direct subpackages which are outdated and may
+be updated in the package.json.
+
+    update and installation of package with dependent packages
+    update ./
+    Install through npm
+    Update npm packages
+    List outdated packages
+    Package               Current  Wanted     Latest  Location
+    Nothing to upgrade in this package found.
+    Done.
+
 
 ### Command `test`
 

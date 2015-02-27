@@ -30,14 +30,15 @@ module.exports.run = (dir, options, cb) ->
   async.series [
     (cb) -> npmInstall dir, options, cb
     (cb) -> npmUpdate dir, options, cb
-    (cb) -> npmUpdate dir, options, cb
+    (cb) -> npmOutdated dir, options, cb
   ], cb
 
-# ### Run lint against coffee script
+# ### Install necessary modules
 npmInstall = (dir, options, cb) ->
   # Run external command
   console.log "Install through npm"
   proc = new Spawn
+    priority: 9
     cmd: 'npm'
     args: [ 'install' ]
     cwd: dir
@@ -45,14 +46,35 @@ npmInstall = (dir, options, cb) ->
     check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
   proc.run cb
 
-# ### Run lint against coffee script
+# ### Update all modules
 npmUpdate = (dir, options, cb) ->
   # Run external command
   console.log "Update npm packages"
   proc = new Spawn
+    priority: 9
     cmd: 'npm'
     args: [ 'update' ]
     cwd: dir
     input: 'inherit'
     check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
   proc.run cb
+
+# ### List outdated modules
+npmOutdated = (dir, options, cb) ->
+  # Run external command
+  console.log "List outdated packages"
+  proc = new Spawn
+    priority: 9
+    cmd: 'npm'
+    args: [ 'outdated' ]
+    cwd: dir
+    input: 'inherit'
+    check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+  proc.run (err, stdout) ->
+    num = -1 # start negative because header line is always there
+    for line in stdout.split /\n/
+      continue if not line or line.match /\s>\s/
+      console.log line
+      num++
+    console.log chalk.grey "Nothing to upgrade in this package found." unless num
+    cb()

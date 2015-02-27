@@ -328,8 +328,10 @@ createTravis = (dir, options, cb) ->
   fs.writeFile file, """
     language: node_js
     node_js:
-       - "0.11"
        - "0.10"
+       - "0.11"
+       - "0.12"
+       - "io.js"
     after_success:
        - #{coveralls}
     """, cb

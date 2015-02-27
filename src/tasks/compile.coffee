@@ -106,6 +106,7 @@ compileMan = (dir, options, cb) ->
         console.log chalk.grey "Create #{pack.man}" if options.verbose
         fs.npmbin 'marked-man', (err, cmd) ->
           proc = new Spawn
+            priority: 9
             cmd: cmd
             args: [ input ]
           proc.run (err, stdout, stderr, code) ->
@@ -124,6 +125,7 @@ uglify = (item, cb) ->
     ]
     args.push '--in-source-map', item.frommap if item.frommap
     proc = new Spawn
+      priority: 9
       cmd: cmd
       args: args
       cwd: item.dir
