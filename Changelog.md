@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.2 (2015-02-27)
+-------------------------------------------------
+- 
+
 Version 1.0.1 (2015-02-27)
 -------------------------------------------------
 - Added create task and list outdated in update task.
