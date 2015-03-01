@@ -26,7 +26,6 @@
   },
   "contributors": [],
   "license": "Apache-2.0",
-  "main": "./lib/index.js",
   "bin": {
     "builder": "./bin/builder"
   },
@@ -38,7 +37,8 @@
   },
   "directories": {
     "bin": "./bin",
-    "lib": "./lib"
+    "lib": "./lib",
+    "man": "./man"
   },
   "dependencies": {
     "alinex-error": ">=0.1.0",
