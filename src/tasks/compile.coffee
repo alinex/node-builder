@@ -104,7 +104,7 @@ compileMan = (dir, options, cb) ->
       fs.exists input, (exists) ->
         return cb new Error "The file '#{input}' didn't exist." unless exists
         console.log chalk.grey "Create #{pack.man}" if options.verbose
-        fs.npmbin 'marked-man', (err, cmd) ->
+        fs.npmbin 'marked-man', path.dirname(path.dirname __dirname), (err, cmd) ->
           return cb err if err
           proc = new Spawn
             priority: 9
@@ -117,7 +117,7 @@ compileMan = (dir, options, cb) ->
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
-  fs.npmbin 'uglifyjs', (err, cmd) ->
+  fs.npmbin 'uglifyjs', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
     args = [
       item.fromjs,

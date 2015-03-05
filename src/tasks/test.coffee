@@ -61,7 +61,7 @@ openUrl = (options, target, cb) ->
 # ### Run lint against coffee script
 coffeelint = (dir, options, cb) ->
   # Check for existing options
-  fs.npmbin 'coffeelint', (err, cmd) ->
+  fs.npmbin 'coffeelint', path.dirname(path.dirname __dirname), (err, cmd) ->
     if err
       console.log chalk.yellow "Skipped lint because coffeelint is missing"
       return cb?()
@@ -100,7 +100,7 @@ testMocha = (dir, options, cb) ->
     console.log chalk.magenta "No mocha test dir found at #{mochadir}."
     return cb()
   # Check for existing options
-  fs.npmbin 'mocha', (err, cmd) ->
+  fs.npmbin 'mocha', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run mocha tests"
@@ -129,11 +129,11 @@ coverage = (dir, options, cb) ->
   unless fs.existsSync mochadir
     return cb "Coverage only works on mocha tests."
   # Check for existing options
-  fs.npmbin 'istanbul', path.dirname(__dirname), (err, cmd) ->
+  fs.npmbin 'istanbul', path.dirname(path.dirname __dirname), path.dirname(__dirname), (err, cmd) ->
     return cb err if err
     # Run external command
     console.log "Run istanbul coverage report"
-    fs.npmbin '_mocha', path.dirname(__dirname), (err, mocha) ->
+    fs.npmbin '_mocha', path.dirname(path.dirname __dirname), (err, mocha) ->
       return cb err if err
       args = [
         'cover'

@@ -147,7 +147,7 @@ createDoc = (dir, options, cb) ->
         """, cb
     (cb) ->
       console.log "Create html documentation"
-      fs.npmbin 'docker', (err, cmd) ->
+      fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
         return cb err if err
         args = [
           '-i', dir
@@ -165,7 +165,7 @@ createDoc = (dir, options, cb) ->
         proc.run cb
     (cb) ->
       # correct internal links
-      fs.npmbin 'replace', (err, cmd) ->
+      fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
         return cb err if err
         console.log chalk.grey "Correcting local links" if options.verbose
         proc = new Spawn
@@ -179,7 +179,7 @@ createDoc = (dir, options, cb) ->
         proc.run cb
     (cb) ->
       # correct internal links
-      fs.npmbin 'replace', (err, cmd) ->
+      fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
         pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
         return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
         proc = new Spawn
