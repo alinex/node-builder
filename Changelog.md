@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.7 (2015-03-05)
+-------------------------------------------------
+- Fixed call to npmbin to find command line tools needed.
+
 Version 1.0.6 (2015-03-05)
 -------------------------------------------------
 - 
