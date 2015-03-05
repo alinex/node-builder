@@ -39,11 +39,10 @@ module.exports.run = (dir, options, cb) ->
   if options.dist
     dirs.push path.join dir, 'src'
   async.each dirs, (dir, cb) ->
-    console.log dir
     fs.exists dir, (exists) ->
       return cb() unless exists
       if options.verbose
-        console.log chalk.grey "Removing #{dir}"
+        console.log chalk.grey "Removed #{dir}"
       fs.remove dir, cb
   , (err) ->
     return cb err if err
