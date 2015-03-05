@@ -105,6 +105,7 @@ compileMan = (dir, options, cb) ->
         return cb new Error "The file '#{input}' didn't exist." unless exists
         console.log chalk.grey "Create #{pack.man}" if options.verbose
         fs.npmbin 'marked-man', (err, cmd) ->
+          return cb err if err
           proc = new Spawn
             priority: 9
             cmd: cmd
