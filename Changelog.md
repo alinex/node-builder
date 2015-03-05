@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.4 (2015-03-05)
+-------------------------------------------------
+- Return error if npmfind could not find manpage conversion.
+- Fixed package.json
+- Updated documentation style.
+- Also create test/mocha directory for mocha tests.
+- Updated man page.
+- Updated created package.json to use builder as well.
+
 Version 1.0.3 (2015-02-27)
 -------------------------------------------------
 - Fixed some bugs preventing doc task to publish.
