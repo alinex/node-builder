@@ -93,17 +93,26 @@ argv = yargs
 .alias('u', 'uglify')
 .describe('u', 'compile: run uglify for each file')
 # publish options
+.boolean('minor')
 .describe('minor', 'publish: change to next minor version')
+.boolean('major')
 .describe('major', 'publish: change to next major version')
 # publish options
+.boolean('coverage')
 .describe('coverage', 'test: create coverage report')
+.boolean('coveralls')
 .describe('coveralls', 'test: send coverage to coveralls')
+.boolean('watch')
 .describe('watch', 'test,doc: keep process running while watching for changes')
+.boolean('browser')
 .describe('browser', 'test,doc: open in browser')
 # doc options
+.boolean('publish')
 .describe('publish', 'doc: push to github pages')
 # clean options
+.boolean('dist')
 .describe('dist', 'clean: all which is not needed in production')
+.boolean('auto')
 .describe('auto', 'clean: all which is created automatically')
 # general help
 .help('h')
