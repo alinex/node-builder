@@ -67,7 +67,7 @@ module.exports.run = (dir, options, cb) ->
         cb()
 
 # ### check for .only tests
-checkTests = (dir) ->
+checkTests = (dir, cb) ->
   fs.find path.join(dir, 'test', 'mocha'),
     type: 'file'
   , (err, list) ->
