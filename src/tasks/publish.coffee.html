@@ -32,6 +32,9 @@
         <a href="#main%20routine">Main routine</a>
       </div>
       <div class="heading h3">
+        <a href="#check%20for%20.only%20tests">check for .only tests</a>
+      </div>
+      <div class="heading h3">
         <a href="#add%20changes%20since%20last%20version%20to%20changelog">add changes since last version to Changelog</a>
       </div>
       <div class="heading h3">
@@ -126,9 +129,6 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
-  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-  <span class="nv">options.oldVersion = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span>
 
 </pre></div>
         </td>
@@ -138,23 +138,11 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
 </div>
-<p>calculate new version</p>
+<p>check that all test cases are correct</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Old version is </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">oldVersion</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nv">version = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\./</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">major</span>
-    <span class="nx">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">++</span>
-    <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minor</span>
-    <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span>
-    <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-  <span class="k">else</span>
-    <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">++</span>
-  <span class="nv">options.newVersion = pack.version = </span><span class="nx">version</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;.&#39;</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;New version is </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">checkTests</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -164,22 +152,107 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
+<p>create new version</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
+    <span class="nv">options.oldVersion = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>calculate new version</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Old version is </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">oldVersion</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">version = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\./</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">major</span>
+      <span class="nx">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">++</span>
+      <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">minor</span>
+      <span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span>
+      <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span>
+      <span class="nx">version</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">++</span>
+    <span class="nv">options.newVersion = pack.version = </span><span class="nx">version</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;.&#39;</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;New version is </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="s">&quot;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
 <p>write new version number into package.json</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Change package.json&quot;</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">pack</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Change package.json&quot;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">pack</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">updateChangelog</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">commitChanges</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">gitTag</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span> <span class="nx">pushNpm</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="p">],</span> <span class="nf">(err) -&gt;</span>
+        <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;Created v</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="s">.&quot;</span>
+        <span class="nx">cb</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="check%20for%20.only%20tests">
+  <h3>
+    <a href="#check%20for%20.only%20tests" name="check%20for%20.only%20tests" class="pilcrow">&#182;</a>
+    check for .only tests
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">checkTests = </span><span class="nf">(dir) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span><span class="p">),</span>
+    <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
+  <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">updateChangelog</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">commitChanges</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">gitTag</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span> <span class="nx">pushNpm</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;Created v</span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span><span class="si">}</span><span class="s">.&quot;</span>
-      <span class="nx">cb</span><span class="p">()</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">list</span><span class="p">,</span> <span class="nf">(file, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>check for .only tests</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&#39;utf-8&#39;</span><span class="p">,</span> <span class="nf">(err, content) -&gt;</span>
+        <span class="k">return</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+        <span class="k">if</span> <span class="nx">content</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/(describe|it)\.only/</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">file</span>
+        <span class="nx">cb</span><span class="p">()</span>
+    <span class="p">,</span> <span class="nf">(err, file) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">err</span>
+      <span class="k">if</span> <span class="k">typeof</span> <span class="nx">err</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Tests with .only were found in </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">. But a full test is neccessary to publish.&quot;</span>
+      <span class="nx">cb</span> <span class="nx">err</span>
 
 
 </pre></div>
@@ -221,7 +294,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
 </div>
 <p>{newlines.join '\n'}</p>
         </td>
