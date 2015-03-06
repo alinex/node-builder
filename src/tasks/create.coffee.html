@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/createcoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3//src/tasks/create.coffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -197,7 +197,7 @@ execution finished.</li>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create directory </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span><span class="p">),</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
@@ -478,13 +478,14 @@ execution finished.</li>
     <span class="nv">license: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">license</span>
     <span class="nv">main: </span><span class="s">&#39;./lib/index.js&#39;</span>
     <span class="nv">scripts:</span>
-      <span class="nv">prepublish: </span><span class="s">&quot;node_modules/.bin/alinex-make -c compile&quot;</span>
-      <span class="nv">test: </span><span class="s">&quot;node_modules/.bin/alinex-make -c test&quot;</span>
+      <span class="nv">prepublish: </span><span class="s">&quot;node_modules/.bin/builder -c compile&quot;</span>
+      <span class="nv">test: </span><span class="s">&quot;node_modules/.bin/builder -c test&quot;</span>
     <span class="nv">directories:</span>
       <span class="nv">lib: </span><span class="s">&#39;./lib&#39;</span>
     <span class="nv">dependencies: </span><span class="p">{}</span>
     <span class="nv">devDependencies:</span>
-      <span class="s">&quot;alinex-make&quot;</span><span class="o">:</span> <span class="s">&quot;0.4.x&quot;</span>
+      <span class="s">&quot;alinex-builder&quot;</span><span class="o">:</span> <span class="s">&quot;1.x&quot;</span>
+      <span class="s">&quot;chai&quot;</span><span class="o">:</span> <span class="s">&quot;2.x&quot;</span>
     <span class="nv">optionalDependencies: </span><span class="p">{}</span>
     <span class="nv">engines: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">engines</span>
     <span class="nv">os: </span><span class="p">[]</span>

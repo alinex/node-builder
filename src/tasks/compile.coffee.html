@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/compilecoffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3//src/tasks/compile.coffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -312,7 +312,8 @@ execution finished.</li>
       <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">input</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;The file &#39;</span><span class="si">#{</span><span class="nx">input</span><span class="si">}</span><span class="s">&#39; didn&#39;t exist.&quot;</span> <span class="k">unless</span> <span class="nx">exists</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Create </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;marked-man&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;marked-man&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+          <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
           <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
             <span class="nv">priority: </span><span class="mi">9</span>
             <span class="nv">cmd: </span><span class="nx">cmd</span>
@@ -338,7 +339,7 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">uglify = </span><span class="nf">(item, cb) -&gt;</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;uglifyjs&#39;</span><span class="p">,</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;uglifyjs&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nv">args = </span><span class="p">[</span>
       <span class="nx">item</span><span class="p">.</span><span class="nx">fromjs</span><span class="p">,</span>
