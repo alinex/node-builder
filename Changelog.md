@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.10 (2015-03-06)
+-------------------------------------------------
+- Remove .only test to let publish work again.
+- Fixed missing callback in new method.
+- Fix order of commands to run doc after publish.
+- Replace fs with alinex-fs in publish.
+- Add test for .only tests before publish.
+- Updated documentation.
+
 Version 1.0.9 (2015-03-06)
 -------------------------------------------------
 - Fixed problem with module load after clean.
