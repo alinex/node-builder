@@ -69,7 +69,9 @@ commit = (dir, options, cb) ->
         cmd: 'git'
         args: [ 'commit', '-m', options.message ]
         cwd: dir
+        check: (proc) -> new Error "Error while pushing to git origin." if proc.error
       proc.run (err, stdout, stderr) ->
+        # ignore error because it will get
         console.log chalk.grey stdout.trim() if stdout and options.verbose
         console.error chalk.magenta stderr.trim() if stderr
         cb err
