@@ -138,7 +138,7 @@ for command in argv.command
   switch command
     when 'publish'
       cmds.unshift 'clean'
-      argv.auto = tue
+      argv.auto = true
       cmds.unshift 'update'
       cmds.unshift 'test'
       cmds.unshift 'push'
