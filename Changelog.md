@@ -22,17 +22,6 @@ Version 1.0.8 (2015-03-06)
 Version 1.0.7 (2015-03-05)
 -------------------------------------------------
 - Fixed call to npmbin to find command line tools needed.
-
-Version 1.0.6 (2015-03-05)
--------------------------------------------------
-- 
-
-Version 1.0.5 (2015-03-05)
--------------------------------------------------
-- 
-
-Version 1.0.4 (2015-03-05)
--------------------------------------------------
 - Return error if npmfind could not find manpage conversion.
 - Fixed package.json
 - Updated documentation style.
@@ -43,13 +32,6 @@ Version 1.0.4 (2015-03-05)
 Version 1.0.3 (2015-02-27)
 -------------------------------------------------
 - Fixed some bugs preventing doc task to publish.
-
-Version 1.0.2 (2015-02-27)
--------------------------------------------------
-- 
-
-Version 1.0.1 (2015-02-27)
--------------------------------------------------
 - Added create task and list outdated in update task.
 - Added new node version to travis.
 

@@ -40,15 +40,19 @@ as development dependency.
 
 Install the package globally using npm:
 
-    > sudo npm install -g alinex-builder --production
-    > builder --help
+``` sh
+sudo npm install -g alinex-builder --production
+builder --help
+```
 
 After global installation you may directly call `builder` from anywhere.
 
 Or you may integrate it into your own package
 
-    > npm install alinex-builder --save-devs
-    > ./node_modules/.bin/builder --help
+``` sh
+npm install alinex-builder --save-devs
+./node_modules/.bin/builder --help
+```
 
 By integrating it you won't need all the development tools within your package.
 
@@ -60,11 +64,15 @@ Usage
 
 The tool will be called with
 
-    > builder [general options] -c <command> [command options] [dirs]
+``` sh
+builder [general options] -c <command> [command options] [dirs]
+```
 
 but if not installed globally you may run
 
-    > node_modules/.bin/builder [general options] -c <command> ...
+``` sh
+node_modules/.bin/builder [general options] -c <command> ...
+```
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
@@ -100,8 +108,10 @@ name, too.
 
 Some example calls will look like:
 
-    > builder -c create ./node-error --package alinex-error
-    > bulder -c create ./private-module --private
+``` sh
+builder -c create ./node-error --package alinex-error
+bulder -c create ./private-module --private
+```
 
 This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
@@ -112,49 +122,65 @@ may directly start to add your code.
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
-    > builder -c push                  # from within the package directory
-    > builder -c push ./node-error     # or from anywhere else
+``` sh
+builder -c push                  # from within the package directory
+builder -c push ./node-error     # or from anywhere else
+```
 
 or to also commit the last changes
 
-    > builder -c push ./node-error --message "commit message"
+``` sh
+builder -c push ./node-error --message "commit message"
+```
 
 
 ### pull
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > builder -c pull                  # from within the package directory
-    > builder -c pull ./node-error     # or from anywhere else
+``` sh
+builder -c pull                  # from within the package directory
+builder -c pull ./node-error     # or from anywhere else
+```
 
-    Pull from origin
-    Von https://github.com/alinex/node-make
-     * branch            master     -> FETCH_HEAD
-
+``` text
+Pull from origin
+Von https://github.com/alinex/node-make
+* branch            master     -> FETCH_HEAD
+```
 
 ### compile
 
 This task is used to compile the sources into for runtime optimized library.
 
-    > builder -c compile               # from within the package directory
-    > builder -c compile ./node-error  # or from anywhere else
+``` sh
+builder -c compile               # from within the package directory
+builder -c compile ./node-error  # or from anywhere else
+```
 
-    Remove old directories
-    Compile man pages
-    Compile coffee script
-
+``` text
+Remove old directories
+Compile man pages
+Compile coffee script
+```
 
 Or give an directory and use uglify to compress the **just now experimental**
 extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.
 
-    > builder -c compile ../node-error --uglify
+``` sh
+builder -c compile ../node-error --uglify
+```
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
-    "scripts": {
-      "prepublish": "node_modules/.bin/builder -c compile -u"
-    }
+``` json
+{
+  "scripts": {
+    "prepublish": "node_modules/.bin/builder -c compile -u"
+  }
+}
+```
 
 Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
@@ -164,21 +190,24 @@ are referenced in the package.json.
 
 This task is a handy addition to include the npm install and npm update commands:
 
-    > builder -c update               # from within the package directory
-    > builder -c update ./node-error  # or from anywhere else
+``` sh
+builder -c update               # from within the package directory
+builder -c update ./node-error  # or from anywhere else
+```
 
 At the end this task will list all direct subpackages which are outdated and may
 be updated in the package.json.
 
-    update and installation of package with dependent packages
-    update ./
-    Install through npm
-    Update npm packages
-    List outdated packages
-    Package               Current  Wanted     Latest  Location
-    Nothing to upgrade in this package found.
-    Done.
-
+``` text
+update and installation of package with dependent packages
+update ./
+Install through npm
+Update npm packages
+List outdated packages
+Package               Current  Wanted     Latest  Location
+Nothing to upgrade in this package found.
+Done.
+```
 
 ### test
 
@@ -188,24 +217,32 @@ errors the automatic tests will be run.
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
-    > builder -c test                  # from within the package directory
-    > builder -c test ./node-error     # or from anywhere else
+``` sh
+builder -c test                  # from within the package directory
+builder -c test ./node-error     # or from anywhere else
+```
 
-    Linting coffee code
-    Run mocha tests
+``` text
+Linting coffee code
+Run mocha tests
 
-      Simple mocha test
-        ✓ should add two numbers
+Simple mocha test
+✓ should add two numbers
 
-      1 passing (9ms)
+1 passing (9ms)
+```
 
 Or to contineously watch it:
 
-    > builder -c test ./node-error --watch
+``` sh
+builder -c test ./node-error --watch
+```
 
 You may also create an html coverage report:
 
-    > builder -c test --coverage
+``` sh
+builder -c test --coverage
+```
 
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
@@ -213,9 +250,13 @@ results to coveralls.
 
 This task can also be added to the `package.json` to be called using `npm test`:
 
-    "scripts": {
-      "test": "node_modules/.bin/builder test"
-    }
+``` json
+{
+  "scripts": {
+    "test": "node_modules/.bin/builder test"
+  }
+}
+```
 
 
 ### doc
@@ -228,11 +269,15 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > builder -c doc                   # from within the package directory
-    > builder -c doc ./node-error      # or from anywhere else
+``` sh
+builder -c doc                   # from within the package directory
+builder -c doc ./node-error      # or from anywhere else
+```
 
-    Create html documentation
-    Done.
+``` text
+Create html documentation
+Done.
+```
 
 It is also possible to update the documentation stored on any website. To
 configure this for GitHub pages, you have to do nothing, for all others you
@@ -240,11 +285,15 @@ need to specify an `doc-publish` script in `package.json`. This may be an
 rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
-    > builder -c doc ./node-error --publish
+``` sh
+builder -c doc ./node-error --publish
+```
 
 With the `--watch` option it is possible to keep the documentation updated.
 
-    > bin/make doc ../node-error --watch
+``` sh
+bin/make doc ../node-error --watch
+```
 
 But this process will never end, you have to stop it manually to end it.
 
@@ -262,14 +311,18 @@ hyphen.
 This will list all changes (checkins) which are done since the last publication.
 Use this to check if you should make a new publication or if it can wait.
 
-    > builder -c changes
+``` sh
+builder -c changes
+```
 
-    Changes since last publication:
-    - Small bugfix in creating docs for non alinex packages.
-    - Fixed internal links in documentation.
-    - Changed created script calls to support newer make.
-    - Updated to use newest make version in created files.
-    - Fixed create task which was completely buggy since last rewrite.
+``` text
+Changes since last publication:
+- Small bugfix in creating docs for non alinex packages.
+- Fixed internal links in documentation.
+- Changed created script calls to support newer make.
+- Updated to use newest make version in created files.
+- Fixed create task which was completely buggy since last rewrite.
+```
 
 
 ### publish
@@ -280,27 +333,84 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > builder -c publish               # from within the package directory
-    > builder -c publish ./node-error  # or from anywhere else
+``` sh
+builder -c publish               # from within the package directory
+builder -c publish ./node-error  # or from anywhere else
+```
 
-    push changes to repository
-    cleanup files
-    update and installation of package with dependent packages
-    run automatic tests
-    publish package in npm
-    create documentation pages
-    Done.
+The output will be:
+
+``` text
+push changes to repository
+push node-builder
+Push to origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+   46f16d7..34a0a61  master -> master
+cleanup files
+clean node-builder
+Remove unnecessary folders
+update and installation of package with dependent packages
+update node-builder
+Install through npm
+Update npm packages
+List outdated packages
+Package               Current  Wanted     Latest  Location
+Nothing to upgrade in this package found.
+run automatic tests
+test node-builder
+Linting coffee code
+Run mocha tests
+  Simple mocha test
+    ✓ should add two numbers
+  1 passing (5ms)
+create documentation pages
+doc node-builder
+Create html documentation
+Cloning git repository
+Nach »/tmp/alinex-make-2088206155« wird geklont
+Checkout gh-pages branch
+Zu neuem Zweig »gh-pages« gewechselt
+Update documentation
+Push to git origin
+To https://github.com/alinex/node-builder
+   bfc73a0..1114a9b  gh-pages -> gh-pages
+publish package in npm
+publish node-builder
+Change package.json
+Write new changelog
+Commit new version information
+Push to git origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+   34a0a61..0fef12e  master -> master
+Push new tag to git origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+ * [new tag]         v1.0.9 -> v1.0.9
+Push to npm
+Created v1.0.9.
+Done.
+```
 
 Like seen above this will also push last changes, cleanup, reinstall the package
-and run all tests before publishing.
+and run all tests before publishing. And the documentation will be updated
+afterwards.
 
 For the next minor version (second number) call:
 
-    > builder -c publish ../node-error --minor
+``` sh
+builder -c publish ../node-error --minor
+```
 
 And for a new major version:
 
-    > builder -c publish ../node-error --major
+``` sh
+builder -c publish ../node-error --major
+```
 
 
 ### clean
@@ -314,16 +424,22 @@ development environment.
 
 To cleanup all safe files:
 
-    > builder -c clean                 # from within the package directory
-    > builder -c clean ./node-error    # or from anywhere else
+``` sh
+builder -c clean                 # from within the package directory
+builder -c clean ./node-error    # or from anywhere else
+```
 
 Or on the development system remove all created files:
 
-    > builder -c clean ../node-error --auto
+``` sh
+builder -c clean ../node-error --auto
+```
 
 And at last for production remove development files:
 
-    > builder -c clean ../node-error --dist
+``` sh
+builder -c clean ../node-error --dist
+```
 
 
 Configuration
@@ -346,7 +462,7 @@ like done for the css.
 License
 -------------------------------------------------
 
-Copyright 2013-2014 Alexander Schilling
+Copyright 2013-2015 Alexander Schilling
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
