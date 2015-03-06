@@ -137,7 +137,11 @@ cmds = []
 for command in argv.command
   switch command
     when 'publish'
-      cmds.push 'push'
+      cmds.unshift 'clean'
+      argv.auto = tue
+      cmds.unshift 'update'
+      cmds.unshift 'test'
+      cmds.unshift 'push'
   cmds.push command
 
 
