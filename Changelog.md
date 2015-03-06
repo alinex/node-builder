@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.8 (2015-03-06)
+-------------------------------------------------
+- Typo fixed.
+- Add clean and test tasks as dependent to publish.
+- Be more parallel in document creation.
+- Also copy images from source folders to documentation folder.
+- Fixed flag attributes which prevent directory parameters to be detected.
+- Removed dir output without verbose mode.
+
 Version 1.0.7 (2015-03-05)
 -------------------------------------------------
 - Fixed call to npmbin to find command line tools needed.
