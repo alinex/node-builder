@@ -191,6 +191,13 @@ createDoc = (dir, options, cb) ->
             '-r'
           ]
         proc.run cb
+    (cb) ->
+      # copy images
+      from = path.join dir, 'src'
+      to = path.join docPath, 'src'
+      fs.copy from, to,
+        include: '*.{png,jpg,gif}'
+      , cb
   ], cb
 
 # ### Clone git repository
