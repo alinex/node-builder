@@ -151,28 +151,34 @@ for command in argv.command
 
 # Run the commands
 # -------------------------------------------------
-async.eachSeries cmds, (command, cb) ->
-  # skip if command already done
-  return cb() if command in argv.done
-  console.log chalk.blue.bold commands[command]
-  # list possible commands
-  if command is 'list'
-    console.log "\nThe following commands are possible:\n"
-    console.log "- #{key} - #{title}" for key, title of commands
-    return cb()
-  # load task library
+async.each cmds, (command, cb) ->
+  # load library because it may be away later
   lib = require "./tasks/#{command}"
-  # run modules in parallel for each directory
-  async.eachSeries argv._, (dir, cb) ->
-    console.log chalk.blue "#{command} #{dir}"
-    lib.run dir, argv, cb
-  , (err) ->
-    return cb err if err
-    argv.done.push command
-    if command is 'update'
-      argv.done.push 'compile' # this is called by npm
-    cb()
+  cb()
 , (err) ->
   throw err if err
-  # check for existing command
-  console.log chalk.green "Done."
+  async.eachSeries cmds, (command, cb) ->
+    # skip if command already done
+    return cb() if command in argv.done
+    console.log chalk.blue.bold commands[command]
+    # list possible commands
+    if command is 'list'
+      console.log "\nThe following commands are possible:\n"
+      console.log "- #{key} - #{title}" for key, title of commands
+      return cb()
+    # load task library
+    lib = require "./tasks/#{command}"
+    # run modules in parallel for each directory
+    async.eachSeries argv._, (dir, cb) ->
+      console.log chalk.blue "#{command} #{dir}"
+      lib.run dir, argv, cb
+    , (err) ->
+      return cb err if err
+      argv.done.push command
+      if command is 'update'
+        argv.done.push 'compile' # this is called by npm
+      cb()
+  , (err) ->
+    throw err if err
+    # check for existing command
+    console.log chalk.green "Done."
