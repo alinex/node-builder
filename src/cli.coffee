@@ -70,7 +70,7 @@ argv = yargs
   """)
 # examples
 .example('$0 -c compile -c test', 'to rerun the tests after code changes')
-.example('$0 -c clean --auto -c update -c test -c publish --minor -c doc --publish',
+.example('$0 -c publish --minor',
   'to do the complete publishing cycle')
 # commands
 .demand('c')
@@ -137,11 +137,15 @@ cmds = []
 for command in argv.command
   switch command
     when 'publish'
-      cmds.unshift 'push'
+      # backward order because of unshift
       cmds.unshift 'test'
       cmds.unshift 'update'
       cmds.unshift 'clean'
       argv.auto = true
+      cmds.unshift 'push'
+      # and at last add document publish
+      cmds.push 'doc'
+      argv.publish = true
   cmds.push command
 
 

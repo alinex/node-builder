@@ -283,18 +283,16 @@ To publish the next bugfix version only call:
     > builder -c publish               # from within the package directory
     > builder -c publish ./node-error  # or from anywhere else
 
-    Change package.json
-    Write new changelog
-    Commit new version information
-    Push to git origin
-    To https://github.com/alinex/node-make
-       a06c5ec..c93df17  master -> master
-    Push new tag to git origin
-    To https://github.com/alinex/node-make
-     * [new tag]         v0.4.6 -> v0.4.6
-    Push to npm
-    Created v0.4.6.
+    push changes to repository
+    cleanup files
+    update and installation of package with dependent packages
+    run automatic tests
+    publish package in npm
+    create documentation pages
+    Done.
 
+Like seen above this will also push last changes, cleanup, reinstall the package
+and run all tests before publishing.
 
 For the next minor version (second number) call:
 
