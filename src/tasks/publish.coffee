@@ -30,7 +30,7 @@ fs = require 'alinex-fs'
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
   # check that all test cases are correct
-  checkTests dir, (err) ->
+  checkTests dir, options, (err) ->
     return cb err if err
     # create new version
     file = path.join dir, 'package.json'
@@ -67,7 +67,8 @@ module.exports.run = (dir, options, cb) ->
         cb()
 
 # ### check for .only tests
-checkTests = (dir, cb) ->
+checkTests = (dir, options, cb) ->
+  console.log chalk.grey "Search for .only mocha tests..." if options.verbose
   fs.find path.join(dir, 'test', 'mocha'),
     type: 'file'
   , (err, list) ->
