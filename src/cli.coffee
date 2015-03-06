@@ -26,13 +26,13 @@
 # -------------------------------------------------
 
 # include base modules
+fs = require 'fs'
 yargs = require 'yargs'
 path = require 'path'
 chalk = require 'chalk'
 async = require 'async'
 # include alinex modules
 errorHandler = require 'alinex-error'
-fs = require 'alinex-fs'
 errorHandler.install()
 errorHandler.config.stack.modules = true
 
@@ -143,10 +143,12 @@ for command in argv.command
       cmds.unshift 'clean'
       argv.auto = true
       cmds.unshift 'push'
-      # and at last add document publish
+      # and at last add the command itself and document publish
+      cmds.push command
       cmds.push 'doc'
       argv.publish = true
-  cmds.push command
+    else
+      cmds.push command
 
 
 # Run the commands
