@@ -137,17 +137,17 @@ cmds = []
 for command in argv.command
   switch command
     when 'publish'
+      cmds.unshift 'push'
+      cmds.unshift 'test'
+      cmds.unshift 'update'
       cmds.unshift 'clean'
       argv.auto = true
-      cmds.unshift 'update'
-      cmds.unshift 'test'
-      cmds.unshift 'push'
   cmds.push command
 
 
 # Run the commands
 # -------------------------------------------------
-async.eachSeries argv.command, (command, cb) ->
+async.eachSeries cmds, (command, cb) ->
   # skip if command already done
   return cb() if command in argv.done
   console.log chalk.blue.bold commands[command]
