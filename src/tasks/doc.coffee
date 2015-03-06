@@ -128,76 +128,84 @@ createDoc = (dir, options, cb) ->
       console.log chalk.grey "Create new documentation folder" if options.verbose
       fs.mkdirs docPath, cb
     (cb) ->
-      # create index.html
-      console.log chalk.grey "Create index page" if options.verbose
-      fs.writeFile path.join(docPath, 'index.html'), """
-        <html>
-        <head>
-          <meta http-equiv="refresh" content="0; url=README.md.html" />
-          <script type="text/javascript">
-              window.location.href = "README.md.html"
-          </script>
-          <title>Page Redirection</title>
-        </head>
-        <body>
-          If you are not redirected automatically, follow the link to the
-          <a href='README.md.html'>README</a>.
-        </body>
-        </html>
-        """, cb
-    (cb) ->
-      console.log "Create html documentation"
-      fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
-        return cb err if err
-        args = [
-          '-i', dir
-          '-u'
-          if options.watch then '-w' else ''
-          '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
-          '-o', path.join dir, 'doc'
-          '-c', 'autumn'
-          '--extras', 'fileSearch,goToLine'
-        ]
-        proc = new Spawn
-          cmd: cmd
-          args: args
-          check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-        proc.run cb
-    (cb) ->
-      # correct internal links
-      fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
-        return cb err if err
-        console.log chalk.grey "Correcting local links" if options.verbose
-        proc = new Spawn
-          cmd: cmd
-          args: [
-            '(<a href="(?!#|.+?://)[^?#"]+[^/?#"])(.*?")'
-            '$1.html$2'
-            path.join dir, 'doc'
-            '-r'
-          ]
-        proc.run cb
-    (cb) ->
-      # correct internal links
-      fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
-        pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-        return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
-        proc = new Spawn
-          cmd: cmd
-          args: [
-            '(<div id="container">)'
-            '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
-            path.join dir, 'doc'
-            '-r'
-          ]
-        proc.run cb
-    (cb) ->
-      # copy images
-      from = path.join dir, 'src'
-      to = path.join docPath, 'src'
-      fs.copy from, to,
-        include: '*.{png,jpg,gif}'
-      , cb
+      async.parallel [
+        (cb) ->
+          # create index.html
+          console.log chalk.grey "Create index page" if options.verbose
+          fs.writeFile path.join(docPath, 'index.html'), """
+            <html>
+            <head>
+              <meta http-equiv="refresh" content="0; url=README.md.html" />
+              <script type="text/javascript">
+                  window.location.href = "README.md.html"
+              </script>
+              <title>Page Redirection</title>
+            </head>
+            <body>
+              If you are not redirected automatically, follow the link to the
+              <a href='README.md.html'>README</a>.
+            </body>
+            </html>
+            """, cb
+        (cb) ->
+          # create docker files
+          async.series [
+            (cb) ->
+              console.log "Create html documentation"
+              fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
+                return cb err if err
+                args = [
+                  '-i', dir
+                  '-u'
+                  if options.watch then '-w' else ''
+                  '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
+                  '-o', path.join dir, 'doc'
+                  '-c', 'autumn'
+                  '--extras', 'fileSearch,goToLine'
+                ]
+                proc = new Spawn
+                  cmd: cmd
+                  args: args
+                  check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+                proc.run cb
+            (cb) ->
+              # correct internal links
+              fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
+                return cb err if err
+                console.log chalk.grey "Correcting local links" if options.verbose
+                proc = new Spawn
+                  cmd: cmd
+                  args: [
+                    '(<a href="(?!#|.+?://)[^?#"]+[^/?#"])(.*?")'
+                    '$1.html$2'
+                    path.join dir, 'doc'
+                    '-r'
+                  ]
+                proc.run cb
+            (cb) ->
+              # correct internal links
+              fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
+                pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                proc = new Spawn
+                  cmd: cmd
+                  args: [
+                    '(<div id="container">)'
+                    '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
+                    path.join dir, 'doc'
+                    '-r'
+                  ]
+                proc.run cb
+          ], cb
+        (cb) ->
+          # copy images
+          console.log chalk.grey "Copy images" if options.verbose
+          from = path.join dir, 'src'
+          to = path.join docPath, 'src'
+          fs.copy from, to,
+            include: '*.{png,jpg,gif}'
+          , cb
+      ], cb
   ], cb
 
 # ### Clone git repository
