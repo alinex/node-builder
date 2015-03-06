@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.9 (2015-03-06)
+-------------------------------------------------
+- Fixed problem with module load after clean.
+- Added document generation to publish.
+- Fixed bug in automatic added commands.
+
 Version 1.0.8 (2015-03-06)
 -------------------------------------------------
 - Typo fixed.
