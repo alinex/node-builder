@@ -28,38 +28,61 @@ moment = require 'moment'
 #   The callback will be called just if an error occurred or with `null` if
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
-  file = path.join dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file
-  options.oldVersion = pack.version
-  # calculate new version
-  if options.verbose
-    console.log chalk.grey "Old version is #{options.oldVersion}"
-  version = pack.version.split /\./
-  if options.major
-    version[0]++
-    version[1] = version[2] = 0
-  else if options.minor
-    version[1]++
-    version[2] = 0
-  else
-    version[2]++
-  options.newVersion = pack.version = version.join '.'
-  if options.verbose
-    console.log chalk.grey "New version is #{pack.version}"
-  # write new version number into package.json
-  console.log "Change package.json"
-  fs.writeFile file, JSON.stringify(pack, null, 2), (err) ->
+  # check that all test cases are correct
+  checkTests dir, (err) ->
     return cb err if err
-    async.series [
-      (cb) -> updateChangelog dir, options, cb
-      (cb) -> commitChanges dir, options, cb
-      (cb) -> pushOrigin dir, options, cb
-      (cb) -> gitTag dir, options, cb
-      (cb) -> pushNpm dir, options, cb
-    ], (err) ->
-      throw err if err
-      console.log chalk.green "Created v#{pack.version}."
-      cb()
+    # create new version
+    file = path.join dir, 'package.json'
+    pack = JSON.parse fs.readFileSync file
+    options.oldVersion = pack.version
+    # calculate new version
+    if options.verbose
+      console.log chalk.grey "Old version is #{options.oldVersion}"
+    version = pack.version.split /\./
+    if options.major
+      version[0]++
+      version[1] = version[2] = 0
+    else if options.minor
+      version[1]++
+      version[2] = 0
+    else
+      version[2]++
+    options.newVersion = pack.version = version.join '.'
+    if options.verbose
+      console.log chalk.grey "New version is #{pack.version}"
+    # write new version number into package.json
+    console.log "Change package.json"
+    fs.writeFile file, JSON.stringify(pack, null, 2), (err) ->
+      return cb err if err
+      async.series [
+        (cb) -> updateChangelog dir, options, cb
+        (cb) -> commitChanges dir, options, cb
+        (cb) -> pushOrigin dir, options, cb
+        (cb) -> gitTag dir, options, cb
+        (cb) -> pushNpm dir, options, cb
+      ], (err) ->
+        throw err if err
+        console.log chalk.green "Created v#{pack.version}."
+        cb()
+
+# ### check for .only tests
+checkTests = (dir) ->
+  fs.find path.join(dir, 'test', 'mocha'),
+    type: 'file'
+  , (err, list) ->
+    return cb err if err
+    async.each list, (file, cb) ->
+      # check for .only tests
+      fs.readFile file, 'utf-8', (err, content) ->
+        return err if err
+        if content.match /(describe|it)\.only/
+          return cb file
+        cb()
+    , (err, file) ->
+      return cb() unless err
+      if typeof err is 'string'
+        return cb new Error "Tests with .only were found in #{err}. But a full test is neccessary to publish."
+      cb err
 
 # ### add changes since last version to Changelog
 updateChangelog = (dir, options, cb) ->
