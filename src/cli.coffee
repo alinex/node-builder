@@ -27,12 +27,12 @@
 
 # include base modules
 yargs = require 'yargs'
-fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'
 async = require 'async'
 # include alinex modules
 errorHandler = require 'alinex-error'
+fs = require 'alinex-fs'
 errorHandler.install()
 errorHandler.config.stack.modules = true
 
