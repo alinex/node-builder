@@ -141,8 +141,8 @@ as development dependency.</p>
 <p>Install the package globally using npm:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">sudo</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="o">-</span><span class="nx">g</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">builder</span> <span class="o">--</span><span class="nx">production</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">--</span><span class="nx">help</span>
+<div class="highlight"><pre><code>sudo npm install -g alinex-builder --production
+builder --help
 </code></pre></div>
 
 
@@ -152,8 +152,8 @@ as development dependency.</p>
 <p>Or you may integrate it into your own package</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">builder</span> <span class="o">--</span><span class="nx">save</span><span class="o">-</span><span class="nx">devs</span>
-<span class="o">&gt;</span> <span class="p">.</span><span class="o">/</span><span class="nx">node_modules</span><span class="o">/</span><span class="p">.</span><span class="nx">bin</span><span class="o">/</span><span class="nx">builder</span> <span class="o">--</span><span class="nx">help</span>
+<div class="highlight"><pre><code>npm install alinex-builder --save-devs
+./node_modules/.bin/builder --help
 </code></pre></div>
 
 
@@ -174,7 +174,7 @@ as development dependency.</p>
 <p>The tool will be called with</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">-</span><span class="nx">c</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span> <span class="p">[</span><span class="nx">dirs</span><span class="p">]</span>
+<div class="highlight"><pre><code>builder <span class="o">[</span>general options<span class="o">]</span> -c &lt;<span class="nb">command</span>&gt; <span class="o">[</span><span class="nb">command </span>options<span class="o">]</span> <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span>
 </code></pre></div>
 
 
@@ -182,7 +182,7 @@ as development dependency.</p>
 <p>but if not installed globally you may run</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">node_modules</span><span class="o">/</span><span class="p">.</span><span class="nx">bin</span><span class="o">/</span><span class="nx">builder</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">-</span><span class="nx">c</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">...</span>
+<div class="highlight"><pre><code>node_modules/.bin/builder <span class="o">[</span>general options<span class="o">]</span> -c &lt;<span class="nb">command</span>&gt; ...
 </code></pre></div>
 
 
@@ -236,8 +236,8 @@ name, too.</p>
 <p>Some example calls will look like:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
-<span class="o">&gt;</span> <span class="nx">bulder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="kr">private</span><span class="o">-</span><span class="nx">module</span> <span class="o">--</span><span class="kr">private</span>
+<div class="highlight"><pre><code>builder -c create ./node-error --package alinex-error
+bulder -c create ./private-module --private
 </code></pre></div>
 
 
@@ -258,8 +258,8 @@ may directly start to add your code.</p>
 it will also add and commit all other changes before doing so.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c push                  <span class="c"># from within the package directory</span>
+builder -c push ./node-error     <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -267,7 +267,7 @@ it will also add and commit all other changes before doing so.</p>
 <p>or to also commit the last changes</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">message</span> <span class="s2">&quot;commit message&quot;</span>
+<div class="highlight"><pre><code>builder -c push ./node-error --message <span class="s2">&quot;commit message&quot;</span>
 </code></pre></div>
 
 
@@ -284,12 +284,16 @@ it will also add and commit all other changes before doing so.</p>
 <p>Like <code>push</code> this will fetch the newest changes from git origin.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c pull                  <span class="c"># from within the package directory</span>
+builder -c pull ./node-error     <span class="c"># or from anywhere else</span>
+</code></pre></div>
 
-<span class="nx">Pull</span> <span class="nx">from</span> <span class="nx">origin</span>
-<span class="nx">Von</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/alinex/node-make</span>
- <span class="o">*</span> <span class="nx">branch</span>            <span class="nx">master</span>     <span class="o">-&gt;</span> <span class="nx">FETCH_HEAD</span>
+
+
+
+<div class="highlight"><pre><code>Pull from origin
+Von https://github.com/alinex/node-make
+* branch            master     -&gt; FETCH_HEAD
 </code></pre></div>
 
 
@@ -306,12 +310,16 @@ it will also add and commit all other changes before doing so.</p>
 <p>This task is used to compile the sources into for runtime optimized library.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c compile               <span class="c"># from within the package directory</span>
+builder -c compile ./node-error  <span class="c"># or from anywhere else</span>
+</code></pre></div>
 
-<span class="nx">Remove</span> <span class="nx">old</span> <span class="nx">directories</span>
-<span class="nx">Compile</span> <span class="nx">man</span> <span class="nx">pages</span>
-<span class="nx">Compile</span> <span class="nx">coffee</span> <span class="nx">script</span>
+
+
+
+<div class="highlight"><pre><code>Remove old directories
+Compile man pages
+Compile coffee script
 </code></pre></div>
 
 
@@ -321,7 +329,7 @@ extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">uglify</span>
+<div class="highlight"><pre><code>builder -c compile ../node-error --uglify
 </code></pre></div>
 
 
@@ -329,8 +337,10 @@ and makes your coverage report unreadable.</p>
 <p>Mostly this task will be added as prepublish script to the <code>package.json</code> like:</p>
 
 
-<div class="highlight"><pre><code><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&quot;prepublish&quot;</span><span class="o">:</span> <span class="s2">&quot;node_modules/.bin/builder -c compile -u&quot;</span>
+<div class="highlight"><pre><code><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;prepublish&quot;</span><span class="p">:</span> <span class="s2">&quot;node_modules/.bin/builder -c compile -u&quot;</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -351,8 +361,8 @@ are referenced in the package.json.</p>
 <p>This task is a handy addition to include the npm install and npm update commands:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">update</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">update</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c update               <span class="c"># from within the package directory</span>
+builder -c update ./node-error  <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -361,14 +371,14 @@ are referenced in the package.json.</p>
 be updated in the package.json.</p>
 
 
-<div class="highlight"><pre><code><span class="nx">update</span> <span class="nx">and</span> <span class="nx">installation</span> <span class="nx">of</span> <span class="kr">package</span> <span class="kd">with</span> <span class="nx">dependent</span> <span class="nx">packages</span>
-<span class="nx">update</span> <span class="p">.</span><span class="o">/</span>
-<span class="nx">Install</span> <span class="nx">through</span> <span class="nx">npm</span>
-<span class="nx">Update</span> <span class="nx">npm</span> <span class="nx">packages</span>
-<span class="nx">List</span> <span class="nx">outdated</span> <span class="nx">packages</span>
-<span class="nx">Package</span>               <span class="nx">Current</span>  <span class="nx">Wanted</span>     <span class="nx">Latest</span>  <span class="nx">Location</span>
-<span class="nx">Nothing</span> <span class="nx">to</span> <span class="nx">upgrade</span> <span class="k">in</span> <span class="k">this</span> <span class="kr">package</span> <span class="nx">found</span><span class="p">.</span>
-<span class="nx">Done</span><span class="p">.</span>
+<div class="highlight"><pre><code>update and installation of package with dependent packages
+update ./
+Install through npm
+Update npm packages
+List outdated packages
+Package               Current  Wanted     Latest  Location
+Nothing to upgrade in this package found.
+Done.
 </code></pre></div>
 
 
@@ -389,16 +399,20 @@ errors the automatic tests will be run.</p>
 a code coverage report will be build.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c <span class="nb">test</span>                  <span class="c"># from within the package directory</span>
+builder -c <span class="nb">test</span> ./node-error     <span class="c"># or from anywhere else</span>
+</code></pre></div>
 
-<span class="nx">Linting</span> <span class="nx">coffee</span> <span class="nx">code</span>
-<span class="nx">Run</span> <span class="nx">mocha</span> <span class="nx">tests</span>
 
-  <span class="nx">Simple</span> <span class="nx">mocha</span> <span class="nx">test</span>
-    <span class="err">✓</span> <span class="nx">should</span> <span class="nx">add</span> <span class="nx">two</span> <span class="nx">numbers</span>
 
-  <span class="mi">1</span> <span class="nx">passing</span> <span class="p">(</span><span class="mi">9</span><span class="nx">ms</span><span class="p">)</span>
+
+<div class="highlight"><pre><code>Linting coffee code
+Run mocha tests
+
+Simple mocha test
+✓ should add two numbers
+
+1 passing (9ms)
 </code></pre></div>
 
 
@@ -406,7 +420,7 @@ a code coverage report will be build.</p>
 <p>Or to contineously watch it:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+<div class="highlight"><pre><code>builder -c <span class="nb">test</span> ./node-error --watch
 </code></pre></div>
 
 
@@ -414,7 +428,7 @@ a code coverage report will be build.</p>
 <p>You may also create an html coverage report:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="o">--</span><span class="nx">coverage</span>
+<div class="highlight"><pre><code>builder -c <span class="nb">test</span> --coverage
 </code></pre></div>
 
 
@@ -426,8 +440,10 @@ results to coveralls.</p>
 <p>This task can also be added to the <code>package.json</code> to be called using <code>npm test</code>:</p>
 
 
-<div class="highlight"><pre><code><span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
-  <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="s2">&quot;node_modules/.bin/builder test&quot;</span>
+<div class="highlight"><pre><code><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;node_modules/.bin/builder test&quot;</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -451,11 +467,15 @@ any language and generate HTML pages with the documentation beside the
 code.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span>                   <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>      <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c doc                   <span class="c"># from within the package directory</span>
+builder -c doc ./node-error      <span class="c"># or from anywhere else</span>
+</code></pre></div>
 
-<span class="nx">Create</span> <span class="nx">html</span> <span class="nx">documentation</span>
-<span class="nx">Done</span><span class="p">.</span>
+
+
+
+<div class="highlight"><pre><code>Create html documentation
+Done.
 </code></pre></div>
 
 
@@ -467,7 +487,7 @@ rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
 Start the document creation with publication using:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">publish</span>
+<div class="highlight"><pre><code>builder -c doc ./node-error --publish
 </code></pre></div>
 
 
@@ -475,7 +495,7 @@ Start the document creation with publication using:</p>
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+<div class="highlight"><pre><code>bin/make doc ../node-error --watch
 </code></pre></div>
 
 
@@ -503,14 +523,18 @@ hyphen.</p>
 Use this to check if you should make a new publication or if it can wait.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">changes</span>
+<div class="highlight"><pre><code>builder -c changes
+</code></pre></div>
 
-<span class="nx">Changes</span> <span class="nx">since</span> <span class="nx">last</span> <span class="nx">publication</span><span class="o">:</span>
-<span class="o">-</span> <span class="nx">Small</span> <span class="nx">bugfix</span> <span class="k">in</span> <span class="nx">creating</span> <span class="nx">docs</span> <span class="k">for</span> <span class="nx">non</span> <span class="nx">alinex</span> <span class="nx">packages</span><span class="p">.</span>
-<span class="o">-</span> <span class="nx">Fixed</span> <span class="nx">internal</span> <span class="nx">links</span> <span class="k">in</span> <span class="nx">documentation</span><span class="p">.</span>
-<span class="o">-</span> <span class="nx">Changed</span> <span class="nx">created</span> <span class="nx">script</span> <span class="nx">calls</span> <span class="nx">to</span> <span class="nx">support</span> <span class="nx">newer</span> <span class="nx">make</span><span class="p">.</span>
-<span class="o">-</span> <span class="nx">Updated</span> <span class="nx">to</span> <span class="nx">use</span> <span class="nx">newest</span> <span class="nx">make</span> <span class="nx">version</span> <span class="k">in</span> <span class="nx">created</span> <span class="nx">files</span><span class="p">.</span>
-<span class="o">-</span> <span class="nx">Fixed</span> <span class="nx">create</span> <span class="nx">task</span> <span class="nx">which</span> <span class="nx">was</span> <span class="nx">completely</span> <span class="nx">buggy</span> <span class="nx">since</span> <span class="nx">last</span> <span class="nx">rewrite</span><span class="p">.</span>
+
+
+
+<div class="highlight"><pre><code>Changes since last publication:
+- Small bugfix in creating docs for non alinex packages.
+- Fixed internal links in documentation.
+- Changed created script calls to support newer make.
+- Updated to use newest make version in created files.
+- Fixed create task which was completely buggy since last rewrite.
 </code></pre></div>
 
 
@@ -531,27 +555,80 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>To publish the next bugfix version only call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c publish               <span class="c"># from within the package directory</span>
+builder -c publish ./node-error  <span class="c"># or from anywhere else</span>
+</code></pre></div>
 
-<span class="nx">push</span> <span class="nx">changes</span> <span class="nx">to</span> <span class="nx">repository</span>
-<span class="nx">cleanup</span> <span class="nx">files</span>
-<span class="nx">update</span> <span class="nx">and</span> <span class="nx">installation</span> <span class="nx">of</span> <span class="kr">package</span> <span class="kd">with</span> <span class="nx">dependent</span> <span class="nx">packages</span>
-<span class="nx">run</span> <span class="nx">automatic</span> <span class="nx">tests</span>
-<span class="nx">publish</span> <span class="kr">package</span> <span class="k">in</span> <span class="nx">npm</span>
-<span class="nx">create</span> <span class="nx">documentation</span> <span class="nx">pages</span>
-<span class="nx">Done</span><span class="p">.</span>
+
+
+<p>The output will be:</p>
+
+
+<div class="highlight"><pre><code>push changes to repository
+push node-builder
+Push to origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+   46f16d7..34a0a61  master -&gt; master
+cleanup files
+clean node-builder
+Remove unnecessary folders
+update and installation of package with dependent packages
+update node-builder
+Install through npm
+Update npm packages
+List outdated packages
+Package               Current  Wanted     Latest  Location
+Nothing to upgrade in this package found.
+run automatic tests
+test node-builder
+Linting coffee code
+Run mocha tests
+  Simple mocha test
+    ✓ should add two numbers
+  1 passing (5ms)
+create documentation pages
+doc node-builder
+Create html documentation
+Cloning git repository
+Nach »/tmp/alinex-make-2088206155« wird geklont
+Checkout gh-pages branch
+Zu neuem Zweig »gh-pages« gewechselt
+Update documentation
+Push to git origin
+To https://github.com/alinex/node-builder
+   bfc73a0..1114a9b  gh-pages -&gt; gh-pages
+publish package in npm
+publish node-builder
+Change package.json
+Write new changelog
+Commit new version information
+Push to git origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+   34a0a61..0fef12e  master -&gt; master
+Push new tag to git origin
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/alinex/node-builder.git
+To https://github.com/alinex/node-make
+ * [new tag]         v1.0.9 -&gt; v1.0.9
+Push to npm
+Created v1.0.9.
+Done.
 </code></pre></div>
 
 
 
 <p>Like seen above this will also push last changes, cleanup, reinstall the package
-and run all tests before publishing.</p>
+and run all tests before publishing. And the documentation will be updated
+afterwards.</p>
 
 <p>For the next minor version (second number) call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">minor</span>
+<div class="highlight"><pre><code>builder -c publish ../node-error --minor
 </code></pre></div>
 
 
@@ -559,7 +636,7 @@ and run all tests before publishing.</p>
 <p>And for a new major version:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">major</span>
+<div class="highlight"><pre><code>builder -c publish ../node-error --major
 </code></pre></div>
 
 
@@ -583,8 +660,8 @@ development environment.</p>
 <p>To cleanup all safe files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span>                 <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>    <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<div class="highlight"><pre><code>builder -c clean                 <span class="c"># from within the package directory</span>
+builder -c clean ./node-error    <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -592,7 +669,7 @@ development environment.</p>
 <p>Or on the development system remove all created files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">auto</span>
+<div class="highlight"><pre><code>builder -c clean ../node-error --auto
 </code></pre></div>
 
 
@@ -600,7 +677,7 @@ development environment.</p>
 <p>And at last for production remove development files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">dist</span>
+<div class="highlight"><pre><code>builder -c clean ../node-error --dist
 </code></pre></div>
 
 
@@ -643,7 +720,7 @@ like done for the css.</p>
 </div>
 
 
-<p>Copyright 2013-2014 Alexander Schilling</p>
+<p>Copyright 2013-2015 Alexander Schilling</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
