@@ -121,6 +121,7 @@ command line call.</p>
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">yargs = </span><span class="nx">require</span> <span class="s">&#39;yargs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
@@ -138,7 +139,6 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">errorHandler = </span><span class="nx">require</span> <span class="s">&#39;alinex-error&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nx">errorHandler</span><span class="p">.</span><span class="nx">install</span><span class="p">()</span>
 <span class="nv">errorHandler.config.stack.modules = </span><span class="kc">true</span>
 
@@ -493,12 +493,14 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-26" id="section-26">&#182;</a>
 </div>
-<p>and at last add document publish</p>
+<p>and at last add the command itself and document publish</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
       <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;doc&#39;</span>
       <span class="nv">argv.publish = </span><span class="kc">true</span>
-  <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
+    <span class="k">else</span>
+      <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
 
 
 

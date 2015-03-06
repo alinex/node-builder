@@ -94,12 +94,24 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;make:publish&#39;</span><span class="p">)</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 <span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
 <span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>include alinex modules</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 
 
 </pre></div>
@@ -136,7 +148,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
 <p>check that all test cases are correct</p>
         </td>
@@ -150,7 +162,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
 <p>create new version</p>
         </td>
@@ -165,7 +177,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
 </div>
 <p>calculate new version</p>
         </td>
@@ -191,7 +203,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>write new version number into package.json</p>
         </td>
@@ -225,7 +237,7 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">checkTests = </span><span class="nf">(dir) -&gt;</span>
+<span class="nv">checkTests = </span><span class="nf">(dir, cb) -&gt;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span><span class="p">),</span>
     <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
   <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>
@@ -238,7 +250,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-11" id="section-11">&#182;</a>
 </div>
 <p>check for .only tests</p>
         </td>
@@ -294,7 +306,7 @@ execution finished.</li>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
 </div>
 <p>{newlines.join '\n'}</p>
         </td>
