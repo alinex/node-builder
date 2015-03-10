@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.11 (2015-03-10)
+-------------------------------------------------
+- Remove --prune from push.
+- Update documentation structure.
+- Added verbose info for mocha .only checking.
+
 Version 1.0.10 (2015-03-06)
 -------------------------------------------------
 - Remove .only test to let publish work again.
