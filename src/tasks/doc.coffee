@@ -190,8 +190,8 @@ createDoc = (dir, options, cb) ->
                 proc = new Spawn
                   cmd: cmd
                   args: [
-                    '(<div id="container">)'
-                    '$1<a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
+                    '(<div id="container")>'
+                    '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a>'
                     path.join dir, 'doc'
                     '-r'
                   ]

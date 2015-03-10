@@ -47,7 +47,7 @@ git = (dir, options, cb) ->
       console.log "Push to origin"
       proc = new Spawn
         cmd: 'git'
-        args: [ 'push', '--tags', '--prune', 'origin', 'master' ]
+        args: [ 'push', '--tags', 'origin', 'master' ]
         cwd: dir
       proc.run (err, stdout, stderr) ->
         console.log chalk.grey stdout.trim() if stdout and options.verbose
