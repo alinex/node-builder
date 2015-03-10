@@ -153,7 +153,7 @@ execution finished.</li>
 <p>check that all test cases are correct</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">checkTests</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="nx">checkTests</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
@@ -237,7 +237,8 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">checkTests = </span><span class="nf">(dir, cb) -&gt;</span>
+<span class="nv">checkTests = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Search for .only mocha tests...&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;mocha&#39;</span><span class="p">),</span>
     <span class="nv">type: </span><span class="s">&#39;file&#39;</span>
   <span class="p">,</span> <span class="nf">(err, list) -&gt;</span>

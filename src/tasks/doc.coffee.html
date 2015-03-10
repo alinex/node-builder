@@ -451,8 +451,8 @@ so we pass a blank title so we can quote the file we are opening</p>
                 <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
                   <span class="nv">cmd: </span><span class="nx">cmd</span>
                   <span class="nv">args: </span><span class="p">[</span>
-                    <span class="s">&#39;(&lt;div id=&quot;container&quot;&gt;)&#39;</span>
-                    <span class="s">&#39;$1&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
+                    <span class="s">&#39;(&lt;div id=&quot;container&quot;)&gt;&#39;</span>
+                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me XXXXXXXXXXXXXXXXXXXX on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
                     <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
                     <span class="s">&#39;-r&#39;</span>
                   <span class="p">]</span>
