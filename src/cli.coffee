@@ -75,6 +75,7 @@ argv = yargs
 # commands
 .demand('c')
 .alias('c', 'command')
+.array('c')
 .describe('c', 'command to execute (use list to see more)')
 # general options
 .boolean('C')
@@ -97,7 +98,11 @@ argv = yargs
 .describe('minor', 'publish: change to next minor version')
 .boolean('major')
 .describe('major', 'publish: change to next major version')
-# publish options
+.boolean('try')
+.describe('try', 'publish: don\'t really publish but check if it is possible')
+.boolean('force')
+.describe('force', 'publish: also if tests have errors or submodules not up-to-date')
+# test options
 .boolean('coverage')
 .describe('coverage', 'test: create coverage report')
 .boolean('coveralls')
@@ -118,6 +123,7 @@ argv = yargs
 .help('h')
 .alias('h', 'help')
 .showHelpOnFail(false, "Specify --help for available options")
+.epilogue("For more information, look into the man page.")
 .check (argv, options) ->
   # optimize the arguments for processing
   argv._ = ['./'] unless argv._.length
@@ -129,7 +135,6 @@ argv = yargs
   true
 .strict()
 .argv
-argv.done = []
 # implement some global switches
 chalk.enabled = false if argv.nocolors
 # add additional dependent commands
@@ -159,28 +164,36 @@ async.each cmds, (command, cb) ->
   cb()
 , (err) ->
   throw err if err
-  async.eachSeries cmds, (command, cb) ->
-    # skip if command already done
-    return cb() if command in argv.done
-    console.log chalk.blue.bold commands[command]
-    # list possible commands
-    if command is 'list'
-      console.log "\nThe following commands are possible:\n"
-      console.log "- #{key} - #{title}" for key, title of commands
-      return cb()
-    # load task library
-    lib = require "./tasks/#{command}"
-    # run modules in parallel for each directory
-    async.eachSeries argv._, (dir, cb) ->
-      console.log chalk.blue "#{command} #{dir}"
-      lib.run dir, argv, cb
+
+  async.eachSeries argv._, (dir, cb) ->
+    console.log chalk.blue.bold "Working on #{dir}"
+    argv.done = []
+    async.eachSeries cmds, (command, cb) ->
+      # skip if command already done
+      return cb() if command in argv.done
+      # list possible commands
+      if command is 'list'
+        console.log "\nThe following commands are possible:\n"
+        console.log "- #{key} - #{title}" for key, title of commands
+        return cb()
+      console.log chalk.blue commands[command]
+      # check for try
+      if argv.try and command is 'publish'
+        console.log chalk.yellow "Publishing is possible but won't be called because of --try flag."
+        return cb()
+      # load task library
+      lib = require "./tasks/#{command}"
+      lib.run dir, argv, (err) ->
+        argv.done.push command
+        # log done comamnds
+        if command is 'update'
+          argv.done.push 'compile' # this is called by npm
+        # return error
+        cb if argv.force then null else err
     , (err) ->
-      return cb err if err
-      argv.done.push command
-      if command is 'update'
-        argv.done.push 'compile' # this is called by npm
+      # protocol error on dir
+      console.error chalk.bold chalk.red err if err
+      # go on
       cb()
   , (err) ->
-    throw err if err
-    # check for existing command
     console.log chalk.green "Done."

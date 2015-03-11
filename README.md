@@ -412,6 +412,10 @@ And for a new major version:
 builder -c publish ../node-error --major
 ```
 
+And you may use the switches `--try` to not really publish but to check if it will
+be possible and `--force` to always publish also if it is not possible because of
+failed tests or not up-to-date dependent packages.
+
 
 ### clean
 

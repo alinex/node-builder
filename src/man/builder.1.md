@@ -34,6 +34,9 @@ And the available options are:
     -u, --uglify    compile: run uglify for each file
     --minor         publish: change to next minor version
     --major         publish: change to next major version
+    --try           publish: don't really publish but check if it is possible
+    --force         publish: also if tests have errors or submodules not
+                    up-to-date
     --coverage      test: create coverage report
     --coveralls     test: send coverage to coveralls
     --watch         test,doc: keep process running while watching for changes
@@ -286,6 +289,10 @@ For the next minor version (second number) call:
 And for a new major version:
 
     > builder -c publish ../node-error --major
+
+And you may use the switches `--try` to not really publish but to check if it will
+be possible and `--force` to always publish also if it is not possible because of
+failed tests or not up-to-date dependent packages.
 
 
 ### Command: `clean`
