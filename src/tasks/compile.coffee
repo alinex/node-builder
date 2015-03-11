@@ -73,7 +73,7 @@ compileCoffee = (dir, options, cb) ->
               fs.writeFile filepathjs, compiled.js, cb
           (cb) ->
             fs.mkdirs path.dirname(filepathmap), (err) ->
-              return cb err if err
+              return cb err if err and err.code isnt 'EEXIST'
               fs.writeFile filepathmap, compiled.v3SourceMap, cb
         ], (err) ->
           return cb err if err or not options.uglify
