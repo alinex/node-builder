@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.12 (2015-03-11)
+-------------------------------------------------
+- Fixed EEXIST error which comes some times in compile.
+- Added --force and --try switches and changed order to work each directory after the other.
+- Stop task if outdated modules found.
+
 Version 1.0.11 (2015-03-10)
 -------------------------------------------------
 - Remove --prune from push.
