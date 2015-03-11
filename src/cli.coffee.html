@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/a3//src/cli.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/a3/node-builder/src/clicoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../fileSearch.js"></script>
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -262,6 +262,7 @@ command line call.</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">demand</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">array</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;command to execute (use list to see more)&#39;</span><span class="p">)</span>
 
 </pre></div>
@@ -339,6 +340,10 @@ command line call.</p>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;minor&#39;</span><span class="p">,</span> <span class="s">&#39;publish: change to next minor version&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;major&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;major&#39;</span><span class="p">,</span> <span class="s">&#39;publish: change to next major version&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;try&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;try&#39;</span><span class="p">,</span> <span class="s">&#39;publish: don\&#39;t really publish but check if it is possible&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;force&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s">&#39;force&#39;</span><span class="p">,</span> <span class="s">&#39;publish: also if tests have errors or submodules not up-to-date&#39;</span><span class="p">)</span>
 
 </pre></div>
         </td>
@@ -348,7 +353,7 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
 </div>
-<p>publish options</p>
+<p>test options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="p">.</span><span class="nx">boolean</span><span class="p">(</span><span class="s">&#39;coverage&#39;</span><span class="p">)</span>
@@ -404,6 +409,7 @@ command line call.</p>
 <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;help&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">showHelpOnFail</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s">&quot;Specify --help for available options&quot;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">epilogue</span><span class="p">(</span><span class="s">&quot;For more information, look into the man page.&quot;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">check</span> <span class="nf">(argv, options) -&gt;</span>
 
 </pre></div>
@@ -437,7 +443,6 @@ command line call.</p>
   <span class="kc">true</span>
 <span class="p">.</span><span class="nx">strict</span><span class="p">()</span>
 <span class="p">.</span><span class="nx">argv</span>
-<span class="nv">argv.done = </span><span class="p">[]</span>
 
 </pre></div>
         </td>
@@ -535,7 +540,11 @@ command line call.</p>
   <span class="nx">cb</span><span class="p">()</span>
 <span class="p">,</span> <span class="nf">(err) -&gt;</span>
   <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">cmds</span><span class="p">,</span> <span class="nf">(command, cb) -&gt;</span>
+
+  <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span> <span class="s">&quot;Working on </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">argv.done = </span><span class="p">[]</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">cmds</span><span class="p">,</span> <span class="nf">(command, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -548,8 +557,7 @@ command line call.</p>
 <p>skip if command already done</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span>
 
 </pre></div>
         </td>
@@ -562,10 +570,11 @@ command line call.</p>
 <p>list possible commands</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;list&#39;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;\nThe following commands are possible:\n&quot;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">title</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">title</span> <span class="k">of</span> <span class="nx">commands</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;list&#39;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;\nThe following commands are possible:\n&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s"> - </span><span class="si">#{</span><span class="nx">title</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">title</span> <span class="k">of</span> <span class="nx">commands</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span> <span class="nx">commands</span><span class="p">[</span><span class="nx">command</span><span class="p">]</span>
 
 </pre></div>
         </td>
@@ -575,10 +584,12 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-31" id="section-31">&#182;</a>
 </div>
-<p>load task library</p>
+<p>check for try</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nv">lib = </span><span class="nx">require</span> <span class="s">&quot;./tasks/</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">try</span> <span class="o">and</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;publish&#39;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Publishing is possible but won&#39;t be called because of --try flag.&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -588,20 +599,12 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-32" id="section-32">&#182;</a>
 </div>
-<p>run modules in parallel for each directory</p>
+<p>load task library</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">eachSeries</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">_</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">blue</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">argv</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
-      <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;update&#39;</span>
-        <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;compile&#39;</span> <span class="c1"># this is called by npm</span>
-      <span class="nx">cb</span><span class="p">()</span>
-  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="k">throw</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nv">lib = </span><span class="nx">require</span> <span class="s">&quot;./tasks/</span><span class="si">#{</span><span class="nx">command</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">lib</span><span class="p">.</span><span class="nx">run</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">argv</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
 
 </pre></div>
         </td>
@@ -611,9 +614,52 @@ command line call.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-33" id="section-33">&#182;</a>
 </div>
-<p>check for existing command</p>
+<p>log done comamnds</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">if</span> <span class="nx">command</span> <span class="o">is</span> <span class="s">&#39;update&#39;</span>
+          <span class="nx">argv</span><span class="p">.</span><span class="nx">done</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;compile&#39;</span> <span class="c1"># this is called by npm</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-34" id="section-34">&#182;</a>
+</div>
+<p>return error</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">cb</span> <span class="k">if</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">force</span> <span class="k">then</span> <span class="kc">null</span> <span class="k">else</span> <span class="nx">err</span>
+    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-35" id="section-35">&#182;</a>
+</div>
+<p>protocol error on dir</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">bold</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-36" id="section-36">&#182;</a>
+</div>
+<p>go on</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">cb</span><span class="p">()</span>
+  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;Done.&quot;</span>
 </pre></div>
         </td>

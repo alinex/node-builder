@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3//src/man/builder.1.md", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/man/builder1.md", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -76,7 +76,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="docs markdown">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="alinex%20development%20utils">
   <h1>
     <a href="#alinex%20development%20utils" name="alinex%20development%20utils" class="pilcrow">&#182;</a>
@@ -132,6 +132,9 @@
 <span class="o">-</span><span class="nx">u</span><span class="p">,</span> <span class="o">--</span><span class="nx">uglify</span>    <span class="nx">compile</span><span class="o">:</span> <span class="nx">run</span> <span class="nx">uglify</span> <span class="k">for</span> <span class="nx">each</span> <span class="nx">file</span>
 <span class="o">--</span><span class="nx">minor</span>         <span class="nx">publish</span><span class="o">:</span> <span class="nx">change</span> <span class="nx">to</span> <span class="nx">next</span> <span class="nx">minor</span> <span class="nx">version</span>
 <span class="o">--</span><span class="nx">major</span>         <span class="nx">publish</span><span class="o">:</span> <span class="nx">change</span> <span class="nx">to</span> <span class="nx">next</span> <span class="nx">major</span> <span class="nx">version</span>
+<span class="o">--</span><span class="k">try</span>           <span class="nx">publish</span><span class="o">:</span> <span class="nx">don</span><span class="err">&#39;</span><span class="nx">t</span> <span class="nx">really</span> <span class="nx">publish</span> <span class="nx">but</span> <span class="nx">check</span> <span class="k">if</span> <span class="nx">it</span> <span class="nx">is</span> <span class="nx">possible</span>
+<span class="o">--</span><span class="nx">force</span>         <span class="nx">publish</span><span class="o">:</span> <span class="nx">also</span> <span class="k">if</span> <span class="nx">tests</span> <span class="nx">have</span> <span class="nx">errors</span> <span class="nx">or</span> <span class="nx">submodules</span> <span class="nx">not</span>
+                <span class="nx">up</span><span class="o">-</span><span class="nx">to</span><span class="o">-</span><span class="nx">date</span>
 <span class="o">--</span><span class="nx">coverage</span>      <span class="nx">test</span><span class="o">:</span> <span class="nx">create</span> <span class="nx">coverage</span> <span class="nx">report</span>
 <span class="o">--</span><span class="nx">coveralls</span>     <span class="nx">test</span><span class="o">:</span> <span class="nx">send</span> <span class="nx">coverage</span> <span class="nx">to</span> <span class="nx">coveralls</span>
 <span class="o">--</span><span class="nx">watch</span>         <span class="nx">test</span><span class="p">,</span><span class="nx">doc</span><span class="o">:</span> <span class="nx">keep</span> <span class="nx">process</span> <span class="nx">running</span> <span class="k">while</span> <span class="nx">watching</span> <span class="k">for</span> <span class="nx">changes</span>
@@ -538,6 +541,10 @@ new version. The version can be set by signaling if it should be a <code>--major
 </code></pre></div>
 
 
+
+<p>And you may use the switches <code>--try</code> to not really publish but to check if it will
+be possible and <code>--force</code> to always publish also if it is not possible because of
+failed tests or not up-to-date dependent packages.</p>
 
 
 <div class="pilwrap" id="command%3A%20clean">

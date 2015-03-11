@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3//Changelog.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/a3/node-builder/Changelogmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -24,6 +24,9 @@
     <div id="headings">
       <div class="heading h1">
         <a href="#version%20changes">Version changes</a>
+      </div>
+      <div class="heading h2">
+        <a href="#version%201.0.12%20(2015-03-11)">Version 1.0.12 (2015-03-11)</a>
       </div>
       <div class="heading h2">
         <a href="#version%201.0.11%20(2015-03-10)">Version 1.0.11 (2015-03-10)</a>
@@ -118,7 +121,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="docs markdown">
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="docs markdown">
 <div class="pilwrap" id="version%20changes">
   <h1>
     <a href="#version%20changes" name="version%20changes" class="pilcrow">&#182;</a>
@@ -129,6 +132,21 @@
 
 <p>The following list gives a short overview about what is changed between
 individual versions:</p>
+
+
+<div class="pilwrap" id="version%201.0.12%20(2015-03-11)">
+  <h2>
+    <a href="#version%201.0.12%20(2015-03-11)" name="version%201.0.12%20(2015-03-11)" class="pilcrow">&#182;</a>
+    Version 1.0.12 (2015-03-11)
+  </h2>
+</div>
+
+
+<ul>
+<li>Fixed EEXIST error which comes some times in compile.</li>
+<li>Added --force and --try switches and changed order to work each directory after the other.</li>
+<li>Stop task if outdated modules found.</li>
+</ul>
 
 
 <div class="pilwrap" id="version%201.0.11%20(2015-03-10)">
