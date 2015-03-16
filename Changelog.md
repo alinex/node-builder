@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.14 (2015-03-16)
+-------------------------------------------------
+- Fixed update command.
+
 Version 1.0.13 (2015-03-16)
 -------------------------------------------------
 - Switch registry if specific publishConfig entry is set.
