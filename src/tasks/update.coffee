@@ -35,7 +35,7 @@ module.exports.run = (dir, options, cb) ->
     (cb) -> switchRepository dir, options, cb
   ], cb
 
-switchRepository = (dir, change, cb) ->
+switchRepository = (dir, options, cb) ->
   # check for changed registry
   file = path.join dir, 'package.json'
   pack = JSON.parse fs.readFileSync file
