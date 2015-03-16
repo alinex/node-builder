@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.13 (2015-03-16)
+-------------------------------------------------
+- Switch registry if specific publishConfig entry is set.
+- Add compile task to publish commands.
+
 Version 1.0.12 (2015-03-11)
 -------------------------------------------------
 - Fixed EEXIST error which comes some times in compile.
