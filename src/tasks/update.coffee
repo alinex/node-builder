@@ -28,10 +28,40 @@ chalk = require 'chalk'
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
   async.series [
+    (cb) -> switchRepository dir, options, cb
     (cb) -> npmInstall dir, options, cb
     (cb) -> npmUpdate dir, options, cb
     (cb) -> npmOutdated dir, options, cb
+    (cb) -> switchRepository dir, options, cb
   ], cb
+
+switchRepository = (dir, change, cb) ->
+  # check for changed registry
+  file = path.join dir, 'package.json'
+  pack = JSON.parse fs.readFileSync file
+  unless pack.publishConfig?.registry
+    return cb()
+  # change or change back
+  registry = if options.registry then options.registry else pack.publishConfig.registry
+  # get old registry
+  proc = new Spawn
+    priority: 9
+    cmd: 'npm'
+    args: [ 'get', 'registry' ]
+    cwd: dir
+    input: 'inherit'
+    check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+  proc.run (err, stdout) ->
+    return cb err if err
+    options.registry = stdout.trim()
+    proc = new Spawn
+      priority: 9
+      cmd: 'npm'
+      args: [ 'set', 'registry', registry ]
+      cwd: dir
+      input: 'inherit'
+      check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+    proc.run cb
 
 # ### Install necessary modules
 npmInstall = (dir, options, cb) ->
