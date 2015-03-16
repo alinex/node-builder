@@ -144,6 +144,7 @@ for command in argv.command
     when 'publish'
       # backward order because of unshift
       cmds.unshift 'test'
+      cmds.unshift 'compile'
       cmds.unshift 'update'
       cmds.unshift 'clean'
       argv.auto = true
