@@ -90,7 +90,10 @@ compileCoffee = (dir, options, cb) ->
 # ### Compile man pages
 compileMan = (dir, options, cb) ->
   file = path.join dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file
+  try
+    pack = JSON.parse fs.readFileSync file
+  catch err
+    return cb new Error "Could not load #{file} as valid JSON."
   return cb() unless pack.man?
   console.log "Compile man pages"
   src = path.join dir, 'src'

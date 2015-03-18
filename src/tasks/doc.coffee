@@ -39,7 +39,10 @@ module.exports.run = (dir, options, cb) ->
     setTimeout ->
       openUrl options, url
     , 5000
-  pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+  try
+    pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+  catch err
+    return cb new Error "Could not load #{file} as valid JSON."
   # Create the html documentation out of source files
   createDoc dir, options, (err) ->
     return cb err if err
@@ -185,7 +188,10 @@ createDoc = (dir, options, cb) ->
             (cb) ->
               # correct internal links
               fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
-                pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+                try
+                  pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+                catch err
+                  return cb new Error "Could not load #{file} as valid JSON."
                 return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                 proc = new Spawn
                   cmd: cmd
@@ -211,7 +217,10 @@ createDoc = (dir, options, cb) ->
 # ### Clone git repository
 cloneGit = (dir, tmpdir, options, cb) ->
   file = path.join dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file
+  try
+    pack = JSON.parse fs.readFileSync file
+  catch err
+    return cb new Error "Could not load #{file} as valid JSON."
   console.log "Cloning git repository"
   debug "exec> git clone #{pack.repository.url} #{tmpdir}"
   execFile 'git', [

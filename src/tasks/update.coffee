@@ -38,7 +38,10 @@ module.exports.run = (dir, options, cb) ->
 switchRepository = (dir, options, cb) ->
   # check for changed registry
   file = path.join dir, 'package.json'
-  pack = JSON.parse fs.readFileSync file
+  try
+    pack = JSON.parse fs.readFileSync file
+  catch err
+    return cb new Error "Could not load #{file} as valid JSON."
   unless pack.publishConfig?.registry
     return cb()
   # change or change back

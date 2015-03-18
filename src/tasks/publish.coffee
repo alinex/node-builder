@@ -34,7 +34,10 @@ module.exports.run = (dir, options, cb) ->
     return cb err if err
     # create new version
     file = path.join dir, 'package.json'
-    pack = JSON.parse fs.readFileSync file
+    try
+      pack = JSON.parse fs.readFileSync file
+    catch err
+      return cb new Error "Could not load #{file} as valid JSON."
     options.oldVersion = pack.version
     # calculate new version
     if options.verbose

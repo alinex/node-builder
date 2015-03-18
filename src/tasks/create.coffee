@@ -96,7 +96,10 @@ createGitHub = (dir, options, cb) ->
     console.log chalk.grey "Check for configured git"
   file = path.join dir, 'package.json'
   if fs.existsSync file
-    pack = JSON.parse fs.readFileSync file
+    try
+      pack = JSON.parse fs.readFileSync file
+    catch err
+      return cb new Error "Could not load #{file} as valid JSON."
     unless pack.repository.type is 'git'
       console.out chalk.yellow "Only git repositories can be added to github."
       return cb()
