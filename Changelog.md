@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.16 (2015-03-19)
+-------------------------------------------------
+- Fix new config paths.
+
 Version 1.0.15 (2015-03-19)
 -------------------------------------------------
 - Allow to change configsearch path.
