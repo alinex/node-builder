@@ -46,11 +46,6 @@ GLOBAL.ROOT_DIR = path.dirname __dirname
 # Read in package configuration
 GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
 # setup search path for configs
-for path in  [
-    path.resolve path.dirname(__dirname), 'var/src/config'
-    path.resolve path.dirname(__dirname), 'var/local/config'
-  ]
-  Spawn.configsearch.push path
 
 # list of possible commands
 commands =
