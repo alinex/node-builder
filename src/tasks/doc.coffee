@@ -197,7 +197,7 @@ createDoc = (dir, options, cb) ->
                   cmd: cmd
                   args: [
                     '(<div id="container")>'
-                    '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a>'
+                    '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
                     path.join dir, 'doc'
                     '-r'
                   ]
