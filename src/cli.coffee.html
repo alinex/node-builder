@@ -201,11 +201,6 @@ command line call.</p>
 <p>setup search path for configs</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="k">for</span> <span class="nx">path</span> <span class="k">in</span>  <span class="p">[</span>
-    <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/src/config&#39;</span>
-    <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="s">&#39;var/local/config&#39;</span>
-  <span class="p">]</span>
-  <span class="nx">Spawn</span><span class="p">.</span><span class="nx">configsearch</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span>
 
 
 </pre></div>
