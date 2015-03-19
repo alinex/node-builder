@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.15 (2015-03-19)
+-------------------------------------------------
+- Allow to change configsearch path.
+- Display tables as documented in html (<pre>).
+- Fixed title of fork me image in documentation.
+- Better error output on invalid json file.
+
 Version 1.0.14 (2015-03-16)
 -------------------------------------------------
 - Fixed update command.
