@@ -151,33 +151,33 @@ createDoc = (dir, options, cb) ->
             </html>
             """, cb
         (cb) ->
-          # create docker files
-          async.series [
-            (cb) ->
-              console.log "Create html documentation"
-              fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
-                return cb err if err
-                args = [
-                  '-i', dir
-                  '-u'
-                  if options.watch then '-w' else ''
-                  '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
-                  '-o', path.join dir, 'doc'
-                  '-c', 'autumn'
-                  '--extras', 'fileSearch,goToLine'
-                ]
-                proc = new Spawn
-                  cmd: cmd
-                  args: args
-                  check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-                proc.run cb
-            (cb) ->
-              # correct internal links
-              fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
+          fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, replace) ->
+            # create docker files
+            async.series [
+              (cb) ->
+                console.log "Create html documentation"
+                fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
+                  return cb err if err
+                  args = [
+                    '-i', dir
+                    '-u'
+                    if options.watch then '-w' else ''
+                    '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
+                    '-o', path.join dir, 'doc'
+                    '-c', 'autumn'
+                    '--extras', 'fileSearch,goToLine'
+                  ]
+                  proc = new Spawn
+                    cmd: cmd
+                    args: args
+                    check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+                  proc.run cb
+              (cb) ->
+                # correct internal links
                 return cb err if err
                 console.log chalk.grey "Correcting local links" if options.verbose
                 proc = new Spawn
-                  cmd: cmd
+                  cmd: replace
                   args: [
                     '(<a href="(?!#|.+?://)[^?#"]+[^/?#"])(.*?")'
                     '$1.html$2'
@@ -185,16 +185,15 @@ createDoc = (dir, options, cb) ->
                     '-r'
                   ]
                 proc.run cb
-            (cb) ->
-              # correct internal links
-              fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, cmd) ->
+              (cb) ->
+                # add fork on github icon
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
                 catch err
                   return cb new Error "Could not load #{file} as valid JSON."
                 return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                 proc = new Spawn
-                  cmd: cmd
+                  cmd: replace
                   args: [
                     '(<div id="container")>'
                     '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
@@ -202,7 +201,23 @@ createDoc = (dir, options, cb) ->
                     '-r'
                   ]
                 proc.run cb
-          ], cb
+              (cb) ->
+                # fix tables
+                try
+                  pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+                catch err
+                  return cb new Error "Could not load #{file} as valid JSON."
+                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                proc = new Spawn
+                  cmd: replace
+                  args: [
+                    '<p>(\\|)'
+                    '<p style="font-family:monospace;white-space:pre">$1'
+                    path.join dir, 'doc'
+                    '-r'
+                  ]
+                proc.run cb
+            ], cb
         (cb) ->
           # copy images
           console.log chalk.grey "Copy images" if options.verbose
