@@ -44,7 +44,7 @@ git = (dir, options, cb) ->
     console.log "Changes since last publication:"
     proc = new Spawn
       cmd: 'git'
-      args: [ 'describe', '--abrev=0' ]
+      args: [ 'describe', '--abbrev=0' ]
       cwd: dir
     proc.run (err, stdout, stderr) ->
       tag = stdout.trim()

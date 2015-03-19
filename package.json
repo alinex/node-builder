@@ -41,7 +41,6 @@
     "man": "./man"
   },
   "dependencies": {
-    "alinex-config": "^0.4.3",
     "alinex-error": "1.x",
     "alinex-fs": "0.2.x",
     "alinex-spawn": "1.x",
