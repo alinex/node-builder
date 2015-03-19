@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3//src/tasks/doc.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/doccoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -52,7 +52,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -151,7 +151,10 @@ script if defined.</p>
     <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
       <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span>
     <span class="p">,</span> <span class="mi">5000</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="k">try</span>
+    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+  <span class="k">catch</span> <span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
 
 </pre></div>
         </td>
@@ -376,6 +379,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <span class="s">            &lt;/html&gt;</span>
 <span class="s">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
         <span class="nf">(cb) -&gt;</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;replace&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, replace) -&gt;</span>
 
 </pre></div>
         </td>
@@ -388,26 +392,26 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>create docker files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-            <span class="nf">(cb) -&gt;</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create html documentation&quot;</span>
-              <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;docker&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
-                <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-                <span class="nv">args = </span><span class="p">[</span>
-                  <span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="nx">dir</span>
-                  <span class="s">&#39;-u&#39;</span>
-                  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span> <span class="k">then</span> <span class="s">&#39;-w&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
-                  <span class="s">&#39;-x&#39;</span><span class="p">,</span> <span class="s">&#39;.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular&#39;</span>
-                  <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                  <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;autumn&#39;</span>
-                  <span class="s">&#39;--extras&#39;</span><span class="p">,</span> <span class="s">&#39;fileSearch,goToLine&#39;</span>
-                <span class="p">]</span>
-                <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-                  <span class="nv">cmd: </span><span class="nx">cmd</span>
-                  <span class="nv">args: </span><span class="nx">args</span>
-                  <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-                <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-            <span class="nf">(cb) -&gt;</span>
+            <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
+              <span class="nf">(cb) -&gt;</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create html documentation&quot;</span>
+                <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;docker&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+                  <span class="nv">args = </span><span class="p">[</span>
+                    <span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="nx">dir</span>
+                    <span class="s">&#39;-u&#39;</span>
+                    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span> <span class="k">then</span> <span class="s">&#39;-w&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+                    <span class="s">&#39;-x&#39;</span><span class="p">,</span> <span class="s">&#39;.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular&#39;</span>
+                    <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
+                    <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;autumn&#39;</span>
+                    <span class="s">&#39;--extras&#39;</span><span class="p">,</span> <span class="s">&#39;fileSearch,goToLine&#39;</span>
+                  <span class="p">]</span>
+                  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+                    <span class="nv">cmd: </span><span class="nx">cmd</span>
+                    <span class="nv">args: </span><span class="nx">args</span>
+                    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
+                  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+              <span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -420,11 +424,10 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>correct internal links</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-              <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;replace&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
                 <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Correcting local links&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
                 <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-                  <span class="nv">cmd: </span><span class="nx">cmd</span>
+                  <span class="nv">cmd: </span><span class="nx">replace</span>
                   <span class="nv">args: </span><span class="p">[</span>
                     <span class="s">&#39;(&lt;a href=&quot;(?!#|.+?://)[^?#&quot;]+[^/?#&quot;])(.*?&quot;)&#39;</span>
                     <span class="s">&#39;$1.html$2&#39;</span>
@@ -432,7 +435,7 @@ so we pass a blank title so we can quote the file we are opening</p>
                     <span class="s">&#39;-r&#39;</span>
                   <span class="p">]</span>
                 <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-            <span class="nf">(cb) -&gt;</span>
+              <span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -442,23 +445,24 @@ so we pass a blank title so we can quote the file we are opening</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
 </div>
-<p>correct internal links</p>
+<p>add fork on github icon</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-              <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;replace&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
-                <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+                <span class="k">try</span>
+                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+                <span class="k">catch</span> <span class="nx">err</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
                 <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
                 <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-                  <span class="nv">cmd: </span><span class="nx">cmd</span>
+                  <span class="nv">cmd: </span><span class="nx">replace</span>
                   <span class="nv">args: </span><span class="p">[</span>
                     <span class="s">&#39;(&lt;div id=&quot;container&quot;)&gt;&#39;</span>
-                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me XXXXXXXXXXXXXXXXXXXX on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
+                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
                     <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
                     <span class="s">&#39;-r&#39;</span>
                   <span class="p">]</span>
                 <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
-          <span class="p">],</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span>
+              <span class="nf">(cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -467,6 +471,34 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+</div>
+<p>fix tables</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                <span class="k">try</span>
+                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+                <span class="k">catch</span> <span class="nx">err</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+                <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+                  <span class="nv">cmd: </span><span class="nx">replace</span>
+                  <span class="nv">args: </span><span class="p">[</span>
+                    <span class="s">&#39;&lt;p&gt;(\\|)&#39;</span>
+                    <span class="s">&#39;&lt;p style=&quot;font-family:monospace;white-space:pre&quot;&gt;$1&#39;</span>
+                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
+                    <span class="s">&#39;-r&#39;</span>
+                  <span class="p">]</span>
+                <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+            <span class="p">],</span> <span class="nx">cb</span>
+        <span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
 </div>
 <p>copy images</p>
         </td>
@@ -497,7 +529,10 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">cloneGit = </span><span class="nf">(dir, tmpdir, options, cb) -&gt;</span>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
+  <span class="k">try</span>
+    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
+  <span class="k">catch</span> <span class="nx">err</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Cloning git repository&quot;</span>
   <span class="nx">debug</span> <span class="s">&quot;exec&gt; git clone </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>

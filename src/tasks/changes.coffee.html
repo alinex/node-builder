@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3//src/tasks/changes.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/changescoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -34,7 +34,7 @@
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me XXXXXXXXXXXXXXXXXXXX on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
@@ -160,14 +160,14 @@ execution finished.</li>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Changes since last publication:&quot;</span>
     <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
       <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
-      <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;tag&#39;</span> <span class="p">]</span>
+      <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--abrev=0&#39;</span> <span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
     <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nv">tags = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">tag = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
         <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
-        <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">tags</span><span class="p">[</span><span class="nx">tags</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s">..HEAD&quot;</span><span class="p">,</span> <span class="s">&quot;--format=oneline&quot;</span> <span class="p">]</span>
+        <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">..HEAD&quot;</span><span class="p">,</span> <span class="s">&quot;--format=oneline&quot;</span> <span class="p">]</span>
         <span class="nv">cwd: </span><span class="nx">dir</span>
       <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
