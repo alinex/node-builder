@@ -44,14 +44,14 @@ git = (dir, options, cb) ->
     console.log "Changes since last publication:"
     proc = new Spawn
       cmd: 'git'
-      args: [ 'tag' ]
+      args: [ 'describe', '--abrev=0' ]
       cwd: dir
     proc.run (err, stdout, stderr) ->
-      tags = stdout.split /\n/
+      tag = stdout.trim()
       return cb err if err
       proc = new Spawn
         cmd: 'git'
-        args: [ 'log', "#{tags[tags.length-2]}..HEAD", "--format=oneline" ]
+        args: [ 'log', "#{tag}..HEAD", "--format=oneline" ]
         cwd: dir
       proc.run (err, stdout, stderr) ->
         return cb err if err

@@ -32,6 +32,7 @@ path = require 'path'
 chalk = require 'chalk'
 async = require 'async'
 # include alinex modules
+Spawn = require 'alinex-spawn'
 errorHandler = require 'alinex-error'
 errorHandler.install()
 errorHandler.config.stack.modules = true
@@ -44,6 +45,12 @@ errorHandler.config.stack.modules = true
 GLOBAL.ROOT_DIR = path.dirname __dirname
 # Read in package configuration
 GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
+# setup search path for configs
+for path in  [
+    path.resolve path.dirname(__dirname), 'var/src/config'
+    path.resolve path.dirname(__dirname), 'var/local/config'
+  ]
+  Spawn.configsearch.push path
 
 # list of possible commands
 commands =
@@ -155,6 +162,11 @@ for command in argv.command
       argv.publish = true
     else
       cmds.push command
+
+
+# Init config
+# -------------------------------------------------
+
 
 
 # Run the commands
