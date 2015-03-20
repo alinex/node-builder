@@ -32,7 +32,7 @@ module.exports.run = (dir, options, cb) ->
     (cb) -> npmInstall dir, options, cb
     (cb) -> npmUpdate dir, options, cb
     (cb) -> npmOutdated dir, options, cb
-    (cb) -> switchRepository dir, options, cb
+    (cb) -> switchRepository dir, {registry:'https://registry.npmjs.org/'}, cb
   ], cb
 
 switchRepository = (dir, options, cb) ->
@@ -42,29 +42,18 @@ switchRepository = (dir, options, cb) ->
     pack = JSON.parse fs.readFileSync file
   catch err
     return cb new Error "Could not load #{file} as valid JSON."
-  unless pack.publishConfig?.registry
-    return cb()
   # change or change back
-  registry = if options.registry then options.registry else pack.publishConfig.registry
+  registry = if options.registry then options.registry else pack.publishConfig?.registry
+  registry ?= 'https://registry.npmjs.org/'
   # get old registry
   proc = new Spawn
     priority: 9
     cmd: 'npm'
-    args: [ 'get', 'registry' ]
+    args: [ 'set', 'registry', registry ]
     cwd: dir
     input: 'inherit'
     check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-  proc.run (err, stdout) ->
-    return cb err if err
-    options.registry = stdout.trim()
-    proc = new Spawn
-      priority: 9
-      cmd: 'npm'
-      args: [ 'set', 'registry', registry ]
-      cwd: dir
-      input: 'inherit'
-      check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-    proc.run cb
+  proc.run cb
 
 # ### Install necessary modules
 npmInstall = (dir, options, cb) ->
