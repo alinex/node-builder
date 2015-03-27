@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.19 (2015-03-27)
+-------------------------------------------------
+- Add specific spawn settings.
+
 Version 1.0.18 (2015-03-20)
 -------------------------------------------------
 - Fixed repository change.
