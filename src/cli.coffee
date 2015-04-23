@@ -173,7 +173,7 @@ for command in argv.command
 # -------------------------------------------------
 async.each cmds, (command, cb) ->
   # load library because it may be away later
-  lib = require "./tasks/#{command}"
+  lib = require "./tasks/#{command}" unless command is 'list'
   cb()
 , (err) ->
   throw err if err
