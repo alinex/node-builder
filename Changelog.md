@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.20 (2015-05-23)
+-------------------------------------------------
+- Remove lock for tough-cookie to older version.
+- Run mocha recursive.
+- Fixed bug which aborted if calling cli with '-c list'.
+
 Version 1.0.19 (2015-03-27)
 -------------------------------------------------
 - Add specific spawn settings.
