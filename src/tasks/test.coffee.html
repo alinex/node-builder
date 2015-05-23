@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3//src/tasks/test.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/testcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -347,7 +347,8 @@ so we pass a blank title so we can quote the file we are opening</p>
     <span class="nv">args = </span><span class="p">[</span>
       <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
       <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
-      <span class="s">&#39;-c&#39;</span>
+      <span class="s">&#39;-c&#39;</span> <span class="c1"># colors</span>
+      <span class="s">&#39;--recursive&#39;</span>
       <span class="s">&#39;test/mocha&#39;</span>
     <span class="p">]</span>
     <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span>
