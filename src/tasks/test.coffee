@@ -107,7 +107,8 @@ testMocha = (dir, options, cb) ->
     args = [
       '--compilers', 'coffee:coffee-script/register'
       '--reporter', 'spec'
-      '-c'
+      '-c' # colors
+      '--recursive'
       'test/mocha'
     ]
     args.unshift '-w' if options.watch
