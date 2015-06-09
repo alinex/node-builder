@@ -98,7 +98,7 @@ npmOutdated = (dir, options, cb) ->
       continue if not line or line.match /\s>\s/
       console.log line
       num++
-    if num
+    if num > 0
       return cb new Error "You may upgrade the listet modules."
     console.log chalk.grey "Nothing to upgrade in this package found."
     cb()
