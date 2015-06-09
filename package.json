@@ -62,7 +62,7 @@
     "yargs": "3.x"
   },
   "devDependencies": {
-    "chai": "2.x"
+    "chai": "3.x"
   },
   "optionalDependencies": {},
   "peerDependencies": {},
