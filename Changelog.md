@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.0.21 (2015-06-16)
+-------------------------------------------------
+- Fixed changelog.
+- Added information for version 2.0.0
+- Bug in update task with empty updates fixed.
+- Updgraded the chai submodule.
+
 Version 1.0.20 (2015-05-23)
 -------------------------------------------------
 - Remove lock for tough-cookie to older version.
