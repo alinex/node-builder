@@ -309,7 +309,7 @@ execution finished.</li>
       <span class="k">continue</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">line</span> <span class="o">or</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\s&gt;\s/</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">line</span>
       <span class="nx">num</span><span class="o">++</span>
-    <span class="k">if</span> <span class="nx">num</span>
+    <span class="k">if</span> <span class="nx">num</span> <span class="o">&gt;</span> <span class="mi">0</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;You may upgrade the listet modules.&quot;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade in this package found.&quot;</span>
     <span class="nx">cb</span><span class="p">()</span>
