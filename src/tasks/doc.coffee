@@ -191,12 +191,40 @@ createDoc = (dir, options, cb) ->
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
                 catch err
                   return cb new Error "Could not load #{file} as valid JSON."
-                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                return cb() unless (pack.name.split /-/)[0] is 'alinex'
                 proc = new Spawn
                   cmd: replace
                   args: [
                     '(<div id="container")>'
                     '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
+                    path.join dir, 'doc'
+                    '-r'
+                  ]
+                proc.run cb
+              (cb) ->
+                # add alinex header
+                try
+                  pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
+                catch err
+                  return cb new Error "Could not load #{file} as valid JSON."
+                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                proc = new Spawn
+                  cmd: replace
+                  args: [
+                    '(<div id="sidebar_wrapper">)'
+                    '''
+                    <nav>
+                    <div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+                      <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+                      </a>
+                      <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+                    </div>
+                    <div class="links">
+                      <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+                      <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+                    </div>
+                    </nav>$1
+                    '''
                     path.join dir, 'doc'
                     '-r'
                   ]
@@ -276,7 +304,7 @@ updateDoc = (dir, tmpdir, options, cb) ->
   execFile 'git', [
     'rm', '-rf', '.'
   ], { cwd: tmpdir }, (err, stdout, stderr) ->
-    console.log stdout.trim().grey if stdout and options.verbose
+    console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     if options.verbose
       console.log chalk.grey "Copy new documentation into repository"
