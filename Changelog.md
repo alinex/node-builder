@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.0 (2015-06-18)
+-------------------------------------------------
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Made coverage reporting on coffeescript working.
+- Updated cli usage to specify dir command order correctly.
+- Added alinex header to documentation.
+- Fixed changelog.
+
 Version 1.0.21 (2015-06-16)
 -------------------------------------------------
 - Bug in update task with empty updates fixed.
