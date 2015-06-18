@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -41,25 +51,40 @@
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;Palatino Linotype&quot;</span><span class="o">,</span> <span class="s2">&quot;Book Antiqua&quot;</span><span class="o">,</span> <span class="n">Palatino</span><span class="o">,</span> <span class="n">FreeSerif</span><span class="o">,</span> <span class="k">serif</span><span class="p">;</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="nt">http</span><span class="o">://</span><span class="nt">alinex</span><span class="nc">.github.com</span><span class="o">/</span><span class="nt">fonts</span><span class="o">/</span><span class="nt">sansation</span><span class="o">/</span><span class="nt">stylesheet</span><span class="nc">.css</span><span class="o">)</span><span class="p">;</span>
+<span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="nt">http</span><span class="o">://</span><span class="nt">alinex</span><span class="nc">.github.com</span><span class="o">/</span><span class="nt">fonts</span><span class="o">/</span><span class="nt">xcelsion</span><span class="o">/</span><span class="nt">style</span><span class="nc">.css</span><span class="o">)</span><span class="p">;</span>
+
+<span class="k">@font-face</span> <span class="p">{</span>
+  <span class="nt">font-family</span><span class="o">:</span> <span class="s1">&#39;Glyphicons Halflings&#39;</span><span class="o">;</span>
+
+  <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.eot&#39;</span><span class="o">);</span>
+  <span class="nt">src</span><span class="o">:</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.eot?#iefix&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;embedded-opentype&#39;</span><span class="o">),</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.woff2&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff2&#39;</span><span class="o">),</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.woff&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;woff&#39;</span><span class="o">),</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.ttf&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;truetype&#39;</span><span class="o">),</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;http://alinex.github.com/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular&#39;</span><span class="o">)</span> <span class="nt">format</span><span class="o">(</span><span class="s1">&#39;svg&#39;</span><span class="o">);</span>
+<span class="p">}</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;SansationRegular&#39;</span><span class="p">;</span>
   <span class="k">font-size</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">110</span><span class="o">%</span><span class="p">;</span>
   <span class="k">line-height</span><span class="o">:</span> <span class="m">120</span><span class="o">%</span><span class="p">;</span>
   <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="nt">p</span><span class="o">,</span> <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
   <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">15px</span> <span class="m">0</span><span class="p">;}</span>
 <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="n">Monaco</span><span class="o">,</span> <span class="s2">&quot;Bitstream Vera Sans Mono&quot;</span><span class="o">,</span> <span class="s2">&quot;Lucida Console&quot;</span><span class="o">,</span> <span class="n">Terminal</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
-  <span class="k">color</span><span class="o">:</span> <span class="m">#b5e853</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;SansationBold&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#f0ad4e</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="nt">a</span> <span class="p">{</span> <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
 <span class="nt">h1</span> <span class="p">{</span>
-  <span class="k">margin-top</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">margin-top</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="nf">#tree</span><span class="o">,</span> <span class="nf">#headings</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="n">Monaco</span><span class="o">,</span> <span class="s2">&quot;Bitstream Vera Sans Mono&quot;</span><span class="o">,</span> <span class="s2">&quot;Lucida Console&quot;</span><span class="o">,</span> <span class="n">Terminal</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;SansationBold&#39;</span><span class="p">;</span>
   <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
   <span class="k">top</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
   <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
@@ -161,9 +186,10 @@
 <span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nt">a</span> <span class="p">{</span>
   <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#000</span><span class="p">;</span>
   <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#000</span><span class="p">;</span> <span class="p">}</span>
-<span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
-  <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span> <span class="m">#63c0f5</span><span class="p">;</span>
-  <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span> <span class="m">#63c0f5</span><span class="p">;</span> <span class="p">}</span>
+<span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">border-top</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span> <span class="m">#f0ad4e</span><span class="p">;</span>
+  <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span> <span class="m">#f0ad4e</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="nf">#sidebar-toggle</span> <span class="p">{</span>
   <span class="k">position</span><span class="o">:</span> <span class="k">fixed</span><span class="p">;</span>
@@ -278,7 +304,7 @@
   <span class="k">padding</span><span class="o">:</span> <span class="m">8px</span> <span class="m">15px</span> <span class="m">8px</span> <span class="m">25px</span><span class="p">;</span>
   <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
   <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span>
-  <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dashed</span> <span class="m">#b5e853</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dashed</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nc">.background</span> <span class="p">{</span>
   <span class="k">border-left</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span><span class="p">;</span>
@@ -311,9 +337,13 @@
   <span class="k">color</span><span class="o">:</span> <span class="m">#eeeeee</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nt">a</span> <span class="p">{</span>
-  <span class="k">color</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
-  <span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span>
-    <span class="k">color</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#337ab7</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#337ab7</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#f0ad4e</span><span class="p">;</span>
+<span class="p">}</span>
 
 <span class="nf">#sidebar_wrapper</span> <span class="p">{</span>
   <span class="k">background</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span> <span class="p">}</span>
@@ -330,19 +360,19 @@
     <span class="k">color</span><span class="o">:</span> <span class="m">#eeeeee</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nf">#tree</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="n">Monaco</span><span class="o">,</span> <span class="s2">&quot;Bitstream Vera Sans Mono&quot;</span><span class="o">,</span> <span class="s2">&quot;Lucida Console&quot;</span><span class="o">,</span> <span class="n">Terminal</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>  
+  <span class="k">font-family</span><span class="o">:</span> <span class="n">Monaco</span><span class="o">,</span> <span class="s2">&quot;Bitstream Vera Sans Mono&quot;</span><span class="o">,</span> <span class="s2">&quot;Lucida Console&quot;</span><span class="o">,</span> <span class="n">Terminal</span><span class="o">,</span> <span class="k">monospace</span><span class="p">;</span>
   <span class="k">color</span><span class="o">:</span> <span class="m">#dddddd</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nt">a</span> <span class="p">{</span>
   <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
- <span class="k">color</span><span class="o">:</span> <span class="m">#b5e853</span><span class="p">;</span> <span class="p">}</span>
-<span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
  <span class="k">color</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
+<span class="nf">#headings</span> <span class="nc">.heading</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+ <span class="k">color</span><span class="o">:</span> <span class="m">#f0ad4e</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nf">#sidebar-toggle</span> <span class="p">{</span>
-  <span class="k">background</span><span class="o">:</span> <span class="m">#b5e853</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">background</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
   <span class="nf">#sidebar-toggle</span><span class="nd">:hover</span> <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">background</span><span class="o">:</span> <span class="m">#f0ad4e</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nc">.docs.markdown</span> <span class="p">{</span>
   <span class="k">background</span><span class="o">:</span> <span class="m">#151515</span><span class="p">;</span> <span class="p">}</span>
@@ -366,13 +396,13 @@
   <span class="k">color</span><span class="o">:</span> <span class="m">#3a3a2f</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nt">td</span><span class="nc">.code</span><span class="o">,</span> <span class="nc">.background</span> <span class="p">{</span>
-  <span class="k">border-left-color</span><span class="o">:</span> <span class="m">#b5e853</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">border-left-color</span><span class="o">:</span> <span class="m">#63C0F5</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="nt">td</span><span class="nc">.linenos</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span> <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="p">}</span>
 <span class="nt">span</span><span class="nc">.lineno</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">0</span> <span class="m">5px</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span> <span class="p">}</span>
 <span class="nt">pre</span> <span class="p">{</span> <span class="k">line-height</span><span class="o">:</span> <span class="m">125</span><span class="o">%</span><span class="p">;</span> <span class="p">}</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.hll</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#ffffcc</span> <span class="p">}</span>
-<span class="nt">body</span> <span class="nc">.highlight</span>  <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#333333</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">body</span> <span class="nc">.highlight</span>  <span class="p">{</span> <span class="k">background</span><span class="o">:</span> <span class="m">#151515</span><span class="p">;</span> <span class="p">}</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.c</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#aaaaaa</span><span class="p">;</span> <span class="k">font-style</span><span class="o">:</span> <span class="k">italic</span> <span class="p">}</span> <span class="c">/* Comment */</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.err</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#FF0000</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#FFAAAA</span> <span class="p">}</span> <span class="c">/* Error */</span>
 <span class="nt">body</span> <span class="nc">.highlight</span> <span class="nc">.k</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#aaaaff</span> <span class="p">}</span> <span class="c">/* Keyword */</span>
@@ -442,10 +472,13 @@
     <span class="k">bottom</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
+<span class="nf">#sidebar-toggle</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="sx">url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png)</span><span class="p">;</span>
+<span class="p">}</span>
 <span class="nf">#fork</span> <span class="p">{</span>
   <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
   <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
-  <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> 
+  <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
   <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
   <span class="k">width</span><span class="o">:</span> <span class="m">145px</span><span class="p">;</span>
   <span class="k">height</span><span class="o">:</span> <span class="m">145px</span><span class="p">;</span>
@@ -459,6 +492,125 @@
 <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
   <span class="k">line-height</span><span class="o">:</span><span class="m">100</span><span class="o">%</span><span class="p">;</span>
 <span class="p">}</span>
+
+<span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">^=</span><span class="s2">&quot;http://alinex.github.io/node-&quot;</span><span class="o">],</span> <span class="nc">.alinex</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Xcelsion&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#container</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="m">#151515</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/*  HEADER LINE */</span>
+<span class="nt">nav</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">1000</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.logo</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">8px</span> <span class="m">20px</span> <span class="m">5px</span> <span class="m">33px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.links</span> <span class="p">{</span>
+  <span class="k">margin-top</span><span class="o">:</span> <span class="m">-40px</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.btn</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">user</span><span class="o">-</span><span class="n">select</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="k">background-image</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="k">border-bottom</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="k">border-bottom</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="k">border-bottom-style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
+  <span class="k">border-bottom-width</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="k">outset</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="k">repeat</span><span class="o">:</span> <span class="n">stretch</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">slice</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">source</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+  <span class="k">border-left-style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
+  <span class="k">border-left-width</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">border-right</span><span class="o">-</span><span class="n">style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
+  <span class="k">border-right</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">border-top</span><span class="o">-</span><span class="k">left</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="k">border-top</span><span class="o">-</span><span class="k">right</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="k">border-top-style</span><span class="o">:</span> <span class="k">solid</span><span class="p">;</span>
+  <span class="k">border-top-width</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">12px</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">24px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">17.142858505249px</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="k">outline</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+  <span class="k">outline</span><span class="o">-</span><span class="n">style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="k">outline</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">0px</span><span class="p">;</span>
+  <span class="k">padding-bottom</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">6px</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">padding-top</span><span class="o">:</span> <span class="m">3px</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+  <span class="k">text-decoration</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="n">touch</span><span class="o">-</span><span class="n">action</span><span class="o">:</span> <span class="n">manipulation</span><span class="p">;</span>
+  <span class="k">vertical-align</span><span class="o">:</span> <span class="k">middle</span><span class="p">;</span>
+  <span class="k">white-space</span><span class="o">:</span> <span class="k">nowrap</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="n">SansationBold</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="o">:</span> <span class="n">boldest</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.btn</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.btn</span> <span class="nt">span</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s1">&#39;Glyphicons Halflings&#39;</span><span class="p">;</span>
+  <span class="k">font-style</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">font</span><span class="o">-</span><span class="n">smoothing</span><span class="o">:</span> <span class="n">antialiased</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">osx</span><span class="o">-</span><span class="k">font</span><span class="o">-</span><span class="n">smoothing</span><span class="o">:</span> <span class="n">grayscale</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.btn-primary</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">40</span><span class="o">,</span> <span class="m">96</span><span class="o">,</span> <span class="m">144</span><span class="p">);</span>
+  <span class="k">border-bottom-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">32</span><span class="o">,</span> <span class="m">77</span><span class="o">,</span> <span class="m">116</span><span class="p">);</span>
+  <span class="k">border-left-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">32</span><span class="o">,</span> <span class="m">77</span><span class="o">,</span> <span class="m">116</span><span class="p">);</span>
+  <span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">32</span><span class="o">,</span> <span class="m">77</span><span class="o">,</span> <span class="m">116</span><span class="p">);</span>
+  <span class="k">border-top-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">32</span><span class="o">,</span> <span class="m">77</span><span class="o">,</span> <span class="m">116</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nc">.btn-warning</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">240</span><span class="o">,</span> <span class="m">173</span><span class="o">,</span> <span class="m">78</span><span class="p">);</span>
+  <span class="k">border-bottom-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">238</span><span class="o">,</span> <span class="m">162</span><span class="o">,</span> <span class="m">54</span><span class="p">);</span>
+  <span class="k">border-left-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">238</span><span class="o">,</span> <span class="m">162</span><span class="o">,</span> <span class="m">54</span><span class="p">);</span>
+  <span class="k">border-right</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">238</span><span class="o">,</span> <span class="m">162</span><span class="o">,</span> <span class="m">54</span><span class="p">);</span>
+  <span class="k">border-top-color</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">238</span><span class="o">,</span> <span class="m">162</span><span class="o">,</span> <span class="m">54</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.sidebar</span> <span class="nf">#sidebar_wrapper</span><span class="o">,</span> <span class="nc">.sidebar</span> <span class="nf">#container</span><span class="o">,</span> <span class="nc">.sidebar</span> <span class="nf">#sidebar-toggle</span><span class="o">,</span>
+<span class="nc">.slidey</span> <span class="nf">#container</span> <span class="p">{</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>.glyphicon-pencil:before {
+  content: "\270f";
+}
+.glyphicon-cog:before {
+  content: "\e019";
+}</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 </pre></div>
         </td>
       </tr>

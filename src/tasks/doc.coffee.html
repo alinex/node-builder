@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -452,12 +462,13 @@ so we pass a blank title so we can quote the file we are opening</p>
                   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
                 <span class="k">catch</span> <span class="nx">err</span>
                   <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
-                <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;alinex&#39;</span>
                 <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
                   <span class="nv">cmd: </span><span class="nx">replace</span>
                   <span class="nv">args: </span><span class="p">[</span>
                     <span class="s">&#39;(&lt;div id=&quot;container&quot;)&gt;&#39;</span>
-                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot; title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
+                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot;</span>
+<span class="s">                    title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
                     <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
                     <span class="s">&#39;-r&#39;</span>
                   <span class="p">]</span>
@@ -472,7 +483,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
 </div>
-<p>fix tables</p>
+<p>add alinex header</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
                 <span class="k">try</span>
@@ -480,6 +491,46 @@ so we pass a blank title so we can quote the file we are opening</p>
                 <span class="k">catch</span> <span class="nx">err</span>
                   <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
                 <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+                  <span class="nv">cmd: </span><span class="nx">replace</span>
+                  <span class="nv">args: </span><span class="p">[</span>
+                    <span class="s">&#39;(&lt;div id=&quot;sidebar_wrapper&quot;&gt;)&#39;</span>
+                    <span class="s">&#39;&#39;&#39;</span>
+<span class="s">                    &lt;nav&gt;</span>
+<span class="s">                    &lt;div class=&quot;logo&quot;&gt;&lt;a href=&quot;http://alinex.github.io&quot; onmouseover=&quot;lllogo.src=&#39;http://alinex.github.io/images/Alinex-200.png&#39;&quot; onmouseout=&quot;lllogo.src=&#39;http://alinex.github.io/images/Alinex-black-200.png&#39;&quot;&gt;</span>
+<span class="s">                      &lt;img name=&quot;lllogo&quot; src=&quot;http://alinex.github.io/images/Alinex-black-200.png&quot; width=&quot;150&quot; title=&quot;Alinex Universe Homepage&quot; /&gt;</span>
+<span class="s">                      &lt;/a&gt;</span>
+<span class="s">                      &lt;img src=&quot;http://alinex.github.io/images/Alinex-200.png&quot; style=&quot;display:none&quot; alt=&quot;preloading&quot; /&gt;</span>
+<span class="s">                    &lt;/div&gt;</span>
+<span class="s">                    &lt;div class=&quot;links&quot;&gt;</span>
+<span class="s">                      &lt;a href=&quot;http://alinex.github.io/blog.html&quot; class=&quot;btn btn-primary&quot;&gt;&lt;span class=&quot;glyphicon-cog&quot;&gt;&lt;/span&gt; Blog&lt;/a&gt;</span>
+<span class="s">                      &lt;a href=&quot;http://alinex.github.io/code.html&quot; class=&quot;btn btn-warning&quot;&gt;&lt;span class=&quot;glyphicon-pencil&quot;&gt;&lt;/span&gt; Code&lt;/a&gt;</span>
+<span class="s">                    &lt;/div&gt;</span>
+<span class="s">                    &lt;/nav&gt;$1</span>
+<span class="s">                    &#39;&#39;&#39;</span>
+                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
+                    <span class="s">&#39;-r&#39;</span>
+                  <span class="p">]</span>
+                <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+              <span class="nf">(cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+</div>
+<p>fix tables</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                <span class="k">try</span>
+                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+                <span class="k">catch</span> <span class="nx">err</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+                <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
                 <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
                   <span class="nv">cmd: </span><span class="nx">replace</span>
                   <span class="nv">args: </span><span class="p">[</span>
@@ -498,7 +549,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
 </div>
 <p>copy images</p>
         </td>
@@ -601,7 +652,7 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;rm&#39;</span><span class="p">,</span> <span class="s">&#39;-rf&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span>
   <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Copy new documentation into repository&quot;</span>

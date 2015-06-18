@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -174,7 +184,7 @@ builder --help
 <p>The tool will be called with</p>
 
 
-<div class="highlight"><pre><code>builder <span class="o">[</span>general options<span class="o">]</span> -c &lt;<span class="nb">command</span>&gt; <span class="o">[</span><span class="nb">command </span>options<span class="o">]</span> <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span>
+<div class="highlight"><pre><code>builder <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span> <span class="o">[</span>general options<span class="o">]</span> -c &lt;commands&gt; <span class="o">[</span><span class="nb">command </span>options<span class="o">]</span>
 </code></pre></div>
 
 
@@ -182,7 +192,7 @@ builder --help
 <p>but if not installed globally you may run</p>
 
 
-<div class="highlight"><pre><code>node_modules/.bin/builder <span class="o">[</span>general options<span class="o">]</span> -c &lt;<span class="nb">command</span>&gt; ...
+<div class="highlight"><pre><code>node_modules/.bin/builder <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span> <span class="o">[</span>general options<span class="o">]</span> -c &lt;commands&gt;
 </code></pre></div>
 
 
@@ -192,7 +202,13 @@ displayed. The major commands will be described here.</p>
 
 <p>Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
-command will run from the current directory.</p>
+command will run from the current directory.
+You may change the order of the options like you want but keep the directories
+before them. If you give a directory just behind a command it is interpreted
+as additional command instead as directory.</p>
+
+<p>If you want to give multiple commands add a second <code>-c</code> option or just put them
+one behind the other in one option.</p>
 
 
 <div class="pilwrap" id="general%20options">
@@ -236,8 +252,8 @@ name, too.</p>
 <p>Some example calls will look like:</p>
 
 
-<div class="highlight"><pre><code>builder -c create ./node-error --package alinex-error
-bulder -c create ./private-module --private
+<div class="highlight"><pre><code>builder ./node-error -c create --package alinex-error
+bulder ./private-module -c create --private
 </code></pre></div>
 
 
@@ -259,7 +275,7 @@ it will also add and commit all other changes before doing so.</p>
 
 
 <div class="highlight"><pre><code>builder -c push                  <span class="c"># from within the package directory</span>
-builder -c push ./node-error     <span class="c"># or from anywhere else</span>
+builder ./node-error -c push     <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -267,7 +283,7 @@ builder -c push ./node-error     <span class="c"># or from anywhere else</span>
 <p>or to also commit the last changes</p>
 
 
-<div class="highlight"><pre><code>builder -c push ./node-error --message <span class="s2">&quot;commit message&quot;</span>
+<div class="highlight"><pre><code>builder ./node-error -c push --message <span class="s2">&quot;commit message&quot;</span>
 </code></pre></div>
 
 
@@ -285,7 +301,7 @@ builder -c push ./node-error     <span class="c"># or from anywhere else</span>
 
 
 <div class="highlight"><pre><code>builder -c pull                  <span class="c"># from within the package directory</span>
-builder -c pull ./node-error     <span class="c"># or from anywhere else</span>
+builder ./node-error -c pull     <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -311,7 +327,7 @@ Von https://github.com/alinex/node-make
 
 
 <div class="highlight"><pre><code>builder -c compile               <span class="c"># from within the package directory</span>
-builder -c compile ./node-error  <span class="c"># or from anywhere else</span>
+builder ./node-error -c compile  <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -329,7 +345,7 @@ extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.</p>
 
 
-<div class="highlight"><pre><code>builder -c compile ../node-error --uglify
+<div class="highlight"><pre><code>builder ./node-error -c compile --uglify
 </code></pre></div>
 
 
@@ -362,7 +378,7 @@ are referenced in the package.json.</p>
 
 
 <div class="highlight"><pre><code>builder -c update               <span class="c"># from within the package directory</span>
-builder -c update ./node-error  <span class="c"># or from anywhere else</span>
+builder ./node-error -c update  <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -400,7 +416,7 @@ a code coverage report will be build.</p>
 
 
 <div class="highlight"><pre><code>builder -c <span class="nb">test</span>                  <span class="c"># from within the package directory</span>
-builder -c <span class="nb">test</span> ./node-error     <span class="c"># or from anywhere else</span>
+builder ./node-error -c <span class="nb">test</span>     <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -420,7 +436,7 @@ Simple mocha test
 <p>Or to contineously watch it:</p>
 
 
-<div class="highlight"><pre><code>builder -c <span class="nb">test</span> ./node-error --watch
+<div class="highlight"><pre><code>builder ./node-error -c <span class="nb">test</span> --watch
 </code></pre></div>
 
 
@@ -449,6 +465,14 @@ results to coveralls.</p>
 
 
 
+<p>Often you would also need the following combination:</p>
+
+
+<div class="highlight"><pre><code>builder -v -c compile <span class="nb">test</span>           <span class="c"># to check your just finished code changes</span>
+</code></pre></div>
+
+
+
 
 <div class="pilwrap" id="doc">
   <h3>
@@ -468,7 +492,7 @@ code.</p>
 
 
 <div class="highlight"><pre><code>builder -c doc                   <span class="c"># from within the package directory</span>
-builder -c doc ./node-error      <span class="c"># or from anywhere else</span>
+builder ./node-error -c doc      <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -487,7 +511,7 @@ rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
 Start the document creation with publication using:</p>
 
 
-<div class="highlight"><pre><code>builder -c doc ./node-error --publish
+<div class="highlight"><pre><code>builder ./node-error -c doc --publish
 </code></pre></div>
 
 
@@ -495,7 +519,7 @@ Start the document creation with publication using:</p>
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
 
 
-<div class="highlight"><pre><code>bin/make doc ../node-error --watch
+<div class="highlight"><pre><code>builder  ./node-error -c doc --watch
 </code></pre></div>
 
 
@@ -556,7 +580,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 
 
 <div class="highlight"><pre><code>builder -c publish               <span class="c"># from within the package directory</span>
-builder -c publish ./node-error  <span class="c"># or from anywhere else</span>
+builder ./node-error -c publish  <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -628,7 +652,7 @@ afterwards.</p>
 <p>For the next minor version (second number) call:</p>
 
 
-<div class="highlight"><pre><code>builder -c publish ../node-error --minor
+<div class="highlight"><pre><code>builder ./node-error -c publish --minor
 </code></pre></div>
 
 
@@ -636,7 +660,7 @@ afterwards.</p>
 <p>And for a new major version:</p>
 
 
-<div class="highlight"><pre><code>builder -c publish ../node-error --major
+<div class="highlight"><pre><code>builder ./node-error -c publish --major
 </code></pre></div>
 
 
@@ -665,7 +689,7 @@ development environment.</p>
 
 
 <div class="highlight"><pre><code>builder -c clean                 <span class="c"># from within the package directory</span>
-builder -c clean ./node-error    <span class="c"># or from anywhere else</span>
+builder ./node-error -c clean    <span class="c"># or from anywhere else</span>
 </code></pre></div>
 
 
@@ -673,7 +697,7 @@ builder -c clean ./node-error    <span class="c"># or from anywhere else</span>
 <p>Or on the development system remove all created files:</p>
 
 
-<div class="highlight"><pre><code>builder -c clean ../node-error --auto
+<div class="highlight"><pre><code>builder ./node-error -c clean --auto
 </code></pre></div>
 
 
@@ -681,7 +705,7 @@ builder -c clean ./node-error    <span class="c"># or from anywhere else</span>
 <p>And at last for production remove development files:</p>
 
 
-<div class="highlight"><pre><code>builder -c clean ../node-error --dist
+<div class="highlight"><pre><code>builder ./node-error -c clean --dist
 </code></pre></div>
 
 

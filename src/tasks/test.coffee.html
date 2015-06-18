@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -89,7 +99,7 @@
 <p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;make:test&#39;</span><span class="p">)</span>
+<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;builder:test&#39;</span><span class="p">)</span>
 <span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
@@ -329,8 +339,11 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Check for existing options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;mocha&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;istanbul&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">mocha = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coverage</span> <span class="k">then</span> <span class="s">&#39;_mocha&#39;</span> <span class="k">else</span> <span class="s">&#39;mocha&#39;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="nx">mocha</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, mocha) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
         </td>
@@ -343,17 +356,20 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Run external command</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run mocha tests&quot;</span>
-    <span class="nv">args = </span><span class="p">[</span>
-      <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
-      <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
-      <span class="s">&#39;-c&#39;</span> <span class="c1"># colors</span>
-      <span class="s">&#39;--recursive&#39;</span>
-      <span class="s">&#39;test/mocha&#39;</span>
-    <span class="p">]</span>
-    <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">env: </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span> <span class="p">}</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run mocha tests&quot;</span>
+      <span class="nv">args = </span><span class="p">[]</span>
+      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coverage</span>
+        <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;cover&#39;</span><span class="p">,</span> <span class="nx">mocha</span><span class="p">,</span> <span class="s">&#39;--&#39;</span><span class="p">,</span> <span class="s">&#39;--require&#39;</span><span class="p">,</span> <span class="s">&#39;coffee-coverage/register-istanbul&#39;</span>
+      <span class="k">else</span>
+        <span class="nv">cmd = </span><span class="nx">mocha</span>
+        <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-w&#39;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-c&#39;</span> <span class="c1"># colors</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--recursive&#39;</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;test/mocha&#39;</span>
+      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">env: </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span> <span class="p">}</span>
 
 </pre></div>
         </td>
@@ -366,11 +382,11 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Error management</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
-      <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
-        <span class="nv">status = </span><span class="s">&quot;Test exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">cb</span> <span class="nx">status</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+        <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+          <span class="nv">status = </span><span class="s">&quot;Test exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">cb</span> <span class="nx">status</span>
 
 
 </pre></div>
@@ -388,8 +404,7 @@ so we pass a blank title so we can quote the file we are opening</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">coverage = </span><span class="nf">(dir, options, cb) -&gt;</span>
-  <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coverage</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coverage</span>
 
 </pre></div>
         </td>
@@ -417,7 +432,7 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Check for existing options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;istanbul&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;istanbul&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
 
 </pre></div>
@@ -431,23 +446,12 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Run external command</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Run istanbul coverage report&quot;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;_mocha&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, mocha) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nv">args = </span><span class="p">[</span>
-        <span class="s">&#39;cover&#39;</span>
-        <span class="nx">mocha</span>
-        <span class="s">&#39;--&#39;</span>
-        <span class="s">&#39;--compilers&#39;</span><span class="p">,</span> <span class="s">&#39;coffee:coffee-script/register&#39;</span>
-        <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
-        <span class="s">&#39;-c&#39;</span>
-        <span class="s">&#39;test/mocha&#39;</span>
-      <span class="p">]</span>
-      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create coverage report&quot;</span>
+    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> report&quot;</span>
+    <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;report&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
 
 </pre></div>
         </td>
@@ -460,13 +464,13 @@ so we pass a blank title so we can quote the file we are opening</p>
 <p>Error management</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
-        <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
-          <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Istanbul exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coveralls</span>
-          <span class="k">return</span> <span class="nx">coveralls</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nx">cb</span><span class="p">()</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;error&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">(status) -&gt;</span>
+      <span class="k">if</span> <span class="nx">status</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nx">cb</span> <span class="s">&quot;Istanbul exited with status </span><span class="si">#{</span><span class="nx">status</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">coveralls</span>
+        <span class="k">return</span> <span class="nx">coveralls</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nx">cb</span><span class="p">()</span>
 
 
 </pre></div>

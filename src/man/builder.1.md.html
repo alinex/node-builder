@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -159,7 +169,7 @@
 <p>The tool will be called with</p>
 
 
-<div class="highlight"><pre><code><span class="nx">builder</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">-</span><span class="nx">c</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span> <span class="p">[</span><span class="nx">dirs</span><span class="p">]</span>
+<div class="highlight"><pre><code><span class="nx">builder</span> <span class="p">[</span><span class="nx">dirs</span><span class="p">]</span> <span class="p">[</span><span class="nx">general</span> <span class="nx">options</span><span class="p">]</span> <span class="o">-</span><span class="nx">c</span> <span class="o">&lt;</span><span class="nx">command</span><span class="o">&gt;</span> <span class="p">[</span><span class="nx">command</span> <span class="nx">options</span><span class="p">]</span>
 </code></pre></div>
 
 
@@ -169,7 +179,13 @@ displayed. The major commands will be described here.</p>
 
 <p>Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
-command will run from the current directory.</p>
+command will run from the current directory.
+You may change the order of the options like you want but keep the directories
+before them. If you give a directory just behind a command it is interpreted
+as additional command instead as directory.</p>
+
+<p>If you want to give multiple commands add a second <code>-c</code> option or just put them
+one behind the other in one option.</p>
 
 
 <div class="pilwrap" id="general%20options">
@@ -180,7 +196,7 @@ command will run from the current directory.</p>
 </div>
 
 
-<p><code>-v</code>or <code>--verbose</code> will display a lot of information of what is going on.
+<p><code>-v</code> or <code>--verbose</code> will display a lot of information of what is going on.
 This information will sometimes look discarded because of the parallel
 processing of some tasks.</p>
 
@@ -213,8 +229,8 @@ name, too.</p>
 <p>Some example calls will look like:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
-<span class="o">&gt;</span> <span class="nx">bulder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="p">.</span><span class="o">/</span><span class="kr">private</span><span class="o">-</span><span class="nx">module</span> <span class="o">--</span><span class="kr">private</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="o">--</span><span class="kr">package</span> <span class="nx">alinex</span><span class="o">-</span><span class="nx">error</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="kr">private</span><span class="o">-</span><span class="nx">module</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">create</span> <span class="o">--</span><span class="kr">private</span>
 </code></pre></div>
 
 
@@ -236,7 +252,7 @@ it will also add and commit all other changes before doing so.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">push</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -262,7 +278,7 @@ it will also add and commit all other changes before doing so.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">pull</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 
 <span class="nx">Pull</span> <span class="nx">from</span> <span class="nx">origin</span>
 <span class="nx">Von</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/alinex/node-make</span>
@@ -284,7 +300,7 @@ it will also add and commit all other changes before doing so.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 
 <span class="nx">Remove</span> <span class="nx">old</span> <span class="nx">directories</span>
 <span class="nx">Compile</span> <span class="nx">man</span> <span class="nx">pages</span>
@@ -298,7 +314,7 @@ extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">uglify</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">compile</span>  <span class="o">--</span><span class="nx">uglify</span>
 </code></pre></div>
 
 
@@ -329,7 +345,7 @@ are referenced in the package.json.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">update</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">update</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">update</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -367,7 +383,7 @@ a code coverage report will be build.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span>                  <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span>     <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 
 <span class="nx">Linting</span> <span class="nx">coffee</span> <span class="nx">code</span>
 <span class="nx">Run</span> <span class="nx">mocha</span> <span class="nx">tests</span>
@@ -383,7 +399,7 @@ a code coverage report will be build.</p>
 <p>Or to contineously watch it:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">test</span> <span class="o">--</span><span class="nx">watch</span>
 </code></pre></div>
 
 
@@ -429,7 +445,7 @@ code.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span>                   <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>      <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span>      <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 
 <span class="nx">Create</span> <span class="nx">html</span> <span class="nx">documentation</span>
 <span class="nx">Done</span><span class="p">.</span>
@@ -444,7 +460,7 @@ rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
 Start the document creation with publication using:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">publish</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span> <span class="o">--</span><span class="nx">publish</span>
 </code></pre></div>
 
 
@@ -452,7 +468,7 @@ Start the document creation with publication using:</p>
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">bin</span><span class="o">/</span><span class="nx">make</span> <span class="nx">doc</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">watch</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">doc</span>  <span class="o">--</span><span class="nx">watch</span>
 </code></pre></div>
 
 
@@ -509,7 +525,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span>               <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 
 <span class="nx">Change</span> <span class="kr">package</span><span class="p">.</span><span class="nx">json</span>
 <span class="nx">Write</span> <span class="k">new</span> <span class="nx">changelog</span>
@@ -529,7 +545,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>For the next minor version (second number) call:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">minor</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="o">--</span><span class="nx">minor</span>
 </code></pre></div>
 
 
@@ -537,7 +553,7 @@ new version. The version can be set by signaling if it should be a <code>--major
 <p>And for a new major version:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">major</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">publish</span> <span class="o">--</span><span class="nx">major</span>
 </code></pre></div>
 
 
@@ -566,7 +582,7 @@ development environment.</p>
 
 
 <div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span>                 <span class="err">#</span> <span class="nx">from</span> <span class="nx">within</span> <span class="nx">the</span> <span class="kr">package</span> <span class="nx">directory</span>
-<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span>    <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span>    <span class="err">#</span> <span class="nx">or</span> <span class="nx">from</span> <span class="nx">anywhere</span> <span class="k">else</span>
 </code></pre></div>
 
 
@@ -574,7 +590,7 @@ development environment.</p>
 <p>Or on the development system remove all created files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">auto</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="o">--</span><span class="nx">auto</span>
 </code></pre></div>
 
 
@@ -582,7 +598,7 @@ development environment.</p>
 <p>And at last for production remove development files:</p>
 
 
-<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="p">..</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">--</span><span class="nx">dist</span>
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="p">.</span><span class="o">/</span><span class="nx">node</span><span class="o">-</span><span class="nx">error</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">clean</span> <span class="o">--</span><span class="nx">dist</span>
 </code></pre></div>
 
 

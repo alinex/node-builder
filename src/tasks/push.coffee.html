@@ -15,7 +15,17 @@
   <link rel="stylesheet" href="../../goToLine.css" />
 </head>
 <body>
-  <div id="sidebar_wrapper">
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
       <span class="tree">Files</span>
       <span class="headings">Headings</span>
@@ -224,7 +234,8 @@ execution finished.</li>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">~</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;nothing to commit&#39;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span>
-      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Skipped push for </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> because not all changes are committed, use &#39;--message &lt;message&gt;&#39;.&quot;</span>
+      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Skipped push for </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> because not all changes are committed,</span>
+<span class="s">      use &#39;--message &lt;message&gt;&#39;.&quot;</span>
 </pre></div>
         </td>
       </tr>
