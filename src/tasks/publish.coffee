@@ -86,7 +86,8 @@ checkTests = (dir, options, cb) ->
     , (err, file) ->
       return cb() unless err
       if typeof err is 'string'
-        return cb new Error "Tests with .only were found in #{err}. But a full test is neccessary to publish."
+        return cb new Error "Tests with .only were found in #{err}. But a full
+        test is neccessary to publish."
       cb err
 
 # ### add changes since last version to Changelog
@@ -158,7 +159,8 @@ gitTag = (dir, options, cb) ->
   if pack.homepage?
     changelog = " see more in [Changelog.md](#{pack.homepage}/Changelog.md.html)"
   console.log "Push new tag to git origin"
-  debug "exec #{dir}> git tag -a v#{options.newVersion} -m \"Created version #{options.newVersion}#{changelog}\""
+  debug "exec #{dir}> git tag -a v#{options.newVersion} -m \"Created
+  version #{options.newVersion}#{changelog}\""
   execFile "git", [
     'tag'
     '-a', "v#{options.newVersion}"

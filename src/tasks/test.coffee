@@ -6,7 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug')('make:test')
+debug = require('debug')('builder:test')
 async = require 'async'
 fs = require 'alinex-fs'
 path = require 'path'
@@ -100,64 +100,58 @@ testMocha = (dir, options, cb) ->
     console.log chalk.magenta "No mocha test dir found at #{mochadir}."
     return cb()
   # Check for existing options
-  fs.npmbin 'mocha', path.dirname(path.dirname __dirname), (err, cmd) ->
+  fs.npmbin 'istanbul', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
-    # Run external command
-    console.log "Run mocha tests"
-    args = [
-      '--compilers', 'coffee:coffee-script/register'
-      '--reporter', 'spec'
-      '-c' # colors
-      '--recursive'
-      'test/mocha'
-    ]
-    args.unshift '-w' if options.watch
-    debug "exec #{dir}> #{cmd} #{args.join ' '}"
-    proc = spawn cmd, args, { cwd: dir, stdio: 'inherit', env: process.env }
-    # Error management
-    proc.on 'error', cb
-    proc.on 'exit', (status) ->
-      if status != 0
-        status = "Test exited with status #{status}"
-      cb status
+    mocha = if options.coverage then '_mocha' else 'mocha'
+    fs.npmbin mocha, path.dirname(path.dirname __dirname), (err, mocha) ->
+      return cb err if err
+      # Run external command
+      console.log "Run mocha tests"
+      args = []
+      if options.coverage
+        args.push 'cover', mocha, '--', '--require', 'coffee-coverage/register-istanbul'
+      else
+        cmd = mocha
+        args.push '-w' if options.watch
+      args.push '--compilers', 'coffee:coffee-script/register'
+      args.push '--reporter', 'spec'
+      args.push '-c' # colors
+      args.push '--recursive'
+      args.push 'test/mocha'
+      debug "exec #{dir}> #{cmd} #{args.join ' '}"
+      proc = spawn cmd, args, { cwd: dir, stdio: 'inherit', env: process.env }
+      # Error management
+      proc.on 'error', cb
+      proc.on 'exit', (status) ->
+        if status != 0
+          status = "Test exited with status #{status}"
+        cb status
 
 # ### Create local coverage report
 coverage = (dir, options, cb) ->
-  unless options.coverage
-    return cb()
+  return cb() unless options.coverage
   # check if there are any mocha tests
   mochadir = path.join dir, 'test', 'mocha'
   unless fs.existsSync mochadir
     return cb "Coverage only works on mocha tests."
   # Check for existing options
-  fs.npmbin 'istanbul', path.dirname(path.dirname __dirname), path.dirname(__dirname), (err, cmd) ->
+  fs.npmbin 'istanbul', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
     # Run external command
-    console.log "Run istanbul coverage report"
-    fs.npmbin '_mocha', path.dirname(path.dirname __dirname), (err, mocha) ->
-      return cb err if err
-      args = [
-        'cover'
-        mocha
-        '--'
-        '--compilers', 'coffee:coffee-script/register'
-        '--reporter', 'spec'
-        '-c'
-        'test/mocha'
-      ]
-      debug "exec #{dir}> #{cmd} #{args.join ' '}"
-      proc = spawn cmd, args, { cwd: dir }
-      if options.verbose
-        proc.stderr.on 'data', (data) ->
-          console.error chalk.grey data.toString().trim()
-      # Error management
-      proc.on 'error', cb
-      proc.on 'exit', (status) ->
-        if status != 0
-          return cb "Istanbul exited with status #{status}"
-        if options.coveralls
-          return coveralls dir, options, cb
-        cb()
+    console.log "Create coverage report"
+    debug "exec #{dir}> #{cmd} report"
+    proc = spawn cmd, ['report'], { cwd: dir }
+    if options.verbose
+      proc.stderr.on 'data', (data) ->
+        console.error chalk.grey data.toString().trim()
+    # Error management
+    proc.on 'error', cb
+    proc.on 'exit', (status) ->
+      if status != 0
+        return cb "Istanbul exited with status #{status}"
+      if options.coveralls
+        return coveralls dir, options, cb
+      cb()
 
 # ### Send coverage data to coveralls
 coveralls = (dir, options, cb) ->

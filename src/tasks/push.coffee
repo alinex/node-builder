@@ -86,4 +86,5 @@ commit = (dir, options, cb) ->
       return cb err if err
       return cb() if ~stdout.indexOf 'nothing to commit'
       console.log stdout
-      cb new Error "Skipped push for #{dir} because not all changes are committed, use '--message <message>'."
+      cb new Error "Skipped push for #{dir} because not all changes are committed,
+      use '--message <message>'."

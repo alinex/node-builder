@@ -46,6 +46,7 @@
     "alinex-spawn": "1.x",
     "async": "1.x",
     "chalk": "1.x",
+    "coffee-coverage": "0.x",
     "coffee-script": ">=1.7.0",
     "coffeelint": "1.x",
     "coveralls": "2.x",

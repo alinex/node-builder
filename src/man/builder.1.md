@@ -52,7 +52,7 @@ Commands and options
 
 The tool will be called with
 
-    builder [general options] -c <command> [command options] [dirs]
+    builder [dirs] [general options] -c <command> [command options]
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
@@ -60,10 +60,16 @@ displayed. The major commands will be described here.
 Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
 command will run from the current directory.
+You may change the order of the options like you want but keep the directories
+before them. If you give a directory just behind a command it is interpreted
+as additional command instead as directory.
+
+If you want to give multiple commands add a second `-c` option or just put them
+one behind the other in one option.
 
 ### General options
 
-`-v`or `--verbose` will display a lot of information of what is going on.
+`-v` or `--verbose` will display a lot of information of what is going on.
 This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
@@ -86,8 +92,8 @@ name, too.
 
 Some example calls will look like:
 
-    > builder -c create ./node-error --package alinex-error
-    > bulder -c create ./private-module --private
+    > builder ./node-error -c create --package alinex-error
+    > builder ./private-module -c create --private
 
 This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
@@ -99,7 +105,7 @@ This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
     > builder -c push                  # from within the package directory
-    > builder -c push ./node-error     # or from anywhere else
+    > builder ./node-error -c push     # or from anywhere else
 
 or to also commit the last changes
 
@@ -111,7 +117,7 @@ or to also commit the last changes
 Like `push` this will fetch the newest changes from git origin.
 
     > builder -c pull                  # from within the package directory
-    > builder -c pull ./node-error     # or from anywhere else
+    > builder ./node-error -c pull     # or from anywhere else
 
     Pull from origin
     Von https://github.com/alinex/node-make
@@ -123,7 +129,7 @@ Like `push` this will fetch the newest changes from git origin.
 This task is used to compile the sources into for runtime optimized library.
 
     > builder -c compile               # from within the package directory
-    > builder -c compile ./node-error  # or from anywhere else
+    > builder ./node-error -c compile  # or from anywhere else
 
     Remove old directories
     Compile man pages
@@ -134,7 +140,7 @@ Or give an directory and use uglify to compress the **just now experimental**
 extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.
 
-    > builder -c compile ../node-error --uglify
+    > builder ./node-error -c compile  --uglify
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
@@ -151,7 +157,7 @@ are referenced in the package.json.
 This task is a handy addition to include the npm install and npm update commands:
 
     > builder -c update               # from within the package directory
-    > builder -c update ./node-error  # or from anywhere else
+    > builder ./node-error -c update  # or from anywhere else
 
 At the end this task will list all direct subpackages which are outdated and may
 be updated in the package.json.
@@ -175,7 +181,7 @@ If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
     > builder -c test                  # from within the package directory
-    > builder -c test ./node-error     # or from anywhere else
+    > builder ./node-error -c test     # or from anywhere else
 
     Linting coffee code
     Run mocha tests
@@ -187,7 +193,7 @@ a code coverage report will be build.
 
 Or to contineously watch it:
 
-    > builder -c test ./node-error --watch
+    > builder ./node-error -c test --watch
 
 You may also create an html coverage report:
 
@@ -215,7 +221,7 @@ any language and generate HTML pages with the documentation beside the
 code.
 
     > builder -c doc                   # from within the package directory
-    > builder -c doc ./node-error      # or from anywhere else
+    > builder ./node-error -c doc      # or from anywhere else
 
     Create html documentation
     Done.
@@ -226,11 +232,11 @@ need to specify an `doc-publish` script in `package.json`. This may be an
 rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
-    > builder -c doc ./node-error --publish
+    > builder ./node-error -c doc --publish
 
 With the `--watch` option it is possible to keep the documentation updated.
 
-    > bin/make doc ../node-error --watch
+    > builder ./node-error -c doc  --watch
 
 But this process will never end, you have to stop it manually to end it.
 
@@ -267,7 +273,7 @@ new version. The version can be set by signaling if it should be a `--major`,
 To publish the next bugfix version only call:
 
     > builder -c publish               # from within the package directory
-    > builder -c publish ./node-error  # or from anywhere else
+    > builder ./node-error -c publish  # or from anywhere else
 
     Change package.json
     Write new changelog
@@ -284,11 +290,11 @@ To publish the next bugfix version only call:
 
 For the next minor version (second number) call:
 
-    > builder -c publish ../node-error --minor
+    > builder ./node-error -c publish --minor
 
 And for a new major version:
 
-    > builder -c publish ../node-error --major
+    > builder ./node-error -c publish --major
 
 And you may use the switches `--try` to not really publish but to check if it will
 be possible and `--force` to always publish also if it is not possible because of
@@ -307,15 +313,15 @@ development environment.
 To cleanup all safe files:
 
     > builder -c clean                 # from within the package directory
-    > builder -c clean ./node-error    # or from anywhere else
+    > builder ./node-error -c clean    # or from anywhere else
 
 Or on the development system remove all created files:
 
-    > builder -c clean ../node-error --auto
+    > builder ./node-error -c clean --auto
 
 And at last for production remove development files:
 
-    > builder -c clean ../node-error --dist
+    > builder ./node-error -c clean --dist
 
 
 Configuration

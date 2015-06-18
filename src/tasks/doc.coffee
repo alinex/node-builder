@@ -196,7 +196,8 @@ createDoc = (dir, options, cb) ->
                   cmd: replace
                   args: [
                     '(<div id="container")>'
-                    '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'" title="Fork me on GitHub"></a>'
+                    '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'"
+                    title="Fork me on GitHub"></a>'
                     path.join dir, 'doc'
                     '-r'
                   ]
@@ -235,7 +236,8 @@ createDoc = (dir, options, cb) ->
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
                 catch err
                   return cb new Error "Could not load #{file} as valid JSON."
-                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                  return cb()
                 proc = new Spawn
                   cmd: replace
                   args: [
