@@ -65,13 +65,13 @@ Usage
 The tool will be called with
 
 ``` sh
-builder [general options] -c <command> [command options] [dirs]
+builder [dirs] [general options] -c <commands> [command options]
 ```
 
 but if not installed globally you may run
 
 ``` sh
-node_modules/.bin/builder [general options] -c <command> ...
+node_modules/.bin/builder [dirs] [general options] -c <commands>
 ```
 
 With the option `--help` a screen explaining all commands and options will be
@@ -80,7 +80,12 @@ displayed. The major commands will be described here.
 Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
 command will run from the current directory.
+You may change the order of the options like you want but keep the directories
+before them. If you give a directory just behind a command it is interpreted
+as additional command instead as directory.
 
+If you want to give multiple commands add a second `-c` option or just put them
+one behind the other in one option.
 
 ### General options
 
@@ -109,8 +114,8 @@ name, too.
 Some example calls will look like:
 
 ``` sh
-builder -c create ./node-error --package alinex-error
-bulder -c create ./private-module --private
+builder ./node-error -c create --package alinex-error
+bulder ./private-module -c create --private
 ```
 
 This process is interactive and will ask you some more details. After that you
@@ -124,13 +129,13 @@ it will also add and commit all other changes before doing so.
 
 ``` sh
 builder -c push                  # from within the package directory
-builder -c push ./node-error     # or from anywhere else
+builder ./node-error -c push     # or from anywhere else
 ```
 
 or to also commit the last changes
 
 ``` sh
-builder -c push ./node-error --message "commit message"
+builder ./node-error -c push --message "commit message"
 ```
 
 
@@ -140,7 +145,7 @@ Like `push` this will fetch the newest changes from git origin.
 
 ``` sh
 builder -c pull                  # from within the package directory
-builder -c pull ./node-error     # or from anywhere else
+builder ./node-error -c pull     # or from anywhere else
 ```
 
 ``` text
@@ -155,7 +160,7 @@ This task is used to compile the sources into for runtime optimized library.
 
 ``` sh
 builder -c compile               # from within the package directory
-builder -c compile ./node-error  # or from anywhere else
+builder ./node-error -c compile  # or from anywhere else
 ```
 
 ``` text
@@ -169,7 +174,7 @@ extension. It works for live server but will break source maps for node-error
 and makes your coverage report unreadable.
 
 ``` sh
-builder -c compile ../node-error --uglify
+builder ./node-error -c compile --uglify
 ```
 
 Mostly this task will be added as prepublish script to the `package.json` like:
@@ -192,7 +197,7 @@ This task is a handy addition to include the npm install and npm update commands
 
 ``` sh
 builder -c update               # from within the package directory
-builder -c update ./node-error  # or from anywhere else
+builder ./node-error -c update  # or from anywhere else
 ```
 
 At the end this task will list all direct subpackages which are outdated and may
@@ -219,7 +224,7 @@ a code coverage report will be build.
 
 ``` sh
 builder -c test                  # from within the package directory
-builder -c test ./node-error     # or from anywhere else
+builder ./node-error -c test     # or from anywhere else
 ```
 
 ``` text
@@ -235,7 +240,7 @@ Simple mocha test
 Or to contineously watch it:
 
 ``` sh
-builder -c test ./node-error --watch
+builder ./node-error -c test --watch
 ```
 
 You may also create an html coverage report:
@@ -258,6 +263,11 @@ This task can also be added to the `package.json` to be called using `npm test`:
 }
 ```
 
+Often you would also need the following combination:
+
+``` sh
+builder -v -c compile test           # to check your just finished code changes
+```
 
 ### doc
 
@@ -271,7 +281,7 @@ code.
 
 ``` sh
 builder -c doc                   # from within the package directory
-builder -c doc ./node-error      # or from anywhere else
+builder ./node-error -c doc      # or from anywhere else
 ```
 
 ``` text
@@ -286,13 +296,13 @@ rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
 ``` sh
-builder -c doc ./node-error --publish
+builder ./node-error -c doc --publish
 ```
 
 With the `--watch` option it is possible to keep the documentation updated.
 
 ``` sh
-bin/make doc ../node-error --watch
+builder  ./node-error -c doc --watch
 ```
 
 But this process will never end, you have to stop it manually to end it.
@@ -335,7 +345,7 @@ To publish the next bugfix version only call:
 
 ``` sh
 builder -c publish               # from within the package directory
-builder -c publish ./node-error  # or from anywhere else
+builder ./node-error -c publish  # or from anywhere else
 ```
 
 The output will be:
@@ -403,13 +413,13 @@ afterwards.
 For the next minor version (second number) call:
 
 ``` sh
-builder -c publish ../node-error --minor
+builder ./node-error -c publish --minor
 ```
 
 And for a new major version:
 
 ``` sh
-builder -c publish ../node-error --major
+builder ./node-error -c publish --major
 ```
 
 And you may use the switches `--try` to not really publish but to check if it will
@@ -430,19 +440,19 @@ To cleanup all safe files:
 
 ``` sh
 builder -c clean                 # from within the package directory
-builder -c clean ./node-error    # or from anywhere else
+builder ./node-error -c clean    # or from anywhere else
 ```
 
 Or on the development system remove all created files:
 
 ``` sh
-builder -c clean ../node-error --auto
+builder ./node-error -c clean --auto
 ```
 
 And at last for production remove development files:
 
 ``` sh
-builder -c clean ../node-error --dist
+builder ./node-error -c clean --dist
 ```
 
 
