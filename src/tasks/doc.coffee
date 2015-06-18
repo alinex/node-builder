@@ -85,7 +85,7 @@ publish = (dir, options, pack, cb) ->
       return cb()
   # Or publish to GitHub
   else if ~pack.repository?.url?.indexOf 'github.com/'
-    fs.tempdir null, 'alinex-make-', (err, tmpdir) ->
+    fs.tempdir null, 'alinex-builder-', (err, tmpdir) ->
       return cb err if err
       async.series [
         (cb) -> cloneGit dir, tmpdir, options, cb
@@ -326,6 +326,7 @@ updateDoc = (dir, tmpdir, options, cb) ->
         debug "exec #{tmpdir}> git commit -m \"Updated documentation\""
         execFile 'git', [
           'commit'
+          '--allow-empty'
           '-m', "Updated documentation"
         ], { cwd: tmpdir }, (err, stdout, stderr) ->
           console.log chalk.grey stdout.trim() if stdout and options.verbose
