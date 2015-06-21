@@ -1,18 +1,19 @@
-Alinex Development Utils
+Alinex Builder
 =================================================
 
 [![Build Status](https://travis-ci.org/alinex/node-builder.svg?branch=master)](https://travis-ci.org/alinex/node-builder)
 [![Dependency Status](https://gemnasium.com/alinex/node-builder.png)](https://gemnasium.com/alinex/node-builder)
 
 This package contains some helper commands for development of the alinex
-node packages. This is a superset of npm and other command line tools.
+node packages. Realized as a superset of npm and other command line tools.
 
 It may help a lot while developing to automatize the consequently done tasks.
 
 - easy to use build tool
 - supporting complete process
 - specialized for the alinex modules
-- extensible
+- usable for other modules, too
+- working with multiple packages at once
 
 It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
 following the code standards defined there.
