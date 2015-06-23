@@ -244,14 +244,14 @@ createReadme = (dir, options, cb) ->
     badges: ''
     install: ''
   if options.github
-    doc.badges = "\n[![Build Status]
+    doc.badges = "\n[![Build Status]\
     (https://travis-ci.org/#{gituser}/#{gitname}.svg?branch=master)]\
     (https://travis-ci.org/#{gituser}/#{gitname})
-    \n[![Coverage Status]
+    \n[![Coverage Status]\
     (https://coveralls.io/repos/#{gituser}/#{gitname}/badge.png?branch=master)]\
     (https://coveralls.io/r/#{gituser}/#{gitname}?branch=master)"
   unless options.private
-    doc.badges += "\n[![Dependency Status]
+    doc.badges += "\n[![Dependency Status]\
     (https://gemnasium.com/#{gituser}/#{gitname}.png)]\
     (https://gemnasium.com/#{gituser}/#{gitname})"
     doc.install = "\n\
