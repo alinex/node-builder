@@ -152,6 +152,7 @@ for command in argv.command
       # backward order because of unshift
       cmds.unshift 'test'
       cmds.unshift 'compile'
+      argv.uglify = true
       cmds.unshift 'update'
       cmds.unshift 'clean'
       argv.auto = true

@@ -170,9 +170,7 @@ Compile man pages
 Compile coffee script
 ```
 
-Or give an directory and use uglify to compress the **just now experimental**
-extension. It works for live server but will break source maps for node-error
-and makes your coverage report unreadable.
+Or give an directory and use uglify to compress the extension.
 
 ``` sh
 builder ./node-error -c compile --uglify
@@ -408,8 +406,8 @@ Done.
 ```
 
 Like seen above this will also push last changes, cleanup, reinstall the package
-and run all tests before publishing. And the documentation will be updated
-afterwards.
+compile with compression and run all tests before publishing. And the documentation
+will be updated afterwards, too.
 
 For the next minor version (second number) call:
 

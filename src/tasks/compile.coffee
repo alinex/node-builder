@@ -126,6 +126,7 @@ uglify = (item, cb) ->
       item.fromjs,
       '--source-map', item.tomap
       '-o', item.tojs
+      '-m', '-c'
     ]
     args.push '--in-source-map', item.frommap if item.frommap
     proc = new Spawn
