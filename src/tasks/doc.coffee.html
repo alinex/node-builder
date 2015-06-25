@@ -16,8 +16,8 @@
 </head>
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
   </a>
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
@@ -251,7 +251,7 @@ script if defined.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;alinex-make-&#39;</span><span class="p">,</span> <span class="nf">(err, tmpdir) -&gt;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;alinex-builder-&#39;</span><span class="p">,</span> <span class="nf">(err, tmpdir) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
         <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
@@ -261,7 +261,7 @@ script if defined.</p>
       <span class="p">],</span> <span class="nf">(err) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
         <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
+          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
           <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 </pre></div>
@@ -277,7 +277,7 @@ script if defined.</p>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="k">else</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span>
-    <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
+    <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
 
@@ -497,8 +497,8 @@ so we pass a blank title so we can quote the file we are opening</p>
                     <span class="s">&#39;(&lt;div id=&quot;sidebar_wrapper&quot;&gt;)&#39;</span>
                     <span class="s">&#39;&#39;&#39;</span>
 <span class="s">                    &lt;nav&gt;</span>
-<span class="s">                    &lt;div class=&quot;logo&quot;&gt;&lt;a href=&quot;http://alinex.github.io&quot; onmouseover=&quot;lllogo.src=&#39;http://alinex.github.io/images/Alinex-200.png&#39;&quot; onmouseout=&quot;lllogo.src=&#39;http://alinex.github.io/images/Alinex-black-200.png&#39;&quot;&gt;</span>
-<span class="s">                      &lt;img name=&quot;lllogo&quot; src=&quot;http://alinex.github.io/images/Alinex-black-200.png&quot; width=&quot;150&quot; title=&quot;Alinex Universe Homepage&quot; /&gt;</span>
+<span class="s">                    &lt;div class=&quot;logo&quot;&gt;&lt;a href=&quot;http://alinex.github.io&quot; onmouseover=&quot;lllogo.src=&#39;https://alinex.github.io/images/Alinex-200.png&#39;&quot; onmouseout=&quot;lllogo.src=&#39;https://alinex.github.io/images/Alinex-black-200.png&#39;&quot;&gt;</span>
+<span class="s">                      &lt;img name=&quot;lllogo&quot; src=&quot;https://alinex.github.io/images/Alinex-black-200.png&quot; width=&quot;150&quot; title=&quot;Alinex Universe Homepage&quot; /&gt;</span>
 <span class="s">                      &lt;/a&gt;</span>
 <span class="s">                      &lt;img src=&quot;http://alinex.github.io/images/Alinex-200.png&quot; style=&quot;display:none&quot; alt=&quot;preloading&quot; /&gt;</span>
 <span class="s">                    &lt;/div&gt;</span>
@@ -672,6 +672,7 @@ so we pass a blank title so we can quote the file we are opening</p>
         <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git commit -m \&quot;Updated documentation\&quot;&quot;</span>
         <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
           <span class="s">&#39;commit&#39;</span>
+          <span class="s">&#39;--allow-empty&#39;</span>
           <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Updated documentation&quot;</span>
         <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>

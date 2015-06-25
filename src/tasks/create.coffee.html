@@ -16,8 +16,8 @@
 </head>
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
   </a>
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
@@ -491,7 +491,7 @@ execution finished.</li>
     <span class="nv">license: </span><span class="nx">PKG</span><span class="p">.</span><span class="nx">license</span>
     <span class="nv">main: </span><span class="s">&#39;./lib/index.js&#39;</span>
     <span class="nv">scripts:</span>
-      <span class="nv">prepublish: </span><span class="s">&quot;node_modules/.bin/builder -c compile&quot;</span>
+      <span class="nv">prepublish: </span><span class="s">&quot;node_modules/.bin/builder -c compile --uglify&quot;</span>
       <span class="nv">test: </span><span class="s">&quot;node_modules/.bin/builder -c test&quot;</span>
     <span class="nv">directories:</span>
       <span class="nv">lib: </span><span class="s">&#39;./lib&#39;</span>
@@ -532,14 +532,14 @@ execution finished.</li>
     <span class="nv">badges: </span><span class="s">&#39;&#39;</span>
     <span class="nv">install: </span><span class="s">&#39;&#39;</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">github</span>
-    <span class="nv">doc.badges = </span><span class="s">&quot;\n[![Build Status]</span>
+    <span class="nv">doc.badges = </span><span class="s">&quot;\n[![Build Status]\</span>
 <span class="s">    (https://travis-ci.org/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">.svg?branch=master)]\</span>
 <span class="s">    (https://travis-ci.org/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">)</span>
-<span class="s">    \n[![Coverage Status]</span>
+<span class="s">    \n[![Coverage Status]\</span>
 <span class="s">    (https://coveralls.io/repos/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">/badge.png?branch=master)]\</span>
 <span class="s">    (https://coveralls.io/r/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">?branch=master)&quot;</span>
   <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">private</span>
-    <span class="nx">doc</span><span class="p">.</span><span class="nx">badges</span> <span class="o">+=</span> <span class="s">&quot;\n[![Dependency Status]</span>
+    <span class="nx">doc</span><span class="p">.</span><span class="nx">badges</span> <span class="o">+=</span> <span class="s">&quot;\n[![Dependency Status]\</span>
 <span class="s">    (https://gemnasium.com/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">.png)]\</span>
 <span class="s">    (https://gemnasium.com/</span><span class="si">#{</span><span class="nx">gituser</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">gitname</span><span class="si">}</span><span class="s">)&quot;</span>
     <span class="nv">doc.install = </span><span class="s">&quot;\n\</span>

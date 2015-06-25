@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-builder/report/files/lib_tasks_clean_js/index.html", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>index.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Plato - lib/tasks/clean.js<span class="nt">&lt;/title&gt;</span>
+
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;author&quot;</span> <span class="na">content=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code><span class="p">[</span><span class="k">if</span> <span class="nx">lt</span> <span class="nx">IE</span> <span class="mi">9</span><span class="p">]</span><span class="o">&gt;</span>
+</code></pre></div>
+
+
+
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+<p><![endif]   </p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/vendor/morris.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/vendor/bootstrap.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/vendor/font-awesome.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/vendor/codemirror.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/plato.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../assets/css/plato-file.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar navbar-fixed-top&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href=</span><span class="s">&quot;http://github.com/es-analysis/plato&quot;</span><span class="nt">&gt;</span>Plato on Github<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav navbar-nav&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;../../index.html&quot;</span><span class="nt">&gt;</span>Report Home<span class="nt">&lt;/a&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;jumbotron&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>lib/tasks/clean.js<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container aggregate-stats&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>Maintainability <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability.&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;Maintainability Index&quot;</span>  <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;</span>69.75<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>Lines of code <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;Source Lines of Code / Logical Lines of Code&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;SLOC/LSLOC&quot;</span> <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/h2&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;</span>93<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row historical&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;chart_historical_maint&quot;</span> <span class="na">class=</span><span class="s">&quot;chart&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;chart_historical_sloc&quot;</span> <span class="na">class=</span><span class="s">&quot;chart&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>Difficulty  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Halstead_complexity_measures&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;The difficulty measure is related to the difficulty of the program to write or understand.&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;Difficulty&quot;</span> <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;</span>21.42<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>Estimated Errors  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Halstead_complexity_measures&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;Halstead&#39;s delivered bugs is an estimate for the number of errors in the implementation.&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;Delivered Bugs&quot;</span> <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;</span>0.74<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container charts&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;header&quot;</span><span class="nt">&gt;</span>Function weight<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">&quot;chart-header&quot;</span><span class="nt">&gt;</span>By Complexity <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://en.wikipedia.org/wiki/Cyclomatic_complexity&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;This metric counts the number of distinct paths through a block of code. Lower values are better.&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;Cyclomatic Complexity&quot;</span> <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/h3&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;fn-by-complexity&quot;</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-md-6&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">&quot;chart-header&quot;</span><span class="nt">&gt;</span>By SLOC  <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon icon-info-sign&quot;</span> <span class="na">rel=</span><span class="s">&quot;popover&quot;</span> <span class="na">data-placement=</span><span class="s">&quot;top&quot;</span> <span class="na">data-trigger=</span><span class="s">&quot;hover&quot;</span> <span class="na">data-content=</span><span class="s">&quot;Source Lines of Code / Logical Lines of Code&quot;</span> <span class="na">data-original-title=</span><span class="s">&quot;SLOC/LSLOC&quot;</span> <span class="na">data-container=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/h3&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;fn-by-sloc&quot;</span> <span class="na">class=</span><span class="s">&quot;stat&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;file-source&quot;</span> <span class="na">class=</span><span class="s">&quot;col-md-12&quot;</span><span class="nt">&gt;</span>(function() {
+  var Spawn, async, chalk, cleanDistribution, cleanModules, fs, path;
+
+  Spawn = require(<span class="ni">&amp;#039;</span>alinex-spawn<span class="ni">&amp;#039;</span>);
+
+  async = require(<span class="ni">&amp;#039;</span>async<span class="ni">&amp;#039;</span>);
+
+  fs = require(<span class="ni">&amp;#039;</span>alinex-fs<span class="ni">&amp;#039;</span>);
+
+  path = require(<span class="ni">&amp;#039;</span>path<span class="ni">&amp;#039;</span>);
+
+  chalk = require(<span class="ni">&amp;#039;</span>chalk<span class="ni">&amp;#039;</span>);
+
+  module.exports.run = function(dir, options, cb) {
+    var dirs;
+    console.log(<span class="ni">&amp;quot;</span>Remove unnecessary folders<span class="ni">&amp;quot;</span>);
+    dirs = [path.join(dir, <span class="ni">&amp;#039;</span>doc<span class="ni">&amp;#039;</span>), path.join(dir, <span class="ni">&amp;#039;</span>coverage<span class="ni">&amp;#039;</span>)];
+    if (options.auto) {
+      dirs.push(path.join(dir, <span class="ni">&amp;#039;</span>lib<span class="ni">&amp;#039;</span>));
+      dirs.push(path.join(dir, <span class="ni">&amp;#039;</span>man<span class="ni">&amp;#039;</span>));
+      dirs.push(path.join(dir, <span class="ni">&amp;#039;</span>node_modules<span class="ni">&amp;#039;</span>));
+    }
+    if (options.dist) {
+      dirs.push(path.join(dir, <span class="ni">&amp;#039;</span>src<span class="ni">&amp;#039;</span>));
+    }
+    return async.each(dirs, function(dir, cb) {
+      return fs.exists(dir, function(exists) {
+        if (!exists) {
+          return cb();
+        }
+        if (options.verbose) {
+          console.log(chalk.grey(<span class="ni">&amp;quot;</span>Removed <span class="ni">&amp;quot;</span> + dir));
+        }
+        return fs.remove(dir, cb);
+      });
+    }, function(err) {
+      if (err) {
+        return cb(err);
+      }
+      return cleanDistribution(dir, options, function(err) {
+        if (err) {
+          return cb(err);
+        }
+        return cleanModules(dir, options, function(err) {
+          return cb(err);
+        });
+      });
+    });
+  };
+
+  cleanDistribution = function(dir, options, cb) {
+    var proc;
+    if (!options.dist) {
+      return cb();
+    }
+    console.log(<span class="ni">&amp;quot;</span>Remove development modules<span class="ni">&amp;quot;</span>);
+    proc = new Spawn({
+      cmd: <span class="ni">&amp;#039;</span>npm<span class="ni">&amp;#039;</span>,
+      args: [<span class="ni">&amp;#039;</span>prune<span class="ni">&amp;#039;</span>, <span class="ni">&amp;#039;</span>--production<span class="ni">&amp;#039;</span>],
+      cwd: dir
+    });
+    return proc.run(function(err, stdout, stderr) {
+      if (stdout <span class="ni">&amp;amp;&amp;amp;</span> options.verbose) {
+        console.log(chalk.grey(stdout.trim()));
+      }
+      if (stderr) {
+        console.error(chalk.magenta(stderr.trim()));
+      }
+      return cb(err);
+    });
+  };
+
+  cleanModules = function(dir, options, cb) {
+    var selection;
+    if (!options.dist) {
+      return cb();
+    }
+    console.log(<span class="ni">&amp;quot;</span>Remove left over of node_modules<span class="ni">&amp;quot;</span>);
+    selection = [
+      {
+        include: <span class="ni">&amp;#039;</span>LICENSE<span class="ni">&amp;#039;</span>
+      }, {
+        maxdepth: 2,
+        type: <span class="ni">&amp;#039;</span>dir<span class="ni">&amp;#039;</span>,
+        include: <span class="ni">&amp;#039;</span>example?(s)<span class="ni">&amp;#039;</span>
+      }
+    ];
+    return async.each(selection, function(spec, cb) {
+      return fs.remove(dir, spec, cb);
+    }, cb);
+  };
+
+}).call(this);
+
+//# sourceMappingURL=clean.map<span class="nt">&lt;/textarea&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/footer&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/html&quot;</span> <span class="na">id=</span><span class="s">&quot;complexity-popover-template&quot;</span><span class="nt">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;complexity-notice&quot;</span><span class="o">&gt;</span>
+    <span class="nx">Complexity</span> <span class="o">:</span> <span class="p">{{</span> <span class="nx">complexity</span><span class="p">.</span><span class="nx">cyclomatic</span> <span class="p">}}</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+    <span class="nx">Length</span> <span class="o">:</span> <span class="p">{{</span> <span class="nx">complexity</span><span class="p">.</span><span class="nx">halstead</span><span class="p">.</span><span class="nx">length</span> <span class="p">}}</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+    <span class="nx">Difficulty</span> <span class="o">:</span> <span class="p">{{</span> <span class="nx">complexity</span><span class="p">.</span><span class="nx">halstead</span><span class="p">.</span><span class="nx">difficulty</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">}}</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+    <span class="nx">Est</span> <span class="err">#</span> <span class="nx">bugs</span> <span class="o">:</span> <span class="p">{{</span> <span class="nx">complexity</span><span class="p">.</span><span class="nx">halstead</span><span class="p">.</span><span class="nx">bugs</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">}}</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../assets/scripts/bundles/core-bundle.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../assets/scripts/bundles/codemirror.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../assets/scripts/codemirror.markpopovertext.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;report.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;report.history.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../assets/scripts/plato-file.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

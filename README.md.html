@@ -16,8 +16,8 @@
 </head>
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='http://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='http://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="lllogo" src="http://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
   </a>
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
@@ -33,13 +33,13 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h1">
-        <a href="#alinex%20development%20utils">Alinex Development Utils</a>
+        <a href="#alinex%20builder">Alinex Builder</a>
       </div>
       <div class="heading h2">
         <a href="#motivation">Motivation</a>
       </div>
       <div class="heading h2">
-        <a href="#installation">Installation</a>
+        <a href="#install">Install</a>
       </div>
       <div class="heading h2">
         <a href="#usage">Usage</a>
@@ -90,10 +90,10 @@
   </div>
   <div id="sidebar-toggle"></div>
   <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="docs markdown">
-<div class="pilwrap" id="alinex%20development%20utils">
+<div class="pilwrap" id="alinex%20builder">
   <h1>
-    <a href="#alinex%20development%20utils" name="alinex%20development%20utils" class="pilcrow">&#182;</a>
-    Alinex Development Utils
+    <a href="#alinex%20builder" name="alinex%20builder" class="pilcrow">&#182;</a>
+    Alinex Builder
   </h1>
 </div>
 
@@ -102,7 +102,7 @@
 <a href="https://gemnasium.com/alinex/node-builder"><img src="https://gemnasium.com/alinex/node-builder.png" alt="Dependency Status" title="" /></a></p>
 
 <p>This package contains some helper commands for development of the alinex
-node packages. This is a superset of npm and other command line tools.</p>
+node packages. Realized as a superset of npm and other command line tools.</p>
 
 <p>It may help a lot while developing to automatize the consequently done tasks.</p>
 
@@ -110,11 +110,14 @@ node packages. This is a superset of npm and other command line tools.</p>
 <li>easy to use build tool</li>
 <li>supporting complete process</li>
 <li>specialized for the alinex modules</li>
-<li>extensible</li>
+<li>usable for other modules, too</li>
+<li>working with multiple packages at once</li>
 </ul>
 
-<p>It is one of the modules of the <a href="http://alinex.github.io/node-alinex">Alinex Universe</a>
-following the code standards defined there.</p>
+<blockquote>
+  <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
+  following the code standards defined in the <a href="http://alinex.github.io/node-alinex">General Docs</a>.</p>
+</blockquote>
 
 
 <div class="pilwrap" id="motivation">
@@ -137,13 +140,17 @@ separate them into build tasks which stay in the package and overall management
 tasks which were moved out into this helper tool.</p>
 
 
-<div class="pilwrap" id="installation">
+<div class="pilwrap" id="install">
   <h2>
-    <a href="#installation" name="installation" class="pilcrow">&#182;</a>
-    Installation
+    <a href="#install" name="install" class="pilcrow">&#182;</a>
+    Install
   </h2>
 </div>
 
+
+<p><a href="https://www.npmjs.com/package/alinex-builder"><img src="https://nodei.co/npm/alinex-builder.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM" title="" />
+ <img src="https://nodei.co/npm-dl/alinex-builder.png?months=9&amp;height=3" alt="Downloads" title="" />
+</a></p>
 
 <p>It may be installed globally as an universal helper or integrated into a package
 as development dependency.</p>
@@ -157,9 +164,10 @@ builder --help
 
 
 
-<p>After global installation you may directly call <code>builder</code> from anywhere.</p>
+<p>After global installation you may directly call <code>builder</code> from anywhere like shown
+above.</p>
 
-<p>Or you may integrate it into your own package</p>
+<p>Or you may integrate it into your own package:</p>
 
 
 <div class="highlight"><pre><code>npm install alinex-builder --save-devs
@@ -170,7 +178,7 @@ builder --help
 
 <p>By integrating it you won't need all the development tools within your package.</p>
 
-<p><a href="https://nodei.co/npm/alinex-builder/"><img src="https://nodei.co/npm/alinex-builder.png?downloads=true&amp;stars=true" alt="NPM" title="" /></a></p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 
 
 <div class="pilwrap" id="usage">
@@ -181,7 +189,7 @@ builder --help
 </div>
 
 
-<p>The tool will be called with</p>
+<p>The tool will be called with:</p>
 
 
 <div class="highlight"><pre><code>builder <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span> <span class="o">[</span>general options<span class="o">]</span> -c &lt;commands&gt; <span class="o">[</span><span class="nb">command </span>options<span class="o">]</span>
@@ -189,7 +197,7 @@ builder --help
 
 
 
-<p>but if not installed globally you may run</p>
+<p>But if not installed globally you may run:</p>
 
 
 <div class="highlight"><pre><code>node_modules/.bin/builder <span class="o">[</span><span class="nb">dirs</span><span class="o">]</span> <span class="o">[</span>general options<span class="o">]</span> -c &lt;commands&gt;
@@ -209,6 +217,19 @@ as additional command instead as directory.</p>
 
 <p>If you want to give multiple commands add a second <code>-c</code> option or just put them
 one behind the other in one option.</p>
+
+<p>Within your <code>package.json</code> it may look like:</p>
+
+
+<div class="highlight"><pre><code><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;prepublish&quot;</span><span class="p">:</span> <span class="s2">&quot;node_modules/.bin/builder -c compile --uglify&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;node_modules/.bin/builder -c test&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
 
 
 <div class="pilwrap" id="general%20options">
@@ -340,9 +361,7 @@ Compile coffee script
 
 
 
-<p>Or give an directory and use uglify to compress the <strong>just now experimental</strong>
-extension. It works for live server but will break source maps for node-error
-and makes your coverage report unreadable.</p>
+<p>Or give an directory and use uglify to compress the extension.</p>
 
 
 <div class="highlight"><pre><code>builder ./node-error -c compile --uglify
@@ -646,8 +665,8 @@ Done.
 
 
 <p>Like seen above this will also push last changes, cleanup, reinstall the package
-and run all tests before publishing. And the documentation will be updated
-afterwards.</p>
+compile with compression and run all tests before publishing. And the documentation
+will be updated afterwards, too.</p>
 
 <p>For the next minor version (second number) call:</p>
 

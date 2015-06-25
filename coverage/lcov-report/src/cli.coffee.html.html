@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cli.coffee.html</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-builder/coverage/lcov-report/src/cli.coffee.html", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>cli.coffee.html</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Code coverage report for src/cli.coffee<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;../prettify.css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;../base.css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&#39;text/css&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">div</span><span class="nc">.coverage-summary</span> <span class="nc">.sorter</span> <span class="p">{</span>
+            <span class="k">background-image</span><span class="o">:</span> <span class="sx">url(../sort-arrow-sprite.png)</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;header low&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Code coverage report for <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;entity&quot;</span><span class="nt">&gt;</span>src/cli.coffee<span class="nt">&lt;/span&gt;&lt;/h1&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>
+        Statements: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>0% <span class="nt">&lt;small&gt;</span>(0 / 82)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        Branches: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>0% <span class="nt">&lt;small&gt;</span>(0 / 26)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        Functions: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>0% <span class="nt">&lt;small&gt;</span>(0 / 8)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        Lines: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;</span>0% <span class="nt">&lt;small&gt;</span>(0 / 61)<span class="nt">&lt;/small&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+        Ignored: <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;metric&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;ignore-none&quot;</span><span class="nt">&gt;</span>none<span class="nt">&lt;/span&gt;&lt;/span&gt;</span> <span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+    <span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;path&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;../index.html&quot;</span><span class="nt">&gt;</span>All files<span class="nt">&lt;/a&gt;</span> <span class="ni">&amp;#187;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;index.html&quot;</span><span class="nt">&gt;</span>src/<span class="nt">&lt;/a&gt;</span> <span class="ni">&amp;#187;</span> cli.coffee<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;pre&gt;&lt;table</span> <span class="na">class=</span><span class="s">&quot;coverage&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;tr&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;line-count&quot;</span><span class="nt">&gt;</span>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;line-coverage&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-no&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cline-any cline-neutral&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;nbsp;</span><span class="nt">&lt;/span&gt;&lt;/td&gt;&lt;td</span> <span class="na">class=</span><span class="s">&quot;text&quot;</span><span class="nt">&gt;&lt;pre</span> <span class="na">class=</span><span class="s">&quot;prettyprint lang-js&quot;</span><span class="nt">&gt;</span># Startup script
+# =================================================
+# This file is used to manage the whole build environment.
+#
+# ### Main routine
+#
+# This file defines the command line interface with the defined commands. They
+# will be run in parallel as possible.
+#
+# It will work with an boolean `success` value which is handed through the
+# functions to define if everything went correct or something was not possible.
+# If an real and unexpected error occur it will be thrown. All errors which
+# aren&#39;t caught will end in an error and abort with exit code 2.
+#
+# ### Task libraries
+#
+# Each task is made available as separate task module with the `run` method
+# to be called for each alinex package. The given command on the command line
+# call may trigger multiple tasks which are done.
+#
+# Each task will get a `command` object which holds all the information from the
+# command line call.
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+# Node Modules
+# -------------------------------------------------
+<span class="ni">&amp;nbsp;</span>
+# include base modules
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>fs = require &#39;fs&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>yargs = require &#39;yargs&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>path = require &#39;path&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>chalk = require &#39;chalk&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>async = require &#39;async&#39;<span class="nt">&lt;/span&gt;</span>
+# include alinex modules
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>Spawn = require &#39;alinex-spawn&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>errorHandler = require &#39;alinex-error&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>errorHandler.install()<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>errorHandler.config.stack.modules = true<span class="nt">&lt;/span&gt;</span>
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+# Setup build environment
+# -------------------------------------------------
+<span class="ni">&amp;nbsp;</span>
+# Root directory of the core application
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>GLOBAL.ROOT_DIR = path.dirname __dirname<span class="nt">&lt;/span&gt;</span>
+# Read in package configuration
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, &#39;package.json&#39;<span class="nt">&lt;/span&gt;</span>
+# setup search path for configs
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>for path in  [<span class="nt">&lt;/span&gt;</span>
+    path.resolve path.dirname(__dirname), &#39;var/src/config&#39;
+    path.resolve path.dirname(__dirname), &#39;var/local/config&#39;
+  ]
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  Spawn.configsearch.push path<span class="nt">&lt;/span&gt;</span>
+<span class="ni">&amp;nbsp;</span>
+# list of possible commands
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>commands =<span class="nt">&lt;/span&gt;</span>
+  list: &quot;show the list of possible commands&quot;
+  create: &quot;create a new package&quot;
+  update: &quot;update and installation of package with dependent packages&quot;
+  compile: &quot;compile code&quot;
+  pull: &quot;pull newest version from repository&quot;
+  push: &quot;push changes to repository&quot;
+  publish: &quot;publish package in npm&quot;
+  doc: &quot;create documentation pages&quot;
+  test: &quot;run automatic tests&quot;
+  clean: &quot;cleanup files&quot;
+  changes: &quot;list unpublished changes&quot;
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+# Start argument parsing
+# -------------------------------------------------
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>argv = yargs<span class="nt">&lt;/span&gt;</span>
+.usage(&quot;&quot;&quot;
+  Utility to help simplify tasks in development.
+<span class="ni">&amp;nbsp;</span>
+  Usage: $0 [-vC] -c command... [dir]...
+  &quot;&quot;&quot;)
+# examples
+.example(&#39;$0 -c compile -c test&#39;, &#39;to rerun the tests after code changes&#39;)
+.example(&#39;$0 -c publish --minor&#39;,
+  &#39;to do the complete publishing cycle&#39;)
+# commands
+.demand(&#39;c&#39;)
+.alias(&#39;c&#39;, &#39;command&#39;)
+.array(&#39;c&#39;)
+.describe(&#39;c&#39;, &#39;command to execute (use list to see more)&#39;)
+# general options
+.boolean(&#39;C&#39;)
+.alias(&#39;C&#39;, &#39;nocolors&#39;)
+.describe(&#39;C&#39;, &#39;turn of color output&#39;)
+.boolean(&#39;v&#39;)
+.alias(&#39;v&#39;, &#39;verbose&#39;)
+.describe(&#39;v&#39;, &#39;run in verbose mode&#39;)
+# create options
+.describe(&#39;private&#39;, &#39;create: private repository&#39;)
+.describe(&#39;package&#39;, &#39;create: set package name&#39;)
+# push options
+.alias(&#39;m&#39;, &#39;message&#39;)
+.describe(&#39;m&#39;, &#39;push: text for commit message&#39;)
+# compile options
+.alias(&#39;u&#39;, &#39;uglify&#39;)
+.describe(&#39;u&#39;, &#39;compile: run uglify for each file&#39;)
+# publish options
+.boolean(&#39;minor&#39;)
+.describe(&#39;minor&#39;, &#39;publish: change to next minor version&#39;)
+.boolean(&#39;major&#39;)
+.describe(&#39;major&#39;, &#39;publish: change to next major version&#39;)
+.boolean(&#39;try&#39;)
+.describe(&#39;try&#39;, &#39;publish: don\&#39;t really publish but check if it is possible&#39;)
+.boolean(&#39;force&#39;)
+.describe(&#39;force&#39;, &#39;publish: also if tests have errors or submodules not up-to-date&#39;)
+# test options
+.boolean(&#39;coverage&#39;)
+.describe(&#39;coverage&#39;, &#39;test: create coverage report&#39;)
+.boolean(&#39;coveralls&#39;)
+.describe(&#39;coveralls&#39;, &#39;test: send coverage to coveralls&#39;)
+.boolean(&#39;watch&#39;)
+.describe(&#39;watch&#39;, &#39;test,doc: keep process running while watching for changes&#39;)
+.boolean(&#39;browser&#39;)
+.describe(&#39;browser&#39;, &#39;test,doc: open in browser&#39;)
+# doc options
+.boolean(&#39;publish&#39;)
+.describe(&#39;publish&#39;, &#39;doc: push to github pages&#39;)
+# clean options
+.boolean(&#39;dist&#39;)
+.describe(&#39;dist&#39;, &#39;clean: all which is not needed in production&#39;)
+.boolean(&#39;auto&#39;)
+.describe(&#39;auto&#39;, &#39;clean: all which is created automatically&#39;)
+# general help
+.help(&#39;h&#39;)
+.alias(&#39;h&#39;, &#39;help&#39;)
+.showHelpOnFail(false, &quot;Specify --help for available options&quot;)
+.epilogue(&quot;For more information, look into the man page.&quot;)
+.check <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(argv, options) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+  # optimize the arguments for processing
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  argv._ = [&#39;./&#39;]<span class="nt">&lt;/span&gt;</span> unless argv._.length<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  argv.command = [argv.command]<span class="nt">&lt;/span&gt;</span> unless Array.isArray argv.command<span class="nt">&lt;/span&gt;</span>
+  # additional checks
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  for command in argv.command<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>    unless command in Object.keys commands<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      return <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>&quot;Unknown command: #{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>argv<span class="nt">&lt;/span&gt;</span>.command}<span class="nt">&lt;/span&gt;</span>&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  true<span class="nt">&lt;/span&gt;</span>
+.strict()
+.argv
+# implement some global switches
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>chalk.enabled = false<span class="nt">&lt;/span&gt;</span> if argv.nocolors<span class="nt">&lt;/span&gt;</span>
+# add additional dependent commands
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>cmds = []<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>for command in argv.command<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  switch command<span class="nt">&lt;/span&gt;</span>
+    when &#39;publish&#39;
+      # backward order because of unshift
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.unshift &#39;test&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.unshift &#39;compile&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.unshift &#39;update&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.unshift &#39;clean&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      argv.auto = true<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.unshift &#39;push&#39;<span class="nt">&lt;/span&gt;</span>
+      # and at last add the command itself and document publish
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.push command<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.push &#39;doc&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      argv.publish = true<span class="nt">&lt;/span&gt;</span>
+    else
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cmds.push command<span class="nt">&lt;/span&gt;</span>
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+# Init config
+# -------------------------------------------------
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+<span class="ni">&amp;nbsp;</span>
+# Run the commands
+# -------------------------------------------------
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>async.each cmds, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(command, cb) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+  # load library because it may be away later
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  lib = require <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>&quot;./tasks/#{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>command<span class="nt">&lt;/span&gt;</span>}<span class="nt">&lt;/span&gt;</span>&quot;<span class="nt">&lt;/span&gt;</span> unless command is &#39;list&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  cb()<span class="nt">&lt;/span&gt;</span>
+, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(err) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  throw err<span class="nt">&lt;/span&gt;</span> if err<span class="nt">&lt;/span&gt;</span>
+<span class="ni">&amp;nbsp;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>  async.eachSeries argv._, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(dir, cb) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>    console.log chalk.blue.bold <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>&quot;Working on #{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>dir<span class="nt">&lt;/span&gt;</span>}<span class="nt">&lt;/span&gt;</span>&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>    argv.done = []<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>    async.eachSeries cmds, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(command, cb) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+      # skip if command already done
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      return cb()<span class="nt">&lt;/span&gt;</span> if command in argv.done<span class="nt">&lt;/span&gt;</span>
+      # list possible commands
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      if command is &#39;list&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        console.log &quot;\nThe following commands are possible:\n&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        console.log <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>&quot;- #{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>key<span class="nt">&lt;/span&gt;</span>} - #{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>title<span class="nt">&lt;/span&gt;</span>}<span class="nt">&lt;/span&gt;</span>&quot;<span class="nt">&lt;/span&gt;</span> for key, title of commands<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return cb()<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      console.log chalk.blue commands[command]<span class="nt">&lt;/span&gt;</span>
+      # check for try
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      if argv.try and command is &#39;publish&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        console.log chalk.yellow &quot;Publishing is possible but won&#39;t be called because of --try flag.&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        return cb()<span class="nt">&lt;/span&gt;</span>
+      # load task library
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      lib = require <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>&quot;./tasks/#{<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>command<span class="nt">&lt;/span&gt;</span>}<span class="nt">&lt;/span&gt;</span>&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      lib.run dir, argv, <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(err) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        argv.done.push command<span class="nt">&lt;/span&gt;</span>
+        # log done comamnds
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        if command is &#39;update&#39;<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>          argv.done.push &#39;compile&#39;<span class="nt">&lt;/span&gt;</span> # this is called by npm
+        # return error
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>        cb if argv.force then <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>null<span class="nt">&lt;/span&gt;</span> else <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>err<span class="nt">&lt;/span&gt;&lt;/span&gt;</span>
+    , <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(err) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+      # protocol error on dir
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      console.error chalk.bold chalk.red err<span class="nt">&lt;/span&gt;</span> if err<span class="nt">&lt;/span&gt;</span>
+      # go on
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>      cb()<span class="nt">&lt;/span&gt;</span>
+  , <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;fstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;function not covered&quot;</span> <span class="nt">&gt;</span>(err) -<span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;cstat-no&quot;</span> <span class="na">title=</span><span class="s">&quot;statement not covered&quot;</span> <span class="nt">&gt;</span>    console.log chalk.green &quot;Done.&quot;<span class="nt">&lt;/span&gt;</span>
+<span class="ni">&amp;nbsp;</span><span class="nt">&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;&lt;/pre&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;footer&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;meta&quot;</span><span class="nt">&gt;</span>Generated by <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://istanbul-js.org/&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>istanbul<span class="nt">&lt;/a&gt;</span> at Thu Jun 18 2015 12:59:38 GMT+0200 (CEST)<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../prettify.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">prettyPrint</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">prettyPrint</span><span class="p">();</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../sorter.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

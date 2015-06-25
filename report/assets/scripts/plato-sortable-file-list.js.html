@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>plato-sortable-file-list.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-builder/report/assets/scripts/plato-sortable-file-list.js", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog.html" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>plato-sortable-file-list.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cm">/* global $:false, _:false */</span>
+<span class="cm">/* jshint browser:true */</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>author: david linse <a href="&#109;&#97;i&#108;&#x74;o:&#100;&#97;&#x76;&#x69;&#x64;&#x6C;&#x69;&#x6E;&#x73;&#x65;&#64;gm&#97;&#x69;&#x6C;.&#99;&#111;m">&#100;&#97;&#x76;&#x69;&#x64;&#x6C;&#x69;&#x6E;&#x73;&#x65;&#64;gm&#97;&#x69;&#x6C;.&#99;&#111;m</a>
+version: 0.0.1</p>
+  </div>
+  <div class="body"><p>A very first draft to add the ability to sort
+the "file-list" by the displayed 'numbers' for:</p>
+
+<ul>
+<li>lint-errors</li>
+<li>complexity</li>
+<li>lines of code</li>
+<li>estimated errors</li>
+</ul>
+
+<p>A group of buttons is added to the template above
+to trigger the update of the file-list.</p>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="nx">sortable_file_list</span> <span class="p">()</span> <span class="p">{</span>
+
+  <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">file_list</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;ul.file-list&#39;</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">file_list</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>work-horse
+@param:  key  The 'data-<key>' to sort by
+@return: descending sorted array of <li> elements</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">var</span> <span class="nx">_sortBy</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_</span><span class="p">.</span><span class="nx">sortBy</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;span[data-lint]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>sorter</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="kd">var</span> <span class="nx">_sortByLintErr</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_sortByLintErr</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_sortBy</span><span class="p">(</span><span class="s1">&#39;data-lint&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_sortBySLOC</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_sortBySLOC</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_sortBy</span><span class="p">(</span><span class="s1">&#39;data-sloc&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_sortByBugs</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_sortByBugs</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_sortBy</span><span class="p">(</span><span class="s1">&#39;data-bugs&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_sortByComplexity</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_sortByComplexity</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_sortBy</span><span class="p">(</span><span class="s1">&#39;data-complexity&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>appends the 'list' of '<li>' elements
+to its parent '<ul>'.
+@param: a list of '<li>'' elements</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">var</span> <span class="nx">_update_list</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_update_list</span> <span class="p">(</span><span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">file_list</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">list</span><span class="p">));</span>
+    <span class="p">};</span>
+
+
+    <span class="kd">var</span> <span class="nx">_update_metrics_order</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_update_metrics_order</span> <span class="p">(</span><span class="nx">metric_name</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="kd">var</span> <span class="nx">reorder</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">reorder</span> <span class="p">()</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">metric</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span> <span class="o">===</span> <span class="nx">metric_name</span><span class="p">;</span>
+        <span class="p">}).</span><span class="nx">parent</span><span class="p">();</span>
+
+        <span class="nx">$</span><span class="p">(</span><span class="nx">metric</span><span class="p">).</span><span class="nx">prependTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+      <span class="p">};</span>
+
+      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;div [class*=&#39;js-file-chart&#39;]&quot;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="nx">reorder</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>button event-handler</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="kd">var</span> <span class="nx">_byComplexity</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">_update_list</span><span class="p">(</span><span class="nx">_sortByComplexity</span><span class="p">());</span>
+      <span class="nx">_update_metrics_order</span><span class="p">(</span><span class="s1">&#39;complexity&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_byBugs</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">_update_list</span><span class="p">(</span><span class="nx">_sortByBugs</span><span class="p">());</span>
+      <span class="nx">_update_metrics_order</span><span class="p">(</span><span class="s1">&#39;est errors&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_bySLOC</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">_update_list</span><span class="p">(</span><span class="nx">_sortBySLOC</span><span class="p">());</span>
+      <span class="nx">_update_metrics_order</span><span class="p">(</span><span class="s1">&#39;sloc&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">_byLint</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">_update_list</span><span class="p">(</span><span class="nx">_sortByLintErr</span><span class="p">());</span>
+      <span class="nx">_update_metrics_order</span><span class="p">(</span><span class="s1">&#39;lint errors&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>styling</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="kd">var</span> <span class="nx">_update_state</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_update_state</span> <span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button.on&#39;</span><span class="p">);</span>
+            <span class="nx">prev</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+            <span class="nx">current</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>setup button events</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#button-complexity&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_byComplexity</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#button-bugs&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_byBugs</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#button-sloc&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_bySLOC</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button#button-lint&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">_byLint</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>styling update for buttons</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="kd">var</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;button.btn&#39;</span><span class="p">);</span>
+        <span class="nx">all</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">_update_state</span><span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+        <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
