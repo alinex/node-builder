@@ -226,8 +226,5 @@ function switchTab(tab){
   }else{
     switchTab('headings');
   }
-
-  var contEl = document.getElementById('container')
-  contEl.focus()
 }));
 
