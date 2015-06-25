@@ -15,8 +15,8 @@ It may help a lot while developing to automatize the consequently done tasks.
 - usable for other modules, too
 - working with multiple packages at once
 
-It is one of the modules of the [Alinex Universe](http://alinex.github.io/node-alinex)
-following the code standards defined there.
+> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> following the code standards defined in the [General Docs](http://alinex.github.io/node-alinex).
 
 
 Motivation
@@ -33,8 +33,12 @@ separate them into build tasks which stay in the package and overall management
 tasks which were moved out into this helper tool.
 
 
-Installation
+Install
 -------------------------------------------------
+
+[![NPM](https://nodei.co/npm/alinex-builder.png?downloads=true&downloadRank=true&stars=true)
+ ![Downloads](https://nodei.co/npm-dl/alinex-builder.png?months=9&height=3)
+](https://www.npmjs.com/package/alinex-builder)
 
 It may be installed globally as an universal helper or integrated into a package
 as development dependency.
@@ -46,9 +50,10 @@ sudo npm install -g alinex-builder --production
 builder --help
 ```
 
-After global installation you may directly call `builder` from anywhere.
+After global installation you may directly call `builder` from anywhere like shown
+above.
 
-Or you may integrate it into your own package
+Or you may integrate it into your own package:
 
 ``` sh
 npm install alinex-builder --save-devs
@@ -57,19 +62,19 @@ npm install alinex-builder --save-devs
 
 By integrating it you won't need all the development tools within your package.
 
-[![NPM](https://nodei.co/npm/alinex-builder.png?downloads=true&stars=true)](https://nodei.co/npm/alinex-builder/)
+Always have a look at the latest [changes](Changelog.md).
 
 
 Usage
 -------------------------------------------------
 
-The tool will be called with
+The tool will be called with:
 
 ``` sh
 builder [dirs] [general options] -c <commands> [command options]
 ```
 
-but if not installed globally you may run
+But if not installed globally you may run:
 
 ``` sh
 node_modules/.bin/builder [dirs] [general options] -c <commands>
@@ -87,6 +92,17 @@ as additional command instead as directory.
 
 If you want to give multiple commands add a second `-c` option or just put them
 one behind the other in one option.
+
+Within your `package.json` it may look like:
+
+``` json
+{
+  "scripts": {
+    "prepublish": "node_modules/.bin/builder -c compile --uglify",
+    "test": "node_modules/.bin/builder -c test"
+  }
+}
+```
 
 ### General options
 

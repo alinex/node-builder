@@ -95,12 +95,12 @@ publish = (dir, options, pack, cb) ->
       ], (err) ->
         return cb err if err
         fs.remove tmpdir, (err) ->
-          return openUrl options, url, cb if options.browser
+          return openUrl options, pack.homepage, cb if options.browser
           return cb()
   # Publication was not possible
   else
     console.error chalk.magenta "Could not publish, specify doc-publish script in package.json"
-    return openUrl options, url, cb if options.browser
+    return openUrl options, pack.homepage, cb if options.browser
     return cb()
 
 # ### Open the given url in the default browser
