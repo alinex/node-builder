@@ -217,7 +217,7 @@ createPackage = (dir, options, cb) ->
     license: PKG.license
     main: './lib/index.js'
     scripts:
-      prepublish: "node_modules/.bin/builder -c compile"
+      prepublish: "node_modules/.bin/builder -c compile --uglify"
       test: "node_modules/.bin/builder -c test"
     directories:
       lib: './lib'
