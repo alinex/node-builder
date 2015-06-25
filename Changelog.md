@@ -4,6 +4,18 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.1 (2015-06-25)
+-------------------------------------------------
+- Updated blockquote style in alinex.css.
+- Updated insstall documentation.
+- Add uglify option to compile for new projects.
+- Made badge links npm compatible in documentation.
+- Enabled uglify to be used on publish automatically.
+- Small documentation changes.
+- Small fixes in Alinex document layout.
+- Don'T give an error if documentation keeps unchanged,
+- Remove io.js from travis test.
+
 Version 1.1.0 (2015-06-18)
 -------------------------------------------------
 - Merge branch 'master' of https://github.com/alinex/node-builder
