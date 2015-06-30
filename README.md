@@ -132,7 +132,7 @@ Some example calls will look like:
 
 ``` sh
 builder ./node-error -c create --package alinex-error
-bulder ./private-module -c create --private
+builder ./private-module -c create --private
 ```
 
 This process is interactive and will ask you some more details. After that you

@@ -328,7 +328,7 @@ createTravis = (dir, options, cb) ->
   coveralls = "
     COVERALLS_SERVICE_NAME=travis-ci
     COVERALLS_REPO_TOKEN=haQKkRgwLHbwX1dp8ltFXFTPO48c5EEWo
-    node_modules/.bin/alinex-make test -c --coveralls"
+    node_modules/.bin/builder -c test --coverage --coveralls"
   fs.writeFile file, """
     language: node_js
     node_js:
