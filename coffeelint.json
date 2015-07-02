@@ -80,7 +80,8 @@
     },
     "no_empty_functions": {
         "name": "no_empty_functions",
-        "level": "error"
+        "level": "ignore",
+        "comment": "used as default callback ( cb = -> )"
     },
     "no_empty_param_list": {
         "name": "no_empty_param_list",
