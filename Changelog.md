@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.2 (2015-07-03)
+-------------------------------------------------
+- Changed blog link for alinex style.
+- Fixed style rules.
+- Updated create to add coveralls correctly.
+- Extended style rules for coffee script.
+
 Version 1.1.1 (2015-06-25)
 -------------------------------------------------
 - Updated blockquote style in alinex.css.
