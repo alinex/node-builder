@@ -85,7 +85,7 @@ initGit = (dir, options, cb) ->
       file = path.join dir, '.gitignore'
       return cb err if err or fs.existsSync file
       options.git = 'file://' + fs.realpathSync dir
-      fs.copy path.join(GLOBAL.ROOT_DIR, '.gitignore'), file, cb
+      fs.copy path.join(GLOBAL.ROOT_DIR, 'var/src/gitignore'), file, cb
 
 # ### Create new GitHub repository if not existing
 # It will set the `options.github` variable
