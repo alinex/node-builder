@@ -85,20 +85,20 @@ npmUpdate = (dir, options, cb) ->
 npmOutdated = (dir, options, cb) ->
   # Run external command
   console.log "List outdated packages"
-  proc = new Spawn
-    priority: 9
-    cmd: 'npm'
-    args: [ 'outdated' ]
-    cwd: dir
-    input: 'inherit'
-    check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-  proc.run (err, stdout) ->
-    num = -1 # start negative because header line is always there
-    for line in stdout.split /\n/
-      continue if not line or line.match /\s>\s/
-      console.log line
-      num++
-    if num > 0
-      return cb new Error "You may upgrade the listet modules."
-    console.log chalk.grey "Nothing to upgrade in this package found."
-    cb()
+  fs.npmbin 'npm-check', path.dirname(path.dirname __dirname), (err, cmd) ->
+    proc = new Spawn
+      priority: 9
+      cmd: cmd
+      args: ['-p']
+      cwd: dir
+      input: 'inherit'
+      check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
+    proc.run (err, stdout) ->
+      lines = stdout.split /\n/
+      if lines.length is 1
+        console.log chalk.grey "Nothing to upgrade or fix in this package found."
+        return cb()
+      for line in lines[0..lines.length-2]
+        continue unless line = line.trim()
+        console.log line
+      cb new Error "You may upgrade the listed modules using: #{cmd} -u"
