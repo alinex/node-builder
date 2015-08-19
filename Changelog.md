@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.3 (2015-08-19)
+-------------------------------------------------
+- Optimized the update check and process.
+- Added version number to changes output.
+- Added npm-check utility for easier package control.
+- Add ncu tool to be use on outdated() later.
+- Copy gitignore from var/src.
+
 Version 1.1.2 (2015-07-03)
 -------------------------------------------------
 - Changed blog link for alinex style.
