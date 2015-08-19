@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>foldcode.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../doc-style.css" />
+  <script src="../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../", thisFile = "home/alex/a3/node-builder/report/assets/scripts/vendor/codemirror/util/foldcodejs", defaultSidebar = true;
+  </script>
+  <script src="../../../../../../doc-script.js"></script>
+  <script src="../../../../../../fileSearch.js"></script>
+  <script src="../../../../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>foldcode.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<p>the tagRangeFinder function is
+  Copyright (C) 2011 by Daniel Glazman <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#x6F;:&#100;&#x61;&#x6E;&#x69;&#x65;&#108;&#64;&#103;&#x6C;&#97;&#122;&#x6D;&#97;&#x6E;&#46;&#x6F;&#114;&#103;">&#100;&#x61;&#x6E;&#x69;&#x65;&#108;&#64;&#103;&#x6C;&#97;&#122;&#x6D;&#97;&#x6E;&#46;&#x6F;&#114;&#103;</a>
+released under the MIT license (../../LICENSE) like the rest of CodeMirror</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">tagRangeFinder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span> <span class="nx">start</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">nameStartChar</span> <span class="o">=</span> <span class="s2">&quot;A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD&quot;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">nameChar</span> <span class="o">=</span> <span class="nx">nameStartChar</span> <span class="o">+</span> <span class="s2">&quot;\-\:\.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040&quot;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">xmlNAMERegExp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s2">&quot;^[&quot;</span> <span class="o">+</span> <span class="nx">nameStartChar</span> <span class="o">+</span> <span class="s2">&quot;][&quot;</span> <span class="o">+</span> <span class="nx">nameChar</span> <span class="o">+</span> <span class="s2">&quot;]*&quot;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">lineText</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">line</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">tag</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">start</span><span class="p">.</span><span class="nx">ch</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">pos</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="nx">pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="nx">pos</span><span class="p">)</span> <span class="c1">// no tag on line</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">lineText</span><span class="p">[</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// closing tag</span>
+      <span class="nx">pos</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>ok we seem to have a start tag</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lineText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">match</span><span class="p">(</span><span class="nx">xmlNAMERegExp</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// not a tag name...</span>
+      <span class="nx">pos</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">gtPos</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="nx">gtPos</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// end of start tag not in line</span>
+      <span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">foundGt</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">lastLine</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">lineCount</span><span class="p">();</span>
+      <span class="k">while</span> <span class="p">(</span><span class="nx">l</span> <span class="o">&lt;</span> <span class="nx">lastLine</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">foundGt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">lt</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">l</span><span class="p">);</span>
+        <span class="nx">gtPos</span> <span class="o">=</span> <span class="nx">lt</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="nx">gtPos</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// found a &gt;</span>
+          <span class="nx">foundGt</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+          <span class="kd">var</span> <span class="nx">slash</span> <span class="o">=</span> <span class="nx">lt</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="nx">gtPos</span><span class="p">);</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="nx">slash</span> <span class="o">&amp;&amp;</span> <span class="nx">slash</span> <span class="o">&lt;</span> <span class="nx">gtPos</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">slash</span><span class="p">,</span> <span class="nx">gtPos</span> <span class="o">-</span> <span class="nx">slash</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span> <span class="sr">/\/\s*\&gt;/</span> <span class="p">))</span> <span class="c1">// yep, that&#39;s the end of empty tag</span>
+              <span class="k">return</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">l</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">found</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">slashPos</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="nx">gtPos</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="nx">slashPos</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// cannot be empty tag</span>
+        <span class="nx">found</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>don't continue</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="p">}</span>
+      <span class="k">else</span> <span class="p">{</span> <span class="c1">// empty tag?</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>check if really empty tag</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">slashPos</span><span class="p">,</span> <span class="nx">gtPos</span> <span class="o">-</span> <span class="nx">slashPos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">str</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span> <span class="sr">/\/\s*\&gt;/</span> <span class="p">))</span> <span class="p">{</span> <span class="c1">// finally not empty</span>
+          <span class="nx">found</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>don't continue</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">found</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">subLine</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+      <span class="nx">tag</span> <span class="o">=</span> <span class="nx">subLine</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">xmlNAMERegExp</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">tag</span><span class="p">)</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>we have an element name, wooohooo !</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">tag</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>do we have the close tag on same line ???</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">!=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;&lt;/&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="nx">pos</span><span class="p">))</span> <span class="c1">// yep</span>
+        <span class="p">{</span>
+          <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>we don't, so we have a candidate...</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="p">}</span>
+      <span class="k">else</span>
+        <span class="nx">found</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">found</span><span class="p">)</span>
+      <span class="nx">pos</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">found</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">startTag</span> <span class="o">=</span> <span class="s2">&quot;(\\&lt;\\/&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;\\&gt;)|(\\&lt;&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;\\&gt;)|(\\&lt;&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;\\s)|(\\&lt;&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;$)&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">startTagRegExp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">startTag</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">endTag</span> <span class="o">=</span> <span class="s2">&quot;&lt;/&quot;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">depth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">lastLine</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">lineCount</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">l</span> <span class="o">&lt;</span> <span class="nx">lastLine</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">lineText</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">l</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">startTagRegExp</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">endTag</span><span class="p">)</span>
+            <span class="nx">depth</span><span class="o">--</span><span class="p">;</span>
+          <span class="k">else</span>
+            <span class="nx">depth</span><span class="o">++</span><span class="p">;</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">depth</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span><span class="nx">from</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">gtPos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">},</span>
+                              <span class="nx">to</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">match</span><span class="p">.</span><span class="nx">index</span><span class="p">}};</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">l</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">braceRangeFinder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span> <span class="nx">start</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">line</span> <span class="o">=</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">lineText</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">at</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">startChar</span><span class="p">,</span> <span class="nx">tokenType</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">found</span> <span class="o">=</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="nx">at</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">found</span> <span class="o">&lt;</span> <span class="nx">start</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="nx">tokenType</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getTokenAt</span><span class="p">({</span><span class="nx">line</span><span class="o">:</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">found</span><span class="p">}).</span><span class="nx">type</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/^(comment|string)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">tokenType</span><span class="p">))</span> <span class="p">{</span> <span class="nx">startChar</span> <span class="o">=</span> <span class="nx">found</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span> <span class="p">}</span>
+    <span class="nx">at</span> <span class="o">=</span> <span class="nx">found</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">startChar</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">lineText</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">startChar</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lastLine</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">lineCount</span><span class="p">(),</span> <span class="nx">end</span><span class="p">,</span> <span class="nx">endCh</span><span class="p">;</span>
+  <span class="nx">outer</span><span class="o">:</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lastLine</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="nx">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">nextOpen</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">,</span> <span class="nx">pos</span><span class="p">),</span> <span class="nx">nextClose</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">,</span> <span class="nx">pos</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">nextOpen</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">nextOpen</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">nextClose</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">nextClose</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+      <span class="nx">pos</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">nextOpen</span><span class="p">,</span> <span class="nx">nextClose</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">==</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">getTokenAt</span><span class="p">({</span><span class="nx">line</span><span class="o">:</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}).</span><span class="nx">type</span> <span class="o">==</span> <span class="nx">tokenType</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">==</span> <span class="nx">nextOpen</span><span class="p">)</span> <span class="o">++</span><span class="nx">count</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!--</span><span class="nx">count</span><span class="p">)</span> <span class="p">{</span> <span class="nx">end</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">endCh</span> <span class="o">=</span> <span class="nx">pos</span><span class="p">;</span> <span class="k">break</span> <span class="nx">outer</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="o">++</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">end</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">end</span> <span class="o">==</span> <span class="nx">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span><span class="nx">from</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">startChar</span> <span class="o">+</span> <span class="mi">1</span><span class="p">},</span>
+          <span class="nx">to</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">end</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">endCh</span><span class="p">}};</span>
+<span class="p">};</span>
+
+<span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">indentRangeFinder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span> <span class="nx">start</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">tabSize</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getOption</span><span class="p">(</span><span class="s2">&quot;tabSize&quot;</span><span class="p">),</span> <span class="nx">firstLine</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">line</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">myIndent</span> <span class="o">=</span> <span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">countColumn</span><span class="p">(</span><span class="nx">firstLine</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">tabSize</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">end</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">lineCount</span><span class="p">();</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">end</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">curLine</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">getLine</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">countColumn</span><span class="p">(</span><span class="nx">curLine</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">tabSize</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">myIndent</span><span class="p">)</span>
+      <span class="k">return</span> <span class="p">{</span><span class="nx">from</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">start</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">firstLine</span><span class="p">.</span><span class="nx">length</span><span class="p">},</span>
+              <span class="nx">to</span><span class="o">:</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="nx">curLine</span><span class="p">.</span><span class="nx">length</span><span class="p">}};</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">newFoldFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">rangeFinder</span><span class="p">,</span> <span class="nx">widget</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">widget</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="nx">widget</span> <span class="o">=</span> <span class="s2">&quot;\u2194&quot;</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">widget</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">widget</span><span class="p">);</span>
+    <span class="nx">widget</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">);</span>
+    <span class="nx">widget</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+    <span class="nx">widget</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s2">&quot;CodeMirror-foldmarker&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span> <span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">pos</span> <span class="o">==</span> <span class="s2">&quot;number&quot;</span><span class="p">)</span> <span class="nx">pos</span> <span class="o">=</span> <span class="p">{</span><span class="nx">line</span><span class="o">:</span> <span class="nx">pos</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">rangeFinder</span><span class="p">(</span><span class="nx">cm</span><span class="p">,</span> <span class="nx">pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">range</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">present</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">findMarksAt</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">from</span><span class="p">),</span> <span class="nx">cleared</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">present</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">present</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">__isFold</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">++</span><span class="nx">cleared</span><span class="p">;</span>
+        <span class="nx">present</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">clear</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">cleared</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">myWidget</span> <span class="o">=</span> <span class="nx">widget</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">myWidget</span><span class="p">,</span> <span class="s2">&quot;mousedown&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">myRange</span><span class="p">.</span><span class="nx">clear</span><span class="p">();});</span>
+    <span class="kd">var</span> <span class="nx">myRange</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">markText</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span> <span class="nx">range</span><span class="p">.</span><span class="nx">to</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">replacedWith</span><span class="o">:</span> <span class="nx">myWidget</span><span class="p">,</span>
+      <span class="nx">clearOnEnter</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">__isFold</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

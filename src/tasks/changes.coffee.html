@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/changes.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/changescoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -167,13 +167,13 @@ execution finished.</li>
 <p>run the pull options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Changes since last publication:&quot;</span>
     <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
       <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
       <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--abbrev=0&#39;</span> <span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
     <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nv">tag = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Changes since last publication as </span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">:&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
       <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
         <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>

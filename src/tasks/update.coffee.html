@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/update.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/tasks/updatecoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -306,23 +306,24 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;List outdated packages&quot;</span>
-  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-    <span class="nv">priority: </span><span class="mi">9</span>
-    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;outdated&#39;</span> <span class="p">]</span>
-    <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
-    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout) -&gt;</span>
-    <span class="nv">num = </span><span class="o">-</span><span class="mi">1</span> <span class="c1"># start negative because header line is always there</span>
-    <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="k">continue</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">line</span> <span class="o">or</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\s&gt;\s/</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">line</span>
-      <span class="nx">num</span><span class="o">++</span>
-    <span class="k">if</span> <span class="nx">num</span> <span class="o">&gt;</span> <span class="mi">0</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;You may upgrade the listet modules.&quot;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade in this package found.&quot;</span>
-    <span class="nx">cb</span><span class="p">()</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;npm-check&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
+    <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+      <span class="nv">priority: </span><span class="mi">9</span>
+      <span class="nv">cmd: </span><span class="nx">cmd</span>
+      <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-p&#39;</span><span class="p">]</span>
+      <span class="nv">cwd: </span><span class="nx">dir</span>
+      <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
+      <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
+    <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout) -&gt;</span>
+      <span class="nv">lines = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade or fix in this package found.&quot;</span>
+        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+      <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">continue</span> <span class="k">unless</span> <span class="nv">line = </span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">line</span>
+      <span class="nv">cmd = </span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;/bin/npm-upgrade&#39;</span>
+      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;You may upgrade the listed modules using: </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span> <span class="nx">cmd</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
 </pre></div>
         </td>
       </tr>
