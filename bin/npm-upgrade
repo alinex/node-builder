@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Usage: npm-upgrade <base path>
+
+
+# get the original file a link points to if it's a link
+LINK_FILE=$(readlink -f "$0")
+# determine the name of the directory where we ran from
+if [ 0 = $? ]; then
+    STARTUP_DIR=$(dirname "$LINK_FILE")
+else
+    STARTUP_DIR=$(dirname "$0")
+fi
+
+# now change into the desired base directory
+cd $1
+# and run the command
+$STARTUP_DIR/../node_modules/.bin/npm-check -u

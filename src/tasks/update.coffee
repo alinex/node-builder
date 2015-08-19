@@ -101,4 +101,5 @@ npmOutdated = (dir, options, cb) ->
       for line in lines[0..lines.length-2]
         continue unless line = line.trim()
         console.log line
-      cb new Error "You may upgrade the listed modules using: #{cmd} -u"
+      cmd = path.dirname(path.dirname __dirname) + '/bin/npm-upgrade'
+      cb new Error "You may upgrade the listed modules using: #{chalk.underline cmd + ' ' + dir}"
