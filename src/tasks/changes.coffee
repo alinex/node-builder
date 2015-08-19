@@ -41,13 +41,13 @@ git = (dir, options, cb) ->
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
     # run the pull options
-    console.log "Changes since last publication:"
     proc = new Spawn
       cmd: 'git'
       args: [ 'describe', '--abbrev=0' ]
       cwd: dir
     proc.run (err, stdout, stderr) ->
       tag = stdout.trim()
+      console.log "Changes since last publication as #{tag}:"
       return cb err if err
       proc = new Spawn
         cmd: 'git'
