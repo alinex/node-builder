@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.4 (2015-09-02)
+-------------------------------------------------
+- Updated npm update check module.
+
 Version 1.1.3 (2015-08-19)
 -------------------------------------------------
 - Optimized the update check and process.
