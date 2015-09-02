@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.6 (2015-09-02)
+-------------------------------------------------
+- 
+
 Version 1.1.5 (2015-09-02)
 -------------------------------------------------
 - 
