@@ -333,9 +333,8 @@ createTravis = (dir, options, cb) ->
     language: node_js
     node_js:
        - "0.10"
-       - "0.11"
        - "0.12"
-       - "io.js"
+       - "4"
     after_success:
        - #{coveralls}
     """, cb
