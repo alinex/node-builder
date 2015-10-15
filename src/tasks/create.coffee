@@ -7,7 +7,7 @@
 
 # include base modules
 debug = require('debug')('make:create')
-async = require 'async'
+async = require 'alinex-async'
 fs = require 'alinex-fs'
 path = require 'path'
 chalk = require 'chalk'

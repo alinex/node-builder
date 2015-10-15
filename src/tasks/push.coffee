@@ -5,13 +5,13 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-Spawn = require 'alinex-spawn'
 # include base modules
-async = require 'async'
-fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'
+# include alinex modules
+async = require 'alinex-async'
+fs = require 'alinex-fs'
+Exec = require 'alinex-exec'
 
 # Main routine
 # -------------------------------------------------
@@ -45,46 +45,47 @@ git = (dir, options, cb) ->
       return cb err if err
       # run the push options
       console.log "Push to origin"
-      proc = new Spawn
+      Exec.run
         cmd: 'git'
         args: [ 'push', '--tags', 'origin', 'master' ]
         cwd: dir
-      proc.run (err, stdout, stderr) ->
-        console.log chalk.grey stdout.trim() if stdout and options.verbose
-        console.error chalk.magenta stderr.trim() if stderr
+      , (err, proc) ->
+        console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
+        console.error chalk.magenta proc.stderr().trim() if proc.stderr()
         cb err, true
 
 commit = (dir, options, cb) ->
   if options.message
     console.log "Adding changed files to git"
-    proc = new Spawn
+    Exec.run
       cmd: 'git'
       args: [ 'add', '-A' ]
       cwd: dir
-    proc.run (err, stdout, stderr) ->
-      console.log chalk.grey stdout.trim() if stdout and options.verbose
-      console.error chalk.magenta stderr.trim() if stderr
+    , (err, proc) ->
+      console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       return cb err if err
-      proc = new Spawn
+      Exec.run
         cmd: 'git'
         args: [ 'commit', '-m', options.message ]
         cwd: dir
-        check: (proc) -> new Error "Error while pushing to git origin." if proc.error
-      proc.run (err, stdout, stderr) ->
+        check:
+          noExitCode: true
+      , (err, proc) ->
         # ignore error because it will get
-        console.log chalk.grey stdout.trim() if stdout and options.verbose
-        console.error chalk.magenta stderr.trim() if stderr
+        console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
+        console.error chalk.magenta proc.stderr().trim() if proc.stderr()
         cb err
   else
-    proc = new Spawn
+    Exec.run
       cmd: 'git'
       args: [ 'status' ]
       cwd: dir
       env:
         LANG: 'C'
-    proc.run (err, stdout, stderr) ->
+    , (err, proc) ->
       return cb err if err
-      return cb() if ~stdout.indexOf 'nothing to commit'
-      console.log stdout
+      return cb() if ~proc.stdout().indexOf 'nothing to commit'
+      console.log proc.stdout()
       cb new Error "Skipped push for #{dir} because not all changes are committed,
       use '--message <message>'."

@@ -5,14 +5,14 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-fs = require 'alinex-fs'
-Spawn = require 'alinex-spawn'
-# include other modules
+# include base modules
 path = require 'path'
-async = require 'async'
 chalk = require 'chalk'
 coffee = require 'coffee-script'
+# alinex modules
+fs = require 'alinex-fs'
+async = require 'alinex-async'
+Exec = require 'alinex-exec'
 
 # Main routine
 # -------------------------------------------------
@@ -109,14 +109,15 @@ compileMan = (dir, options, cb) ->
         console.log chalk.grey "Create #{pack.man}" if options.verbose
         fs.npmbin 'marked-man', path.dirname(path.dirname __dirname), (err, cmd) ->
           return cb err if err
-          proc = new Spawn
-            priority: 9
+          Exec.run
             cmd: cmd
             args: [ input ]
-          proc.run (err, stdout, stderr, code) ->
+            cwd: dir
+          , (err, proc) ->
             return cb err if err
-            fs.writeFile path.join(dir, name), stdout, cb
+            fs.writeFile path.join(dir, name), proc.stdout(), cb
     , cb
+
 
 # ### Run uglify for all javascript in directory
 uglify = (item, cb) ->
@@ -129,13 +130,11 @@ uglify = (item, cb) ->
       '-m', '-c'
     ]
     args.push '--in-source-map', item.frommap if item.frommap
-    proc = new Spawn
-      priority: 9
+    Exec.run
       cmd: cmd
       args: args
       cwd: item.dir
-    proc.run (err, stdout, stderr, code) ->
-#    execFile cmd, args, { cwd: item.dir }, (err, stdout, stderr) ->
-      console.log chalk.grey stdout.trim() if stdout and options.verbose
-      console.error chalk.magenta stderr.trim() if stderr
+    , (err, proc) ->
+      console.log chalk.grey stdout.trim() if proc.stdout() and options.verbose
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       cb err

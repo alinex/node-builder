@@ -5,13 +5,13 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-Spawn = require 'alinex-spawn'
 # include base modules
-async = require 'async'
-fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'
+# include alinex modules
+fs = require 'alinex-fs'
+async = require 'alinex-async'
+Exec = require 'alinex-exec'
 
 # Main routine
 # -------------------------------------------------
@@ -41,23 +41,23 @@ git = (dir, options, cb) ->
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
     # run the pull options
-    proc = new Spawn
+    Exec.run
       cmd: 'git'
       args: [ 'describe', '--abbrev=0' ]
       cwd: dir
-    proc.run (err, stdout, stderr) ->
-      tag = stdout.trim()
+    , (err, proc) ->
+      tag = proc.stdout().trim()
       console.log "Changes since last publication as #{tag}:"
       return cb err if err
-      proc = new Spawn
+      Exec.run
         cmd: 'git'
         args: [ 'log', "#{tag}..HEAD", "--format=oneline" ]
         cwd: dir
-      proc.run (err, stdout, stderr) ->
+      , (err, proc) ->
         return cb err if err
-        if stdout
-          console.log chalk.yellow "- #{line[41..]}" for line in stdout.trim().split /\n/
+        if proc.stdout()
+          console.log chalk.yellow "- #{line[41..]}" for line in proc.stdout().trim().split /\n/
         else
           console.log chalk.yellow "Nothing changed."
-        console.error chalk.magenta stderr.trim() if stderr
+        console.error chalk.magenta proc.stderr().trim() if proc.stderr()
         cb err, true

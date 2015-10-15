@@ -37,6 +37,7 @@ And the available options are:
     --try           publish: don't really publish but check if it is possible
     --force         publish: also if tests have errors or submodules not
                     up-to-date
+    -b, --bail      test: stop on first error
     --coverage      test: create coverage report
     --coveralls     test: send coverage to coveralls
     --watch         test,doc: keep process running while watching for changes

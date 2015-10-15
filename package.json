@@ -41,10 +41,10 @@
     "man": "./man"
   },
   "dependencies": {
-    "alinex-error": "1.x",
+    "alinex-async": "^0.2.3",
+    "alinex-config": "^1.0.6",
+    "alinex-exec": "^1.0.0",
     "alinex-fs": "0.2.x",
-    "alinex-spawn": "1.x",
-    "async": "1.x",
     "chalk": "1.x",
     "coffee-coverage": "0.x",
     "coffee-script": ">=1.7.0",

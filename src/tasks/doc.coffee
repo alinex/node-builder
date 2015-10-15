@@ -5,17 +5,17 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-Spawn = require 'alinex-spawn'
 fs = require 'alinex-fs'
 # include base modules
 debug = require('debug')('builder')
-async = require 'async'
 path = require 'path'
 chalk = require 'chalk'
 {exec,execFile} = require 'child_process'
 os = require 'os'
 crypto = require 'crypto'
+# include alinex modules
+Exec = require 'alinex-exec'
+async = require 'alinex-async'
 
 # Main routine
 # -------------------------------------------------
@@ -167,16 +167,17 @@ createDoc = (dir, options, cb) ->
                     '-c', 'autumn'
                     '--extras', 'fileSearch,goToLine'
                   ]
-                  proc = new Spawn
+                  Exec.run
                     cmd: cmd
                     args: args
-                    check: (proc) -> new Error "Got exit code of #{proc.code}" if proc.code
-                  proc.run cb
+                    cwd: dir
+                    check:
+                      noExitCode: true
+                  , cb
               (cb) ->
                 # correct internal links
-                return cb err if err
                 console.log chalk.grey "Correcting local links" if options.verbose
-                proc = new Spawn
+                Exec.run
                   cmd: replace
                   args: [
                     '(<a href="(?!#|.+?://)[^?#"]+[^/?#"])(.*?")'
@@ -184,7 +185,8 @@ createDoc = (dir, options, cb) ->
                     path.join dir, 'doc'
                     '-r'
                   ]
-                proc.run cb
+                  cwd: dir
+                , cb
               (cb) ->
                 # add fork on github icon
                 try
@@ -192,7 +194,7 @@ createDoc = (dir, options, cb) ->
                 catch err
                   return cb new Error "Could not load #{file} as valid JSON."
                 return cb() unless (pack.name.split /-/)[0] is 'alinex'
-                proc = new Spawn
+                Exec.run
                   cmd: replace
                   args: [
                     '(<div id="container")>'
@@ -201,7 +203,8 @@ createDoc = (dir, options, cb) ->
                     path.join dir, 'doc'
                     '-r'
                   ]
-                proc.run cb
+                  cwd: dir
+                , cb
               (cb) ->
                 # add alinex header
                 try
@@ -209,7 +212,7 @@ createDoc = (dir, options, cb) ->
                 catch err
                   return cb new Error "Could not load #{file} as valid JSON."
                 return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
-                proc = new Spawn
+                Exec.run
                   cmd: replace
                   args: [
                     '(<div id="sidebar_wrapper">)'
@@ -229,7 +232,8 @@ createDoc = (dir, options, cb) ->
                     path.join dir, 'doc'
                     '-r'
                   ]
-                proc.run cb
+                  cwd: dir
+                , cb
               (cb) ->
                 # fix tables
                 try
@@ -238,7 +242,7 @@ createDoc = (dir, options, cb) ->
                   return cb new Error "Could not load #{file} as valid JSON."
                 unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                   return cb()
-                proc = new Spawn
+                Exec.run
                   cmd: replace
                   args: [
                     '<p>(\\|)'
@@ -246,7 +250,8 @@ createDoc = (dir, options, cb) ->
                     path.join dir, 'doc'
                     '-r'
                   ]
-                proc.run cb
+                  cwd: dir
+                , cb
             ], cb
         (cb) ->
           # copy images

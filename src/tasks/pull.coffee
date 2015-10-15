@@ -6,13 +6,13 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-Spawn = require 'alinex-spawn'
 # include base modules
-async = require 'async'
 fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'
+# include alinex modules
+async = require 'alinex-async'
+Exec = require 'alinex-exec'
 
 
 # Main routine
@@ -44,11 +44,11 @@ git = (dir, options, cb) ->
     return cb() unless exists # no git repository
     # run the pull options
     console.log "Pull from git origin"
-    proc = new Spawn
+    Exec.run
       cmd: 'git'
       args: [ 'pull', '-t', '-p', 'origin', 'master' ]
       cwd: dir
-    proc.run (err, stdout, stderr) ->
-      console.log chalk.grey stdout.trim() if stdout and options.verbose
-      console.error chalk.magenta stderr.trim() if stderr
+    , (err, proc) ->
+      console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       cb err, true

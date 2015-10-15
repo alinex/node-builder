@@ -264,6 +264,8 @@ You may also create an html coverage report:
 builder -c test --coverage
 ```
 
+If you want to stop after the  first error occurs use the `--bail` flag.
+
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
 results to coveralls.

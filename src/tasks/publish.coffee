@@ -7,7 +7,6 @@
 
 # include base modules
 debug = require('debug')('make:publish')
-async = require 'async'
 path = require 'path'
 chalk = require 'chalk'
 {execFile} = require 'child_process'
@@ -15,6 +14,7 @@ request = require 'request'
 moment = require 'moment'
 # include alinex modules
 fs = require 'alinex-fs'
+async = require 'alinex-async'
 
 # Main routine
 # -------------------------------------------------

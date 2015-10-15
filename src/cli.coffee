@@ -30,13 +30,10 @@ fs = require 'fs'
 yargs = require 'yargs'
 path = require 'path'
 chalk = require 'chalk'
-async = require 'async'
 # include alinex modules
-Spawn = require 'alinex-spawn'
-errorHandler = require 'alinex-error'
-errorHandler.install()
-errorHandler.config.stack.modules = true
-
+async = require 'alinex-async'
+config = require 'alinex-config'
+Exec = require 'alinex-exec'
 
 # Setup build environment
 # -------------------------------------------------
@@ -45,12 +42,10 @@ errorHandler.config.stack.modules = true
 GLOBAL.ROOT_DIR = path.dirname __dirname
 # Read in package configuration
 GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
-# setup search path for configs
-for path in  [
-    path.resolve path.dirname(__dirname), 'var/src/config'
-    path.resolve path.dirname(__dirname), 'var/local/config'
-  ]
-  Spawn.configsearch.push path
+
+Exec.setup ->
+  config.register 'builder', path.dirname(__dirname),
+    uri: '*'
 
 # list of possible commands
 commands =
@@ -94,6 +89,10 @@ argv = yargs
 # create options
 .describe('private', 'create: private repository')
 .describe('package', 'create: set package name')
+# test options
+.boolean('b')
+.alias('b', 'bail')
+.describe('b', 'stop after first error')
 # push options
 .alias('m', 'message')
 .describe('m', 'push: text for commit message')

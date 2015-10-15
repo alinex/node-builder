@@ -1,0 +1,20 @@
+# Setup for Exec module
+# =================================================
+# Default settings to fully use a machine.
+
+priority:
+  # specify the default priority
+  default: medium
+  # specify the possible priorities with their checks
+  level:
+    low:
+      maxCpu: 60%
+      maxLoad: 80%
+      nice: 10
+    medium:
+      maxCpu: 90%
+      maxLoad: 200%
+      nice: 5
+    high:
+      maxCpu: 95%
+      maxLoad: 400%

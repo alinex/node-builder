@@ -7,11 +7,11 @@
 
 # include base modules
 debug = require('debug')('builder:test')
-async = require 'async'
-fs = require 'alinex-fs'
 path = require 'path'
 chalk = require 'chalk'
 {spawn,exec, execFile} = require 'child_process'
+fs = require 'alinex-fs'
+async = require 'alinex-async'
 
 # Main routine
 # -------------------------------------------------
@@ -117,6 +117,7 @@ testMocha = (dir, options, cb) ->
       args.push '--reporter', 'spec'
       args.push '-c' # colors
       args.push '--recursive'
+      args.push '--bail' if options.bail
       args.push 'test/mocha'
       debug "exec #{dir}> #{cmd} #{args.join ' '}"
       proc = spawn cmd, args, { cwd: dir, stdio: 'inherit', env: process.env }

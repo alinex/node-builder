@@ -5,13 +5,13 @@
 # Node modules
 # -------------------------------------------------
 
-# include alinex modules
-Spawn = require 'alinex-spawn'
 # include base modules
-async = require 'async'
-fs = require 'alinex-fs'
 path = require 'path'
 chalk = require 'chalk'
+# include alinex modules
+fs = require 'alinex-fs'
+async = require 'alinex-async'
+Exec = require 'alinex-exec'
 
 # Main routine
 # -------------------------------------------------
@@ -54,13 +54,13 @@ module.exports.run = (dir, options, cb) ->
 cleanDistribution = (dir, options, cb) ->
   return cb() unless options.dist
   console.log "Remove development modules"
-  proc = new Spawn
+  Exec.run
     cmd: 'npm'
     args: [ 'prune', '--production' ]
     cwd: dir
-  proc.run (err, stdout, stderr) ->
-    console.log chalk.grey stdout.trim() if stdout and options.verbose
-    console.error chalk.magenta stderr.trim() if stderr
+  , (err, proc) ->
+    console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
+    console.error chalk.magenta proc.stderr().trim() if proc.stderr()
     cb err
 
 cleanModules = (dir, options, cb) ->
