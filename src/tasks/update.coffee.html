@@ -90,10 +90,12 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
-<p>include alinex modules</p>
+<p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">Spawn = </span><span class="nx">require</span> <span class="s">&#39;alinex-spawn&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 
 </pre></div>
         </td>
@@ -103,14 +105,12 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
-<p>include base modules</p>
+<p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 
 
 </pre></div>
@@ -192,14 +192,13 @@ execution finished.</li>
 <p>get old registry</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-    <span class="nv">priority: </span><span class="mi">9</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
     <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
     <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;set&#39;</span><span class="p">,</span> <span class="s">&#39;registry&#39;</span><span class="p">,</span> <span class="nx">registry</span> <span class="p">]</span>
     <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
-    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+    <span class="nv">check:</span>
+      <span class="nv">noExitCode: </span><span class="kc">true</span>
+  <span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -230,14 +229,13 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Install through npm&quot;</span>
-  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-    <span class="nv">priority: </span><span class="mi">9</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
     <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
     <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">]</span>
     <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
-    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+    <span class="nv">check:</span>
+      <span class="nv">noExitCode: </span><span class="kc">true</span>
+  <span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -268,14 +266,13 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Update npm packages&quot;</span>
-  <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-    <span class="nv">priority: </span><span class="mi">9</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
     <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
     <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;update&#39;</span> <span class="p">]</span>
     <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
-    <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-  <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nx">cb</span>
+    <span class="nv">check:</span>
+      <span class="nv">noExitCode: </span><span class="kc">true</span>
+  <span class="p">,</span> <span class="nx">cb</span>
 
 
 </pre></div>
@@ -307,15 +304,14 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;List outdated packages&quot;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;npm-check&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
-    <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
-      <span class="nv">priority: </span><span class="mi">9</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
       <span class="nv">cmd: </span><span class="nx">cmd</span>
       <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-p&#39;</span><span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
-      <span class="nv">input: </span><span class="s">&#39;inherit&#39;</span>
-      <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Got exit code of </span><span class="si">#{</span><span class="nx">proc</span><span class="p">.</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">code</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout) -&gt;</span>
-      <span class="nv">lines = </span><span class="nx">stdout</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="nv">check:</span>
+        <span class="nv">noExitCode: </span><span class="kc">true</span>
+    <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+      <span class="nv">lines = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
       <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade or fix in this package found.&quot;</span>
         <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>

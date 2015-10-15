@@ -81,10 +81,11 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
-<p>include alinex modules</p>
+<p>include base modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">Spawn = </span><span class="nx">require</span> <span class="s">&#39;alinex-spawn&#39;</span>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 
 </pre></div>
         </td>
@@ -94,13 +95,12 @@
 <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
-<p>include base modules</p>
+<p>include alinex modules</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 
 
 </pre></div>
@@ -182,32 +182,33 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to origin&quot;</span>
-      <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+      <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
         <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
         <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;push&#39;</span><span class="p">,</span> <span class="s">&#39;--tags&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span> <span class="p">]</span>
         <span class="nv">cwd: </span><span class="nx">dir</span>
-      <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
+      <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
         <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">true</span>
 
 <span class="nv">commit = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">message</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Adding changed files to git&quot;</span>
-    <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
       <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
       <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;-A&#39;</span> <span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
+    <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+      <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
         <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
         <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;commit&#39;</span><span class="p">,</span> <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">message</span> <span class="p">]</span>
         <span class="nv">cwd: </span><span class="nx">dir</span>
-        <span class="nv">check: </span><span class="nf">(proc) -&gt;</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Error while pushing to git origin.&quot;</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">error</span>
-      <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="nv">check:</span>
+          <span class="nv">noExitCode: </span><span class="kc">true</span>
+      <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
 
 </pre></div>
         </td>
@@ -220,20 +221,20 @@ execution finished.</li>
 <p>ignore error because it will get</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
         <span class="nx">cb</span> <span class="nx">err</span>
   <span class="k">else</span>
-    <span class="nv">proc = </span><span class="k">new</span> <span class="nx">Spawn</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
       <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
       <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;status&#39;</span> <span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
       <span class="nv">env:</span>
         <span class="nv">LANG: </span><span class="s">&#39;C&#39;</span>
-    <span class="nx">proc</span><span class="p">.</span><span class="nx">run</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">~</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;nothing to commit&#39;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="o">~</span><span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">indexOf</span> <span class="s">&#39;nothing to commit&#39;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
       <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Skipped push for </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s"> because not all changes are committed,</span>
 <span class="s">      use &#39;--message &lt;message&gt;&#39;.&quot;</span>
 </pre></div>

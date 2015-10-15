@@ -100,11 +100,11 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;builder:test&#39;</span><span class="p">)</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="p">{</span><span class="nx">spawn</span><span class="p">,</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 
 
 </pre></div>
@@ -367,6 +367,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--reporter&#39;</span><span class="p">,</span> <span class="s">&#39;spec&#39;</span>
       <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;-c&#39;</span> <span class="c1"># colors</span>
       <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--recursive&#39;</span>
+      <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--bail&#39;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">bail</span>
       <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;test/mocha&#39;</span>
       <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nv">proc = </span><span class="nx">spawn</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">env: </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span> <span class="p">}</span>

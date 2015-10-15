@@ -109,7 +109,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;make:create&#39;</span><span class="p">)</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;async&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
 <span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
@@ -671,9 +671,8 @@ execution finished.</li>
 <span class="s">    language: node_js</span>
 <span class="s">    node_js:</span>
 <span class="s">       - &quot;0.10&quot;</span>
-<span class="s">       - &quot;0.11&quot;</span>
 <span class="s">       - &quot;0.12&quot;</span>
-<span class="s">       - &quot;io.js&quot;</span>
+<span class="s">       - &quot;4&quot;</span>
 <span class="s">    after_success:</span>
 <span class="s">       - </span><span class="si">#{</span><span class="nx">coveralls</span><span class="si">}</span><span class="s"></span>
 <span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
