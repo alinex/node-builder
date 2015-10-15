@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.7 (2015-10-15)
+-------------------------------------------------
+- Updated to use alinex-exec instead of old spawn.
+- Test on nodejs v4.
+
 Version 1.1.6 (2015-09-02)
 -------------------------------------------------
 - 
