@@ -52,7 +52,7 @@
     "coveralls": "2.x",
     "debug": ">=0.8.0 <3.0.0",
     "docker": ">=0.2.10",
-    "istanbul": "0.3.x || 0.2.x",
+    "istanbul": "^0.4.0",
     "marked-man": "0.1.x",
     "mocha": "1.x || 2.x",
     "moment": "2.x",
