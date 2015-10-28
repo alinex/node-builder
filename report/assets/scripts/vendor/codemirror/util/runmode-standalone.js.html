@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>runmode-standalone.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../../doc-style.css" />
+  <script src="../../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../../", thisFile = "home/alex/a3/node-builder/report/assets/scripts/vendor/codemirror/util/runmode-standalonejs", defaultSidebar = true;
+  </script>
+  <script src="../../../../../../doc-script.js"></script>
+  <script src="../../../../../../fileSearch.js"></script>
+  <script src="../../../../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>runmode-standalone.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cm">/* Just enough of CodeMirror to run runMode under node.js */</span>
+
+<span class="kd">function</span> <span class="nx">splitLines</span><span class="p">(</span><span class="nx">string</span><span class="p">){</span> <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\r?\n|\r/</span><span class="p">);</span> <span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">StringStream</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">string</span> <span class="o">=</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">StringStream</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">eol</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">length</span><span class="p">;},</span>
+  <span class="nx">sol</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;},</span>
+  <span class="nx">peek</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">)</span> <span class="o">||</span> <span class="kc">null</span><span class="p">;},</span>
+  <span class="nx">next</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="o">++</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">eat</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ch</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">match</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="kd">var</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">ch</span> <span class="o">==</span> <span class="nx">match</span><span class="p">;</span>
+    <span class="k">else</span> <span class="kd">var</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">ch</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">match</span><span class="p">.</span><span class="nx">test</span> <span class="o">?</span> <span class="nx">match</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span> <span class="o">:</span> <span class="nx">match</span><span class="p">(</span><span class="nx">ch</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span><span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span> <span class="k">return</span> <span class="nx">ch</span><span class="p">;}</span>
+  <span class="p">},</span>
+  <span class="nx">eatWhile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">eat</span><span class="p">(</span><span class="nx">match</span><span class="p">)){}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">&gt;</span> <span class="nx">start</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">eatSpace</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="sr">/[\s\u00a0]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">)))</span> <span class="o">++</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">&gt;</span> <span class="nx">start</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">skipToEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">length</span><span class="p">;},</span>
+  <span class="nx">skipTo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">found</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ch</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">found</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">=</span> <span class="nx">found</span><span class="p">;</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;}</span>
+  <span class="p">},</span>
+  <span class="nx">backUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">-=</span> <span class="nx">n</span><span class="p">;},</span>
+  <span class="nx">column</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">;},</span>
+  <span class="nx">indentation</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="mi">0</span><span class="p">;},</span>
+  <span class="nx">match</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">pattern</span><span class="p">,</span> <span class="nx">consume</span><span class="p">,</span> <span class="nx">caseInsensitive</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">pattern</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">function</span> <span class="nx">cased</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">caseInsensitive</span> <span class="o">?</span> <span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">:</span> <span class="nx">str</span><span class="p">;}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cased</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cased</span><span class="p">(</span><span class="nx">pattern</span><span class="p">),</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">)</span> <span class="o">==</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">consume</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">+=</span> <span class="nx">pattern</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">match</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">).</span><span class="nx">match</span><span class="p">(</span><span class="nx">pattern</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">match</span> <span class="o">&amp;&amp;</span> <span class="nx">consume</span> <span class="o">!==</span> <span class="kc">false</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span> <span class="o">+=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">match</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">current</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span><span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">string</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">pos</span><span class="p">);}</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">StringStream</span> <span class="o">=</span> <span class="nx">StringStream</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">startState</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mode</span><span class="p">,</span> <span class="nx">a1</span><span class="p">,</span> <span class="nx">a2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">startState</span> <span class="o">?</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">startState</span><span class="p">(</span><span class="nx">a1</span><span class="p">,</span> <span class="nx">a2</span><span class="p">)</span> <span class="o">:</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">modes</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">modes</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">mimeModes</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">mimeModes</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">defineMode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">mode</span><span class="p">)</span> <span class="p">{</span> <span class="nx">modes</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mode</span><span class="p">;</span> <span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">defineMIME</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mime</span><span class="p">,</span> <span class="nx">spec</span><span class="p">)</span> <span class="p">{</span> <span class="nx">mimeModes</span><span class="p">[</span><span class="nx">mime</span><span class="p">]</span> <span class="o">=</span> <span class="nx">spec</span><span class="p">;</span> <span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getMode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">spec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">spec</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span> <span class="o">&amp;&amp;</span> <span class="nx">mimeModes</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">spec</span><span class="p">))</span>
+    <span class="nx">spec</span> <span class="o">=</span> <span class="nx">mimeModes</span><span class="p">[</span><span class="nx">spec</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">spec</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">mname</span> <span class="o">=</span> <span class="nx">spec</span><span class="p">,</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">spec</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">mname</span> <span class="o">=</span> <span class="nx">spec</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">spec</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">mfactory</span> <span class="o">=</span> <span class="nx">modes</span><span class="p">[</span><span class="nx">mname</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mfactory</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Unknown mode: &quot;</span> <span class="o">+</span> <span class="nx">spec</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">mfactory</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="nx">config</span> <span class="o">||</span> <span class="p">{});</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">runMode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">modespec</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">mode</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">getMode</span><span class="p">({</span><span class="nx">indentUnit</span><span class="o">:</span> <span class="mi">2</span><span class="p">},</span> <span class="nx">modespec</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">splitLines</span><span class="p">(</span><span class="nx">string</span><span class="p">),</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">startState</span><span class="p">(</span><span class="nx">mode</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">e</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">StringStream</span><span class="p">(</span><span class="nx">lines</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">stream</span><span class="p">.</span><span class="nx">eol</span><span class="p">())</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">style</span> <span class="o">=</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">token</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">current</span><span class="p">(),</span> <span class="nx">style</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">start</span><span class="p">);</span>
+      <span class="nx">stream</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">pos</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

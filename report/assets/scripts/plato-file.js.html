@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>plato-file.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/a3/node-builder/report/assets/scripts/plato-filejs", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+  <script src="../../../fileSearch.js"></script>
+  <script src="../../../goToLine.js"></script>
+  <link rel="stylesheet" href="../../../fileSearch.css" />
+  <link rel="stylesheet" href="../../../goToLine.css" />
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>plato-file.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="cm">/*global $:false, _:false, Morris:false, CodeMirror:false, __report:false, __history:false */</span>
+<span class="cm">/*jshint browser:true*/</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>bootstrap popover</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[rel=popover]&#39;</span><span class="p">).</span><span class="nx">popover</span><span class="p">();</span>
+
+  <span class="nx">_</span><span class="p">.</span><span class="nx">templateSettings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">interpolate</span> <span class="o">:</span> <span class="sr">/\{\{(.+?)\}\}/g</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">focusFragment</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.plato-mark&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;focus&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">markId</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">markId</span><span class="p">)</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">markId</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;focus&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">focusFragment</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">onhashchange</span> <span class="o">=</span> <span class="nx">focusFragment</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">srcEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;file-source&#39;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">lineNumbers</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">gutters</span>     <span class="o">:</span> <span class="p">[</span><span class="s1">&#39;plato-gutter-jshint&#39;</span><span class="p">,</span><span class="s1">&#39;plato-gutter-complexity&#39;</span><span class="p">],</span>
+    <span class="nx">readOnly</span>    <span class="o">:</span> <span class="s1">&#39;nocursor&#39;</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">cm</span> <span class="o">=</span> <span class="nx">CodeMirror</span><span class="p">.</span><span class="nx">fromTextArea</span><span class="p">(</span><span class="nx">srcEl</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">byComplexity</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">bySloc</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">var</span> <span class="nx">popoverTemplate</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">template</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#complexity-popover-template&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">());</span>
+  <span class="kd">var</span> <span class="nx">gutterIcon</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;a&gt;&lt;i class=&quot;plato-gutter-icon icon-cog&quot;&gt;&lt;/i&gt;&lt;/a&gt;&#39;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">popovers</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">operation</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">queuedPopovers</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">__report</span><span class="p">.</span><span class="nx">complexity</span><span class="p">.</span><span class="nx">functions</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="nx">i</span><span class="p">){</span>
+      <span class="nx">byComplexity</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">label</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+        <span class="nx">value</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">complexity</span><span class="p">.</span><span class="nx">cyclomatic</span>
+      <span class="p">});</span>
+      <span class="nx">bySloc</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">label</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+        <span class="nx">value</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">complexity</span><span class="p">.</span><span class="nx">sloc</span><span class="p">.</span><span class="nx">physical</span><span class="p">,</span>
+        <span class="nx">formatter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="s2">&quot; lines&quot;</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">});</span>
+
+      <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;&lt;anonymous&gt;&#39;</span> <span class="o">?</span> <span class="s1">&#39;function\\s*\\([^)]*\\)&#39;</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">line</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;plato-mark-fn-&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">gutter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">gutterId</span> <span class="o">:</span> <span class="s1">&#39;plato-gutter-complexity&#39;</span><span class="p">,</span>
+        <span class="nx">el</span> <span class="o">:</span> <span class="nx">gutterIcon</span><span class="p">.</span><span class="nx">clone</span><span class="p">().</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="nx">className</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="p">};</span>
+      <span class="kd">var</span> <span class="nx">popover</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">type</span> <span class="o">:</span> <span class="s1">&#39;popover&#39;</span><span class="p">,</span>
+        <span class="nx">title</span> <span class="o">:</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;&lt;anonymous&gt;&#39;</span> <span class="o">?</span> <span class="s1">&#39;&amp;lt;anonymous&amp;gt;&#39;</span> <span class="o">:</span> <span class="s1">&#39;function &#39;</span> <span class="o">+</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="nx">content</span> <span class="o">:</span> <span class="nx">popoverTemplate</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
+      <span class="p">};</span>
+      <span class="nx">queuedPopovers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">markPopoverText</span><span class="p">({</span><span class="nx">line</span> <span class="o">:</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span><span class="o">:</span><span class="mi">0</span><span class="p">},</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">className</span><span class="p">,</span> <span class="nx">gutter</span><span class="p">,</span> <span class="nx">popover</span><span class="p">));</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">queuedPopovers</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="nx">popovers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">){</span><span class="nx">fn</span><span class="p">();});</span>
+
+  <span class="kd">var</span> <span class="nx">scrollToLine</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">origScroll</span> <span class="o">=</span> <span class="p">[</span><span class="nb">window</span><span class="p">.</span><span class="nx">pageXOffset</span><span class="p">,</span><span class="nb">window</span><span class="p">.</span><span class="nx">pageYOffset</span><span class="p">];</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span> <span class="o">=</span> <span class="s1">&#39;#plato-mark-fn-&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="nx">origScroll</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nx">origScroll</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="kd">var</span> <span class="nx">line</span> <span class="o">=</span> <span class="nx">__report</span><span class="p">.</span><span class="nx">complexity</span><span class="p">.</span><span class="nx">functions</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">line</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">coords</span> <span class="o">=</span> <span class="nx">cm</span><span class="p">.</span><span class="nx">charCoords</span><span class="p">({</span><span class="nx">line</span> <span class="o">:</span> <span class="nx">line</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:</span> <span class="mi">0</span><span class="p">});</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body,html&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span> <span class="o">:</span> <span class="nx">coords</span><span class="p">.</span><span class="nx">top</span> <span class="o">-</span><span class="mi">50</span><span class="p">},</span><span class="mi">250</span><span class="p">);</span>
+  <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>yield to the browser</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">drawFunctionCharts</span><span class="p">([</span>
+      <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;fn-by-complexity&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">byComplexity</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;fn-by-sloc&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">bySloc</span> <span class="p">}</span>
+    <span class="p">]);</span>
+    <span class="nx">drawHistoricalCharts</span><span class="p">(</span><span class="nx">__history</span><span class="p">);</span>
+  <span class="p">},</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="nx">cm</span><span class="p">.</span><span class="nx">operation</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">addLintMessages</span><span class="p">(</span><span class="nx">__report</span><span class="p">);</span>
+  <span class="p">});</span>
+
+
+  <span class="kd">function</span> <span class="nx">drawFunctionCharts</span><span class="p">(</span><span class="nx">charts</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">charts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">chart</span><span class="p">){</span>
+      <span class="nx">Morris</span><span class="p">.</span><span class="nx">Donut</span><span class="p">(</span><span class="nx">chart</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="nx">scrollToLine</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">drawHistoricalCharts</span><span class="p">(</span><span class="nx">history</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.historical.chart&#39;</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">history</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">record</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">date</span><span class="p">);</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">date</span> <span class="o">:</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">(),</span>
+        <span class="nx">maintainability</span> <span class="o">:</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">maintainability</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="nx">sloc</span> <span class="o">:</span> <span class="nx">record</span><span class="p">.</span><span class="nx">sloc</span>
+      <span class="p">};</span>
+    <span class="p">}).</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">);</span>
+    <span class="nx">Morris</span><span class="p">.</span><span class="nx">Line</span><span class="p">({</span>
+      <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;chart_historical_sloc&#39;</span><span class="p">,</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+      <span class="nx">xkey</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+      <span class="nx">ykeys</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;sloc&#39;</span><span class="p">],</span>
+      <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Lines of Code&#39;</span><span class="p">],</span>
+      <span class="nx">parseTime</span> <span class="o">:</span> <span class="kc">false</span>
+    <span class="p">});</span>
+    <span class="nx">Morris</span><span class="p">.</span><span class="nx">Line</span><span class="p">({</span>
+      <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;chart_historical_maint&#39;</span><span class="p">,</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+      <span class="nx">xkey</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+      <span class="nx">ykeys</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;maintainability&#39;</span><span class="p">],</span>
+      <span class="nx">labels</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Maintainability&#39;</span><span class="p">],</span>
+      <span class="nx">ymax</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="nx">parseTime</span> <span class="o">:</span> <span class="kc">false</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">addLintMessages</span><span class="p">(</span><span class="nx">report</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">report</span><span class="p">.</span><span class="nx">jshint</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;Column: &#39;</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">column</span> <span class="o">+</span> <span class="s1">&#39; &quot;&#39;</span> <span class="o">+</span> <span class="nx">message</span><span class="p">.</span><span class="nx">message</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">line</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">message</span><span class="p">.</span><span class="nx">line</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">){</span>
+          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lines</span><span class="p">[</span><span class="nx">line</span><span class="p">])</span> <span class="nx">lines</span><span class="p">[</span><span class="nx">line</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+          <span class="nx">lines</span><span class="p">[</span><span class="nx">line</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div class=&quot;plato-jshint-message text-&#39;</span><span class="o">+</span><span class="nx">message</span><span class="p">.</span><span class="nx">severity</span><span class="o">+</span><span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">text</span> <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
+        <span class="p">});</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lines</span><span class="p">[</span><span class="nx">message</span><span class="p">.</span><span class="nx">line</span><span class="p">])</span> <span class="nx">lines</span><span class="p">[</span><span class="nx">message</span><span class="p">.</span><span class="nx">line</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="nx">lines</span><span class="p">[</span><span class="nx">message</span><span class="p">.</span><span class="nx">line</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div class=&quot;plato-jshint-message text-&#39;</span><span class="o">+</span><span class="nx">message</span><span class="p">.</span><span class="nx">severity</span><span class="o">+</span><span class="s1">&#39;&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">text</span> <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+    <span class="nx">marker</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;i class=&quot;plato-gutter-icon icon-eye-open&quot;&gt;&lt;/i&gt;&#39;</span><span class="p">;</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">lines</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">lineWidget</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+      <span class="nx">lineWidget</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">[</span><span class="nx">line</span><span class="p">];</span>
+      <span class="nx">cm</span><span class="p">.</span><span class="nx">setGutterMarker</span><span class="p">(</span><span class="nx">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;plato-gutter-jshint&#39;</span><span class="p">,</span> <span class="nx">marker</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
+      <span class="nx">cm</span><span class="p">.</span><span class="nx">addLineWidget</span><span class="p">(</span><span class="nx">line</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lineWidget</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
