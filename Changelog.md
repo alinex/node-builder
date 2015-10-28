@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.9 (2015-10-28)
+-------------------------------------------------
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Added link task.
+
 Version 1.1.8 (2015-10-28)
 -------------------------------------------------
 - Small fix on error reporting of uglify.
