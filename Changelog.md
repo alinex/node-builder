@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.8 (2015-10-28)
+-------------------------------------------------
+- Small fix on error reporting of uglify.
+- Updated instanbul package.
+
 Version 1.1.7 (2015-10-15)
 -------------------------------------------------
 - Updated to use alinex-exec instead of old spawn.
