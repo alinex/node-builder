@@ -45,6 +45,7 @@
     "alinex-config": "^1.0.6",
     "alinex-exec": "^1.0.0",
     "alinex-fs": "0.2.x",
+    "alinex-util": "^0.3.6",
     "chalk": "1.x",
     "coffee-coverage": "0.x",
     "coffee-script": ">=1.7.0",

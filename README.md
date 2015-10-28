@@ -171,6 +171,16 @@ Von https://github.com/alinex/node-make
 * branch            master     -> FETCH_HEAD
 ```
 
+### link
+
+This task will link a local package installed in a parallel directory into the
+packages node_modules directory.
+
+``` sh
+builder -c link                  # link all node-... as alinex-...  packages
+builder -c link --locale config  # or link only the config package
+```
+
 ### compile
 
 This task is used to compile the sources into for runtime optimized library.

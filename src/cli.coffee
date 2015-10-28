@@ -53,6 +53,7 @@ commands =
   create: "create a new package"
   update: "update and installation of package with dependent packages"
   compile: "compile code"
+  link: "link local modules instead of npm package"
   pull: "pull newest version from repository"
   push: "push changes to repository"
   publish: "publish package in npm"
@@ -87,8 +88,12 @@ argv = yargs
 .alias('v', 'verbose')
 .describe('v', 'run in verbose mode')
 # create options
+.boolean('private')
 .describe('private', 'create: private repository')
 .describe('package', 'create: set package name')
+# link
+.array('local')
+.describe('local', 'link: path or name of local package')
 # test options
 .boolean('b')
 .alias('b', 'bail')
