@@ -135,6 +135,6 @@ uglify = (item, cb) ->
       args: args
       cwd: item.dir
     , (err, proc) ->
-      console.log chalk.grey stdout.trim() if proc.stdout() and options.verbose
-      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
+      console.log chalk.grey stdout.trim() if proc?.stdout() and options.verbose
+      console.error chalk.magenta proc.stderr().trim() if proc?.stderr()
       cb err
