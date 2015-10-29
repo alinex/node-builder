@@ -14,6 +14,7 @@ You can give the following commands:
     - list - show the list of possible commands
     - create - create a new package
     - update - update and installation of package with dependent packages
+    - link - link local parallel installed packages into this one
     - compile - compile code
     - pull - pull newest version from repository
     - push - push changes to repository
@@ -31,6 +32,7 @@ And the available options are:
     --private       create: private repository
     --package       create: set package name
     -m, --message   push: text for commit message
+    --local <pkg>   link: specify the packages to link
     -u, --uglify    compile: run uglify for each file
     --minor         publish: change to next minor version
     --major         publish: change to next major version
@@ -123,6 +125,15 @@ Like `push` this will fetch the newest changes from git origin.
     Pull from origin
     Von https://github.com/alinex/node-make
      * branch            master     -> FETCH_HEAD
+
+
+### Command `link`
+
+This task will link a local package installed in a parallel directory into the
+packages node_modules directory.
+
+    > builder -c link                  # link all node-... as alinex-...  packages
+    > builder -c link --locale config  # or link only the config package
 
 
 ### Command `compile`
