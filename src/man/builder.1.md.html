@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/a3/node-builder/src/man/builder1.md", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/man/builder1.md", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
   <script src="../../fileSearch.js"></script>
@@ -52,6 +52,9 @@
       </div>
       <div class="heading h3">
         <a href="#command%20pull">Command pull</a>
+      </div>
+      <div class="heading h3">
+        <a href="#command%20link">Command link</a>
       </div>
       <div class="heading h3">
         <a href="#command%20compile">Command compile</a>
@@ -118,6 +121,7 @@
 <div class="highlight"><pre><code><span class="o">-</span> <span class="nx">list</span> <span class="o">-</span> <span class="nx">show</span> <span class="nx">the</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">possible</span> <span class="nx">commands</span>
 <span class="o">-</span> <span class="nx">create</span> <span class="o">-</span> <span class="nx">create</span> <span class="nx">a</span> <span class="k">new</span> <span class="kr">package</span>
 <span class="o">-</span> <span class="nx">update</span> <span class="o">-</span> <span class="nx">update</span> <span class="nx">and</span> <span class="nx">installation</span> <span class="nx">of</span> <span class="kr">package</span> <span class="kd">with</span> <span class="nx">dependent</span> <span class="nx">packages</span>
+<span class="o">-</span> <span class="nx">link</span> <span class="o">-</span> <span class="nx">link</span> <span class="nx">local</span> <span class="nx">parallel</span> <span class="nx">installed</span> <span class="nx">packages</span> <span class="nx">into</span> <span class="k">this</span> <span class="nx">one</span>
 <span class="o">-</span> <span class="nx">compile</span> <span class="o">-</span> <span class="nx">compile</span> <span class="nx">code</span>
 <span class="o">-</span> <span class="nx">pull</span> <span class="o">-</span> <span class="nx">pull</span> <span class="nx">newest</span> <span class="nx">version</span> <span class="nx">from</span> <span class="nx">repository</span>
 <span class="o">-</span> <span class="nx">push</span> <span class="o">-</span> <span class="nx">push</span> <span class="nx">changes</span> <span class="nx">to</span> <span class="nx">repository</span>
@@ -139,6 +143,7 @@
 <span class="o">--</span><span class="kr">private</span>       <span class="nx">create</span><span class="o">:</span> <span class="kr">private</span> <span class="nx">repository</span>
 <span class="o">--</span><span class="kr">package</span>       <span class="nx">create</span><span class="o">:</span> <span class="nx">set</span> <span class="kr">package</span> <span class="nx">name</span>
 <span class="o">-</span><span class="nx">m</span><span class="p">,</span> <span class="o">--</span><span class="nx">message</span>   <span class="nx">push</span><span class="o">:</span> <span class="nx">text</span> <span class="k">for</span> <span class="nx">commit</span> <span class="nx">message</span>
+<span class="o">--</span><span class="nx">local</span> <span class="o">&lt;</span><span class="nx">pkg</span><span class="o">&gt;</span>   <span class="nx">link</span><span class="o">:</span> <span class="nx">specify</span> <span class="nx">the</span> <span class="nx">packages</span> <span class="nx">to</span> <span class="nx">link</span>
 <span class="o">-</span><span class="nx">u</span><span class="p">,</span> <span class="o">--</span><span class="nx">uglify</span>    <span class="nx">compile</span><span class="o">:</span> <span class="nx">run</span> <span class="nx">uglify</span> <span class="k">for</span> <span class="nx">each</span> <span class="nx">file</span>
 <span class="o">--</span><span class="nx">minor</span>         <span class="nx">publish</span><span class="o">:</span> <span class="nx">change</span> <span class="nx">to</span> <span class="nx">next</span> <span class="nx">minor</span> <span class="nx">version</span>
 <span class="o">--</span><span class="nx">major</span>         <span class="nx">publish</span><span class="o">:</span> <span class="nx">change</span> <span class="nx">to</span> <span class="nx">next</span> <span class="nx">major</span> <span class="nx">version</span>
@@ -284,6 +289,25 @@ it will also add and commit all other changes before doing so.</p>
 <span class="nx">Pull</span> <span class="nx">from</span> <span class="nx">origin</span>
 <span class="nx">Von</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/alinex/node-make</span>
  <span class="o">*</span> <span class="nx">branch</span>            <span class="nx">master</span>     <span class="o">-&gt;</span> <span class="nx">FETCH_HEAD</span>
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="command%20link">
+  <h3>
+    <a href="#command%20link" name="command%20link" class="pilcrow">&#182;</a>
+    Command <code>link</code>
+  </h3>
+</div>
+
+
+<p>This task will link a local package installed in a parallel directory into the
+packages node_modules directory.</p>
+
+
+<div class="highlight"><pre><code><span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">link</span>                  <span class="err">#</span> <span class="nx">link</span> <span class="nx">all</span> <span class="nx">node</span><span class="o">-</span><span class="p">...</span> <span class="nx">as</span> <span class="nx">alinex</span><span class="o">-</span><span class="p">...</span>  <span class="nx">packages</span>
+<span class="o">&gt;</span> <span class="nx">builder</span> <span class="o">-</span><span class="nx">c</span> <span class="nx">link</span> <span class="o">--</span><span class="nx">locale</span> <span class="nx">config</span>  <span class="err">#</span> <span class="nx">or</span> <span class="nx">link</span> <span class="nx">only</span> <span class="nx">the</span> <span class="nx">config</span> <span class="kr">package</span>
 </code></pre></div>
 
 

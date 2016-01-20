@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/a3/node-builder/READMEmd", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/github/node-builder/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="fileSearch.js"></script>
@@ -55,6 +55,9 @@
       </div>
       <div class="heading h3">
         <a href="#pull">pull</a>
+      </div>
+      <div class="heading h3">
+        <a href="#link">link</a>
       </div>
       <div class="heading h3">
         <a href="#compile">compile</a>
@@ -331,6 +334,25 @@ builder ./node-error -c pull     <span class="c"># or from anywhere else</span>
 <div class="highlight"><pre><code>Pull from origin
 Von https://github.com/alinex/node-make
 * branch            master     -&gt; FETCH_HEAD
+</code></pre></div>
+
+
+
+
+<div class="pilwrap" id="link">
+  <h3>
+    <a href="#link" name="link" class="pilcrow">&#182;</a>
+    link
+  </h3>
+</div>
+
+
+<p>This task will link a local package installed in a parallel directory into the
+packages node_modules directory.</p>
+
+
+<div class="highlight"><pre><code>builder -c link                  <span class="c"># link all node-... as alinex-...  packages</span>
+builder -c link --locale config  <span class="c"># or link only the config package</span>
 </code></pre></div>
 
 
