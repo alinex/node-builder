@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.11 (2016-01-27)
+-------------------------------------------------
+- Upgrade mocha to v2.4.2
+
 Version 1.1.10 (2016-01-20)
 -------------------------------------------------
 - Also copy coffelint.json to each new project.
