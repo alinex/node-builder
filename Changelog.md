@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.12 (2016-01-30)
+-------------------------------------------------
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Remove goto line from documentation.
+- Updated copyright, travis and npmignore.
+
 Version 1.1.11 (2016-01-27)
 -------------------------------------------------
 - Upgrade mocha to v2.4.2
