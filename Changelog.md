@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.11 (2016-01-27)
+-------------------------------------------------
+- Upgrade mocha to v2.4.2
+
+Version 1.1.10 (2016-01-20)
+-------------------------------------------------
+- Also copy coffelint.json to each new project.
+- Updated dependent packages.
+- Removed unused npm-check-updates.
+- Updated man page.
+
 Version 1.1.9 (2015-10-28)
 -------------------------------------------------
 - Merge branch 'master' of https://github.com/alinex/node-builder

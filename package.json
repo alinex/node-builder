@@ -1,6 +1,6 @@
 {
   "name": "alinex-builder",
-  "version": "1.1.9",
+  "version": "1.1.11",
   "description": "Build tools for development of npm packages.",
   "copyright": "Alexander Schilling 2013-2015",
   "keywords": [
@@ -55,7 +55,7 @@
     "docker": ">=0.2.10",
     "istanbul": "^0.4.0",
     "marked-man": "0.1.x",
-    "mocha": "1.x || 2.x",
+    "mocha": "^2.4.2",
     "moment": "2.x",
     "npm-check": "^4.0.1",
     "prompt": "0.2.x",

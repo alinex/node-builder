@@ -56,9 +56,10 @@ createDir = (dir, options, cb) ->
     return cb err if err
     fs.mkdirs path.join(dir, 'test', 'mocha'), (err) ->
       return cb err if err
-      # create .npmignore file
-      file = path.join dir, '.npmignore'
-      fs.copy path.join(GLOBAL.ROOT_DIR, '.npmignore'), file, cb
+      # copy .npmignore file
+      for f in ['.npmignore', 'coffeelint.json']
+        file = path.join dir, f
+        fs.copy path.join(GLOBAL.ROOT_DIR, f), file, cb
 
 # ### Create initial git repository
 # It will set the `options.git` variable to the local uri
@@ -79,7 +80,7 @@ initGit = (dir, options, cb) ->
     return cb err if err or input.question isnt 'yes'
     console.log "Init new git repository"
     debug "exec #{dir}> git init"
-    execFile "git", [ 'init' ], { cwd: dir }, (err, stdout, stderr) ->
+    execFile "git", ['init'], {cwd: dir}, (_, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       file = path.join dir, '.gitignore'
@@ -110,7 +111,7 @@ createGitHub = (dir, options, cb) ->
       return cb()
   # check for other remote origin
   debug "exec #{dir}> git remote show origin"
-  execFile "git", [ 'remote', 'show', 'origin' ], { cwd: dir }, (err, stdout, stderr) ->
+  execFile "git", ['remote', 'show', 'origin'], {cwd: dir}, (err, stdout, stderr) ->
     unless err
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.log "Skipped GitHub because other origin exists already"
@@ -149,7 +150,7 @@ createGitHub = (dir, options, cb) ->
             pass: input.password
           headers:
             'User-Agent': input.username
-        }, (err, response, body) ->
+        }, (err, response) ->
           return cb err if err
           answer = JSON.parse response.body
           unless answer.message?
@@ -174,7 +175,7 @@ createGitHub = (dir, options, cb) ->
               has_issues: true
               has_wiki: false
               has_downloads: true
-          }, (err, response, body) ->
+          }, (err, response) ->
             return cb err if err
             unless response?.statusCode is 201
               return cb "GitHub status was #{response.statusCode} in try to create repository"
@@ -183,7 +184,7 @@ createGitHub = (dir, options, cb) ->
             execFile "git", [
               'remote'
               'add', 'origin', options.github
-            ], { cwd: dir }, (err, stdout, stderr) ->
+            ], {cwd: dir}, (err, stdout, stderr) ->
               console.log chalk.grey stdout.trim() if stdout and options.verbose
               console.error chalk.magenta stderr.trim() if stderr
               cb err
@@ -344,22 +345,22 @@ initialCommit = (dir, options, cb) ->
   if options.verbose
     console.log chalk.grey "Check if git already used"
   debug "exec #{dir}> git log"
-  execFile "git", [ 'log' ], { cwd: dir }, (err, stdout, stderr) ->
+  execFile "git", [ 'log' ], {cwd: dir}, (err, stdout) ->
     return cb() if stdout.trim()
     console.log "Initial commit"
     debug "exec #{dir}> git add *"
-    execFile "git", [ 'add', '*' ], { cwd: dir }, (err, stdout, stderr) ->
+    execFile "git", [ 'add', '*' ], {cwd: dir}, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       debug "exec #{dir}> git commit -m \"Initial commit\""
       execFile "git", [ 'commit', '-m', 'Initial commit' ]
-      , { cwd: dir }, (err, stdout, stderr) ->
+      , {cwd: dir}, (err, stdout, stderr) ->
         console.log chalk.grey stdout.trim() if stdout and options.verbose
         console.error chalk.magenta stderr.trim() if stderr
         console.log "Push to origin"
         debug "exec #{dir}> git push origin master"
         execFile "git", [ 'push', 'origin', 'master' ],
-        { cwd: dir }, (err, stdout, stderr) ->
+        {cwd: dir}, (err, stdout, stderr) ->
           console.log chalk.grey stdout.trim() if stdout and options.verbose
           console.error chalk.magenta stderr.trim() if stderr
           cb()
