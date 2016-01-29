@@ -11,8 +11,6 @@ debug = require('debug')('builder')
 path = require 'path'
 chalk = require 'chalk'
 {exec,execFile} = require 'child_process'
-os = require 'os'
-crypto = require 'crypto'
 # include alinex modules
 Exec = require 'alinex-exec'
 async = require 'alinex-async'
@@ -42,7 +40,7 @@ module.exports.run = (dir, options, cb) ->
   try
     pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
   catch err
-    return cb new Error "Could not load #{file} as valid JSON."
+    return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON."
   # Create the html documentation out of source files
   createDoc dir, options, (err) ->
     return cb err if err
@@ -165,7 +163,7 @@ createDoc = (dir, options, cb) ->
                     '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
                     '-o', path.join dir, 'doc'
                     '-c', 'autumn'
-                    '--extras', 'fileSearch,goToLine'
+                    '--extras', 'fileSearch'
                   ]
                   Exec.run
                     cmd: cmd
@@ -210,7 +208,7 @@ createDoc = (dir, options, cb) ->
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
                 catch err
-                  return cb new Error "Could not load #{file} as valid JSON."
+                  return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON."
                 return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                 Exec.run
                   cmd: replace
@@ -239,7 +237,7 @@ createDoc = (dir, options, cb) ->
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
                 catch err
-                  return cb new Error "Could not load #{file} as valid JSON."
+                  return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON."
                 unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                   return cb()
                 Exec.run
@@ -350,4 +348,3 @@ pushOrigin = (dir, tmpdir, options, cb) ->
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     cb()
-
