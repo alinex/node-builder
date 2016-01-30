@@ -163,7 +163,7 @@ createDoc = (dir, options, cb) ->
                     '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
                     '-o', path.join dir, 'doc'
                     '-c', 'autumn'
-                    '--extras', 'fileSearch'
+#                    '--extras', 'fileSearch'
                   ]
                   Exec.run
                     cmd: cmd
