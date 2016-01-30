@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.13 (2016-01-30)
+-------------------------------------------------
+- Remove extras from documentation.
+
 Version 1.1.12 (2016-01-30)
 -------------------------------------------------
 - Merge branch 'master' of https://github.com/alinex/node-builder
