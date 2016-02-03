@@ -1,8 +1,8 @@
 {
   "name": "alinex-builder",
-  "version": "1.1.13",
+  "version": "1.1.16",
   "description": "Build tools for development of npm packages.",
-  "copyright": "Alexander Schilling 2013-2015",
+  "copyright": "Alexander Schilling 2013-2016",
   "keywords": [
     "make",
     "build",
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "alinex-async": "^0.2.5",
-    "alinex-config": "^1.0.9",
+    "alinex-config": "1.0.7",
     "alinex-exec": "^1.0.0",
     "alinex-fs": "^0.2.1",
     "alinex-util": "^0.3.6",
@@ -55,7 +55,7 @@
     "docker": ">=0.2.10",
     "istanbul": "^0.4.0",
     "marked-man": "0.1.x",
-    "mocha": "^2.4.2",
+    "mocha": "^2.4.5",
     "moment": "2.x",
     "npm-check": "^4.0.1",
     "prompt": "0.2.x",
@@ -65,7 +65,7 @@
     "yargs": "3.x"
   },
   "devDependencies": {
-    "chai": "3.x"
+    "chai": "^3.5.0"
   },
   "optionalDependencies": {},
   "peerDependencies": {},

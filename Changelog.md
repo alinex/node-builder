@@ -4,6 +4,23 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.16 (2016-02-03)
+-------------------------------------------------
+- Added coffelint file.
+
+Version 1.1.15 (2016-02-03)
+-------------------------------------------------
+- Publish with older and fixed config package.
+
+Version 1.1.14 (2016-02-03)
+-------------------------------------------------
+- Added retry on npm install.
+- Upgraded test packages mocha and chai.
+- Fixed style of test cases.
+- Fixed lint warnings in code.
+- Updated meta data of package and travis build versions.
+- Upgraded config module.
+
 Version 1.1.13 (2016-01-30)
 -------------------------------------------------
 - Remove extras from documentation.
@@ -39,14 +56,6 @@ Version 1.1.7 (2015-10-15)
 -------------------------------------------------
 - Updated to use alinex-exec instead of old spawn.
 - Test on nodejs v4.
-
-Version 1.1.6 (2015-09-02)
--------------------------------------------------
-- 
-
-Version 1.1.5 (2015-09-02)
--------------------------------------------------
-- 
 
 Version 1.1.4 (2015-09-02)
 -------------------------------------------------

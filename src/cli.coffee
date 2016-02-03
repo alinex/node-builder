@@ -41,7 +41,7 @@ Exec = require 'alinex-exec'
 # Root directory of the core application
 GLOBAL.ROOT_DIR = path.dirname __dirname
 # Read in package configuration
-GLOBAL.PKG = JSON.parse fs.readFileSync path.join ROOT_DIR, 'package.json'
+GLOBAL.PKG = JSON.parse fs.readFileSync path.join GLOBAL.ROOT_DIR, 'package.json'
 
 Exec.setup ->
   config.register 'builder', path.dirname(__dirname),
@@ -135,7 +135,7 @@ argv = yargs
 .alias('h', 'help')
 .showHelpOnFail(false, "Specify --help for available options")
 .epilogue("For more information, look into the man page.")
-.check (argv, options) ->
+.check (argv) ->
   # optimize the arguments for processing
   argv._ = ['./'] unless argv._.length
   argv.command = [argv.command] unless Array.isArray argv.command
@@ -213,5 +213,5 @@ async.each cmds, (command, cb) ->
       console.error chalk.bold chalk.red err if err
       # go on
       cb()
-  , (err) ->
+  , ->
     console.log chalk.green "Done."
