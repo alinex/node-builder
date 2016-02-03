@@ -27,12 +27,31 @@ Exec = require 'alinex-exec'
 #   execution finished.
 module.exports.run = (dir, options, cb) ->
   async.parallel [
+    (cb) -> npm dir, options, cb
     (cb) -> git dir, options, cb
   ], (err, results) ->
     return cb err if err
-    for r in results
-      return cb() if r
-    cb new Error "No supported repository to be checked detected."
+    console.log results.join('').trim()
+    cb()
+
+npm = (dir, options, cb) ->
+  fs.npmbin 'npm-check', path.dirname(path.dirname __dirname), (err, cmd) ->
+    # run the pull options
+    msg = "NPM Update check:\n"
+    Exec.run
+      cmd: cmd
+      cwd: dir
+    , (err, proc) ->
+      return cb err if err
+      if proc.stdout()
+        for line in proc.stdout().trim().split /\n/
+          if line.match /^\w/
+            msg += chalk.yellow "- #{line.trim()}\n" unless line.match /Use npm-check/
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
+      if msg
+        msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
+        `#{chalk.underline cmd + ' -d ' + dir}` to upgrade."
+      cb err, msg
 
 git = (dir, options, cb) ->
   # check for existing git repository
@@ -40,24 +59,50 @@ git = (dir, options, cb) ->
     console.log chalk.grey "Check for configured git"
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
-    # run the pull options
+    async.parallel [
+      (cb) -> gitChanges dir, options, cb
+      (cb) -> gitStatus dir, options, cb
+    ], (err, results) ->
+      return cb err if err
+      cb null, results.join ''
+
+gitChanges = (dir, options, cb) ->
+  # run the pull options
+  Exec.run
+    cmd: 'git'
+    args: [ 'describe', '--abbrev=0' ]
+    cwd: dir
+  , (err, proc) ->
+    return cb err if err
+    tag = proc.stdout().trim()
+    msg = "Changes since last publication as #{tag}:\n"
     Exec.run
       cmd: 'git'
-      args: [ 'describe', '--abbrev=0' ]
+      args: ['log', "#{tag}..HEAD", "--format=oneline"]
       cwd: dir
     , (err, proc) ->
-      tag = proc.stdout().trim()
-      console.log "Changes since last publication as #{tag}:"
       return cb err if err
-      Exec.run
-        cmd: 'git'
-        args: [ 'log', "#{tag}..HEAD", "--format=oneline" ]
-        cwd: dir
-      , (err, proc) ->
-        return cb err if err
-        if proc.stdout()
-          console.log chalk.yellow "- #{line[41..]}" for line in proc.stdout().trim().split /\n/
-        else
-          console.log chalk.yellow "Nothing changed."
-        console.error chalk.magenta proc.stderr().trim() if proc.stderr()
-        cb err, true
+      if proc.stdout()
+        msg += chalk.yellow "- #{line[41..]}\n" for line in proc.stdout().trim().split /\n/
+      else
+        msg += chalk.yellow "Nothing changed.\n"
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
+      cb err, msg
+
+gitStatus = (dir, options, cb) ->
+  msg = ''
+  # run the pull options
+  Exec.run
+    cmd: 'git'
+    args: ['status']
+    cwd: dir
+  , (err, proc) ->
+    return cb err if err
+    if proc.stdout()
+      for line in proc.stdout().trim().split /\n/
+        msg += "#{line.trim()}\n" if line.match /^Changes/
+        msg += chalk.yellow "- #{line.trim().replace /\s+/g, ' '}\n" if line.match /^\t/
+    else
+      msg += chalk.yellow "Nothing changed.\n"
+    console.error chalk.magenta proc.stderr().trim() if proc.stderr()
+    cb err, msg

@@ -345,7 +345,12 @@ hyphen.
 
 ### changes
 
-This will list all changes (checkins) which are done since the last publication.
+This will list all changes in
+- packages
+- since last version tag
+- in current committe
+- and things are staged only
+
 Use this to check if you should make a new publication or if it can wait.
 
 ``` sh
@@ -353,12 +358,24 @@ builder -c changes
 ```
 
 ``` text
-Changes since last publication:
-- Small bugfix in creating docs for non alinex packages.
-- Fixed internal links in documentation.
-- Changed created script calls to support newer make.
-- Updated to use newest make version in created files.
-- Fixed create task which was completely buggy since last rewrite.
+NPM Update check:
+- docker            😕  NOTUSED?  Possibly never referenced in the code.
+- alinex-config     😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-config/
+- marked-man        😕  NOTUSED?  Possibly never referenced in the code.
+- coffee-coverage   😕  NOTUSED?  Possibly never referenced in the code.
+- coffeelint        😕  NOTUSED?  Possibly never referenced in the code.
+- coveralls         😕  NOTUSED?  Possibly never referenced in the code.
+- istanbul          😕  NOTUSED?  Possibly never referenced in the code.
+- npm-check         😕  NOTUSED?  Possibly never referenced in the code.
+- replace           😕  NOTUSED?  Possibly never referenced in the code.
+- uglify-js         😕  NOTUSED?  Possibly never referenced in the code.
+Changes since last publication as v1.1.13:
+- Upgraded config module.
+Changes to be committed:
+- modified: src/tasks/changes.coffee
+Changes not staged for commit:
+- modified: README.md
+- modified: src/tasks/changes.coffee
 ```
 
 
