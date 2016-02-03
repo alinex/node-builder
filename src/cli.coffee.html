@@ -6,13 +6,9 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-builder/src/clicoffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-builder/src/cli.coffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
-  <script src="../fileSearch.js"></script>
-  <script src="../goToLine.js"></script>
-  <link rel="stylesheet" href="../fileSearch.css" />
-  <link rel="stylesheet" href="../goToLine.css" />
 </head>
 <body>
   <nav>
@@ -195,7 +191,7 @@ command line call.</p>
 <p>Read in package configuration</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">GLOBAL.PKG = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
+<span class="nv">GLOBAL.PKG = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
 
 <span class="nx">Exec</span><span class="p">.</span><span class="nx">setup</span> <span class="nf">-&gt;</span>
   <span class="nx">config</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;builder&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">),</span>
@@ -456,7 +452,7 @@ command line call.</p>
 <span class="p">.</span><span class="nx">alias</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="s">&#39;help&#39;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">showHelpOnFail</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="s">&quot;Specify --help for available options&quot;</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">epilogue</span><span class="p">(</span><span class="s">&quot;For more information, look into the man page.&quot;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">check</span> <span class="nf">(argv, options) -&gt;</span>
+<span class="p">.</span><span class="nx">check</span> <span class="nf">(argv) -&gt;</span>
 
 </pre></div>
         </td>
@@ -725,7 +721,7 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">cb</span><span class="p">()</span>
-  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+  <span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">green</span> <span class="s">&quot;Done.&quot;</span>
 </pre></div>
         </td>
