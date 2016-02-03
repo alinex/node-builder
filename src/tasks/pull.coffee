@@ -44,10 +44,12 @@ git = (dir, options, cb) ->
     return cb() unless exists # no git repository
     # run the pull options
     console.log "Pull from git origin"
-    Exec.run
-      cmd: 'git'
-      args: [ 'pull', '-t', '-p', 'origin', 'master' ]
-      cwd: dir
+    async.retry 3, (cb) ->
+      Exec.run
+        cmd: 'git'
+        args: [ 'pull', '-t', '-p', 'origin', 'master' ]
+        cwd: dir
+      , cb
     , (err, proc) ->
       console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
