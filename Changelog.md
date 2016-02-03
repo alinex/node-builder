@@ -40,14 +40,6 @@ Version 1.1.7 (2015-10-15)
 - Updated to use alinex-exec instead of old spawn.
 - Test on nodejs v4.
 
-Version 1.1.6 (2015-09-02)
--------------------------------------------------
-- 
-
-Version 1.1.5 (2015-09-02)
--------------------------------------------------
-- 
-
 Version 1.1.4 (2015-09-02)
 -------------------------------------------------
 - Updated npm update check module.
