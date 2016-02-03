@@ -8,7 +8,6 @@
 # include base modules
 path = require 'path'
 chalk = require 'chalk'
-{spawn,exec, execFile} = require 'child_process'
 # include alinex modules
 async = require 'alinex-async'
 fs = require 'alinex-fs'
@@ -32,7 +31,7 @@ module.exports.run = (dir, options, cb) ->
     (cb) -> npmInstall dir, options, cb
     (cb) -> npmUpdate dir, options, cb
     (cb) -> npmOutdated dir, options, cb
-    (cb) -> switchRepository dir, {registry:'https://registry.npmjs.org/'}, cb
+    (cb) -> switchRepository dir, {registry: 'https://registry.npmjs.org/'}, cb
   ], cb
 
 switchRepository = (dir, options, cb) ->
@@ -40,8 +39,8 @@ switchRepository = (dir, options, cb) ->
   file = path.join dir, 'package.json'
   try
     pack = JSON.parse fs.readFileSync file
-  catch err
-    return cb new Error "Could not load #{file} as valid JSON."
+  catch error
+    return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
   # change or change back
   registry = if options.registry then options.registry else pack.publishConfig?.registry
   registry ?= 'https://registry.npmjs.org/'
@@ -58,14 +57,16 @@ switchRepository = (dir, options, cb) ->
 npmInstall = (dir, options, cb) ->
   # Run external command
   console.log "Install through npm"
-  Exec.run
-    cmd: 'npm'
-    args: [ 'install' ]
-    cwd: dir
-    check:
-      noExitCode: true
+  async.retry 3, (cb) ->
+    Exec.run
+      cmd: 'npm'
+      args: [ 'install' ]
+      cwd: dir
+      check:
+        noExitCode: true
+    , cb
   , cb
-
+  
 # ### Update all modules
 npmUpdate = (dir, options, cb) ->
   # Run external command
