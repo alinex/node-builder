@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.15 (2016-02-03)
+-------------------------------------------------
+- Publish with older and fixed config package.
+
 Version 1.1.14 (2016-02-03)
 -------------------------------------------------
 - Added retry on npm install.
