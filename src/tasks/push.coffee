@@ -45,10 +45,12 @@ git = (dir, options, cb) ->
       return cb err if err
       # run the push options
       console.log "Push to origin"
-      Exec.run
-        cmd: 'git'
-        args: [ 'push', '--tags', 'origin', 'master' ]
-        cwd: dir
+      async.retry 3, (cb) ->
+        Exec.run
+          cmd: 'git'
+          args: [ 'push', '--tags', 'origin', 'master' ]
+          cwd: dir
+        , cb
       , (err, proc) ->
         console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
         console.error chalk.magenta proc.stderr().trim() if proc.stderr()
@@ -88,4 +90,4 @@ commit = (dir, options, cb) ->
       return cb() if ~proc.stdout().indexOf 'nothing to commit'
       console.log proc.stdout()
       cb new Error "Skipped push for #{dir} because not all changes are committed,
-      use '--message <message>'."
+      use '--message <message>' to commit or see changes using `builder -c changes`."
