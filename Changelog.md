@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.14 (2016-02-03)
+-------------------------------------------------
+- Added retry on npm install.
+- Upgraded test packages mocha and chai.
+- Fixed style of test cases.
+- Fixed lint warnings in code.
+- Updated meta data of package and travis build versions.
+- Upgraded config module.
+
 Version 1.1.13 (2016-01-30)
 -------------------------------------------------
 - Remove extras from documentation.
