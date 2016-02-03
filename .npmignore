@@ -13,4 +13,3 @@
 .travis.yml
 .npmignore
 .gitignore
-coffeelint.json
