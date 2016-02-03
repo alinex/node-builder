@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.1.16 (2016-02-03)
+-------------------------------------------------
+- Added coffelint file.
+
 Version 1.1.15 (2016-02-03)
 -------------------------------------------------
 - Publish with older and fixed config package.
