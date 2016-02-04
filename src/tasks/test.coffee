@@ -37,18 +37,11 @@ module.exports.run = (dir, options, cb) ->
       return cb err if err
       coverage dir, options, (err) ->
         return cb err if err
-        url = path.join GLOBAL.ROOT_DIR, dir, 'coverage', 'lcov-report', 'index.html'
-        return openUrl options, url, cb if options.coverage and options.browser
-        fs.mkdirs path.join(dir, 'report'), (err) ->
+        metrics dir, options, (err) ->
           return cb err if err
-          fs.move path.join(dir, 'coverage/lcov-report'),
-          path.join(dir, 'report/coverage'),
-            overwrite: true
-          , (err) ->
-            return cb err if err
-            fs.remove path.join(dir, 'coverage'), (err) ->
-              return cb err if err
-              metrics dir, options, cb
+          url = path.join GLOBAL.ROOT_DIR, dir, 'report', 'coverage', 'index.html'
+          return openUrl options, url, cb if options.coverage and options.browser
+          cb()
 
 
 # ### Open the given url in the default browser
@@ -193,9 +186,18 @@ coverage = (dir, options, cb) ->
     proc.on 'exit', (status) ->
       if status isnt 0
         return cb "Istanbul exited with status #{status}"
-      if options.coveralls
-        return coveralls dir, options, cb
-      cb()
+      fs.mkdirs path.join(dir, 'report'), (err) ->
+        return cb err if err
+        fs.move path.join(dir, 'coverage/lcov-report'),
+        path.join(dir, 'report/coverage'),
+        overwrite: true
+        , (err) ->
+          return cb err if err
+          fs.remove path.join(dir, 'coverage'), (err) ->
+            return cb err if err
+            if options.coveralls
+              return coveralls dir, options, cb
+            cb()
 
 # ### Send coverage data to coveralls
 coveralls = (dir, options, cb) ->

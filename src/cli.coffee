@@ -155,6 +155,7 @@ for command in argv.command
     when 'publish'
       # backward order because of unshift
       cmds.unshift 'test'
+      argv.coverage = true
       cmds.unshift 'compile'
       argv.uglify = true
       cmds.unshift 'update'
