@@ -50,9 +50,9 @@ npm = (dir, options, cb) ->
           if match = line.match /to go (from .*)/
             msg = msg.replace /(\s*http.*)?\n.*?$/, chalk.grey " #{match[1]}\n"
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
-      if msg
-        msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
-        `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
+      return cb err, '' if msg.split(/\n/).length < 3
+      msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
+      `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
       cb err, msg
 
 git = (dir, options, cb) ->
