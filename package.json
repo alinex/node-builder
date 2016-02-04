@@ -58,6 +58,7 @@
     "mocha": "^2.4.5",
     "moment": "2.x",
     "npm-check": "^4.0.1",
+    "plato": "^1.5.0",
     "prompt": "0.2.x",
     "replace": ">=0.2.0 <0.4.0",
     "request": "^2.67.0",

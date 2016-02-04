@@ -45,12 +45,14 @@ npm = (dir, options, cb) ->
       return cb err if err
       if proc.stdout()
         for line in proc.stdout().trim().split /\n/
-          if line.match /^\w/
-            msg += chalk.yellow "- #{line.trim()}\n" unless line.match /Use npm-check/
+          continue if line.match /Use npm-check/
+          msg += chalk.yellow "- #{line.trim()}\n" if line.match /^\w/
+          if match = line.match /to go (from .*)/
+            msg = msg.replace /(\s*http.*)?\n.*?$/, chalk.grey " #{match[1]}\n"
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       if msg
         msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
-        `#{chalk.underline cmd + ' -d ' + dir}` to upgrade."
+        `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
       cb err, msg
 
 git = (dir, options, cb) ->
