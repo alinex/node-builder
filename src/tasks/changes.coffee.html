@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/changes.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/changescoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
 </head>
@@ -127,14 +127,15 @@ execution finished.</li>
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+    <span class="nf">(cb) -&gt;</span> <span class="nx">npm</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="nf">(cb) -&gt;</span> <span class="nx">git</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
   <span class="p">],</span> <span class="nf">(err, results) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="k">for</span> <span class="nx">r</span> <span class="k">in</span> <span class="nx">results</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">if</span> <span class="nx">r</span>
-    <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;No supported repository to be checked detected.&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">results</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">).</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="nx">cb</span><span class="p">()</span>
 
-<span class="nv">git = </span><span class="nf">(dir, options, cb) -&gt;</span>
+<span class="nv">npm = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;npm-check&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
 
 </pre></div>
         </td>
@@ -144,13 +145,28 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
-<p>check for existing git repository</p>
+<p>run the pull options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for configured git&quot;</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span><span class="p">),</span> <span class="nf">(exists) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span> <span class="c1"># no git repository</span>
+    <span class="nv">msg = </span><span class="s">&quot;NPM Update check:\n&quot;</span>
+    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+      <span class="nv">cmd: </span><span class="nx">cmd</span>
+      <span class="nv">cwd: </span><span class="nx">dir</span>
+    <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
+        <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+          <span class="k">continue</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/Use npm-check/</span>
+          <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^\w/</span>
+          <span class="k">if</span> <span class="nv">match = </span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/to go (from .*)/</span>
+            <span class="nv">msg = </span><span class="nx">msg</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(\s*http.*)?\n.*?$/</span><span class="p">,</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot; </span><span class="si">#{</span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">\n&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="s">&#39;&#39;</span> <span class="k">if</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\n/</span><span class="p">).</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span>
+      <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Use `</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span> <span class="s">&#39;npm install&#39;</span><span class="si">}</span><span class="s">` or</span>
+<span class="s">      `</span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span> <span class="nx">cmd</span> <span class="o">+</span> <span class="s">&#39; -u&#39;</span><span class="si">}</span><span class="s">` to upgrade.\n&quot;</span>
+      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">msg</span>
+
+<span class="nv">git = </span><span class="nf">(dir, options, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -160,29 +176,82 @@ execution finished.</li>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
 </div>
+<p>check for existing git repository</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Check for configured git&quot;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;.git&#39;</span><span class="p">),</span> <span class="nf">(exists) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span> <span class="c1"># no git repository</span>
+    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
+      <span class="nf">(cb) -&gt;</span> <span class="nx">gitChanges</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+      <span class="nf">(cb) -&gt;</span> <span class="nx">gitStatus</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
+    <span class="p">],</span> <span class="nf">(err, results) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">cb</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">results</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;&#39;</span>
+
+<span class="nv">gitChanges = </span><span class="nf">(dir, options, cb) -&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
 <p>run the pull options</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--abbrev=0&#39;</span> <span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nv">tag = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
+    <span class="nv">msg = </span><span class="s">&quot;Changes since last publication as </span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">:\n&quot;</span>
     <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
       <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
-      <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--abbrev=0&#39;</span> <span class="p">]</span>
+      <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">..HEAD&quot;</span><span class="p">,</span> <span class="s">&quot;--format=oneline&quot;</span><span class="p">]</span>
       <span class="nv">cwd: </span><span class="nx">dir</span>
     <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-      <span class="nv">tag = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Changes since last publication as </span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">:&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-        <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
-        <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;log&#39;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">tag</span><span class="si">}</span><span class="s">..HEAD&quot;</span><span class="p">,</span> <span class="s">&quot;--format=oneline&quot;</span> <span class="p">]</span>
-        <span class="nv">cwd: </span><span class="nx">dir</span>
-      <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">line</span><span class="p">[</span><span class="mi">41</span><span class="p">..]</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-        <span class="k">else</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Nothing changed.&quot;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
-        <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="kc">true</span>
+      <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
+        <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">line</span><span class="p">[</span><span class="mi">41</span><span class="p">..]</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+      <span class="k">else</span>
+        <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Nothing changed.\n&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
+      <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">msg</span>
+
+<span class="nv">gitStatus = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nv">msg = </span><span class="s">&#39;&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>run the pull options</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">cmd: </span><span class="s">&#39;git&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span>
+      <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
+        <span class="nx">msg</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^Changes/</span>
+        <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;- </span><span class="si">#{</span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">replace</span> <span class="sr">/\s+/g</span><span class="p">,</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">\n&quot;</span> <span class="k">if</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^\t/</span>
+    <span class="k">else</span>
+      <span class="nx">msg</span> <span class="o">+=</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Nothing changed.\n&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
+    <span class="nx">cb</span> <span class="nx">err</span><span class="p">,</span> <span class="nx">msg</span>
 </pre></div>
         </td>
       </tr>

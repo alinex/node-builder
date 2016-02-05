@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/compile.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/compilecoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
 </head>
@@ -213,7 +213,7 @@ execution finished.</li>
 <p>find files to compile</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">src</span><span class="p">,</span> <span class="p">{</span> <span class="nv">include: </span><span class="s">&#39;*.coffee&#39;</span> <span class="p">},</span> <span class="nf">(err, files) -&gt;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">find</span> <span class="nx">src</span><span class="p">,</span> <span class="p">{</span><span class="nv">include: </span><span class="s">&#39;*.coffee&#39;</span><span class="p">},</span> <span class="nf">(err, files) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">files</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile coffee script&quot;</span>
@@ -262,7 +262,7 @@ execution finished.</li>
             <span class="nv">frommap: </span><span class="nx">mapfile</span>
             <span class="nv">tojs: </span><span class="nx">jsfile</span>
             <span class="nv">tomap: </span><span class="nx">mapfile</span>
-          <span class="p">,</span> <span class="nx">cb</span>
+          <span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
     <span class="p">,</span> <span class="nx">cb</span>
 
 
@@ -284,8 +284,8 @@ execution finished.</li>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
   <span class="k">try</span>
     <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">man</span><span class="o">?</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Compile man pages&quot;</span>
   <span class="nv">src = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
@@ -348,7 +348,7 @@ execution finished.</li>
 
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">uglify = </span><span class="nf">(item, cb) -&gt;</span>
+<span class="nv">uglify = </span><span class="nf">(item, options, cb) -&gt;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;uglifyjs&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nv">args = </span><span class="p">[</span>
@@ -363,7 +363,7 @@ execution finished.</li>
       <span class="nv">args: </span><span class="nx">args</span>
       <span class="nv">cwd: </span><span class="nx">item</span><span class="p">.</span><span class="nx">dir</span>
     <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="o">?</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="o">?</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="o">?</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
       <span class="nx">cb</span> <span class="nx">err</span>
 </pre></div>

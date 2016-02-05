@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/create.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/createcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
 </head>
@@ -322,8 +322,8 @@ execution finished.</li>
   <span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">file</span>
     <span class="k">try</span>
       <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-    <span class="k">catch</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+    <span class="k">catch</span> <span class="nx">error</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">unless</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">type</span> <span class="o">is</span> <span class="s">&#39;git&#39;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">out</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">yellow</span> <span class="s">&quot;Only git repositories can be added to github.&quot;</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
@@ -345,7 +345,7 @@ execution finished.</li>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git remote show origin&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;remote&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;remote&#39;</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="s">&#39;origin&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout) -&gt;</span>
     <span class="k">unless</span> <span class="nx">err</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Skipped GitHub because other origin exists already&quot;</span>
@@ -667,9 +667,10 @@ execution finished.</li>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">file</span><span class="p">,</span> <span class="s">&quot;&quot;&quot;</span>
 <span class="s">    language: node_js</span>
 <span class="s">    node_js:</span>
-<span class="s">       - &quot;0.10&quot;</span>
-<span class="s">       - &quot;0.12&quot;</span>
-<span class="s">       - &quot;4&quot;</span>
+<span class="s">       - &quot;0.10&quot; </span><span class="err">#</span><span class="s"> from 2013-03 maintenance till 2016-10</span>
+<span class="s">       - &quot;0.12&quot; </span><span class="err">#</span><span class="s"> from 2015-02 maintenance till 2017-04</span>
+<span class="s">       - &quot;4.2&quot;  </span><span class="err">#</span><span class="s"> LTS from 2015-10  maintenance till 2018-04</span>
+<span class="s">       - &quot;5.5&quot;  </span><span class="err">#</span><span class="s"> current</span>
 <span class="s">    after_success:</span>
 <span class="s">       - </span><span class="si">#{</span><span class="nx">coveralls</span><span class="si">}</span><span class="s"></span>
 <span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>

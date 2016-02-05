@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/publish.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/publishcoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
 </head>
@@ -102,7 +102,6 @@
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 <span class="p">{</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
-<span class="nv">request = </span><span class="nx">require</span> <span class="s">&#39;request&#39;</span>
 <span class="nv">moment = </span><span class="nx">require</span> <span class="s">&#39;moment&#39;</span>
 
 </pre></div>
@@ -176,8 +175,8 @@ execution finished.</li>
     <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
     <span class="k">try</span>
       <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-    <span class="k">catch</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+    <span class="k">catch</span> <span class="nx">error</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="nv">options.oldVersion = </span><span class="nx">pack</span><span class="p">.</span><span class="nx">version</span>
 
 </pre></div>
@@ -270,7 +269,7 @@ execution finished.</li>
         <span class="k">if</span> <span class="nx">content</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/(describe|it)\.only/</span>
           <span class="k">return</span> <span class="nx">cb</span> <span class="nx">file</span>
         <span class="nx">cb</span><span class="p">()</span>
-    <span class="p">,</span> <span class="nf">(err, file) -&gt;</span>
+    <span class="p">,</span> <span class="nf">(err) -&gt;</span>
       <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">err</span>
       <span class="k">if</span> <span class="k">typeof</span> <span class="nx">err</span> <span class="o">is</span> <span class="s">&#39;string&#39;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Tests with .only were found in </span><span class="si">#{</span><span class="nx">err</span><span class="si">}</span><span class="s">. But a full</span>
@@ -299,7 +298,7 @@ execution finished.</li>
   <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">oldVersion</span> <span class="o">is</span> <span class="s">&#39;0.0.0&#39;</span>
     <span class="nx">args</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">oldVersion</span><span class="si">}</span><span class="s">..HEAD&quot;</span>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; git </span><span class="si">#{</span><span class="nx">args</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -350,7 +349,7 @@ execution finished.</li>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;add&#39;</span>
     <span class="s">&#39;package.json&#39;</span><span class="p">,</span> <span class="s">&#39;Changelog.md&#39;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -358,7 +357,7 @@ execution finished.</li>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
       <span class="s">&#39;commit&#39;</span>
       <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Added information for version </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -385,7 +384,7 @@ execution finished.</li>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;push&#39;</span>
     <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;master&#39;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -419,7 +418,7 @@ execution finished.</li>
     <span class="s">&#39;tag&#39;</span>
     <span class="s">&#39;-a&#39;</span><span class="p">,</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Created version </span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}#{</span><span class="nx">changelog</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -427,7 +426,7 @@ execution finished.</li>
     <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
       <span class="s">&#39;push&#39;</span>
       <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&quot;v</span><span class="si">#{</span><span class="nx">options</span><span class="p">.</span><span class="nx">newVersion</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -451,12 +450,12 @@ execution finished.</li>
 <span class="nv">pushNpm = </span><span class="nf">(dir, options, cb) -&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to npm&quot;</span>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; npm install&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
     <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; npm publish&quot;</span>
-    <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;publish&#39;</span> <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="nx">execFile</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s">&#39;publish&#39;</span> <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>

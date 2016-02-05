@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "home/alex/github/node-builder/src/cli.coffee", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "home/alex/github/node-builder/src/clicoffee", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
 </head>
@@ -513,6 +513,9 @@ command line call.</p>
 <span class="nv">cmds = </span><span class="p">[]</span>
 <span class="k">for</span> <span class="nx">command</span> <span class="k">in</span> <span class="nx">argv</span><span class="p">.</span><span class="nx">command</span>
   <span class="k">switch</span> <span class="nx">command</span>
+    <span class="k">when</span> <span class="s">&#39;test&#39;</span>
+      <span class="nx">cmds</span><span class="p">.</span><span class="nx">push</span> <span class="nx">command</span>
+      <span class="nv">argv.coverage = </span><span class="kc">true</span>
     <span class="k">when</span> <span class="s">&#39;publish&#39;</span>
 
 </pre></div>
@@ -527,6 +530,7 @@ command line call.</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
       <span class="nx">cmds</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;test&#39;</span>
+      <span class="nv">argv.coverage = </span><span class="kc">true</span>
       <span class="nx">cmds</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;compile&#39;</span>
       <span class="nv">argv.uglify = </span><span class="kc">true</span>
       <span class="nx">cmds</span><span class="p">.</span><span class="nx">unshift</span> <span class="s">&#39;update&#39;</span>

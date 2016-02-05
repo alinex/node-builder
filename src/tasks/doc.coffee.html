@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/doc.coffee", defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/doccoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
 </head>
@@ -102,7 +102,7 @@
 <span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;builder&#39;</span><span class="p">)</span>
 <span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
 <span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">exec</span><span class="p">,</span><span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="p">{</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 
 </pre></div>
         </td>
@@ -157,8 +157,8 @@ script if defined.</p>
     <span class="p">,</span> <span class="mi">5000</span>
   <span class="k">try</span>
     <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"> as valid JSON:</span>
 
 </pre></div>
         </td>
@@ -168,32 +168,33 @@ script if defined.</p>
 <div class="pilwrap">
   <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
 </div>
-<p>Create the html documentation out of source files</p>
+<p>{error.message}"
+Create the html documentation out of source files</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">createDoc</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
-      <span class="nf">(cb) -&gt;</span>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">filter</span> <span class="p">[</span>
-          <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/local/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.css&#39;</span>
-          <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/src/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.css&#39;</span>
-        <span class="p">],</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span><span class="p">,</span> <span class="nf">(files) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span> <span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;doc-style.css&#39;</span><span class="p">),</span>
-            <span class="nv">overwrite: </span><span class="kc">true</span>
-          <span class="p">,</span> <span class="nx">cb</span>
-      <span class="nf">(cb) -&gt;</span>
-        <span class="nx">async</span><span class="p">.</span><span class="nx">filter</span> <span class="p">[</span>
-          <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/local/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.js&#39;</span>
-          <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;var/src/docstyle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.js&#39;</span>
-        <span class="p">],</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span><span class="p">,</span> <span class="nf">(files) -&gt;</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">files</span><span class="p">.</span><span class="nx">length</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span> <span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;doc-script.js&#39;</span><span class="p">),</span>
-            <span class="nv">overwrite: </span><span class="kc">true</span>
-          <span class="p">,</span> <span class="nx">cb</span>
-    <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+<span class="s">  createDoc dir, options, (err) -&gt;</span>
+<span class="s">    return cb err if err</span>
+<span class="s">    async.parallel [</span>
+<span class="s">      (cb) -&gt;</span>
+<span class="s">        async.filter [</span>
+<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/local/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.css&#39;</span>
+<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/src/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.css&#39;</span>
+<span class="s">        ], fs.exists, (files) -&gt;</span>
+<span class="s">          return cb() unless files.length</span>
+<span class="s">          fs.copy files[0], path.join(dir, &#39;doc&#39;, &#39;doc-style.css&#39;),</span>
+<span class="s">            overwrite: true</span>
+<span class="s">          , cb</span>
+<span class="s">      (cb) -&gt;</span>
+<span class="s">        async.filter [</span>
+<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/local/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.js&#39;</span>
+<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/src/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.js&#39;</span>
+<span class="s">        ], fs.exists, (files) -&gt;</span>
+<span class="s">          return cb() unless files.length</span>
+<span class="s">          fs.copy files[0], path.join(dir, &#39;doc&#39;, &#39;doc-script.js&#39;),</span>
+<span class="s">            overwrite: true</span>
+<span class="s">          , cb</span>
+<span class="s">    ], (err) -&gt;</span>
+<span class="s">      return cb err if err</span>
 
 </pre></div>
         </td>
@@ -206,11 +207,11 @@ script if defined.</p>
 <p>Check if --publish flag is set</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-      <span class="k">return</span> <span class="nx">publish</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">publish</span>
-      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-      <span class="nx">cb</span><span class="p">()</span>
+<span class="s">      return publish dir, options, pack, cb if options.publish</span>
+<span class="s">      return openUrl options, url, cb if options.browser</span>
+<span class="s">      cb()</span>
 
-<span class="nv">publish = </span><span class="nf">(dir, options, pack, cb) -&gt;</span>
+<span class="s">publish = (dir, options, pack, cb) -&gt;</span>
 
 </pre></div>
         </td>
@@ -223,9 +224,9 @@ script if defined.</p>
 <p>Publish using script from package.json</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">if</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="o">?</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="o">?</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&gt; </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">dir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+<span class="s">  if pack.scripts?[&#39;doc-publish&#39;]?</span>
+<span class="s">    debug &quot;</span><span class="nx">exec</span> <span class="c1">#{dir}&gt; #{pack.scripts[&#39;doc-publish&#39;]}&quot;</span>
+    <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
@@ -254,7 +255,7 @@ script if defined.</p>
         <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
       <span class="p">],</span> <span class="nf">(err) -&gt;</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">-&gt;</span>
           <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
           <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
@@ -405,7 +406,8 @@ so we pass a blank title so we can quote the file we are opening</p>
                     <span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="nx">dir</span>
                     <span class="s">&#39;-u&#39;</span>
                     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span> <span class="k">then</span> <span class="s">&#39;-w&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
-                    <span class="s">&#39;-x&#39;</span><span class="p">,</span> <span class="s">&#39;.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular&#39;</span>
+                    <span class="s">&#39;-x&#39;</span>
+                    <span class="s">&#39;.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular&#39;</span>
                     <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
                     <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;autumn&#39;</span>
 
@@ -471,8 +473,9 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="code highlight"><div class="highlight"><pre>
                 <span class="k">try</span>
                   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">err</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+                <span class="k">catch</span> <span class="nx">error</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
                 <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;alinex&#39;</span>
                 <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
                   <span class="nv">cmd: </span><span class="nx">replace</span>
@@ -500,9 +503,11 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="code highlight"><div class="highlight"><pre>
                 <span class="k">try</span>
                   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">err</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
-                <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                <span class="k">catch</span> <span class="nx">error</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
+                <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
+                  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
                 <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
                   <span class="nv">cmd: </span><span class="nx">replace</span>
                   <span class="nv">args: </span><span class="p">[</span>
@@ -540,8 +545,9 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="code highlight"><div class="highlight"><pre>
                 <span class="k">try</span>
                   <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">err</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+                <span class="k">catch</span> <span class="nx">error</span>
+                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
+<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
                 <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
                   <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
                 <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
@@ -596,8 +602,8 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
   <span class="k">try</span>
     <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">err</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON.&quot;</span>
+  <span class="k">catch</span> <span class="nx">error</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Cloning git repository&quot;</span>
   <span class="nx">debug</span> <span class="s">&quot;exec&gt; git clone </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
@@ -629,7 +635,7 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git checkout gh-pages&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;checkout&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">err</span>
@@ -638,7 +644,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <span class="s">&#39;checkout&#39;</span>
       <span class="s">&#39;--orphan&#39;</span>
       <span class="s">&#39;gh-pages&#39;</span>
-    <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
       <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
       <span class="nx">cb</span> <span class="nx">err</span>
@@ -665,7 +671,7 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git rm -rf .&quot;</span>
   <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;rm&#39;</span><span class="p">,</span> <span class="s">&#39;-rf&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
@@ -677,7 +683,7 @@ so we pass a blank title so we can quote the file we are opening</p>
       <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git add *&quot;</span>
       <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
         <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span>
-      <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+      <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
         <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
@@ -688,7 +694,7 @@ so we pass a blank title so we can quote the file we are opening</p>
           <span class="s">&#39;commit&#39;</span>
           <span class="s">&#39;--allow-empty&#39;</span>
           <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Updated documentation&quot;</span>
-        <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+        <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
           <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
           <span class="nx">cb</span> <span class="nx">err</span>
@@ -714,7 +720,7 @@ so we pass a blank title so we can quote the file we are opening</p>
   <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
     <span class="s">&#39;push&#39;</span>
     <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
-  <span class="p">],</span> <span class="p">{</span> <span class="nv">cwd: </span><span class="nx">tmpdir</span> <span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
     <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>

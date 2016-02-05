@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "home/alex/github/node-builder/README.md", defaultSidebar = true;
+    var relativeDir = "", thisFile = "home/alex/github/node-builder/READMEmd", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
 </head>
@@ -449,7 +449,9 @@ Done.
 errors the automatic tests will be run.</p>
 
 <p>If the <a href="http://gotwarlost.github.io/istanbul/">istanbul</a> module is installed
-a code coverage report will be build.</p>
+a code coverage report will be build.
+And at last code metrics will be analyzed but only on the compiled version at
+the moment. You will find this reports under '/reports' directory as html.</p>
 
 
 <div class="highlight"><pre><code>builder -c <span class="nb">test</span>                  <span class="c"># from within the package directory</span>
@@ -582,8 +584,13 @@ hyphen.</p>
 </div>
 
 
-<p>This will list all changes (checkins) which are done since the last publication.
-Use this to check if you should make a new publication or if it can wait.</p>
+<p>This will list all changes in
+- packages
+- since last version tag
+- in current committe
+- and things are staged only</p>
+
+<p>Use this to check if you should make a new publication or if it can wait.</p>
 
 
 <div class="highlight"><pre><code>builder -c changes
@@ -592,12 +599,24 @@ Use this to check if you should make a new publication or if it can wait.</p>
 
 
 
-<div class="highlight"><pre><code>Changes since last publication:
-- Small bugfix in creating docs for non alinex packages.
-- Fixed internal links in documentation.
-- Changed created script calls to support newer make.
-- Updated to use newest make version in created files.
-- Fixed create task which was completely buggy since last rewrite.
+<div class="highlight"><pre><code>NPM Update check:
+- docker            😕  NOTUSED?  Possibly never referenced in the code.
+- alinex-config     😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-config/
+- marked-man        😕  NOTUSED?  Possibly never referenced in the code.
+- coffee-coverage   😕  NOTUSED?  Possibly never referenced in the code.
+- coffeelint        😕  NOTUSED?  Possibly never referenced in the code.
+- coveralls         😕  NOTUSED?  Possibly never referenced in the code.
+- istanbul          😕  NOTUSED?  Possibly never referenced in the code.
+- npm-check         😕  NOTUSED?  Possibly never referenced in the code.
+- replace           😕  NOTUSED?  Possibly never referenced in the code.
+- uglify-js         😕  NOTUSED?  Possibly never referenced in the code.
+Changes since last publication as v1.1.13:
+- Upgraded config module.
+Changes to be committed:
+- modified: src/tasks/changes.coffee
+Changes not staged for commit:
+- modified: README.md
+- modified: src/tasks/changes.coffee
 </code></pre></div>
 
 
