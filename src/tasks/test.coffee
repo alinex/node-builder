@@ -67,7 +67,7 @@ metrics = (dir, options, cb) ->
       console.log chalk.yellow "Skipped lint because plato is missing"
       return cb?()
     # Run external options
-    console.log "Code metrics usingpplato"
+    console.log "Code metrics using plato"
     debug "exec #{dir}> #{cmd} -r -d #{path.join dir, 'report/metrics'} lib"
     if options.nocolors
       proc = spawn cmd, [
@@ -91,6 +91,8 @@ metrics = (dir, options, cb) ->
     proc.on 'exit', (status) ->
       if status isnt 0
         status = "Plato exited with status #{status}"
+      else
+        console.log "report written to [#{dir}report/metrics]"
       cb status
 
 

@@ -46,7 +46,7 @@ compileCoffee = (dir, options, cb) ->
   src = path.join dir, 'src'
   lib = path.join dir, 'lib'
   # find files to compile
-  fs.find src, { include: '*.coffee' }, (err, files) ->
+  fs.find src, {include: '*.coffee'}, (err, files) ->
     return cb err if err
     return cb() unless files
     console.log "Compile coffee script"
@@ -84,7 +84,7 @@ compileCoffee = (dir, options, cb) ->
             frommap: mapfile
             tojs: jsfile
             tomap: mapfile
-          , cb
+          , options, cb
     , cb
 
 # ### Compile man pages
@@ -92,8 +92,8 @@ compileMan = (dir, options, cb) ->
   file = path.join dir, 'package.json'
   try
     pack = JSON.parse fs.readFileSync file
-  catch err
-    return cb new Error "Could not load #{file} as valid JSON."
+  catch error
+    return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
   return cb() unless pack.man?
   console.log "Compile man pages"
   src = path.join dir, 'src'
@@ -120,7 +120,7 @@ compileMan = (dir, options, cb) ->
 
 
 # ### Run uglify for all javascript in directory
-uglify = (item, cb) ->
+uglify = (item, options, cb) ->
   fs.npmbin 'uglifyjs', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
     args = [
@@ -135,6 +135,6 @@ uglify = (item, cb) ->
       args: args
       cwd: item.dir
     , (err, proc) ->
-      console.log chalk.grey stdout.trim() if proc?.stdout() and options.verbose
+      console.log chalk.grey proc.stdout().trim() if proc?.stdout() and options.verbose
       console.error chalk.magenta proc.stderr().trim() if proc?.stderr()
       cb err

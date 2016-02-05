@@ -152,6 +152,9 @@ chalk.enabled = false if argv.nocolors
 cmds = []
 for command in argv.command
   switch command
+    when 'test'
+      cmds.push command
+      argv.coverage = true
     when 'publish'
       # backward order because of unshift
       cmds.unshift 'test'
