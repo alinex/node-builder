@@ -40,8 +40,13 @@ module.exports.run = (dir, options, cb) ->
   try
     pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
   catch error
+<<<<<<< HEAD
     return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON:
     #{error.message}"
+=======
+    return cb new Error "Could not load #{path.join dir, 'package.json'}
+    as valid JSON: #{error.message}"
+>>>>>>> 1aa02128a859441cffb9ba786dc0a68c6b380cf9
   # Create the html documentation out of source files
   createDoc dir, options, (err) ->
     return cb err if err

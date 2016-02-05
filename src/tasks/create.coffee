@@ -99,8 +99,8 @@ createGitHub = (dir, options, cb) ->
   if fs.existsSync file
     try
       pack = JSON.parse fs.readFileSync file
-    catch err
-      return cb new Error "Could not load #{file} as valid JSON."
+    catch error
+      return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
     unless pack.repository.type is 'git'
       console.out chalk.yellow "Only git repositories can be added to github."
       return cb()
@@ -111,7 +111,7 @@ createGitHub = (dir, options, cb) ->
       return cb()
   # check for other remote origin
   debug "exec #{dir}> git remote show origin"
-  execFile "git", ['remote', 'show', 'origin'], {cwd: dir}, (err, stdout, stderr) ->
+  execFile "git", ['remote', 'show', 'origin'], {cwd: dir}, (err, stdout) ->
     unless err
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.log "Skipped GitHub because other origin exists already"
@@ -333,9 +333,10 @@ createTravis = (dir, options, cb) ->
   fs.writeFile file, """
     language: node_js
     node_js:
-       - "0.10"
-       - "0.12"
-       - "4"
+       - "0.10" # from 2013-03 maintenance till 2016-10
+       - "0.12" # from 2015-02 maintenance till 2017-04
+       - "4.2"  # LTS from 2015-10  maintenance till 2018-04
+       - "5.5"  # current
     after_success:
        - #{coveralls}
     """, cb
