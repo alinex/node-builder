@@ -42,10 +42,11 @@
   },
   "dependencies": {
     "alinex-async": "^0.2.5",
-    "alinex-config": "1.0.7",
+    "alinex-config": "^1.0.7",
+    "alinex-database": "^0.1.4",
     "alinex-exec": "^1.0.0",
     "alinex-fs": "^0.2.1",
-    "alinex-util": "^0.3.6",
+    "alinex-util": "^0.3.15",
     "chalk": "^1.1.1",
     "coffee-coverage": "^1.0.1",
     "coffee-script": "^1.10.0",
@@ -62,7 +63,7 @@
     "replace": ">=0.2.0 <0.4.0",
     "request": "^2.67.0",
     "uglify-js": "^2.6.1",
-    "yargs": "3.x"
+    "yargs": "^3.32.0"
   },
   "devDependencies": {
     "chai": "^3.5.0"
