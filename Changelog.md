@@ -4,6 +4,21 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.0 (2016-02-05)
+-------------------------------------------------
+- Code style fixes.
+- Merge with new create process changes.
+- Update create task.
+- No npm package output if there is nothing changed.
+- Remove report directory from documentation area.
+- Auto run coverage on publish.
+- Addded code metrics using plato and moved coverage reports to /report directory.
+- Use retry possibilities of exec module.
+- Added retry option to pull command.
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Added retry option to push command.
+- Show more information in changes task.
+
 Version 1.1.16 (2016-02-03)
 -------------------------------------------------
 - Added coffelint file.

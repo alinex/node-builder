@@ -246,6 +246,8 @@ errors the automatic tests will be run.
 
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
+And at last code metrics will be analyzed but only on the compiled version at
+the moment. You will find this reports under '/reports' directory as html.
 
 ``` sh
 builder -c test                  # from within the package directory

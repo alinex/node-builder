@@ -9,9 +9,8 @@
 debug = require('debug')('builder:test')
 path = require 'path'
 chalk = require 'chalk'
-{spawn,exec, execFile} = require 'child_process'
+{spawn, exec} = require 'child_process'
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 
 # Main routine
 # -------------------------------------------------
@@ -38,9 +37,11 @@ module.exports.run = (dir, options, cb) ->
       return cb err if err
       coverage dir, options, (err) ->
         return cb err if err
-        url = path.join GLOBAL.ROOT_DIR, dir, 'coverage', 'lcov-report', 'index.html'
-        return openUrl options, url, cb if options.coverage and options.browser
-        cb()
+        metrics dir, options, (err) ->
+          return cb err if err
+          url = path.join GLOBAL.ROOT_DIR, dir, 'report', 'coverage', 'index.html'
+          return openUrl options, url, cb if options.coverage and options.browser
+          cb()
 
 
 # ### Open the given url in the default browser
@@ -58,6 +59,43 @@ openUrl = (options, target, cb) ->
   return exec opener + ' "' + encodeURI(target) + '"', cb
 
 
+# ### Run Plato to get metrics
+metrics = (dir, options, cb) ->
+  # Check for existing options
+  fs.npmbin 'plato', path.dirname(path.dirname __dirname), (err, cmd) ->
+    if err
+      console.log chalk.yellow "Skipped lint because plato is missing"
+      return cb?()
+    # Run external options
+    console.log "Code metrics using plato"
+    debug "exec #{dir}> #{cmd} -r -d #{path.join dir, 'report/metrics'} lib"
+    if options.nocolors
+      proc = spawn cmd, [
+        '-r'
+        "-d", path.join dir, 'report/metrics'
+        'lib'
+      ], {cwd: dir, stdio: 'inherit'}
+    else
+      proc = spawn cmd, [
+        '-r'
+        "-d", path.join dir, 'report/metrics'
+        'lib'
+      ], {cwd: dir}
+      proc.stdout.on 'data', (data) ->
+        if options.verbose
+          console.log data.toString().trim()
+      proc.stderr.on 'data', (data) ->
+        console.error chalk.magenta data.toString().trim()
+    # Error management
+    proc.on 'error', cb
+    proc.on 'exit', (status) ->
+      if status isnt 0
+        status = "Plato exited with status #{status}"
+      else
+        console.log "report written to [#{dir}report/metrics]"
+      cb status
+
+
 # ### Run lint against coffee script
 coffeelint = (dir, options, cb) ->
   # Check for existing options
@@ -72,12 +110,12 @@ coffeelint = (dir, options, cb) ->
       proc = spawn cmd, [
         '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
         'src'
-      ], { cwd: dir, stdio: 'inherit' }
+      ], {cwd: dir, stdio: 'inherit'}
     else
       proc = spawn cmd, [
         '-f', path.join GLOBAL.ROOT_DIR, 'coffeelint.json'
         'src'
-      ], { cwd: dir }
+      ], {cwd: dir}
       proc.stdout.on 'data', (data) ->
         if options.verbose
           console.log data.toString().trim()
@@ -86,7 +124,7 @@ coffeelint = (dir, options, cb) ->
     # Error management
     proc.on 'error', cb
     proc.on 'exit', (status) ->
-      if status != 0
+      if status isnt 0
         status = "Coffeelint exited with status #{status}"
       cb status
 
@@ -120,11 +158,11 @@ testMocha = (dir, options, cb) ->
       args.push '--bail' if options.bail
       args.push 'test/mocha'
       debug "exec #{dir}> #{cmd} #{args.join ' '}"
-      proc = spawn cmd, args, { cwd: dir, stdio: 'inherit', env: process.env }
+      proc = spawn cmd, args, {cwd: dir, stdio: 'inherit', env: process.env}
       # Error management
       proc.on 'error', cb
       proc.on 'exit', (status) ->
-        if status != 0
+        if status isnt 0
           status = "Test exited with status #{status}"
         cb status
 
@@ -141,24 +179,33 @@ coverage = (dir, options, cb) ->
     # Run external command
     console.log "Create coverage report"
     debug "exec #{dir}> #{cmd} report"
-    proc = spawn cmd, ['report'], { cwd: dir }
+    proc = spawn cmd, ['report'], {cwd: dir}
     if options.verbose
       proc.stderr.on 'data', (data) ->
         console.error chalk.grey data.toString().trim()
     # Error management
     proc.on 'error', cb
     proc.on 'exit', (status) ->
-      if status != 0
+      if status isnt 0
         return cb "Istanbul exited with status #{status}"
-      if options.coveralls
-        return coveralls dir, options, cb
-      cb()
+      fs.mkdirs path.join(dir, 'report'), (err) ->
+        return cb err if err
+        fs.move path.join(dir, 'coverage/lcov-report'),
+        path.join(dir, 'report/coverage'),
+        overwrite: true
+        , (err) ->
+          return cb err if err
+          fs.remove path.join(dir, 'coverage'), (err) ->
+            return cb err if err
+            if options.coveralls
+              return coveralls dir, options, cb
+            cb()
 
 # ### Send coverage data to coveralls
 coveralls = (dir, options, cb) ->
   file = path.join dir, 'coverage', 'lcov.info'
   coveralls = path.join GLOBAL.ROOT_DIR, 'node_modules/coveralls/bin/coveralls.js'
   debug "exec> cat #{file} | #{coveralls} --verbose"
-  exec "cat #{file} | #{coveralls} --verbose", (err, stdout, stderr) ->
+  exec "cat #{file} | #{coveralls} --verbose", (err, stdout) ->
     console.log stdout.toString().trim() if stdout
     cb err

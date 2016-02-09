@@ -10,7 +10,7 @@ fs = require 'alinex-fs'
 debug = require('debug')('builder')
 path = require 'path'
 chalk = require 'chalk'
-{exec,execFile} = require 'child_process'
+{exec, execFile} = require 'child_process'
 # include alinex modules
 Exec = require 'alinex-exec'
 async = require 'alinex-async'
@@ -40,8 +40,8 @@ module.exports.run = (dir, options, cb) ->
   try
     pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
   catch error
-    return cb new Error "Could not load #{path.join dir, 'package.json'}
-    as valid JSON: #{error.message}"
+    return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON:
+    #{error.message}"
   # Create the html documentation out of source files
   createDoc dir, options, (err) ->
     return cb err if err
@@ -75,7 +75,7 @@ publish = (dir, options, pack, cb) ->
   # Publish using script from package.json
   if pack.scripts?['doc-publish']?
     debug "exec #{dir}> #{pack.scripts['doc-publish']}"
-    exec pack.scripts['doc-publish'], { cwd: dir }, (err, stdout, stderr) ->
+    exec pack.scripts['doc-publish'], {cwd: dir}, (err, stdout, stderr) ->
       if options.verbose
         console.log chalk.grey stdout.toString().trim() if stdout
       console.log chalk.magenta stderr.toString().trim() if stderr
@@ -93,7 +93,7 @@ publish = (dir, options, pack, cb) ->
         (cb) -> pushOrigin dir, tmpdir, options, cb
       ], (err) ->
         return cb err if err
-        fs.remove tmpdir, (err) ->
+        fs.remove tmpdir, ->
           return openUrl options, pack.homepage, cb if options.browser
           return cb()
   # Publication was not possible
@@ -161,7 +161,8 @@ createDoc = (dir, options, cb) ->
                     '-i', dir
                     '-u'
                     if options.watch then '-w' else ''
-                    '-x', '.git,bin,doc,node_modules,test,lib,public,view,log,config,*/angular'
+                    '-x'
+                    '.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'
                     '-o', path.join dir, 'doc'
                     '-c', 'autumn'
 #                    '--extras', 'fileSearch'
@@ -190,8 +191,9 @@ createDoc = (dir, options, cb) ->
                 # add fork on github icon
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-                catch err
-                  return cb new Error "Could not load #{file} as valid JSON."
+                catch error
+                  return cb new Error "Could not load #{path.join dir, 'package.json'}
+                  as valid JSON: #{error.message}"
                 return cb() unless (pack.name.split /-/)[0] is 'alinex'
                 Exec.run
                   cmd: replace
@@ -208,9 +210,11 @@ createDoc = (dir, options, cb) ->
                 # add alinex header
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-                catch err
-                  return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON."
-                return cb() unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                catch error
+                  return cb new Error "Could not load #{path.join dir, 'package.json'}
+                  as valid JSON: #{error.message}"
+                unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
+                  return cb()
                 Exec.run
                   cmd: replace
                   args: [
@@ -237,8 +241,9 @@ createDoc = (dir, options, cb) ->
                 # fix tables
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-                catch err
-                  return cb new Error "Could not load #{path.join dir, 'package.json'} as valid JSON."
+                catch error
+                  return cb new Error "Could not load #{path.join dir, 'package.json'}
+                  as valid JSON: #{error.message}"
                 unless pack?.repository?.url? and ~pack.repository.url.indexOf 'github.com'
                   return cb()
                 Exec.run
@@ -268,8 +273,8 @@ cloneGit = (dir, tmpdir, options, cb) ->
   file = path.join dir, 'package.json'
   try
     pack = JSON.parse fs.readFileSync file
-  catch err
-    return cb new Error "Could not load #{file} as valid JSON."
+  catch error
+    return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
   console.log "Cloning git repository"
   debug "exec> git clone #{pack.repository.url} #{tmpdir}"
   execFile 'git', [
@@ -287,7 +292,7 @@ checkoutPages = (dir, tmpdir, options, cb) ->
   debug "exec #{tmpdir}> git checkout gh-pages"
   execFile 'git', [
     'checkout', 'gh-pages'
-  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+  ], {cwd: tmpdir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb() unless err
@@ -296,7 +301,7 @@ checkoutPages = (dir, tmpdir, options, cb) ->
       'checkout'
       '--orphan'
       'gh-pages'
-    ], { cwd: tmpdir }, (err, stdout, stderr) ->
+    ], {cwd: tmpdir}, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       cb err
@@ -309,7 +314,7 @@ updateDoc = (dir, tmpdir, options, cb) ->
   debug "exec #{tmpdir}> git rm -rf ."
   execFile 'git', [
     'rm', '-rf', '.'
-  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+  ], {cwd: tmpdir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error stderr.trim().magenta if stderr
     if options.verbose
@@ -321,7 +326,7 @@ updateDoc = (dir, tmpdir, options, cb) ->
       debug "exec #{tmpdir}> git add *"
       execFile 'git', [
         'add', '*'
-      ], { cwd: tmpdir }, (err, stdout, stderr) ->
+      ], {cwd: tmpdir}, (err, stdout, stderr) ->
         console.log stdout.trim().grey if stdout and options.verbose
         console.error stderr.trim().magenta if stderr
         return cb err if err
@@ -332,7 +337,7 @@ updateDoc = (dir, tmpdir, options, cb) ->
           'commit'
           '--allow-empty'
           '-m', "Updated documentation"
-        ], { cwd: tmpdir }, (err, stdout, stderr) ->
+        ], {cwd: tmpdir}, (err, stdout, stderr) ->
           console.log chalk.grey stdout.trim() if stdout and options.verbose
           console.error chalk.magenta stderr.trim() if stderr
           cb err
@@ -344,7 +349,7 @@ pushOrigin = (dir, tmpdir, options, cb) ->
   execFile "git", [
     'push'
     'origin', 'gh-pages'
-  ], { cwd: tmpdir }, (err, stdout, stderr) ->
+  ], {cwd: tmpdir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err

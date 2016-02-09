@@ -66,7 +66,7 @@ npmInstall = (dir, options, cb) ->
         noExitCode: true
     , cb
   , cb
-  
+
 # ### Update all modules
 npmUpdate = (dir, options, cb) ->
   # Run external command

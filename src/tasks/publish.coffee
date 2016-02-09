@@ -10,7 +10,6 @@ debug = require('debug')('make:publish')
 path = require 'path'
 chalk = require 'chalk'
 {execFile} = require 'child_process'
-request = require 'request'
 moment = require 'moment'
 # include alinex modules
 fs = require 'alinex-fs'
@@ -36,8 +35,8 @@ module.exports.run = (dir, options, cb) ->
     file = path.join dir, 'package.json'
     try
       pack = JSON.parse fs.readFileSync file
-    catch err
-      return cb new Error "Could not load #{file} as valid JSON."
+    catch error
+      return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
     options.oldVersion = pack.version
     # calculate new version
     if options.verbose
@@ -83,7 +82,7 @@ checkTests = (dir, options, cb) ->
         if content.match /(describe|it)\.only/
           return cb file
         cb()
-    , (err, file) ->
+    , (err) ->
       return cb() unless err
       if typeof err is 'string'
         return cb new Error "Tests with .only were found in #{err}. But a full
@@ -98,7 +97,7 @@ updateChangelog = (dir, options, cb) ->
   unless options.oldVersion is '0.0.0'
     args.push "v#{options.oldVersion}..HEAD"
   debug "exec #{dir}> git #{args.join ' '}"
-  execFile "git", args, { cwd: dir }, (err, stdout, stderr) ->
+  execFile "git", args, {cwd: dir}, (err, stdout, stderr) ->
     console.log chalk.grey stderr.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
@@ -124,7 +123,7 @@ commitChanges = (dir, options, cb) ->
   execFile "git", [
     'add'
     'package.json', 'Changelog.md'
-  ], { cwd: dir }, (err, stdout, stderr) ->
+  ], {cwd: dir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
@@ -132,7 +131,7 @@ commitChanges = (dir, options, cb) ->
     execFile "git", [
       'commit'
       '-m', "Added information for version #{options.newVersion}"
-    ], { cwd: dir }, (err, stdout, stderr) ->
+    ], {cwd: dir}, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
@@ -145,7 +144,7 @@ pushOrigin = (dir, options, cb) ->
   execFile "git", [
     'push'
     'origin', 'master'
-  ], { cwd: dir }, (err, stdout, stderr) ->
+  ], {cwd: dir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
@@ -165,7 +164,7 @@ gitTag = (dir, options, cb) ->
     'tag'
     '-a', "v#{options.newVersion}"
     '-m', "Created version #{options.newVersion}#{changelog}"
-  ], { cwd: dir }, (err, stdout, stderr) ->
+  ], {cwd: dir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
@@ -173,7 +172,7 @@ gitTag = (dir, options, cb) ->
     execFile "git", [
       'push'
       'origin', "v#{options.newVersion}"
-    ], { cwd: dir }, (err, stdout, stderr) ->
+    ], {cwd: dir}, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       return cb err if err
@@ -183,12 +182,12 @@ gitTag = (dir, options, cb) ->
 pushNpm = (dir, options, cb) ->
   console.log "Push to npm"
   debug "exec #{dir}> npm install"
-  execFile 'npm', [ 'install' ], { cwd: dir }, (err, stdout, stderr) ->
+  execFile 'npm', [ 'install' ], {cwd: dir}, (err, stdout, stderr) ->
     console.log chalk.grey stdout.trim() if stdout and options.verbose
     console.error chalk.magenta stderr.trim() if stderr
     return cb err if err
     debug "exec #{dir}> npm publish"
-    execFile 'npm', [ 'publish' ], { cwd: dir }, (err, stdout, stderr) ->
+    execFile 'npm', [ 'publish' ], {cwd: dir}, (err, stdout, stderr) ->
       console.log chalk.grey stdout.trim() if stdout and options.verbose
       console.error chalk.magenta stderr.trim() if stderr
       return cb err if err

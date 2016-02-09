@@ -45,12 +45,12 @@ git = (dir, options, cb) ->
       return cb err if err
       # run the push options
       console.log "Push to origin"
-      async.retry 3, (cb) ->
-        Exec.run
-          cmd: 'git'
-          args: [ 'push', '--tags', 'origin', 'master' ]
-          cwd: dir
-        , cb
+      Exec.run
+        cmd: 'git'
+        args: [ 'push', '--tags', 'origin', 'master' ]
+        cwd: dir
+        retry:
+          times: 3
       , (err, proc) ->
         console.log chalk.grey proc.stdout().trim() if proc.stdout() and options.verbose
         console.error chalk.magenta proc.stderr().trim() if proc.stderr()
@@ -71,6 +71,8 @@ commit = (dir, options, cb) ->
         cmd: 'git'
         args: [ 'commit', '-m', options.message ]
         cwd: dir
+        retry:
+          times: 3
         check:
           noExitCode: true
       , (err, proc) ->
