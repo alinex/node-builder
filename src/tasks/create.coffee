@@ -54,12 +54,7 @@ createDir = (dir, options, cb) ->
   console.log "Create directory #{dir}"
   fs.mkdirs path.join(dir, 'src'), (err) ->
     return cb err if err
-    fs.mkdirs path.join(dir, 'test', 'mocha'), (err) ->
-      return cb err if err
-      # copy .npmignore file
-      for f in ['.npmignore', 'coffeelint.json']
-        file = path.join dir, f
-        fs.copy path.join(GLOBAL.ROOT_DIR, f), file, cb
+    fs.mkdirs path.join(dir, 'test', 'mocha'), cb
 
 # ### Create initial git repository
 # It will set the `options.git` variable to the local uri
@@ -86,7 +81,10 @@ initGit = (dir, options, cb) ->
       file = path.join dir, '.gitignore'
       return cb err if err or fs.existsSync file
       options.git = 'file://' + fs.realpathSync dir
-      fs.copy path.join(GLOBAL.ROOT_DIR, 'var/src/gitignore'), file, cb
+      fs.copy path.join(GLOBAL.ROOT_DIR, 'var/src/gitignore'), file, (err) ->
+        file = path.join dir, '.npmignore'
+        return cb err if err or fs.existsSync file
+        fs.copy path.join(GLOBAL.ROOT_DIR, 'var/src/npmignore'), file, cb
 
 # ### Create new GitHub repository if not existing
 # It will set the `options.github` variable
