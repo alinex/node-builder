@@ -12,4 +12,4 @@
 /var/lib/
 /var/local/
 npm-debug.log
-man/
+/man/
