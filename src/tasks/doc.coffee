@@ -159,12 +159,12 @@ createDoc = (dir, options, cb) ->
                   return cb err if err
                   args = [
                     '-i', dir
-                    '-u'
+#                    '-u'
                     if options.watch then '-w' else ''
                     '-x'
                     '.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'
                     '-o', path.join dir, 'doc'
-                    '-c', 'autumn'
+#                    '-c', 'autumn'
 #                    '--extras', 'fileSearch'
                   ]
                   Exec.run
@@ -227,8 +227,9 @@ createDoc = (dir, options, cb) ->
                       <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
                     </div>
                     <div class="links">
-                      <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-                      <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+                      <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+                      <a href="http://alinex.github.io/develop" class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+                      <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
                     </div>
                     </nav>$1
                     '''
