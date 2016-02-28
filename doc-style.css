@@ -746,9 +746,6 @@ nav .btn-warning {
 .glyphicon-book:before {
   content: "\e043";
 }
-.glyphicon-book:before {
-  content: "\e019";
-}
 #sidebar-toggle {
   background: #337ab7;
 }
