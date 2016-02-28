@@ -6,9 +6,12 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/doccoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-builder/src/tasks/doc.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
+
 </head>
 <body>
   <nav>
@@ -18,8 +21,9 @@
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop" class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,112 +32,128 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#create%20api%20documentation">Create API documentation</a>
+        <a href="#create-api-documentation">Create API documentation</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node modules</a>
+        <a href="#node-modules">Node modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#main%20routine">Main routine</a>
+        <a href="#main-routine">Main routine</a>
       </div>
+
       <div class="heading h3">
-        <a href="#open%20the%20given%20url%20in%20the%20default%20browser">Open the given url in the default browser</a>
+        <a href="#open-the-given-url-in-the-default-browser">Open the given url in the default browser</a>
       </div>
+
       <div class="heading h3">
-        <a href="#create%20initial%20git%20repository">Create initial git repository</a>
+        <a href="#create-initial-git-repository">Create initial git repository</a>
       </div>
+
       <div class="heading h3">
-        <a href="#clone%20git%20repository">Clone git repository</a>
+        <a href="#clone-git-repository">Clone git repository</a>
       </div>
+
       <div class="heading h3">
-        <a href="#checkout%20gh-pages%20branch">Checkout gh-pages branch</a>
+        <a href="#checkout-gh-pages-branch">Checkout gh-pages branch</a>
       </div>
+
       <div class="heading h3">
-        <a href="#update%20the%20documentation">Update the documentation</a>
+        <a href="#update-the-documentation">Update the documentation</a>
       </div>
+
       <div class="heading h3">
-        <a href="#push%20to%20git%20origin">Push to git origin</a>
+        <a href="#push-to-git-origin">Push to git origin</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20api%20documentation">
+          <div class="pilwrap" id="create-api-documentation">
   <h1>
-    <a href="#create%20api%20documentation" name="create%20api%20documentation" class="pilcrow">&#182;</a>
-    Create API documentation
+    <a href="#create-api-documentation" name="create-api-documentation" class="pilcrow"></a>
+Create API documentation
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">debug = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;debug&#39;</span><span class="p">)(</span><span class="s">&#39;builder&#39;</span><span class="p">)</span>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
-<span class="p">{</span><span class="nx">exec</span><span class="p">,</span> <span class="nx">execFile</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>)(<span class="hljs-string">'builder'</span>)
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+{exec, execFile} = <span class="hljs-built_in">require</span> <span class="hljs-string">'child_process'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20routine">
+          <div class="pilwrap" id="main-routine">
   <h2>
-    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
-    Main routine
+    <a href="#main-routine" name="main-routine" class="pilcrow"></a>
+Main routine
   </h2>
 </div>
-
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>dir</code>
 Directory to operate on</li>
@@ -143,593 +163,622 @@ Command specific parameters and options.</li>
 The callback will be called just if an error occurred or with <code>null</code> if
 execution finished.</li>
 </ul>
-
 <p>This task will create the documentation and publish it if switch <code>--publish</code>
 is set. The publication can be done to github pages or using the <code>doc-publish</code>
 script if defined.</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
-  <span class="nv">url = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;index.html&#39;</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-    <span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
-      <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span>
-    <span class="p">,</span> <span class="mi">5000</span>
-  <span class="k">try</span>
-    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"> as valid JSON:</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.run = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  url = path.join dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'index.html'</span>
+  <span class="hljs-keyword">if</span> options.watch <span class="hljs-keyword">and</span> options.browser
+    setTimeout -&gt;
+      openUrl options, url
+    , <span class="hljs-number">5000</span>
+  <span class="hljs-keyword">try</span>
+    pack = JSON.parse fs.readFileSync path.join dir, <span class="hljs-string">'package.json'</span>
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{path.join dir, <span class="hljs-string">'package.json'</span>}</span> as valid JSON:
+</span></pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
-<p>{error.message}"
+<p>{error.message}&quot;
 Create the html documentation out of source files</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  createDoc dir, options, (err) -&gt;</span>
-<span class="s">    return cb err if err</span>
-<span class="s">    async.parallel [</span>
-<span class="s">      (cb) -&gt;</span>
-<span class="s">        async.filter [</span>
-<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/local/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.css&#39;</span>
-<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/src/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.css&#39;</span>
-<span class="s">        ], fs.exists, (files) -&gt;</span>
-<span class="s">          return cb() unless files.length</span>
-<span class="s">          fs.copy files[0], path.join(dir, &#39;doc&#39;, &#39;doc-style.css&#39;),</span>
-<span class="s">            overwrite: true</span>
-<span class="s">          , cb</span>
-<span class="s">      (cb) -&gt;</span>
-<span class="s">        async.filter [</span>
-<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/local/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.js&#39;</span>
-<span class="s">          path.join GLOBAL.ROOT_DIR, &#39;var/src/docstyle&#39;, (pack.name.split /-/)[0] + &#39;.js&#39;</span>
-<span class="s">        ], fs.exists, (files) -&gt;</span>
-<span class="s">          return cb() unless files.length</span>
-<span class="s">          fs.copy files[0], path.join(dir, &#39;doc&#39;, &#39;doc-script.js&#39;),</span>
-<span class="s">            overwrite: true</span>
-<span class="s">          , cb</span>
-<span class="s">    ], (err) -&gt;</span>
-<span class="s">      return cb err if err</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  createDoc dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    async.parallel [
+      (cb) -&gt;
+        async.filter [
+          path.join GLOBAL.ROOT_DIR, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+          path.join GLOBAL.ROOT_DIR, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+        ], fs.exists, <span class="hljs-function"><span class="hljs-params">(files)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
+          fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-style.css'</span>),
+            <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+          , cb
+      (cb) -&gt;
+        async.filter [
+          path.join GLOBAL.ROOT_DIR, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+          path.join GLOBAL.ROOT_DIR, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+        ], fs.exists, <span class="hljs-function"><span class="hljs-params">(files)</span> -&gt;</span>
+          <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
+          fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-script.js'</span>),
+            <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+          , cb
+    ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>Check if --publish flag is set</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">      return publish dir, options, pack, cb if options.publish</span>
-<span class="s">      return openUrl options, url, cb if options.browser</span>
-<span class="s">      cb()</span>
-
-<span class="s">publish = (dir, options, pack, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">return</span> publish dir, options, pack, cb <span class="hljs-keyword">if</span> options.publish
+      <span class="hljs-keyword">return</span> openUrl options, url, cb <span class="hljs-keyword">if</span> options.browser
+      cb()
+<span class="hljs-function">
+<span class="hljs-title">publish</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>Publish using script from package.json</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="s">  if pack.scripts?[&#39;doc-publish&#39;]?</span>
-<span class="s">    debug &quot;</span><span class="nx">exec</span> <span class="c1">#{dir}&gt; #{pack.scripts[&#39;doc-publish&#39;]}&quot;</span>
-    <span class="nx">exec</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">scripts</span><span class="p">[</span><span class="s">&#39;doc-publish&#39;</span><span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">dir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> pack.scripts?[<span class="hljs-string">'doc-publish'</span>]?
+    debug <span class="hljs-string">"exec <span class="hljs-subst">#{dir}</span>&gt; <span class="hljs-subst">#{pack.scripts[<span class="hljs-string">'doc-publish'</span>]}</span>"</span>
+    exec pack.scripts[<span class="hljs-string">'doc-publish'</span>], {<span class="hljs-attribute">cwd</span>: dir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> options.verbose
+        <span class="hljs-built_in">console</span>.log chalk.grey stdout.toString().trim() <span class="hljs-keyword">if</span> stdout
+      <span class="hljs-built_in">console</span>.log chalk.magenta stderr.toString().trim() <span class="hljs-keyword">if</span> stderr
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> openUrl options, url, cb <span class="hljs-keyword">if</span> options.browser
+      <span class="hljs-keyword">return</span> cb()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>Or publish to GitHub</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">else</span> <span class="k">if</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com/&#39;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">tempdir</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;alinex-builder-&#39;</span><span class="p">,</span> <span class="nf">(err, tmpdir) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">cloneGit</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">checkoutPages</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">updateDoc</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span> <span class="nx">pushOrigin</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-      <span class="p">],</span> <span class="nf">(err) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">-&gt;</span>
-          <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-          <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ~pack.repository?.url?.indexOf <span class="hljs-string">'github.com/'</span>
+    fs.tempdir <span class="hljs-literal">null</span>, <span class="hljs-string">'alinex-builder-'</span>, <span class="hljs-function"><span class="hljs-params">(err, tmpdir)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      async.series [
+        (cb) -&gt; cloneGit dir, tmpdir, options, cb
+        (cb) -&gt; checkoutPages dir, tmpdir, options, cb
+        (cb) -&gt; updateDoc dir, tmpdir, options, cb
+        (cb) -&gt; pushOrigin dir, tmpdir, options, cb
+      ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        fs.remove tmpdir, <span class="hljs-function">-&gt;</span>
+          <span class="hljs-keyword">return</span> openUrl options, pack.homepage, cb <span class="hljs-keyword">if</span> options.browser
+          <span class="hljs-keyword">return</span> cb()
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>Publication was not possible</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="k">else</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="s">&quot;Could not publish, specify doc-publish script in package.json&quot;</span>
-    <span class="k">return</span> <span class="nx">openUrl</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">homepage</span><span class="p">,</span> <span class="nx">cb</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">browser</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">console</span>.error chalk.magenta <span class="hljs-string">"Could not publish, specify doc-publish script in package.json"</span>
+    <span class="hljs-keyword">return</span> openUrl options, pack.homepage, cb <span class="hljs-keyword">if</span> options.browser
+    <span class="hljs-keyword">return</span> cb()
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="open%20the%20given%20url%20in%20the%20default%20browser">
+          <div class="pilwrap" id="open-the-given-url-in-the-default-browser">
   <h3>
-    <a href="#open%20the%20given%20url%20in%20the%20default%20browser" name="open%20the%20given%20url%20in%20the%20default%20browser" class="pilcrow">&#182;</a>
-    Open the given url in the default browser
+    <a href="#open-the-given-url-in-the-default-browser" name="open-the-given-url-in-the-default-browser" class="pilcrow"></a>
+Open the given url in the default browser
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">openUrl = </span><span class="nf">(options, target, cb) -&gt;</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Open </span><span class="si">#{</span><span class="nx">target</span><span class="si">}</span><span class="s"> in browser&quot;</span>
-  <span class="nv">opener = </span><span class="k">switch</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span>
-    <span class="k">when</span> <span class="s">&#39;darwin&#39;</span> <span class="k">then</span> <span class="s">&#39;open&#39;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">openUrl</span> = <span class="hljs-params">(options, target, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> options.verbose
+    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Open <span class="hljs-subst">#{target}</span> in browser"</span>
+  opener = <span class="hljs-keyword">switch</span> process.platform
+    <span class="hljs-keyword">when</span> <span class="hljs-string">'darwin'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'open'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>if the first parameter to start is quoted, it uses that as the title
 so we pass a blank title so we can quote the file we are opening</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">when</span> <span class="s">&#39;win32&#39;</span> <span class="k">then</span> <span class="s">&#39;start &quot;&quot;&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">when</span> <span class="hljs-string">'win32'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'start ""'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-13" id="section-13">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
 </div>
 <p>use Portlands xdg-open everywhere else</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">else</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">GLOBAL</span><span class="p">.</span><span class="nx">ROOT_DIR</span><span class="p">,</span> <span class="s">&#39;bin/xdg-open&#39;</span>
-  <span class="nx">debug</span> <span class="s">&quot;exec&gt; </span><span class="si">#{</span><span class="nx">opener</span><span class="si">}</span><span class="s"> \&quot;</span><span class="si">#{</span><span class="nb">encodeURI</span> <span class="nx">target</span><span class="si">}</span><span class="s">\&quot;&quot;</span>
-  <span class="k">return</span> <span class="nx">exec</span> <span class="nx">opener</span> <span class="o">+</span> <span class="s">&#39; &quot;&#39;</span> <span class="o">+</span> <span class="nb">encodeURI</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;&quot;&#39;</span><span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">else</span> path.join GLOBAL.ROOT_DIR, <span class="hljs-string">'bin/xdg-open'</span>
+  debug <span class="hljs-string">"exec&gt; <span class="hljs-subst">#{opener}</span> \"<span class="hljs-subst">#{encodeURI target}</span>\""</span>
+  <span class="hljs-keyword">return</span> exec opener + <span class="hljs-string">' "'</span> + encodeURI(target) + <span class="hljs-string">'"'</span>, cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="create%20initial%20git%20repository">
+          <div class="pilwrap" id="create-initial-git-repository">
   <h3>
-    <a href="#create%20initial%20git%20repository" name="create%20initial%20git%20repository" class="pilcrow">&#182;</a>
-    Create initial git repository
+    <a href="#create-initial-git-repository" name="create-initial-git-repository" class="pilcrow"></a>
+Create initial git repository
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">createDoc = </span><span class="nf">(dir, options, cb) -&gt;</span>
-  <span class="nv">docPath = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-    <span class="nf">(cb) -&gt;</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">docPath</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span>
-        <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Remove old documentation&quot;</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">docPath</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Create new documentation folder&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirs</span> <span class="nx">docPath</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span>
-      <span class="nx">async</span><span class="p">.</span><span class="nx">parallel</span> <span class="p">[</span>
-        <span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">createDoc</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  docPath = path.join dir, <span class="hljs-string">'doc'</span>
+  async.series [
+    (cb) -&gt;
+      fs.exists docPath, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists
+        <span class="hljs-keyword">if</span> options.verbose
+          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Remove old documentation"</span>
+        fs.remove docPath, cb
+    (cb) -&gt;
+      <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Create new documentation folder"</span> <span class="hljs-keyword">if</span> options.verbose
+      fs.mkdirs docPath, cb
+    (cb) -&gt;
+      async.parallel [
+        (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-15" id="section-15">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
 </div>
 <p>create index.html</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Create index page&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">docPath</span><span class="p">,</span> <span class="s">&#39;index.html&#39;</span><span class="p">),</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">            &lt;html&gt;</span>
-<span class="s">            &lt;head&gt;</span>
-<span class="s">              &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=README.md.html&quot; /&gt;</span>
-<span class="s">              &lt;script type=&quot;text/javascript&quot;&gt;</span>
-<span class="s">                  window.location.href = &quot;README.md.html&quot;</span>
-<span class="s">              &lt;/script&gt;</span>
-<span class="s">              &lt;title&gt;Page Redirection&lt;/title&gt;</span>
-<span class="s">            &lt;/head&gt;</span>
-<span class="s">            &lt;body&gt;</span>
-<span class="s">              If you are not redirected automatically, follow the link to the</span>
-<span class="s">              &lt;a href=&#39;README.md.html&#39;&gt;README&lt;/a&gt;.</span>
-<span class="s">            &lt;/body&gt;</span>
-<span class="s">            &lt;/html&gt;</span>
-<span class="s">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;replace&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, replace) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Create index page"</span> <span class="hljs-keyword">if</span> options.verbose
+          fs.writeFile path.join(docPath, <span class="hljs-string">'index.html'</span>), <span class="hljs-string">"""
+            &lt;html&gt;
+            &lt;head&gt;
+              &lt;meta http-equiv="refresh" content="0; url=README.md.html" /&gt;
+              &lt;script type="text/javascript"&gt;
+                  window.location.href = "README.md.html"
+              &lt;/script&gt;
+              &lt;title&gt;Page Redirection&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+              If you are not redirected automatically, follow the link to the
+              &lt;a href='README.md.html'&gt;README&lt;/a&gt;.
+            &lt;/body&gt;
+            &lt;/html&gt;
+            """</span>, cb
+        (cb) -&gt;
+          fs.npmbin <span class="hljs-string">'replace'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, replace)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-16" id="section-16">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
 </div>
 <p>create docker files</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-            <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-              <span class="nf">(cb) -&gt;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Create html documentation&quot;</span>
-                <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;docker&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-                  <span class="nv">args = </span><span class="p">[</span>
-                    <span class="s">&#39;-i&#39;</span><span class="p">,</span> <span class="nx">dir</span>
-                    <span class="s">&#39;-u&#39;</span>
-                    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">watch</span> <span class="k">then</span> <span class="s">&#39;-w&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
-                    <span class="s">&#39;-x&#39;</span>
-                    <span class="s">&#39;.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular&#39;</span>
-                    <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                    <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;autumn&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">            async.series [
+              (cb) -&gt;
+                <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Create html documentation"</span>
+                fs.npmbin <span class="hljs-string">'docker'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+                  <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+                  args = [
+                    <span class="hljs-string">'-i'</span>, dir
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-17" id="section-17">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
 </div>
-
-<div class="highlight"><pre><code>               <span class="s1">&#39;--extras&#39;</span><span class="p">,</span> <span class="s1">&#39;fileSearch&#39;</span>
-</code></pre></div>
-
+<pre><code>               '-u'
+</code></pre>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-                  <span class="p">]</span>
-                  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-                    <span class="nv">cmd: </span><span class="nx">cmd</span>
-                    <span class="nv">args: </span><span class="nx">args</span>
-                    <span class="nv">cwd: </span><span class="nx">dir</span>
-                    <span class="nv">check:</span>
-                      <span class="nv">noExitCode: </span><span class="kc">true</span>
-                  <span class="p">,</span> <span class="nx">cb</span>
-              <span class="nf">(cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">                    <span class="hljs-keyword">if</span> options.watch <span class="hljs-keyword">then</span> <span class="hljs-string">'-w'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
+                    <span class="hljs-string">'-x'</span>
+                    <span class="hljs-string">'.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'</span>
+                    <span class="hljs-string">'-o'</span>, path.join dir, <span class="hljs-string">'doc'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-18" id="section-18">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<pre><code>               '-c', 'autumn'
+               '--extras', 'fileSearch'
+</code></pre>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                  ]
+                  Exec.run
+                    <span class="hljs-attribute">cmd</span>: cmd
+                    <span class="hljs-attribute">args</span>: args
+                    <span class="hljs-attribute">cwd</span>: dir
+                    <span class="hljs-attribute">check</span>:
+                      <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+                  , cb
+              (cb) -&gt;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
 </div>
 <p>correct internal links</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Correcting local links&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-                <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-                  <span class="nv">cmd: </span><span class="nx">replace</span>
-                  <span class="nv">args: </span><span class="p">[</span>
-                    <span class="s">&#39;(&lt;a href=&quot;(?!#|.+?://)[^?#&quot;]+[^/?#&quot;])(.*?&quot;)&#39;</span>
-                    <span class="s">&#39;$1.html$2&#39;</span>
-                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                    <span class="s">&#39;-r&#39;</span>
-                  <span class="p">]</span>
-                  <span class="nv">cwd: </span><span class="nx">dir</span>
-                <span class="p">,</span> <span class="nx">cb</span>
-              <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Correcting local links"</span> <span class="hljs-keyword">if</span> options.verbose
+                Exec.run
+                  <span class="hljs-attribute">cmd</span>: replace
+                  <span class="hljs-attribute">args</span>: [
+                    <span class="hljs-string">'(&lt;a href="(?!#|.+?://)[^?#"]+[^/?#"])(.*?")'</span>
+                    <span class="hljs-string">'$1.html$2'</span>
+                    path.join dir, <span class="hljs-string">'doc'</span>
+                    <span class="hljs-string">'-r'</span>
+                  ]
+                  <span class="hljs-attribute">cwd</span>: dir
+                , cb
+              (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-19" id="section-19">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
 </div>
 <p>add fork on github icon</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-                <span class="k">try</span>
-                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">error</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-                <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="p">(</span><span class="nx">pack</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span> <span class="sr">/-/</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;alinex&#39;</span>
-                <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-                  <span class="nv">cmd: </span><span class="nx">replace</span>
-                  <span class="nv">args: </span><span class="p">[</span>
-                    <span class="s">&#39;(&lt;div id=&quot;container&quot;)&gt;&#39;</span>
-                    <span class="s">&#39;$1 tabindex=&quot;0&quot;&gt;&lt;a id=&quot;fork&quot; href=&quot;&#39;</span><span class="o">+</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="o">+</span><span class="s">&#39;&quot;</span>
-<span class="s">                    title=&quot;Fork me on GitHub&quot;&gt;&lt;/a&gt;&#39;</span>
-                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                    <span class="s">&#39;-r&#39;</span>
-                  <span class="p">]</span>
-                  <span class="nv">cwd: </span><span class="nx">dir</span>
-                <span class="p">,</span> <span class="nx">cb</span>
-              <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                <span class="hljs-keyword">try</span>
+                  pack = JSON.parse fs.readFileSync path.join dir, <span class="hljs-string">'package.json'</span>
+                <span class="hljs-keyword">catch</span> error
+                  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{path.join dir, <span class="hljs-string">'package.json'</span>}</span>
+                  as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
+                <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'alinex'</span>
+                Exec.run
+                  <span class="hljs-attribute">cmd</span>: replace
+                  <span class="hljs-attribute">args</span>: [
+                    <span class="hljs-string">'(&lt;div id="container")&gt;'</span>
+                    <span class="hljs-string">'$1 tabindex="0"&gt;&lt;a id="fork" href="'</span>+pack.repository.url+<span class="hljs-string">'"
+                    title="Fork me on GitHub"&gt;&lt;/a&gt;'</span>
+                    path.join dir, <span class="hljs-string">'doc'</span>
+                    <span class="hljs-string">'-r'</span>
+                  ]
+                  <span class="hljs-attribute">cwd</span>: dir
+                , cb
+              (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-20" id="section-20">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
 <p>add alinex header</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-                <span class="k">try</span>
-                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">error</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-                <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
-                  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-                <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-                  <span class="nv">cmd: </span><span class="nx">replace</span>
-                  <span class="nv">args: </span><span class="p">[</span>
-                    <span class="s">&#39;(&lt;div id=&quot;sidebar_wrapper&quot;&gt;)&#39;</span>
-                    <span class="s">&#39;&#39;&#39;</span>
-<span class="s">                    &lt;nav&gt;</span>
-<span class="s">                    &lt;div class=&quot;logo&quot;&gt;&lt;a href=&quot;http://alinex.github.io&quot; onmouseover=&quot;lllogo.src=&#39;https://alinex.github.io/images/Alinex-200.png&#39;&quot; onmouseout=&quot;lllogo.src=&#39;https://alinex.github.io/images/Alinex-black-200.png&#39;&quot;&gt;</span>
-<span class="s">                      &lt;img name=&quot;lllogo&quot; src=&quot;https://alinex.github.io/images/Alinex-black-200.png&quot; width=&quot;150&quot; title=&quot;Alinex Universe Homepage&quot; /&gt;</span>
-<span class="s">                      &lt;/a&gt;</span>
-<span class="s">                      &lt;img src=&quot;http://alinex.github.io/images/Alinex-200.png&quot; style=&quot;display:none&quot; alt=&quot;preloading&quot; /&gt;</span>
-<span class="s">                    &lt;/div&gt;</span>
-<span class="s">                    &lt;div class=&quot;links&quot;&gt;</span>
-<span class="s">                      &lt;a href=&quot;http://alinex.github.io/blog&quot; class=&quot;btn btn-primary&quot;&gt;&lt;span class=&quot;glyphicon-cog&quot;&gt;&lt;/span&gt; Blog&lt;/a&gt;</span>
-<span class="s">                      &lt;a href=&quot;http://alinex.github.io/code.html&quot; class=&quot;btn btn-warning&quot;&gt;&lt;span class=&quot;glyphicon-pencil&quot;&gt;&lt;/span&gt; Code&lt;/a&gt;</span>
-<span class="s">                    &lt;/div&gt;</span>
-<span class="s">                    &lt;/nav&gt;$1</span>
-<span class="s">                    &#39;&#39;&#39;</span>
-                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                    <span class="s">&#39;-r&#39;</span>
-                  <span class="p">]</span>
-                  <span class="nv">cwd: </span><span class="nx">dir</span>
-                <span class="p">,</span> <span class="nx">cb</span>
-              <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                <span class="hljs-keyword">try</span>
+                  pack = JSON.parse fs.readFileSync path.join dir, <span class="hljs-string">'package.json'</span>
+                <span class="hljs-keyword">catch</span> error
+                  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{path.join dir, <span class="hljs-string">'package.json'</span>}</span>
+                  as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
+                <span class="hljs-keyword">unless</span> pack?.repository?.url? <span class="hljs-keyword">and</span> ~pack.repository.url.indexOf <span class="hljs-string">'github.com'</span>
+                  <span class="hljs-keyword">return</span> cb()
+                Exec.run
+                  <span class="hljs-attribute">cmd</span>: replace
+                  <span class="hljs-attribute">args</span>: [
+                    <span class="hljs-string">'(&lt;div id="sidebar_wrapper"&gt;)'</span>
+                    <span class="hljs-string">'''
+                    &lt;nav&gt;
+                    &lt;div class="logo"&gt;&lt;a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'"&gt;
+                      &lt;img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" /&gt;
+                      &lt;/a&gt;
+                      &lt;img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" /&gt;
+                    &lt;/div&gt;
+                    &lt;div class="links"&gt;
+                      &lt;a href="http://alinex.github.io/blog" class="btn btn-primary"&gt;&lt;span class="glyphicon-pencil"&gt;&lt;/span&gt; Blog&lt;/a&gt;
+                      &lt;a href="http://alinex.github.io/develop" class="btn btn-primary"&gt;&lt;span class="glyphicon-book"&gt;&lt;/span&gt; Develop&lt;/a&gt;
+                      &lt;a href="http://alinex.github.io/code.html" class="btn btn-warning"&gt;&lt;span class="glyphicon-cog"&gt;&lt;/span&gt; Code&lt;/a&gt;
+                    &lt;/div&gt;
+                    &lt;/nav&gt;$1
+                    '''</span>
+                    path.join dir, <span class="hljs-string">'doc'</span>
+                    <span class="hljs-string">'-r'</span>
+                  ]
+                  <span class="hljs-attribute">cwd</span>: dir
+                , cb
+              (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-22" id="section-22"></a>
 </div>
 <p>fix tables</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-                <span class="k">try</span>
-                  <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-                <span class="k">catch</span> <span class="nx">error</span>
-                  <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span><span class="si">}</span><span class="s"></span>
-<span class="s">                  as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-                <span class="k">unless</span> <span class="nx">pack</span><span class="o">?</span><span class="p">.</span><span class="nx">repository</span><span class="o">?</span><span class="p">.</span><span class="nx">url</span><span class="o">?</span> <span class="o">and</span> <span class="o">~</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span> <span class="s">&#39;github.com&#39;</span>
-                  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-                <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-                  <span class="nv">cmd: </span><span class="nx">replace</span>
-                  <span class="nv">args: </span><span class="p">[</span>
-                    <span class="s">&#39;&lt;p&gt;(\\|)&#39;</span>
-                    <span class="s">&#39;&lt;p style=&quot;font-family:monospace;white-space:pre&quot;&gt;$1&#39;</span>
-                    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
-                    <span class="s">&#39;-r&#39;</span>
-                  <span class="p">]</span>
-                  <span class="nv">cwd: </span><span class="nx">dir</span>
-                <span class="p">,</span> <span class="nx">cb</span>
-            <span class="p">],</span> <span class="nx">cb</span>
-        <span class="nf">(cb) -&gt;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                <span class="hljs-keyword">try</span>
+                  pack = JSON.parse fs.readFileSync path.join dir, <span class="hljs-string">'package.json'</span>
+                <span class="hljs-keyword">catch</span> error
+                  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{path.join dir, <span class="hljs-string">'package.json'</span>}</span>
+                  as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
+                <span class="hljs-keyword">unless</span> pack?.repository?.url? <span class="hljs-keyword">and</span> ~pack.repository.url.indexOf <span class="hljs-string">'github.com'</span>
+                  <span class="hljs-keyword">return</span> cb()
+                Exec.run
+                  <span class="hljs-attribute">cmd</span>: replace
+                  <span class="hljs-attribute">args</span>: [
+                    <span class="hljs-string">'&lt;p&gt;(\\|)'</span>
+                    <span class="hljs-string">'&lt;p style="font-family:monospace;white-space:pre"&gt;$1'</span>
+                    path.join dir, <span class="hljs-string">'doc'</span>
+                    <span class="hljs-string">'-r'</span>
+                  ]
+                  <span class="hljs-attribute">cwd</span>: dir
+                , cb
+            ], cb
+        (cb) -&gt;
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>copy images</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Copy images&quot;</span> <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nv">from = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
-          <span class="nv">to = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">docPath</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
-          <span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span>
-            <span class="nv">include: </span><span class="s">&#39;*.{png,jpg,gif}&#39;</span>
-          <span class="p">,</span> <span class="nx">cb</span>
-      <span class="p">],</span> <span class="nx">cb</span>
-  <span class="p">],</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Copy images"</span> <span class="hljs-keyword">if</span> options.verbose
+          from = path.join dir, <span class="hljs-string">'src'</span>
+          to = path.join docPath, <span class="hljs-string">'src'</span>
+          fs.copy from, to,
+            <span class="hljs-attribute">include</span>: <span class="hljs-string">'*.{png,jpg,gif}'</span>
+          , cb
+      ], cb
+  ], cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="clone%20git%20repository">
+          <div class="pilwrap" id="clone-git-repository">
   <h3>
-    <a href="#clone%20git%20repository" name="clone%20git%20repository" class="pilcrow">&#182;</a>
-    Clone git repository
+    <a href="#clone-git-repository" name="clone-git-repository" class="pilcrow"></a>
+Clone git repository
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">cloneGit = </span><span class="nf">(dir, tmpdir, options, cb) -&gt;</span>
-  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">try</span>
-    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Cloning git repository&quot;</span>
-  <span class="nx">debug</span> <span class="s">&quot;exec&gt; git clone </span><span class="si">#{</span><span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s">&#39;clone&#39;</span>
-    <span class="nx">pack</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">url</span>
-    <span class="nx">tmpdir</span>
-  <span class="p">],</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-    <span class="nx">cb</span> <span class="nx">err</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">cloneGit</span> = <span class="hljs-params">(dir, tmpdir, options, cb)</span> -&gt;</span>
+  file = path.join dir, <span class="hljs-string">'package.json'</span>
+  <span class="hljs-keyword">try</span>
+    pack = JSON.parse fs.readFileSync file
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{file}</span> as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Cloning git repository"</span>
+  debug <span class="hljs-string">"exec&gt; git clone <span class="hljs-subst">#{pack.repository.url}</span> <span class="hljs-subst">#{tmpdir}</span>"</span>
+  execFile <span class="hljs-string">'git'</span>, [
+    <span class="hljs-string">'clone'</span>
+    pack.repository.url
+    tmpdir
+  ], <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+    <span class="hljs-built_in">console</span>.error chalk.magenta stderr.trim() <span class="hljs-keyword">if</span> stderr
+    cb err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="checkout%20gh-pages%20branch">
+          <div class="pilwrap" id="checkout-gh-pages-branch">
   <h3>
-    <a href="#checkout%20gh-pages%20branch" name="checkout%20gh-pages%20branch" class="pilcrow">&#182;</a>
-    Checkout gh-pages branch
+    <a href="#checkout-gh-pages-branch" name="checkout-gh-pages-branch" class="pilcrow"></a>
+Checkout gh-pages branch
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">checkoutPages = </span><span class="nf">(dir, tmpdir, options, cb) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Checkout gh-pages branch&quot;</span>
-  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git checkout gh-pages&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s">&#39;checkout&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
-  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-    <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">err</span>
-    <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git checkout --orphan gh-pages&quot;</span>
-    <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="s">&#39;checkout&#39;</span>
-      <span class="s">&#39;--orphan&#39;</span>
-      <span class="s">&#39;gh-pages&#39;</span>
-    <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-      <span class="nx">cb</span> <span class="nx">err</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">checkoutPages</span> = <span class="hljs-params">(dir, tmpdir, options, cb)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Checkout gh-pages branch"</span>
+  debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git checkout gh-pages"</span>
+  execFile <span class="hljs-string">'git'</span>, [
+    <span class="hljs-string">'checkout'</span>, <span class="hljs-string">'gh-pages'</span>
+  ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+    <span class="hljs-built_in">console</span>.error chalk.magenta stderr.trim() <span class="hljs-keyword">if</span> stderr
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> err
+    debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git checkout --orphan gh-pages"</span>
+    execFile <span class="hljs-string">'git'</span>, [
+      <span class="hljs-string">'checkout'</span>
+      <span class="hljs-string">'--orphan'</span>
+      <span class="hljs-string">'gh-pages'</span>
+    ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+      <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+      <span class="hljs-built_in">console</span>.error chalk.magenta stderr.trim() <span class="hljs-keyword">if</span> stderr
+      cb err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="update%20the%20documentation">
+          <div class="pilwrap" id="update-the-documentation">
   <h3>
-    <a href="#update%20the%20documentation" name="update%20the%20documentation" class="pilcrow">&#182;</a>
-    Update the documentation
+    <a href="#update-the-documentation" name="update-the-documentation" class="pilcrow"></a>
+Update the documentation
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">updateDoc = </span><span class="nf">(dir, tmpdir, options, cb) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Update documentation&quot;</span>
-  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Remove old documentation&quot;</span>
-  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git rm -rf .&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s">&#39;rm&#39;</span><span class="p">,</span> <span class="s">&#39;-rf&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span>
-  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
-    <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Copy new documentation into repository&quot;</span>
-    <span class="nx">fs</span><span class="p">.</span><span class="nx">copy</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span><span class="p">),</span> <span class="nx">tmpdir</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Add files to git&quot;</span>
-      <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git add *&quot;</span>
-      <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span>
-      <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">grey</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">().</span><span class="nx">magenta</span> <span class="k">if</span> <span class="nx">stderr</span>
-        <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-        <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Commit changes&quot;</span>
-        <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git commit -m \&quot;Updated documentation\&quot;&quot;</span>
-        <span class="nx">execFile</span> <span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="p">[</span>
-          <span class="s">&#39;commit&#39;</span>
-          <span class="s">&#39;--allow-empty&#39;</span>
-          <span class="s">&#39;-m&#39;</span><span class="p">,</span> <span class="s">&quot;Updated documentation&quot;</span>
-        <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-          <span class="nx">cb</span> <span class="nx">err</span>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">updateDoc</span> = <span class="hljs-params">(dir, tmpdir, options, cb)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Update documentation"</span>
+  <span class="hljs-keyword">if</span> options.verbose
+    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Remove old documentation"</span>
+  debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git rm -rf ."</span>
+  execFile <span class="hljs-string">'git'</span>, [
+    <span class="hljs-string">'rm'</span>, <span class="hljs-string">'-rf'</span>, <span class="hljs-string">'.'</span>
+  ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+    <span class="hljs-built_in">console</span>.error stderr.trim().magenta <span class="hljs-keyword">if</span> stderr
+    <span class="hljs-keyword">if</span> options.verbose
+      <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Copy new documentation into repository"</span>
+    fs.copy path.join(dir, <span class="hljs-string">'doc'</span>), tmpdir, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">if</span> options.verbose
+        <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Add files to git"</span>
+      debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git add *"</span>
+      execFile <span class="hljs-string">'git'</span>, [
+        <span class="hljs-string">'add'</span>, <span class="hljs-string">'*'</span>
+      ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+        <span class="hljs-built_in">console</span>.log stdout.trim().grey <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+        <span class="hljs-built_in">console</span>.error stderr.trim().magenta <span class="hljs-keyword">if</span> stderr
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        <span class="hljs-keyword">if</span> options.verbose
+          <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Commit changes"</span>
+        debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git commit -m \"Updated documentation\""</span>
+        execFile <span class="hljs-string">'git'</span>, [
+          <span class="hljs-string">'commit'</span>
+          <span class="hljs-string">'--allow-empty'</span>
+          <span class="hljs-string">'-m'</span>, <span class="hljs-string">"Updated documentation"</span>
+        ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+          <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+          <span class="hljs-built_in">console</span>.error chalk.magenta stderr.trim() <span class="hljs-keyword">if</span> stderr
+          cb err
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="push%20to%20git%20origin">
+          <div class="pilwrap" id="push-to-git-origin">
   <h3>
-    <a href="#push%20to%20git%20origin" name="push%20to%20git%20origin" class="pilcrow">&#182;</a>
-    Push to git origin
+    <a href="#push-to-git-origin" name="push-to-git-origin" class="pilcrow"></a>
+Push to git origin
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">pushOrigin = </span><span class="nf">(dir, tmpdir, options, cb) -&gt;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Push to git origin&quot;</span>
-  <span class="nx">debug</span> <span class="s">&quot;exec </span><span class="si">#{</span><span class="nx">tmpdir</span><span class="si">}</span><span class="s">&gt; git push origin gh-pages&quot;</span>
-  <span class="nx">execFile</span> <span class="s">&quot;git&quot;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s">&#39;push&#39;</span>
-    <span class="s">&#39;origin&#39;</span><span class="p">,</span> <span class="s">&#39;gh-pages&#39;</span>
-  <span class="p">],</span> <span class="p">{</span><span class="nv">cwd: </span><span class="nx">tmpdir</span><span class="p">},</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stdout</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stderr</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
-    <span class="nx">cb</span><span class="p">()</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">pushOrigin</span> = <span class="hljs-params">(dir, tmpdir, options, cb)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Push to git origin"</span>
+  debug <span class="hljs-string">"exec <span class="hljs-subst">#{tmpdir}</span>&gt; git push origin gh-pages"</span>
+  execFile <span class="hljs-string">"git"</span>, [
+    <span class="hljs-string">'push'</span>
+    <span class="hljs-string">'origin'</span>, <span class="hljs-string">'gh-pages'</span>
+  ], {<span class="hljs-attribute">cwd</span>: tmpdir}, <span class="hljs-function"><span class="hljs-params">(err, stdout, stderr)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey stdout.trim() <span class="hljs-keyword">if</span> stdout <span class="hljs-keyword">and</span> options.verbose
+    <span class="hljs-built_in">console</span>.error chalk.magenta stderr.trim() <span class="hljs-keyword">if</span> stderr
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    cb()
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>

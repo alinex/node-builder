@@ -6,9 +6,12 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/updatecoffee", defaultSidebar = true;
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-builder/src/tasks/update.coffee";
+    var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
+
 </head>
 <body>
   <nav>
@@ -18,8 +21,9 @@
   <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
-  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop" class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -28,101 +32,114 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
+
       <div class="heading h1">
-        <a href="#install%20a%20package%20with%20newest%20node-modules">Install a package with newest node-modules</a>
+        <a href="#install-a-package-with-newest-node-modules">Install a package with newest node-modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#node%20modules">Node modules</a>
+        <a href="#node-modules">Node modules</a>
       </div>
+
       <div class="heading h2">
-        <a href="#main%20routine">Main routine</a>
+        <a href="#main-routine">Main routine</a>
       </div>
+
       <div class="heading h3">
-        <a href="#install%20necessary%20modules">Install necessary modules</a>
+        <a href="#install-necessary-modules">Install necessary modules</a>
       </div>
+
       <div class="heading h3">
-        <a href="#update%20all%20modules">Update all modules</a>
+        <a href="#update-all-modules">Update all modules</a>
       </div>
+
       <div class="heading h3">
-        <a href="#list%20outdated%20modules">List outdated modules</a>
+        <a href="#list-outdated-modules">List outdated modules</a>
       </div>
+
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
+    
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="install%20a%20package%20with%20newest%20node-modules">
+          <div class="pilwrap" id="install-a-package-with-newest-node-modules">
   <h1>
-    <a href="#install%20a%20package%20with%20newest%20node-modules" name="install%20a%20package%20with%20newest%20node-modules" class="pilcrow">&#182;</a>
-    Install a package with newest node-modules
+    <a href="#install-a-package-with-newest-node-modules" name="install-a-package-with-newest-node-modules" class="pilcrow"></a>
+Install a package with newest node-modules
   </h1>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="node%20modules">
+          <div class="pilwrap" id="node-modules">
   <h2>
-    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
-    Node modules
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
 <p>include base modules</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
 <p>include alinex modules</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
-<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
-<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
+        <td class="code highlight">
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="main%20routine">
+          <div class="pilwrap" id="main-routine">
   <h2>
-    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
-    Main routine
+    <a href="#main-routine" name="main-routine" class="pilcrow"></a>
+Main routine
   </h2>
 </div>
-
-
 <p><strong>Arguments:</strong></p>
-
 <ul>
 <li><code>dir</code>
 Directory to operate on</li>
@@ -132,196 +149,206 @@ Command specific parameters and options.</li>
 The callback will be called just if an error occurred or with <code>null</code> if
 execution finished.</li>
 </ul>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">series</span> <span class="p">[</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">switchRepository</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">npmInstall</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">npmUpdate</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">npmOutdated</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">cb</span>
-    <span class="nf">(cb) -&gt;</span> <span class="nx">switchRepository</span> <span class="nx">dir</span><span class="p">,</span> <span class="p">{</span><span class="nv">registry: </span><span class="s">&#39;https://registry.npmjs.org/&#39;</span><span class="p">},</span> <span class="nx">cb</span>
-  <span class="p">],</span> <span class="nx">cb</span>
-
-<span class="nv">switchRepository = </span><span class="nf">(dir, options, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.run = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  async.series [
+    (cb) -&gt; switchRepository dir, options, cb
+    (cb) -&gt; npmInstall dir, options, cb
+    (cb) -&gt; npmUpdate dir, options, cb
+    (cb) -&gt; npmOutdated dir, options, cb
+    (cb) -&gt; switchRepository dir, {<span class="hljs-attribute">registry</span>: <span class="hljs-string">'https://registry.npmjs.org/'</span>}, cb
+  ], cb
+<span class="hljs-function">
+<span class="hljs-title">switchRepository</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
 <p>check for changed registry</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">file = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;package.json&#39;</span>
-  <span class="k">try</span>
-    <span class="nv">pack = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span> <span class="nx">file</span>
-  <span class="k">catch</span> <span class="nx">error</span>
-    <span class="k">return</span> <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Could not load </span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s"> as valid JSON: </span><span class="si">#{</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="s">&quot;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  file = path.join dir, <span class="hljs-string">'package.json'</span>
+  <span class="hljs-keyword">try</span>
+    pack = JSON.parse fs.readFileSync file
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{file}</span> as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
 <p>change or change back</p>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nv">registry = </span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">registry</span> <span class="k">then</span> <span class="nx">options</span><span class="p">.</span><span class="nx">registry</span> <span class="k">else</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">publishConfig</span><span class="o">?</span><span class="p">.</span><span class="nx">registry</span>
-  <span class="nx">registry</span> <span class="o">?=</span> <span class="s">&#39;https://registry.npmjs.org/&#39;</span>
 
-</pre></div>
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  registry = <span class="hljs-keyword">if</span> options.registry <span class="hljs-keyword">then</span> options.registry <span class="hljs-keyword">else</span> pack.publishConfig?.registry
+  registry ?= <span class="hljs-string">'https://registry.npmjs.org/'</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>get old registry</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;set&#39;</span><span class="p">,</span> <span class="s">&#39;registry&#39;</span><span class="p">,</span> <span class="nx">registry</span> <span class="p">]</span>
-    <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">check:</span>
-      <span class="nv">noExitCode: </span><span class="kc">true</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  Exec.run
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
+    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'set'</span>, <span class="hljs-string">'registry'</span>, registry ]
+    <span class="hljs-attribute">cwd</span>: dir
+    <span class="hljs-attribute">check</span>:
+      <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+  , cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="install%20necessary%20modules">
+          <div class="pilwrap" id="install-necessary-modules">
   <h3>
-    <a href="#install%20necessary%20modules" name="install%20necessary%20modules" class="pilcrow">&#182;</a>
-    Install necessary modules
+    <a href="#install-necessary-modules" name="install-necessary-modules" class="pilcrow"></a>
+Install necessary modules
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">npmInstall = </span><span class="nf">(dir, options, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">npmInstall</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
 <p>Run external command</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Install through npm&quot;</span>
-  <span class="nx">async</span><span class="p">.</span><span class="nx">retry</span> <span class="mi">3</span><span class="p">,</span> <span class="nf">(cb) -&gt;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-      <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
-      <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;install&#39;</span> <span class="p">]</span>
-      <span class="nv">cwd: </span><span class="nx">dir</span>
-      <span class="nv">check:</span>
-        <span class="nv">noExitCode: </span><span class="kc">true</span>
-    <span class="p">,</span> <span class="nx">cb</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Install through npm"</span>
+  async.retry <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+    Exec.run
+      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
+      <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'install'</span> ]
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+    , cb
+  , cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="update%20all%20modules">
+          <div class="pilwrap" id="update-all-modules">
   <h3>
-    <a href="#update%20all%20modules" name="update%20all%20modules" class="pilcrow">&#182;</a>
-    Update all modules
+    <a href="#update-all-modules" name="update-all-modules" class="pilcrow"></a>
+Update all modules
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">npmUpdate = </span><span class="nf">(dir, options, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">npmUpdate</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-12" id="section-12">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>Run external command</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Update npm packages&quot;</span>
-  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
-    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;update&#39;</span> <span class="p">]</span>
-    <span class="nv">cwd: </span><span class="nx">dir</span>
-    <span class="nv">check:</span>
-      <span class="nv">noExitCode: </span><span class="kc">true</span>
-  <span class="p">,</span> <span class="nx">cb</span>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Update npm packages"</span>
+  Exec.run
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
+    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'update'</span> ]
+    <span class="hljs-attribute">cwd</span>: dir
+    <span class="hljs-attribute">check</span>:
+      <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+  , cb
 
-
-</pre></div>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap" id="list%20outdated%20modules">
+          <div class="pilwrap" id="list-outdated-modules">
   <h3>
-    <a href="#list%20outdated%20modules" name="list%20outdated%20modules" class="pilcrow">&#182;</a>
-    List outdated modules
+    <a href="#list-outdated-modules" name="list-outdated-modules" class="pilcrow"></a>
+List outdated modules
   </h3>
 </div>
 
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nv">npmOutdated = </span><span class="nf">(dir, options, cb) -&gt;</span>
-
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">npmOutdated</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+</pre>
         </td>
       </tr>
+    
       <tr>
         <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-14" id="section-14">&#182;</a>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
 </div>
 <p>Run external command</p>
+
         </td>
-        <td class="code highlight"><div class="highlight"><pre>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;List outdated packages&quot;</span>
-  <span class="nx">fs</span><span class="p">.</span><span class="nx">npmbin</span> <span class="s">&#39;npm-check&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">),</span> <span class="nf">(err, cmd) -&gt;</span>
-    <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
-      <span class="nv">cmd: </span><span class="nx">cmd</span>
-      <span class="nv">args: </span><span class="p">[</span><span class="s">&#39;-p&#39;</span><span class="p">]</span>
-      <span class="nv">cwd: </span><span class="nx">dir</span>
-      <span class="nv">check:</span>
-        <span class="nv">noExitCode: </span><span class="kc">true</span>
-    <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
-      <span class="nv">lines = </span><span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">split</span> <span class="sr">/\n/</span>
-      <span class="k">if</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Nothing to upgrade or fix in this package found.&quot;</span>
-        <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span>
-      <span class="k">for</span> <span class="nx">line</span> <span class="k">in</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">..</span><span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-        <span class="k">continue</span> <span class="k">unless</span> <span class="nv">line = </span><span class="nx">line</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">line</span>
-      <span class="nv">cmd = </span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span> <span class="nx">__dirname</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;/bin/npm-upgrade&#39;</span>
-      <span class="nx">cb</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;You may upgrade the listed modules using: </span><span class="si">#{</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">underline</span> <span class="nx">cmd</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
-</pre></div>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"List outdated packages"</span>
+  fs.npmbin <span class="hljs-string">'npm-check'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+    Exec.run
+      <span class="hljs-attribute">cmd</span>: cmd
+      <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-p'</span>]
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+    , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+      lines = proc.stdout().split <span class="hljs-regexp">/\n/</span>
+      <span class="hljs-keyword">if</span> lines.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>
+        <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Nothing to upgrade or fix in this package found."</span>
+        <span class="hljs-keyword">return</span> cb()
+      <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines[<span class="hljs-number">0.</span>.lines.length-<span class="hljs-number">2</span>]
+        <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> line = line.trim()
+        <span class="hljs-built_in">console</span>.log line
+      cmd = path.dirname(path.dirname __dirname) + <span class="hljs-string">'/bin/npm-upgrade'</span>
+      cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"You may upgrade the listed modules using: <span class="hljs-subst">#{chalk.underline cmd + <span class="hljs-string">' '</span> + dir}</span>"</span>
+
+</pre>
         </td>
       </tr>
+    
   </tbody>
 </table>
+
   </div>
 </body>
 </html>
