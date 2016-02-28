@@ -748,6 +748,7 @@ nav .btn-warning {
 }
 #sidebar-toggle {
   background: #337ab7;
+  width: 10px;
 }
 .sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
 .slidey #container {
