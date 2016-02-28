@@ -703,15 +703,11 @@ nav .btn:hover {
 }
 nav .btn span {
   position: relative;
-  top: 3px;
-  margin-top: -4px;
   display: inline-block;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
-  line-height: 1;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -742,15 +738,12 @@ nav .btn-warning {
   -moz-osx-font-smoothing: grayscale;
 }
 .glyphicon-pencil:before {
-  font-family: 'Glyphicons Halflings';
   content: "\270f";
 }
 .glyphicon-cog:before {
-  font-family: 'Glyphicons Halflings';
   content: "\e019";
 }
 .glyphicon-book:before {
-  font-family: 'Glyphicons Halflings';
   content: "\e043";
 }
 .glyphicon-book:before {
