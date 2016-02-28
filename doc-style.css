@@ -568,7 +568,8 @@ h1 {
 /* All the stuff that can depend on colour scheme goes below here: */
 body {
   background: #333333;
-  color: #eeeeee; }
+  color: #eeeeee;
+}
 
 a {
   color: #337ab7; }
@@ -747,7 +748,10 @@ nav .btn-warning {
   content: "\e043";
 }
 #sidebar-toggle {
-  background: #ccc;
+  background: #666;
+  width: 12px;
+}
+#sidebar-toggle:hover {
   width: 12px;
 }
 .sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
