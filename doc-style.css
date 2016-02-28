@@ -747,8 +747,8 @@ nav .btn-warning {
   content: "\e043";
 }
 #sidebar-toggle {
-  background: #337ab7;
-  width: 10px;
+  background: #ccc;
+  width: 12px;
 }
 .sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
 .slidey #container {
