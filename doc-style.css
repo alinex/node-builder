@@ -614,9 +614,11 @@ a:hover {
 .docs pre {
   border-color: #999999;
   background: #ccc;
+  color: black;
 }
 pre, tt, code {
   background: #ccc;
+  color: black;
 }
 .docs p tt, .docs p code, .docs li tt, .docs li code {
   border-color: #999999;
