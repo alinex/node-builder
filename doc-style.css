@@ -609,24 +609,30 @@ a:hover {
 #sidebar-toggle:hover {
   background: #f0ad4e; }
 
-
 .docs.markdown {
   background: #222; }
 .docs pre {
-  border-color: #999999; }
+  border-color: #999999;
+  background: #ccc;
+}
+pre, tt, code {
+  background: #ccc;
+}
 .docs p tt, .docs p code, .docs li tt, .docs li code {
   border-color: #999999;
-  background: #444444; }
-
+  background: #444444;
+}
 .highlight {
   background: #ededf3;
   color: auto; }
 
 .dox {
-  border-top-color: #e0e0e4; }
-  .dox .details {
-    background: #ededf3;
-    border-color: #d8d8dc; }
+  border-top-color: #e0e0e4;
+}
+.dox .details {
+  background: #ededf3;
+  border-color: #d8d8dc;
+}
 
 .pilwrap .pilcrow {
   color: #3a3a2f; }
