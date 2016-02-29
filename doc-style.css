@@ -615,7 +615,23 @@ a:hover {
   border-color: #999999;
   background: #ccc;
   color: black;
+  border-radius: 10px;
 }
+pre code.sh {
+    color: #505050;
+    font-weight: bold;
+    display: block;
+    background: rgba(225, 135, 40, 0.38);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 5px;
+    margin: -10px -10px 5px -10px;
+    padding: 5px;
+}
+pre code.sh::before {
+  content: "Shell Script";
+}
+
 pre, tt, code {
   background: #ccc;
   color: black;
