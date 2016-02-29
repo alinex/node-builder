@@ -626,7 +626,7 @@ pre code.sh::before {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
-  margin: -5px -5px 2px -11px;
+  margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
 pre code.coffee::before {
@@ -638,7 +638,7 @@ pre code.coffee::before {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
-  margin: -5px -5px 2px -11px;
+  margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
 pre code.json::before {
@@ -650,7 +650,7 @@ pre code.json::before {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   margin-bottom: 5px;
-  margin: -5px -5px 2px -11px;
+  margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
 
