@@ -621,8 +621,9 @@ pre, tt, code {
   color: black;
 }
 .docs p tt, .docs p code, .docs li tt, .docs li code {
-  border-color: #999999;
-  background: #444444;
+  border-color: #666;
+  background: #444;
+  color: white;
 }
 .highlight {
   background: #ededf3;
