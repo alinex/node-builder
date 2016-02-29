@@ -519,8 +519,6 @@ Start argument parsing
     <span class="hljs-keyword">unless</span> command <span class="hljs-keyword">in</span> Object.keys commands
       <span class="hljs-keyword">return</span> <span class="hljs-string">"Unknown command: <span class="hljs-subst">#{argv.command}</span>"</span>
   <span class="hljs-literal">true</span>
-.strict()
-.argv
 </pre>
         </td>
       </tr>
@@ -529,6 +527,20 @@ Start argument parsing
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-25" id="section-25"></a>
+</div>
+<p>.strict()</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">.argv
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-26" id="section-26"></a>
 </div>
 <p>implement some global switches</p>
 
@@ -542,7 +554,7 @@ Start argument parsing
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-26" id="section-26"></a>
+  <a class="pilcrow" href="#section-27" id="section-27"></a>
 </div>
 <p>add additional dependent commands</p>
 
@@ -562,7 +574,7 @@ Start argument parsing
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-27" id="section-27"></a>
+  <a class="pilcrow" href="#section-28" id="section-28"></a>
 </div>
 <p>backward order because of unshift</p>
 
@@ -583,7 +595,7 @@ Start argument parsing
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-28" id="section-28"></a>
+  <a class="pilcrow" href="#section-29" id="section-29"></a>
 </div>
 <p>and at last add the command itself and document publish</p>
 
@@ -637,7 +649,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-31" id="section-31"></a>
+  <a class="pilcrow" href="#section-32" id="section-32"></a>
 </div>
 <p>load library because it may be away later</p>
 
@@ -659,7 +671,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-32" id="section-32"></a>
+  <a class="pilcrow" href="#section-33" id="section-33"></a>
 </div>
 <p>skip if command already done</p>
 
@@ -673,7 +685,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-33" id="section-33"></a>
+  <a class="pilcrow" href="#section-34" id="section-34"></a>
 </div>
 <p>list possible commands</p>
 
@@ -691,7 +703,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-34" id="section-34"></a>
+  <a class="pilcrow" href="#section-35" id="section-35"></a>
 </div>
 <p>check for try</p>
 
@@ -707,7 +719,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-35" id="section-35"></a>
+  <a class="pilcrow" href="#section-36" id="section-36"></a>
 </div>
 <p>load task library</p>
 
@@ -723,7 +735,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-36" id="section-36"></a>
+  <a class="pilcrow" href="#section-37" id="section-37"></a>
 </div>
 <p>log done comamnds</p>
 
@@ -738,7 +750,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-37" id="section-37"></a>
+  <a class="pilcrow" href="#section-38" id="section-38"></a>
 </div>
 <p>return error</p>
 
@@ -753,7 +765,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-38" id="section-38"></a>
+  <a class="pilcrow" href="#section-39" id="section-39"></a>
 </div>
 <p>protocol error on dir</p>
 
@@ -767,7 +779,7 @@ Run the commands
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-39" id="section-39"></a>
+  <a class="pilcrow" href="#section-40" id="section-40"></a>
 </div>
 <p>go on</p>
 
