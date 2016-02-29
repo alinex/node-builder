@@ -144,7 +144,7 @@ argv = yargs
     unless command in Object.keys commands
       return "Unknown command: #{argv.command}"
   true
-.strict()
+#.strict()
 .argv
 # implement some global switches
 chalk.enabled = false if argv.nocolors
