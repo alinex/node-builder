@@ -4,6 +4,28 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.3 (2016-03-01)
+-------------------------------------------------
+- Style fixes.
+- Fix background color.
+- Remove empty code elements from doc.
+
+Version 1.2.2 (2016-02-29)
+-------------------------------------------------
+- Fixed cli to not be as strict.
+
+Version 1.2.1 (2016-02-29)
+-------------------------------------------------
+- Fixed code style.
+- Updated layout for new documentation.
+- Upgraded yargs, uglify, prompt and alinex-utils.
+- Fixed glyphicons and layout.
+- Change to use new version of docker.
+- Fix gitignore for manpages.
+- Fixed create to also add propper .npmignore.
+- Merge package list.
+- Alinex package updates.
+
 Version 1.2.0 (2016-02-05)
 -------------------------------------------------
 - Code style fixes.

@@ -72,6 +72,7 @@ module.exports.run = (dir, options, cb) ->
       cb()
 
 publish = (dir, options, pack, cb) ->
+  url = path.join dir, 'doc', 'index.html'
   # Publish using script from package.json
   if pack.scripts?['doc-publish']?
     debug "exec #{dir}> #{pack.scripts['doc-publish']}"
@@ -207,6 +208,38 @@ createDoc = (dir, options, cb) ->
                   cwd: dir
                 , cb
               (cb) ->
+                # add viewport
+                Exec.run
+                  cmd: replace
+                  args: [
+                    '(</head>)'
+                    '<meta name="viewport" content="width=device-width, initial-scale=1.0" />$1'
+                    path.join dir, 'doc'
+                    '-r'
+                  ]
+                  cwd: dir
+                , cb
+              (cb) ->
+                # remove empty code elements
+                Exec.run
+                  cmd: 'sh'
+                  args: [
+                    '-c'
+                    "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/<pre[^>]*>\\s*<\\/pre>//g'"
+                  ]
+                  cwd: dir
+                , cb
+              (cb) ->
+                # remove empty lines at end of Change logo to new module.code elements
+                Exec.run
+                  cmd: 'sh'
+                  args: [
+                    '-c'
+                    "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/\\s*<\\/pre>/<\\/pre>/g'"
+                  ]
+                  cwd: dir
+                , cb
+              (cb) ->
                 # add alinex header
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
@@ -221,15 +254,22 @@ createDoc = (dir, options, cb) ->
                     '(<div id="sidebar_wrapper">)'
                     '''
                     <nav>
-                    <div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-                      <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+                    <div class="logo"><a href="http://alinex.github.io"
+                      onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+                      onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+                      <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+                        width="150" title="Alinex Universe Homepage" />
                       </a>
-                      <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+                      <img src="http://alinex.github.io/images/Alinex-200.png"
+                        style="display:none" alt="preloading" />
                     </div>
                     <div class="links">
-                      <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-                      <a href="http://alinex.github.io/develop" class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-                      <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+                      <a href="http://alinex.github.io/blog"
+                        class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+                      <a href="http://alinex.github.io/develop"
+                        class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+                      <a href="http://alinex.github.io/code.html"
+                        class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
                     </div>
                     </nav>$1
                     '''
