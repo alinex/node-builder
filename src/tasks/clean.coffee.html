@@ -6,31 +6,20 @@
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/tasks/clean.coffee";
-    var defaultSidebar = true;
+    var relativeDir = "../../", thisFile = "home/alex/github/node-builder/src/tasks/cleancoffee", defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+</head>
 <body>
   <nav>
-<div class="logo"><a href="http://alinex.github.io"
-  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
-  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
-  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-    width="150" title="Alinex Universe Homepage" />
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
   </a>
-  <img src="http://alinex.github.io/images/Alinex-200.png"
-    style="display:none" alt="preloading" />
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
 </div>
 <div class="links">
-  <a href="http://alinex.github.io/blog"
-    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
-  <a href="http://alinex.github.io/develop"
-    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
-  <a href="http://alinex.github.io/code.html"
-    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
 </div>
 </nav><div id="sidebar_wrapper">
     <div id="sidebar_switch">
@@ -39,99 +28,92 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
-
       <div class="heading h1">
-        <a href="#cleanup-all-automatic-generated-files">Cleanup all automatic generated files</a>
+        <a href="#cleanup%20all%20automatic%20generated%20files">Cleanup all automatic generated files</a>
       </div>
-
       <div class="heading h2">
-        <a href="#node-modules">Node modules</a>
+        <a href="#node%20modules">Node modules</a>
       </div>
-
       <div class="heading h2">
-        <a href="#main-routine">Main routine</a>
+        <a href="#main%20routine">Main routine</a>
       </div>
-
     </div>
   </div>
   <div id="sidebar-toggle"></div>
-  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
-    <div class="background highlight"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
 <table cellpadding="0" cellspacing="0">
   <tbody>
-    
-    
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="cleanup-all-automatic-generated-files">
+<div class="pilwrap" id="cleanup%20all%20automatic%20generated%20files">
   <h1>
-    <a href="#cleanup-all-automatic-generated-files" name="cleanup-all-automatic-generated-files" class="pilcrow"></a>
-Cleanup all automatic generated files
+    <a href="#cleanup%20all%20automatic%20generated%20files" name="cleanup%20all%20automatic%20generated%20files" class="pilcrow">&#182;</a>
+    Cleanup all automatic generated files
   </h1>
 </div>
 
         </td>
-        <td class="code highlight">
-          
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
         </td>
       </tr>
-    
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="node-modules">
+<div class="pilwrap" id="node%20modules">
   <h2>
-    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node modules
+    <a href="#node%20modules" name="node%20modules" class="pilcrow">&#182;</a>
+    Node modules
   </h2>
 </div>
 
         </td>
-        <td class="code highlight">
-          
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
         </td>
       </tr>
-    
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3"></a>
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
 </div>
 <p>include base modules</p>
-
         </td>
-        <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-</pre>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">path = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="nv">chalk = </span><span class="nx">require</span> <span class="s">&#39;chalk&#39;</span>
+
+</pre></div>
         </td>
       </tr>
-    
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4"></a>
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
 </div>
 <p>include alinex modules</p>
-
         </td>
-        <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">fs = </span><span class="nx">require</span> <span class="s">&#39;alinex-fs&#39;</span>
+<span class="nv">async = </span><span class="nx">require</span> <span class="s">&#39;alinex-async&#39;</span>
+<span class="nv">Exec = </span><span class="nx">require</span> <span class="s">&#39;alinex-exec&#39;</span>
 
-</pre>
+
+</pre></div>
         </td>
       </tr>
-    
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="main-routine">
+<div class="pilwrap" id="main%20routine">
   <h2>
-    <a href="#main-routine" name="main-routine" class="pilcrow"></a>
-Main routine
+    <a href="#main%20routine" name="main%20routine" class="pilcrow">&#182;</a>
+    Main routine
   </h2>
 </div>
+
+
 <p><strong>Arguments:</strong></p>
+
 <ul>
 <li><code>dir</code>
 Directory to operate on</li>
@@ -141,68 +123,64 @@ Command specific parameters and options.</li>
 The callback will be called just if an error occurred or with <code>null</code> if
 execution finished.</li>
 </ul>
-
         </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports.run = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Remove unnecessary folders"</span>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nv">module.exports.run = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove unnecessary folders&quot;</span>
 
-  dirs = [
-    path.join dir, <span class="hljs-string">'doc'</span>
-    path.join dir, <span class="hljs-string">'coverage'</span>
-  ]
-  <span class="hljs-keyword">if</span> options.auto
-    dirs.push path.join dir, <span class="hljs-string">'lib'</span>
-    dirs.push path.join dir, <span class="hljs-string">'man'</span>
-    dirs.push path.join dir, <span class="hljs-string">'node_modules'</span>
-  <span class="hljs-keyword">if</span> options.dist
-    dirs.push path.join dir, <span class="hljs-string">'src'</span>
-  async.each dirs, <span class="hljs-function"><span class="hljs-params">(dir, cb)</span> -&gt;</span>
-    fs.exists dir, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists
-      <span class="hljs-keyword">if</span> options.verbose
-        <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Removed <span class="hljs-subst">#{dir}</span>"</span>
-      fs.remove dir, cb
-  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    cleanDistribution dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      cleanModules dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-        cb err
-<span class="hljs-function">
-<span class="hljs-title">cleanDistribution</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.dist
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Remove development modules"</span>
-  Exec.run
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'prune'</span>, <span class="hljs-string">'--production'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
-  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim() <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> options.verbose
-    <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
-    cb err
-<span class="hljs-function">
-<span class="hljs-title">cleanModules</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.dist
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Remove left over of node_modules"</span>
-  selection = [
-    <span class="hljs-attribute">include</span>: <span class="hljs-string">'LICENSE'</span>
-  ,
-    <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">2</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'dir'</span>
-    <span class="hljs-attribute">include</span>: <span class="hljs-string">'example?(s)'</span>
-  ]
-  async.each selection, <span class="hljs-function"><span class="hljs-params">(spec, cb)</span> -&gt;</span>
-    fs.remove dir, spec, cb
-  , cb
+  <span class="nv">dirs = </span><span class="p">[</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;doc&#39;</span>
+    <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;coverage&#39;</span>
+  <span class="p">]</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">auto</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;lib&#39;</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;man&#39;</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;node_modules&#39;</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dist</span>
+    <span class="nx">dirs</span><span class="p">.</span><span class="nx">push</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">dir</span><span class="p">,</span> <span class="s">&#39;src&#39;</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">dirs</span><span class="p">,</span> <span class="nf">(dir, cb) -&gt;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">exists</span> <span class="nx">dir</span><span class="p">,</span> <span class="nf">(exists) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">exists</span>
+      <span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="s">&quot;Removed </span><span class="si">#{</span><span class="nx">dir</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nf">(err) -&gt;</span>
+    <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+    <span class="nx">cleanDistribution</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+      <span class="k">return</span> <span class="nx">cb</span> <span class="nx">err</span> <span class="k">if</span> <span class="nx">err</span>
+      <span class="nx">cleanModules</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(err) -&gt;</span>
+        <span class="nx">cb</span> <span class="nx">err</span>
 
-</pre>
+<span class="nv">cleanDistribution = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dist</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove development modules&quot;</span>
+  <span class="nx">Exec</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nv">cmd: </span><span class="s">&#39;npm&#39;</span>
+    <span class="nv">args: </span><span class="p">[</span> <span class="s">&#39;prune&#39;</span><span class="p">,</span> <span class="s">&#39;--production&#39;</span> <span class="p">]</span>
+    <span class="nv">cwd: </span><span class="nx">dir</span>
+  <span class="p">,</span> <span class="nf">(err, proc) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">grey</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stdout</span><span class="p">()</span> <span class="o">and</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span> <span class="nx">chalk</span><span class="p">.</span><span class="nx">magenta</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">().</span><span class="nx">trim</span><span class="p">()</span> <span class="k">if</span> <span class="nx">proc</span><span class="p">.</span><span class="nx">stderr</span><span class="p">()</span>
+    <span class="nx">cb</span> <span class="nx">err</span>
+
+<span class="nv">cleanModules = </span><span class="nf">(dir, options, cb) -&gt;</span>
+  <span class="k">return</span> <span class="nx">cb</span><span class="p">()</span> <span class="k">unless</span> <span class="nx">options</span><span class="p">.</span><span class="nx">dist</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Remove left over of node_modules&quot;</span>
+  <span class="nv">selection = </span><span class="p">[</span>
+    <span class="nv">include: </span><span class="s">&#39;LICENSE&#39;</span>
+  <span class="p">,</span>
+    <span class="nv">maxdepth: </span><span class="mi">2</span>
+    <span class="nv">type: </span><span class="s">&#39;dir&#39;</span>
+    <span class="nv">include: </span><span class="s">&#39;example?(s)&#39;</span>
+  <span class="p">]</span>
+  <span class="nx">async</span><span class="p">.</span><span class="nx">each</span> <span class="nx">selection</span><span class="p">,</span> <span class="nf">(spec, cb) -&gt;</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">remove</span> <span class="nx">dir</span><span class="p">,</span> <span class="nx">spec</span><span class="p">,</span> <span class="nx">cb</span>
+  <span class="p">,</span> <span class="nx">cb</span>
+</pre></div>
         </td>
       </tr>
-    
   </tbody>
 </table>
-
   </div>
 </body>
 </html>

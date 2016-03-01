@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>exec.yml</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "home/alex/github/node-builder/var/src/config/execyml", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io" onmouseover="lllogo.src='https://alinex.github.io/images/Alinex-200.png'" onmouseout="lllogo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="lllogo" src="https://alinex.github.io/images/Alinex-black-200.png" width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png" style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog" class="btn btn-primary"><span class="glyphicon-cog"></span> Blog</a>
+  <a href="http://alinex.github.io/code.html" class="btn btn-warning"><span class="glyphicon-pencil"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#setup%20for%20exec%20module">Setup for Exec module</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="setup%20for%20exec%20module">
+  <h1>
+    <a href="#setup%20for%20exec%20module" name="setup%20for%20exec%20module" class="pilcrow">&#182;</a>
+    Setup for Exec module
+  </h1>
+</div>
+
+
+<p>Default settings to fully use a machine.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="l-Scalar-Plain">priority</span><span class="p-Indicator">:</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>specify the default priority</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">medium</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>specify the possible priorities with their checks</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">low</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">80%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+    <span class="l-Scalar-Plain">medium</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">90%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">200%</span>
+      <span class="l-Scalar-Plain">nice</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+    <span class="l-Scalar-Plain">high</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">maxCpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">95%</span>
+      <span class="l-Scalar-Plain">maxLoad</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">400%</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
