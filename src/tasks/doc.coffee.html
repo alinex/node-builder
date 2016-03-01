@@ -12,7 +12,7 @@
   </script>
   <script src="../../doc-script.js"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
 <body>
   <nav>
 <div class="logo"><a href="http://alinex.github.io"
@@ -96,9 +96,7 @@ Create API documentation
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">
-
-</pre>
+          
         </td>
       </tr>
     
@@ -548,20 +546,14 @@ Create initial git repository
           <div class="pilwrap">
   <a class="pilcrow" href="#section-21" id="section-21"></a>
 </div>
-<p>add fork on github icon</p>
+<p>add viewport</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">                <span class="hljs-keyword">try</span>
-                  pack = JSON.parse fs.readFileSync path.join dir, <span class="hljs-string">'package.json'</span>
-                <span class="hljs-keyword">catch</span> error
-                  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not load <span class="hljs-subst">#{path.join dir, <span class="hljs-string">'package.json'</span>}</span>
-                  as valid JSON: <span class="hljs-subst">#{error.message}</span>"</span>
-                <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'alinex'</span>
-                Exec.run
+          <pre class="coffeescript">                Exec.run
                   <span class="hljs-attribute">cmd</span>: replace
                   <span class="hljs-attribute">args</span>: [
-                    <span class="hljs-string">'(&lt;/head)&gt;'</span>
+                    <span class="hljs-string">'(&lt;/head&gt;)'</span>
                     <span class="hljs-string">'&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;$1'</span>
                     path.join dir, <span class="hljs-string">'doc'</span>
                     <span class="hljs-string">'-r'</span>
@@ -577,6 +569,28 @@ Create initial git repository
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-22" id="section-22"></a>
+</div>
+<p>remove empty code elements</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">                Exec.run
+                  <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+                  <span class="hljs-attribute">args</span>: [
+                    <span class="hljs-string">'-c'</span>
+                    <span class="hljs-string">"find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/&lt;pre[^&gt;]*&gt;\\s*&lt;\\/pre&gt;//g'"</span>
+                  ]
+                  <span class="hljs-attribute">cwd</span>: dir
+                , cb
+              (cb) -&gt;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23"></a>
 </div>
 <p>add alinex header</p>
 
@@ -627,7 +641,7 @@ Create initial git repository
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-23" id="section-23"></a>
+  <a class="pilcrow" href="#section-24" id="section-24"></a>
 </div>
 <p>fix tables</p>
 
@@ -659,7 +673,7 @@ Create initial git repository
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24"></a>
+  <a class="pilcrow" href="#section-25" id="section-25"></a>
 </div>
 <p>copy images</p>
 

@@ -12,7 +12,7 @@
   </script>
   <script src="../../../doc-script.js"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
 <body>
   <nav>
 <div class="logo"><a href="http://alinex.github.io"
@@ -691,6 +691,29 @@
   <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
   <span class="hljs-rule"><span class="hljs-attribute">border-radius</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
 }</span>
+<span class="hljs-id">#container</span> <span class="hljs-tag">table</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+}</span>
+<span class="hljs-tag">div</span><span class="hljs-class">.background</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span> <span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-radius</span>:<span class="hljs-value"> <span class="hljs-number">8px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">5px</span> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> pre-wrap</span></span>;       <span class="hljs-comment">/* css-3 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -moz-pre-wrap</span></span>;  <span class="hljs-comment">/* Mozilla, since 1999 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -pre-wrap</span></span>;      <span class="hljs-comment">/* Opera 4-6 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -o-pre-wrap</span></span>;    <span class="hljs-comment">/* Opera 7 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">word-wrap</span>:<span class="hljs-value"> break-word</span></span>;       <span class="hljs-comment">/* Internet Explorer 5.5+ */</span>
+}</span>
 <span class="hljs-tag">pre</span> <span class="hljs-tag">code</span><span class="hljs-class">.sh</span><span class="hljs-pseudo">::before</span> <span class="hljs-rules">{
   <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"Shell Script"</span></span></span>;
   <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#505050</span></span></span>;
@@ -739,10 +762,10 @@
 }</span>
 <span class="hljs-class">.highlight</span> <span class="hljs-rules">{
   <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ededf3</span></span></span>;
-  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> auto</span></span>; }</span>
-
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
 <span class="hljs-class">.dox</span> <span class="hljs-rules">{
-  <span class="hljs-rule"><span class="hljs-attribute">border-top-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#e0e0e4</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
 }</span>
 <span class="hljs-class">.dox</span> <span class="hljs-class">.details</span> <span class="hljs-rules">{
   <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ededf3</span></span></span>;
