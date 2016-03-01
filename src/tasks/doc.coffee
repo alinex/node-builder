@@ -230,7 +230,7 @@ createDoc = (dir, options, cb) ->
                   cwd: dir
                 , cb
               (cb) ->
-                # remove empty lines at end of code elements
+                # remove empty lines at end of Change logo to new module.code elements
                 Exec.run
                   cmd: 'sh'
                   args: [
