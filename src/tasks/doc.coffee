@@ -208,20 +208,24 @@ createDoc = (dir, options, cb) ->
                   cwd: dir
                 , cb
               (cb) ->
-                # add fork on github icon
-                try
-                  pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
-                catch error
-                  return cb new Error "Could not load #{path.join dir, 'package.json'}
-                  as valid JSON: #{error.message}"
-                return cb() unless (pack.name.split /-/)[0] is 'alinex'
+                # add viewport
                 Exec.run
                   cmd: replace
                   args: [
-                    '(</head)>'
+                    '(</head>)'
                     '<meta name="viewport" content="width=device-width, initial-scale=1.0" />$1'
                     path.join dir, 'doc'
                     '-r'
+                  ]
+                  cwd: dir
+                , cb
+              (cb) ->
+                # remove empty code elements
+                Exec.run
+                  cmd: 'sh'
+                  args: [
+                    '-c'
+                    "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/<pre[^>]*>\\s*<\\/pre>//g'"
                   ]
                   cwd: dir
                 , cb
