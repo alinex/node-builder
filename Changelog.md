@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.3 (2016-03-01)
+-------------------------------------------------
+- Style fixes.
+- Fix background color.
+- Remove empty code elements from doc.
+
 Version 1.2.2 (2016-02-29)
 -------------------------------------------------
 - Fixed cli to not be as strict.
