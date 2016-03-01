@@ -688,10 +688,10 @@ pre, tt, code {
 }
 .highlight {
   background: #ededf3;
-  color: auto; }
-
+  color: auto;
+}
 .dox {
-  border-top-color: #e0e0e4;
+  border-top: 0;
 }
 .dox .details {
   background: #ededf3;
