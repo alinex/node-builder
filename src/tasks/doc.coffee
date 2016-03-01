@@ -230,6 +230,16 @@ createDoc = (dir, options, cb) ->
                   cwd: dir
                 , cb
               (cb) ->
+                # remove empty lines at end of code elements
+                Exec.run
+                  cmd: 'sh'
+                  args: [
+                    '-c'
+                    "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/\\s*<\\/pre>/<\\/pre>/g'"
+                  ]
+                  cwd: dir
+                , cb
+              (cb) ->
                 # add alinex header
                 try
                   pack = JSON.parse fs.readFileSync path.join dir, 'package.json'
