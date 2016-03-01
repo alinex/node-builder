@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.4 (2016-03-01)
+-------------------------------------------------
+- Fixed version.
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Fix line-height of headings.
+- Change logo to new module.
+- Remove empty lines at the end of code elements.
+
 Version 1.2.3 (2016-03-01)
 -------------------------------------------------
 - Style fixes.
