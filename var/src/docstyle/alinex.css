@@ -621,6 +621,10 @@ a:hover {
   width: 100%;
   background: #333;
 }
+div.background {
+  background: #333;
+  border: 0;
+}
 td.code {
   background: #333;
   width: auto;
