@@ -75,7 +75,6 @@ gitChanges = (dir, options, cb) ->
     args: [ 'describe', '--abbrev=0' ]
     cwd: dir
   , (err, proc) ->
-    return cb err if err
     tag = proc.stdout().trim()
     msg = "Changes since last publication as #{tag}:\n"
     Exec.run
