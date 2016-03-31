@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.5 (2016-03-31)
+-------------------------------------------------
+- Upgraded multiple packages including npm-check.
+- Fixed general link in README.
+- Fixed changes to work if no git tag available.
+
 Version 1.2.4 (2016-03-01)
 -------------------------------------------------
 - Fixed version.
