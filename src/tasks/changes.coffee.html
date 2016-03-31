@@ -224,7 +224,6 @@ execution finished.</li>
     <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'describe'</span>, <span class="hljs-string">'--abbrev=0'</span> ]
     <span class="hljs-attribute">cwd</span>: dir
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     tag = proc.stdout().trim()
     msg = <span class="hljs-string">"Changes since last publication as <span class="hljs-subst">#{tag}</span>:\n"</span>
     Exec.run
