@@ -42,7 +42,7 @@ npm = (dir, options, cb) ->
       cmd: cmd
       cwd: dir
     , (err, proc) ->
-      return cb err if err
+      console.log chalk.magenta err.message if err
       if proc.stdout()
         for line in proc.stdout().trim().split /\n/
           continue if line.match /Use npm-check/
@@ -53,7 +53,7 @@ npm = (dir, options, cb) ->
       return cb err, '' if msg.split(/\n/).length < 3
       msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
       `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
-      cb err, msg
+      cb null, msg
 
 git = (dir, options, cb) ->
   # check for existing git repository
