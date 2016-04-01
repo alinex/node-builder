@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.6 (2016-04-01)
+-------------------------------------------------
+- Upgrade utils package.
+- Only report npm return code but ignore for further processing in changes task.
+
 Version 1.2.5 (2016-03-31)
 -------------------------------------------------
 - Upgraded multiple packages including npm-check.
