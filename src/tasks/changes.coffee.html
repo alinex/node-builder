@@ -169,7 +169,7 @@ execution finished.</li>
       <span class="hljs-attribute">cmd</span>: cmd
       <span class="hljs-attribute">cwd</span>: dir
     , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-built_in">console</span>.log chalk.magenta err.message <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">if</span> proc.stdout()
         <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().trim().split <span class="hljs-regexp">/\n/</span>
           <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/Use npm-check/</span>
@@ -180,7 +180,7 @@ execution finished.</li>
       <span class="hljs-keyword">return</span> cb err, <span class="hljs-string">''</span> <span class="hljs-keyword">if</span> msg.split(<span class="hljs-regexp">/\n/</span>).length &lt; <span class="hljs-number">3</span>
       msg += chalk.grey <span class="hljs-string">"Use `<span class="hljs-subst">#{chalk.underline <span class="hljs-string">'npm install'</span>}</span>` or
       `<span class="hljs-subst">#{chalk.underline cmd + <span class="hljs-string">' -u'</span>}</span>` to upgrade.\n"</span>
-      cb err, msg
+      cb <span class="hljs-literal">null</span>, msg
 <span class="hljs-function">
 <span class="hljs-title">git</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span></pre>
         </td>
