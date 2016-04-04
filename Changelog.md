@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.9 (2016-04-04)
+-------------------------------------------------
+- Downgraded npm-check.
+
 Version 1.2.8 (2016-04-04)
 -------------------------------------------------
 - Downgraded npm-check.
