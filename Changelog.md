@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 1.2.7 (2016-04-04)
+-------------------------------------------------
+- Upgraded npm-check.
+
 Version 1.2.6 (2016-04-01)
 -------------------------------------------------
 - Upgrade utils package.
