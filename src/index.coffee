@@ -6,10 +6,8 @@
 # -------------------------------------------------
 
 # include base modules
-chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
-fs = require 'alinex-fs'
 async = require 'alinex-async'
 config = require 'alinex-config'
 Exec = require 'alinex-exec'
