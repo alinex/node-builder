@@ -2,6 +2,7 @@ Alinex Builder
 =================================================
 
 [![Build Status](https://travis-ci.org/alinex/node-builder.svg?branch=master)](https://travis-ci.org/alinex/node-builder)
+[![Coverage Status](https://coveralls.io/repos/alinex/node-builder/badge.png?branch=master)](https://coveralls.io/r/alinex/node-builder?branch=master)
 [![Dependency Status](https://gemnasium.com/alinex/node-builder.png)](https://gemnasium.com/alinex/node-builder)
 
 This package contains some helper commands for development of the alinex
@@ -50,8 +51,11 @@ sudo npm install -g alinex-builder --production
 builder --help
 ```
 
-After global installation you may directly call `builder` from anywhere like shown
-above.
+After global installation you may directly call `builder` from anywhere.
+
+``` sh
+builder --help
+```
 
 Or you may integrate it into your own package:
 
@@ -64,54 +68,103 @@ By integrating it you won't need all the development tools within your package.
 
 Always have a look at the latest [changes](Changelog.md).
 
+### Bash Code completion
+
+If you like, you can add code completion for bash by copying the output of:
+
+``` text
+> builder bashrc-script
+
+###-begin-cli.coffee-completions-###
+#
+# yargs command completion script
+#
+# Installation: builder completion >> ~/.bashrc
+#    or builder completion >> ~/.bash_profile on OSX.
+#
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+    args=$(printf "%s " "${COMP_WORDS[@]}")
+
+    # ask yargs to generate completions.
+    type_list=`builder --get-yargs-completions $args`
+
+    COMPREPLY=( $(compgen -W "${type_list}" -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=( $(compgen -f -- "${cur_word}" ) )
+    fi
+
+    return 0
+}
+complete -F _yargs_completions scripter
+###-end-cli.coffee-completions-###
+```
+
+Put these lines into your `~/.bashrc` file.
+
 
 Usage
 -------------------------------------------------
 
-The tool will be called with:
+You can simple call the `builder` command with one of the configured commands:
+
+    > builder <command> [<options>]...
+
+    Initializing...
+    Run the command...
+    ...
+    Goodbye
+
+To list all the possible commands:
+
+    > builder --help
+
+This will show the possible commands which are defined.
+
+But if not installed globally you may run it as:
 
 ``` sh
-builder [dirs] [general options] -c <commands> [command options]
+node_modules/.bin/builder <command> [<options>]...
 ```
-
-But if not installed globally you may run:
-
-``` sh
-node_modules/.bin/builder [dirs] [general options] -c <commands>
-```
-
-With the option `--help` a screen explaining all commands and options will be
-displayed. The major commands will be described here.
 
 Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
 command will run from the current directory.
-You may change the order of the options like you want but keep the directories
-before them. If you give a directory just behind a command it is interpreted
-as additional command instead as directory.
 
-If you want to give multiple commands add a second `-c` option or just put them
-one behind the other in one option.
+To run multiple commands, call the program for each one.
+
+### Include in own package
 
 Within your `package.json` it may look like:
 
 ``` json
 {
   "scripts": {
-    "prepublish": "node_modules/.bin/builder -c compile --uglify",
-    "test": "node_modules/.bin/builder -c test"
+    "prepublish": "node_modules/.bin/builder compile --uglify",
+    "test": "node_modules/.bin/builder test"
   }
 }
 ```
 
 ### General options
 
-`-v`or `--verbose` will display a lot of information of what is going on.
+`-v` or `--verbose` will display a lot of information of what is going on.
 This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
 `-C` or `--no-colors` can be used to disable the colored output.
 
+`-q` or `-quiet` is used to remove the unneccessary output like header and
+footer.
+
+
+Commands
+----------------------------------------------------------------
 
 ### create
 

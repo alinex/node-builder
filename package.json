@@ -43,6 +43,7 @@
   "dependencies": {
     "alinex-async": "^1.0.0",
     "alinex-config": "^1.1.0",
+    "alinex-core": "^0.2.0",
     "alinex-exec": "^1.1.1",
     "alinex-fs": "^2.0.0",
     "alinex-util": "^2.0.3",
