@@ -6,7 +6,6 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug') 'builder:changes'
 chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
@@ -20,31 +19,35 @@ Exec = require 'alinex-exec'
 exports.title = 'show changes since last release'
 exports.description = 'list the changes since last published version'
 
-#exports.options =
-#  xtest:
-#    alias: 'x'
-#    type: 'string'
+exports.options =
+  'skip-unused':
+    alias: 's'
+    type: 'boolean'
+    describe: 'Skip check for unused packages.'
 
 
 # Handler
 # ------------------------------------------------
 
 exports.handler = (args, cb) ->
-  # do the job
-  debug "running now..."
+  for name, def of exports.options
+    console.log def.describe ? name if args[name]
+  # check for directories
   list = args._[1..]
-  console.log "working on the following directories:\n" + list.map (e) ->
-    " - #{path.resolve e}"
-  .join '\n' if args.verbose
+  list.push path.dirname(path.dirname __dirname) unless list.length
+  list = list.map (e) -> path.resolve e
+  if args.verbose
+    console.log chalk.grey "working on the following directories:\n -> " + list.join '\n -> '
+  # gather information
   async.eachLimit list, 3, (dir, cb) ->
-    # gather information
     async.parallel [
       (cb) -> git dir, args, cb
       (cb) -> npm dir, args, cb
     ], (err, results) ->
       return cb err if err
+      # output results
       console.log()
-      console.log chalk.bold "Results for #{path.resolve dir}"
+      console.log chalk.bold "Results for #{path.basename dir} "
       console.log()
       console.log results.join('').trim()
       console.log()
@@ -56,10 +59,16 @@ exports.handler = (args, cb) ->
 # ------------------------------------------------
 
 npm = (dir, args, cb) ->
+  # check for existing git repository
+  if args.verbose
+    console.log chalk.grey "#{path.basename dir}: npm packages - check"
   fs.npmbin 'npm-check', path.dirname(path.dirname __dirname), (err, cmd) ->
     msg = "NPM Update check:\n"
+    params = []
+    params.push '-s' if args['skip-unused']
     Exec.run
       cmd: cmd
+      args: params
       cwd: dir
       check:
         exitCode:
@@ -76,12 +85,14 @@ npm = (dir, args, cb) ->
       return cb err, '' if msg.split(/\n/).length < 3
       msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
       `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
+      if args.verbose
+        console.log chalk.grey "#{path.basename dir}: npm packages - done"
       cb null, msg
 
 git = (dir, args, cb) ->
   # check for existing git repository
   if args.verbose
-    console.log chalk.grey "Check for configured git"
+    console.log chalk.grey "#{path.basename dir}: git - check if configured"
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
     async.parallel [
@@ -89,10 +100,14 @@ git = (dir, args, cb) ->
       (cb) -> gitStatus dir, args, cb
     ], (err, results) ->
       return cb err if err
+      if args.verbose
+        console.log chalk.grey "#{path.basename dir}: git - done"
       cb null, results.join ''
 
 
 gitChanges = (dir, args, cb) ->
+  if args.verbose > 1
+    console.log chalk.grey "#{path.basename dir}: git - check commits"
   # run the pull args
   Exec.run
     cmd: 'git'
@@ -115,6 +130,8 @@ gitChanges = (dir, args, cb) ->
       cb err, msg
 
 gitStatus = (dir, args, cb) ->
+  if args.verbose > 1
+    console.log chalk.grey "#{path.basename dir}: git - check status"
   msg = ''
   # run the pull args
   Exec.run

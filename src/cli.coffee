@@ -82,7 +82,7 @@ builder.setup (err) ->
         # add options
         if lib.options
           yargs.option key, def for key, def of lib.options
-          yargs.group Object.keys(lib.options), "#{util.string.ucFirst name} Job Options:"
+          yargs.group Object.keys(lib.options), "#{util.string.ucFirst name} Command Options:"
         # help
         yargs.strict()
         .help 'h'
