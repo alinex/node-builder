@@ -44,7 +44,7 @@ builder.setup (err) ->
   alinex.exit 16, err if err
   # Start argument parsing
   yargs
-  .usage "\nUsage: $0 <command> [options] [dirs]"
+  .usage "\nUsage: $0 <command> [options] [dir]..."
   .env 'BUILDER' # use environment arguments prefixed with SCRIPTER_
   # examples
   .example '$0 --update', 'to initialize and update the scripts'
@@ -78,7 +78,7 @@ builder.setup (err) ->
     yargs.command name, lib.title,
       builder: (yargs) ->
         yargs
-        .usage "\nUsage: $0 #{name} [options] [dirs]"
+        .usage "\nUsage: $0 #{name} [options] [dir]..."
         # add options
         if lib.options
           yargs.option key, def for key, def of lib.options

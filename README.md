@@ -401,38 +401,72 @@ hyphen.
 ### changes
 
 This will list all changes in
-- packages
-- since last version tag
-- in current committe
+
+- packages since last version tag
+- in current commit
 - and things are staged only
 
 Use this to check if you should make a new publication or if it can wait.
 
 ``` sh
-builder -c changes
+builder changes
 ```
 
 ``` text
-NPM Update check:
-- docker            😕  NOTUSED?  Possibly never referenced in the code.
-- alinex-config     😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-config/
-- marked-man        😕  NOTUSED?  Possibly never referenced in the code.
-- coffee-coverage   😕  NOTUSED?  Possibly never referenced in the code.
-- coffeelint        😕  NOTUSED?  Possibly never referenced in the code.
-- coveralls         😕  NOTUSED?  Possibly never referenced in the code.
-- istanbul          😕  NOTUSED?  Possibly never referenced in the code.
-- npm-check         😕  NOTUSED?  Possibly never referenced in the code.
-- replace           😕  NOTUSED?  Possibly never referenced in the code.
-- uglify-js         😕  NOTUSED?  Possibly never referenced in the code.
-Changes since last publication as v1.1.13:
-- Upgraded config module.
-Changes to be committed:
-- modified: src/tasks/changes.coffee
+Initializing...
+Run changes command...
+
+Results for node-builder
+
+Changes since last publication as v1.2.9:
+- Converted changes command to new builder.
+- Use new command based cli interface.
+- Upgraded lots of packages.
+- Add correct exit code on test.
 Changes not staged for commit:
-- modified: README.md
-- modified: src/tasks/changes.coffee
+- modified: src/command/changes.coffee
+NPM Update check:
+- coffee-coverage      😕  NOTUSED?  Still using coffee-coverage?
+- coffeelint           😕  NOTUSED?  Still using coffeelint?
+- coveralls            😕  NOTUSED?  Still using coveralls?
+- debounce             😕  NOTUSED?  Still using debounce?
+- docker               😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+- istanbul             😕  NOTUSED?  Still using istanbul?
+- marked-man           😕  NOTUSED?  Still using marked-man?
+- node-sass            😕  NOTUSED?  Still using node-sass?
+- npm-check            😕  NOTUSED?  Still using npm-check?
+- plato                😕  NOTUSED?  Still using plato?
+- replace              😕  NOTUSED?  Still using replace?
+- typescript           😕  NOTUSED?  Still using typescript?
+- uglify-js            😕  NOTUSED?  Still using uglify-js?
+Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
 ```
 
+Sometimes you may skip the unused packages:
+
+``` sh
+builder changes --skip-unused
+```
+
+``` text
+Initializing...
+Run changes command...
+Skip check for unused packages.
+
+Results for node-builder
+
+Changes since last publication as v1.2.9:
+- Converted changes command to new builder.
+- Use new command based cli interface.
+- Upgraded lots of packages.
+- Add correct exit code on test.
+Changes not staged for commit:
+- modified: src/command/changes.coffee
+NPM Update check:
+- alinex-core   😍  UPDATE!   Your local install is out of date. from 0.2.0 to 0.2.2
+- docker        😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
+```
 
 ### publish
 
