@@ -214,7 +214,9 @@ async.each cmds, (command, cb) ->
         cb if argv.force then null else err
     , (err) ->
       # protocol error on dir
-      console.error chalk.bold chalk.red err if err
+      if err
+        console.error chalk.bold chalk.red err
+        process.exit 1
       # go on
       cb()
   , ->
