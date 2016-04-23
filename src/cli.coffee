@@ -34,6 +34,41 @@ process.on 'exit', ->
   console.log "Goodbye\n" unless quiet
 
 
+# Command Setup
+# -------------------------------------------------
+command = (name, file) ->
+  try
+    lib = require file
+  catch error
+    alinex.exit 1, error if error
+  # return builder and handler
+  builder: (yargs) ->
+    yargs
+    .usage "\nUsage: $0 #{name} [options] [dir]...\n\n#{lib.description ? ''}"
+    # add options
+    if lib.options
+      yargs.option key, def for key, def of lib.options
+      yargs.group Object.keys(lib.options), "#{util.string.ucFirst name} Command Options:"
+    # help
+    yargs.strict()
+    .help 'h'
+    .alias 'h', 'help'
+    .epilogue """
+      This is the description of the '#{name}' command. You may also look into the
+      general help using or the man page.
+      """
+  handler: (args) ->
+    console.log "Run #{name} command..."
+    try
+      lib.handler args, (err) ->
+        alinex.exit 1, err if err
+        alinex.exit 0
+    catch error
+      error.description = error.stack.split(/\n/)[1..].join '\n'
+      alinex.exit 1, error
+    return true
+
+
 # Main routine
 # -------------------------------------------------
 unless quiet
@@ -75,32 +110,7 @@ builder.setup (err) ->
   for file in list
     name = path.basename file, path.extname file
     lib = require file
-    yargs.command name, lib.title,
-      builder: (yargs) ->
-        yargs
-        .usage "\nUsage: $0 #{name} [options] [dir]..."
-        # add options
-        if lib.options
-          yargs.option key, def for key, def of lib.options
-          yargs.group Object.keys(lib.options), "#{util.string.ucFirst name} Command Options:"
-        # help
-        yargs.strict()
-        .help 'h'
-        .alias 'h', 'help'
-        .epilogue """
-          This is the description of the '#{name}' command. You may also look into the
-          general help using or the man page.
-          """
-      handler: (args) ->
-        console.log "Run #{name} command..."
-        try
-          lib.handler args, (err) ->
-            alinex.exit 1, err if err
-            alinex.exit 0
-        catch error
-          error.description = error.stack.split(/\n/)[1..].join '\n'
-          alinex.exit 1, error
-        return true
+    yargs.command name, lib.title, command name, file
   jobs = path.join path.dirname(__dirname), 'var/lib/script/index.js'
   if fs.existsSync jobs
     jobs = require jobs
