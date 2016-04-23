@@ -7,9 +7,9 @@
 
 # include base modules
 chalk = require 'chalk'
+path = require 'path'
 # include alinex modules
 async = require 'alinex-async'
-path = require 'path'
 fs = require 'alinex-fs'
 Exec = require 'alinex-exec'
 
@@ -17,7 +17,10 @@ Exec = require 'alinex-exec'
 # -------------------------------------------------
 
 exports.title = 'show changes since last release'
-exports.description = 'list the changes since last published version'
+exports.description = """
+List all changes since last published version. This contains local file changes,
+last commits and updates of depending packages.
+"""
 
 exports.options =
   'skip-unused':
