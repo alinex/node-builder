@@ -202,8 +202,7 @@ This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
 ``` sh
-builder -c push                  # from within the package directory
-builder ./node-error -c push     # or from anywhere else
+builder -push                  # from within the package directory
 ```
 
 or to also commit the last changes
@@ -212,20 +211,13 @@ or to also commit the last changes
 builder ./node-error -c push --message "commit message"
 ```
 
-
 ### pull
 
-Like `push` this will fetch the newest changes from git origin.
+Like `push` this will fetch the newest changes from git origin and merge them with
+your local changes.
 
 ``` sh
-builder -c pull                  # from within the package directory
-builder ./node-error -c pull     # or from anywhere else
-```
-
-``` text
-Pull from origin
-Von https://github.com/alinex/node-make
-* branch            master     -> FETCH_HEAD
+builder pull                  # from within the package directory
 ```
 
 ### link
