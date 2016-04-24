@@ -7,6 +7,7 @@
 
 # include base modules
 path = require 'path'
+chalk = require 'chalk'
 # include alinex modules
 async = require 'alinex-async'
 config = require 'alinex-config'
@@ -26,3 +27,54 @@ exports.setup = (cb) ->
     # set module search path
     config.register 'scripter', path.dirname __dirname
     cb()
+
+exports.command = (name, lib, args, cb) ->
+  console.log "Run #{name} command..."
+  if lib.options
+    for name, def of lib.options
+      console.log def.describe ? name if args[name]
+  try
+    lib.handler args, cb
+  catch error
+    error.description = error.stack.split(/\n/)[1..].join '\n'
+    cb error
+
+exports.dirs = (args, fn, cb) ->
+  # check for directories
+  list = args._[1..]
+  list.push path.dirname __dirname unless list.length
+  list = list.map (e) -> path.resolve e
+  # execute
+  async.eachLimit list, 3, (dir, cb) ->
+    exports.info dir, args, 'started'
+    fn dir, args, (err) ->
+      exports.info dir, args, 'done'
+      cb err
+  , cb
+
+exports.info = (dir, args, message) ->
+  if args.verbose
+    console.log chalk.grey "#{path.basename dir}: #{message}"
+
+exports.debug = (dir, args, message) ->
+  if args.verbose > 1
+    console.log chalk.grey "#{path.basename dir}: #{message}"
+
+exports.task = (task, dir, args, cb) ->
+  try
+    lib = require "./task/#{task}"
+    lib dir, args, cb
+  catch error
+    cb error
+  
+exports.exec = (dir, args, type, exec, cb) ->
+  exports.debug dir, args, "> #{exec.cmd} #{exec.args.join ' '}"
+  Exec.run exec, (err, proc) ->
+    if proc.stdout() and args.verbose > 2
+      console.log()
+      console.log "#{path.basename dir}: #{type}"
+      console.log()
+      console.log chalk.grey proc.stdout().trim()
+      console.error chalk.magenta proc.stderr().trim() if proc.stderr()
+      console.log()
+    cb err, proc

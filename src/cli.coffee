@@ -58,14 +58,9 @@ command = (name, file) ->
       general help using or the man page.
       """
   handler: (args) ->
-    console.log "Run #{name} command..."
-    try
-      lib.handler args, (err) ->
-        alinex.exit 1, err if err
-        alinex.exit 0
-    catch error
-      error.description = error.stack.split(/\n/)[1..].join '\n'
-      alinex.exit 1, error
+    builder.command name, lib, args, (err) ->
+      alinex.exit 1, err if err
+      alinex.exit 0
     return true
 
 
