@@ -14,20 +14,19 @@ config = require 'alinex-config'
 Exec = require 'alinex-exec'
 
 
-# Helper
+# Initialize
 # -------------------------------------------------
 exports.setup = (cb) ->
   async.each [Exec], (mod, cb) ->
     mod.setup cb
   , (err) ->
     return cb err if err
-# no own schema
-#    # add schema for module's configuration
-#      config.setSchema '/scripter', schema
     # set module search path
     config.register 'scripter', path.dirname __dirname
     cb()
 
+# Output Helper
+# -------------------------------------------------
 exports.command = (name, lib, args, cb) ->
   console.log "Run #{name} command..."
   if lib.options
@@ -38,6 +37,19 @@ exports.command = (name, lib, args, cb) ->
   catch error
     error.description = error.stack.split(/\n/)[1..].join '\n'
     cb error
+
+
+exports.info = (dir, args, message) ->
+  if args.verbose
+    console.log chalk.grey "#{path.basename dir}: #{message}"
+
+exports.debug = (dir, args, message) ->
+  if args.verbose > 1
+    console.log chalk.grey "#{path.basename dir}: #{message}"
+
+
+# Controll flow helper
+# -------------------------------------------------
 
 exports.dirs = (args, fn, cb) ->
   # check for directories
@@ -50,15 +62,8 @@ exports.dirs = (args, fn, cb) ->
     fn dir, args, (err) ->
       exports.info dir, args, 'done'
       cb err
+      , cb
   , cb
-
-exports.info = (dir, args, message) ->
-  if args.verbose
-    console.log chalk.grey "#{path.basename dir}: #{message}"
-
-exports.debug = (dir, args, message) ->
-  if args.verbose > 1
-    console.log chalk.grey "#{path.basename dir}: #{message}"
 
 exports.task = (task, dir, args, cb) ->
   try
@@ -66,7 +71,7 @@ exports.task = (task, dir, args, cb) ->
     lib dir, args, cb
   catch error
     cb error
-  
+
 exports.exec = (dir, args, type, exec, cb) ->
   exports.debug dir, args, "> #{exec.cmd} #{exec.args.join ' '}"
   Exec.run exec, (err, proc) ->

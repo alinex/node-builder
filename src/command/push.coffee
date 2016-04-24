@@ -7,6 +7,8 @@
 
 # include base modules
 path = require 'path'
+# include alinex modules
+fs = require 'alinex-fs'
 # internal modules
 builder = require '../index'
 
@@ -39,7 +41,7 @@ exports.handler = (args, cb) ->
         return cb err if err
         unless out
           return builder.task 'gitPush', dir, args, cb
-        unless args.messgae
+        unless args.message
           return cb new Error "Can't push to master if not everything is commited."
         builder.task 'gitCommitAll', dir, args, (err) ->
           return cb err if err
