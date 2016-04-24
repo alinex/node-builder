@@ -57,13 +57,16 @@ exports.dirs = (args, fn, cb) ->
   list.push path.dirname __dirname unless list.length
   list = list.map (e) -> path.resolve e
   # execute
+  problems = []
   async.eachLimit list, 3, (dir, cb) ->
     exports.info dir, args, 'started'
     fn dir, args, (err) ->
       exports.info dir, args, 'done'
-      cb err
-      , cb
-  , cb
+      problems.push "#{path.basename dir}: #{err.message}" if err
+      cb()
+  , ->
+    return cb() unless problems.length
+    cb new Error problems.join '\n'
 
 exports.task = (task, dir, args, cb) ->
   try
