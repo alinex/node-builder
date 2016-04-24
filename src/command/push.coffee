@@ -24,7 +24,7 @@ exports.options =
   message:
     alias: 'm'
     type: 'string'
-    describe: 'Commit message for local changes.'
+    describe: 'Commit message for local changes'
 
 
 # Handler

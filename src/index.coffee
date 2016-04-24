@@ -31,7 +31,7 @@ exports.command = (name, lib, args, cb) ->
   console.log "Run #{name} command..."
   if lib.options
     for name, def of lib.options
-      console.log def.describe ? name if args[name]
+      console.log "#{def.describe ? name} = #{args[name]}" if args[name]
   try
     lib.handler args, cb
   catch error
