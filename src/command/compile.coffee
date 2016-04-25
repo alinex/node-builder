@@ -50,6 +50,7 @@ compile = (dir, args, cb) ->
           # compile
           async.parallel [
             (cb) -> builder.task 'compileCoffee', dir, args, cb
+            (cb) -> builder.task 'copyJs', dir, args, cb
             (cb) -> builder.task 'compileMan', dir, args, cb
           ], cb
     # check for linked libraries

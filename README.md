@@ -236,7 +236,7 @@ default path beside your package.
 
 ### compile
 
-This task is used to compile the sources into for runtime optimized library.
+This task is used to compile the sources into a runtime optimized library.
 
 ``` sh
 builder compile               # from within the package directory
@@ -254,6 +254,12 @@ Or give an directory and use uglify to compress the extension.
 ``` sh
 builder ./node-error compile --uglify
 ```
+
+This command may also compiled the linked packages and does the following steps:
+
+- compile coffee -> js (maybe with uglify)
+- copy js (maybe with uglify)
+- compile md -> man pages
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
