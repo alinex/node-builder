@@ -61,7 +61,7 @@ npm = (dir, args, cb) ->
     msg = "NPM Update check:\n"
     params = []
     params.push '-s' if args['skip-unused']
-    builder.exec dir,args, 'npm-check',
+    builder.exec dir, args, 'npm-check',
       cmd: cmd
       args: params
       cwd: dir
@@ -70,15 +70,18 @@ npm = (dir, args, cb) ->
           args: [0, 1]
     , (err, proc) ->
       return cb err if err
+      upgrade = false
       if proc.stdout()
         for line in proc.stdout().trim().split /\n/
           continue if line.match /Use npm-check/
-          msg += chalk.yellow "- #{line.trim()}\n" if line.match /^\w/
-          if match = line.match /to go (from .*)/
-            msg = msg.replace /(\s*http.*)?\n.*?$/, chalk.grey " #{match[1]}\n"
+          if line.match /^\w/
+            msg += chalk.yellow "- #{line.trim()}\n"
+            if match = line.match /to go (from .*)/
+              msg = msg.replace /(\s*http.*)?\n.*?$/, chalk.grey " #{match[1]}\n"
+            unless line.match /NOTUSED\?/
+              upgrade = true
       return cb err, '' if msg.split(/\n/).length < 3
-      msg += chalk.grey "Use `#{chalk.underline 'npm install'}` or
-      `#{chalk.underline cmd + ' -u'}` to upgrade.\n"
+      msg += chalk.grey "Use `#{chalk.underline cmd + ' -u'}` to upgrade.\n" if upgrade
       cb null, msg
 
 git = (dir, args, cb) ->
@@ -95,14 +98,14 @@ git = (dir, args, cb) ->
 gitChanges = (dir, args, cb) ->
   builder.debug dir, args, "check git commits"
   # run the pull args
-  builder.exec dir,args, 'git last publication',
+  builder.exec dir, args, 'git last publication',
     cmd: 'git'
     args: [ 'describe', '--abbrev=0' ]
     cwd: dir
   , (err, proc) ->
     tag = proc.stdout().trim()
     msg = "Changes since last publication as #{tag}:\n"
-    builder.exec dir,args, 'git log',
+    builder.exec dir, args, 'git log',
       cmd: 'git'
       args: ['log', "#{tag}..HEAD", "--format=oneline"]
       cwd: dir
@@ -118,7 +121,7 @@ gitStatus = (dir, args, cb) ->
   builder.debug dir, args, "check git status"
   msg = ''
   # run the pull args
-  builder.exec dir,args, 'git status',
+  builder.exec dir, args, 'git status',
     cmd: 'git'
     args: ['status']
     cwd: dir
