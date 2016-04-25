@@ -15,7 +15,7 @@ builder = require '../index'
 module.exports = (dir, args, cb) ->
   builder.debug dir, args, "check git status"
   # run the pull options
-  builder.exec dir,args, 'git push',
+  builder.exec dir, args, 'git push',
     cmd: 'git'
     args: [ 'push', '--tags', 'origin', 'master' ]
     cwd: dir

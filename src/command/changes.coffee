@@ -22,13 +22,16 @@ exports.title = 'show changes since last release'
 exports.description = """
 List all changes since last published version. This contains local file changes,
 last commits and updates of depending packages.
+
+This information is useful before publishing to check if everything is ready and
+what goes into the new version.
 """
 
 exports.options =
   'skip-unused':
     alias: 's'
     type: 'boolean'
-    describe: 'Skip check for unused packages.'
+    describe: 'Skip check for unused packages'
 
 
 # Handler

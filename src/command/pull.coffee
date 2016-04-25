@@ -21,13 +21,6 @@ exports.description = """
 Pull the newest changes from the origin repository.
 """
 
-#exports.options =
-#  'skip-unused':
-#    alias: 's'
-#    type: 'boolean'
-#    describe: 'Skip check for unused packages.'
-
-
 # Handler
 # ------------------------------------------------
 

@@ -226,9 +226,13 @@ This task will link a local package installed in a parallel directory into the
 packages node_modules directory.
 
 ``` sh
-builder -c link                  # link all node-... as alinex-...  packages
-builder -c link --locale config  # or link only the config package
+builder link                  # link all alinex-... packages to their node-... folders
+builder link --link alinex-config --local node-config  # or link only the config package
 ```
+
+Like seen above, you can use the two options `--link` and `--local` to specify
+the link. You may only use the directory name or the full path if it's not in the
+default path beside your package.
 
 ### compile
 
