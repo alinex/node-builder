@@ -14,11 +14,13 @@ async = require 'alinex-async'
 builder = require '../index'
 
 
-# Push last changes to git
+# Clean directories
 # ------------------------------------------------
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
+# - `dist` - (boolean) remove files unneccessary for production
+# - `auto` - (boolean) remove auto generated files
 module.exports = (dir, args, cb) ->
   builder.debug dir, args, "cleanup directory"
   # check what to remove
