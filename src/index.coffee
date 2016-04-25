@@ -38,13 +38,16 @@ exports.command = (name, lib, args, cb) ->
     error.description = error.stack.split(/\n/)[1..].join '\n'
     cb error
 
-
 exports.info = (dir, args, message) ->
   if args.verbose
     console.log chalk.grey "#{path.basename dir}: #{message}"
 
 exports.debug = (dir, args, message) ->
   if args.verbose > 1
+    console.log chalk.grey "#{path.basename dir}: #{message}"
+
+exports.noisy = (dir, args, message) ->
+  if args.verbose > 2
     console.log chalk.grey "#{path.basename dir}: #{message}"
 
 
