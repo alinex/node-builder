@@ -35,7 +35,7 @@ module.exports = (dir, args, cb) ->
       '-m', '-c'
     ]
     param.push '--in-source-map', args.frommap if args.frommap
-    builder.exec 'run uglify', dir, args,
+    builder.exec dir, args, 'run uglify',
       cmd: cmd
       args: param
       cwd: args.dir

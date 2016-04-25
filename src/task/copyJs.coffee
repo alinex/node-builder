@@ -32,7 +32,7 @@ module.exports = (dir, args, cb) ->
     async.each files, (file, cb) ->
       dest = path.join lib, file[src.length..]
       unless args.uglify
-        builder.noisy "copy file", dir, args
+        builder.noisy dir, args, "copy file"
         fs.copy file, dest, cb
       mapfile = path.basename(file, '.js') + '.map'
       builder.task 'uglify', dir,

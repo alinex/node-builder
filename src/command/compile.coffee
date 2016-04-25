@@ -55,12 +55,14 @@ compile = (dir, args, cb) ->
           ], cb
     # check for linked libraries
     (cb) ->
-      fs.find "#{dir}/node_modules",
-        type: 'link'
-        maxdepth: 1
-      , (err, list) ->
-        return cb err if err
-        async.each list, (subdir, cb) ->
-          compile subdir, args, cb
-        , cb
+      fs.exists "#{dir}/node_modules", (exists) ->
+        return cb() unless exists
+        fs.find "#{dir}/node_modules",
+          type: 'link'
+          maxdepth: 1
+        , (err, list) ->
+          return cb err if err
+          async.each list, (subdir, cb) ->
+            compile subdir, args, cb
+          , cb
   ], cb
