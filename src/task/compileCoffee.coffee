@@ -15,9 +15,12 @@ async = require 'alinex-async'
 builder = require '../index'
 
 
-# Helper
+# Compile coffee -> js
 # ------------------------------------------------
-
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
+# - `uglify` - (boolean) should uglify be used
 module.exports = (dir, args, cb) ->
   src = path.join dir, 'src'
   lib = path.join dir, 'lib'

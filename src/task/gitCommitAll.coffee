@@ -9,9 +9,11 @@
 builder = require '../index'
 
 
-# Helper
+# Commit all changed files
 # ------------------------------------------------
-
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
 module.exports = (dir, args, cb) ->
   builder.debug dir, args, "commit all changes"
   # run the pull options

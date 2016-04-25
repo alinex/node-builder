@@ -13,9 +13,11 @@ fs = require 'alinex-fs'
 builder = require '../index'
 
 
-# Helper
+# Read package json
 # ------------------------------------------------
-
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
 module.exports = (dir, args, cb) ->
   builder.debug dir, args, "read package json"
   file = path.join dir, 'package.json'

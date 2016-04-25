@@ -188,8 +188,8 @@ name, too.
 Some example calls will look like:
 
 ``` sh
-builder ./node-error -c create --package alinex-error
-builder ./private-module -c create --private
+builder ./node-error create --package alinex-error
+builder ./private-module create --private
 ```
 
 This process is interactive and will ask you some more details. After that you
@@ -208,7 +208,7 @@ builder -push                  # from within the package directory
 or to also commit the last changes
 
 ``` sh
-builder ./node-error -c push --message "commit message"
+builder ./node-error push --message "commit message"
 ```
 
 ### pull
@@ -239,8 +239,8 @@ default path beside your package.
 This task is used to compile the sources into for runtime optimized library.
 
 ``` sh
-builder -c compile               # from within the package directory
-builder ./node-error -c compile  # or from anywhere else
+builder compile               # from within the package directory
+builder ./node-error compile  # or from anywhere else
 ```
 
 ``` text
@@ -252,7 +252,7 @@ Compile coffee script
 Or give an directory and use uglify to compress the extension.
 
 ``` sh
-builder ./node-error -c compile --uglify
+builder ./node-error compile --uglify
 ```
 
 Mostly this task will be added as prepublish script to the `package.json` like:
@@ -260,7 +260,7 @@ Mostly this task will be added as prepublish script to the `package.json` like:
 ``` json
 {
   "scripts": {
-    "prepublish": "node_modules/.bin/builder -c compile -u"
+    "prepublish": "node_modules/.bin/builder compile -u"
   }
 }
 ```
@@ -274,8 +274,8 @@ are referenced in the package.json.
 This task is a handy addition to include the npm install and npm update commands:
 
 ``` sh
-builder -c update               # from within the package directory
-builder ./node-error -c update  # or from anywhere else
+builder update               # from within the package directory
+builder ./node-error update  # or from anywhere else
 ```
 
 At the end this task will list all direct subpackages which are outdated and may
@@ -303,8 +303,8 @@ And at last code metrics will be analyzed but only on the compiled version at
 the moment. You will find this reports under '/reports' directory as html.
 
 ``` sh
-builder -c test                  # from within the package directory
-builder ./node-error -c test     # or from anywhere else
+builder test                  # from within the package directory
+builder ./node-error test     # or from anywhere else
 ```
 
 ``` text
@@ -320,13 +320,13 @@ Simple mocha test
 Or to contineously watch it:
 
 ``` sh
-builder ./node-error -c test --watch
+builder ./node-error test --watch
 ```
 
 You may also create an html coverage report:
 
 ``` sh
-builder -c test --coverage
+builder test --coverage
 ```
 
 If you want to stop after the  first error occurs use the `--bail` flag.
@@ -348,7 +348,7 @@ This task can also be added to the `package.json` to be called using `npm test`:
 Often you would also need the following combination:
 
 ``` sh
-builder -v -c compile test           # to check your just finished code changes
+builder -v compile test           # to check your just finished code changes
 ```
 
 ### doc
@@ -362,8 +362,8 @@ any language and generate HTML pages with the documentation beside the
 code.
 
 ``` sh
-builder -c doc                   # from within the package directory
-builder ./node-error -c doc      # or from anywhere else
+builder doc                   # from within the package directory
+builder ./node-error doc      # or from anywhere else
 ```
 
 ``` text
@@ -378,13 +378,13 @@ rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
 ``` sh
-builder ./node-error -c doc --publish
+builder ./node-error doc --publish
 ```
 
 With the `--watch` option it is possible to keep the documentation updated.
 
 ``` sh
-builder  ./node-error -c doc --watch
+builder  ./node-error doc --watch
 ```
 
 But this process will never end, you have to stop it manually to end it.
@@ -477,8 +477,8 @@ new version. The version can be set by signaling if it should be a `--major`,
 To publish the next bugfix version only call:
 
 ``` sh
-builder -c publish               # from within the package directory
-builder ./node-error -c publish  # or from anywhere else
+builder publish               # from within the package directory
+builder ./node-error publish  # or from anywhere else
 ```
 
 The output will be:
@@ -546,13 +546,13 @@ will be updated afterwards, too.
 For the next minor version (second number) call:
 
 ``` sh
-builder ./node-error -c publish --minor
+builder ./node-error publish --minor
 ```
 
 And for a new major version:
 
 ``` sh
-builder ./node-error -c publish --major
+builder ./node-error publish --major
 ```
 
 And you may use the switches `--try` to not really publish but to check if it will
@@ -572,20 +572,20 @@ development environment.
 To cleanup all safe files:
 
 ``` sh
-builder -c clean                 # from within the package directory
-builder ./node-error -c clean    # or from anywhere else
+builder clean                 # from within the package directory
+builder ./node-error clean    # or from anywhere else
 ```
 
 Or on the development system remove all created files:
 
 ``` sh
-builder ./node-error -c clean --auto
+builder ./node-error clean --auto
 ```
 
 And at last for production remove development files:
 
 ``` sh
-builder ./node-error -c clean --dist
+builder ./node-error clean --dist
 ```
 
 

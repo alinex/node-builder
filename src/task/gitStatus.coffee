@@ -9,9 +9,11 @@
 builder = require '../index'
 
 
-# Helper
+# Check git status
 # ------------------------------------------------
-
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
 module.exports = (dir, args, cb) ->
   builder.debug dir, args, "check git status"
   # run the pull options

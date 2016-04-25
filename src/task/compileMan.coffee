@@ -15,9 +15,11 @@ async = require 'alinex-async'
 builder = require '../index'
 
 
-# Helper
+# Compile md -> man page
 # ------------------------------------------------
-
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
 module.exports = (dir, args, cb) ->
   # check for configured man pages
   builder.task 'packageJson', dir, args, (err, pack) ->
