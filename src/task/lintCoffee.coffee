@@ -23,11 +23,11 @@ builder = require '../index'
 module.exports = (dir, args, cb) ->
   fs.exists "#{dir}/coffeelint.json", (exists) ->
     return cb() unless exists
-    builder.debug dir, args, "linting coffee script"
     fs.npmbin 'coffeelint', path.dirname(path.dirname __dirname), (err, cmd) ->
       if err
         console.error chalk.yellow "Skipped lint because coffeelint is missing"
         return cb()
+      builder.debug dir, args, "linting coffee script"
       # Run external options
       msg = "Lint coffee problems:\n"
       builder.exec dir, args, 'coffee lint',
@@ -41,8 +41,8 @@ module.exports = (dir, args, cb) ->
         if proc.stdout()
           for line in proc.stdout().trim().split /\n/
             if line.match /[1-9]\d* errors/
-              return cb new Error line.trim(), msg
+              return cb new Error line.trim(), msg.trim()
             else if line.match /⚡/
               msg += chalk.yellow "#{line.trim()}\n"
         return cb err, '' if msg.split(/\n/).length < 3
-        cb null, msg
+        cb null, msg.trim()

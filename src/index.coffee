@@ -85,7 +85,7 @@ exports.exec = (dir, args, type, exec, cb) ->
       console.log()
       console.log "#{path.basename dir}: #{type}"
       console.log()
-      console.log chalk.grey proc.stdout().trim()
+      console.log chalk.grey proc.stdout().trim().replace /s*\n+/g, '\n'
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       console.log()
     cb err, proc

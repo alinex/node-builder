@@ -27,9 +27,6 @@ exports.options =
     alias: 'b'
     type: 'string'
     describe: 'stop on first error in unit tests'
-  coverage:
-    type: 'boolean'
-    describe: 'create coverage report'
   coveralls:
     type: 'boolean'
     describe: 'send coverage to coveralls'
@@ -47,6 +44,10 @@ exports.handler = (args, cb) ->
     async.parallel [
       (cb) ->
         builder.task 'lintCoffee', dir, args, cb
+      (cb) ->
+        builder.task 'testMocha', dir, args, cb
+      (cb) ->
+        builder.task 'metrics', dir, args, cb
     ], (err, results) ->
       return cb err if err
       # output results
