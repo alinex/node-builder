@@ -1,0 +1,183 @@
+# Test Script
+# ========================================================================
+
+
+# Node modules
+# -------------------------------------------------
+
+# node packages
+path = require 'path'
+# alinex packages
+fs = require 'alinex-fs'
+async = require 'alinex-async'
+# internal mhelper modules
+builder = require '../index'
+
+
+# Create new API documentation
+# ------------------------------------------------
+# _Arguments:_
+#
+# - `verbose` - (integer) verbose level
+# - `publish` - (boolean) flag if result should be published
+module.exports = (dir, options, cb) ->
+  builder.debug dir, options, "create api documentation"
+  docPath = path.join dir, 'doc'
+  builder.task "packageJson", dir, options, (err, pack) ->
+    alinex = (pack.name.split /-/)[0] is 'alinex'
+    fs.npmbin 'replace', path.dirname(path.dirname __dirname), (err, replace) ->
+      return cb err if err
+      async.series [
+        (cb) ->
+          fs.exists docPath, (exists) ->
+            return cb() unless exists
+            builder.debug dir, options, "remove doc/ folder"
+            fs.remove docPath, cb
+        (cb) ->
+          builder.debug dir, options, "create doc/ folder"
+          fs.mkdirs docPath, cb
+        (cb) ->
+          async.parallel [
+            (cb) ->
+              builder.debug dir, options, "create index page"
+              fs.writeFile path.join(docPath, 'index.html'), """
+                <html>
+                <head>
+                  <meta http-equiv="refresh" content="0; url=README.md.html" />
+                  <script type="text/javascript">
+                      window.location.href = "README.md.html"
+                  </script>
+                  <title>Page Redirection</title>
+                </head>
+                <body>
+                  If you are not redirected automatically, follow the link to the
+                  <a href='README.md.html'>README</a>.
+                </body>
+                </html>
+                """, cb
+            (cb) ->
+              fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
+                return cb err if err
+                builder.debug dir, options, "run docker"
+                args = [
+                  '-i', dir
+                  if options.watch then '-w' else ''
+                  '-x'
+                  '.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'
+                  '-o', path.join dir, 'doc'
+                ]
+                builder.exec dir, options, 'docker',
+                  cmd: cmd
+                  args: args
+                  cwd: dir
+                  check:
+                    noExitCode: true
+                , cb
+            (cb) ->
+              # copy images
+              builder.debug dir, options, "copy images"
+              from = path.join dir, 'src'
+              to = path.join docPath, 'src'
+              fs.copy from, to,
+                include: '*.{png,jpg,gif}'
+              , cb
+          ], cb
+        (cb) ->
+          return cb() unless pack.repository.url.match /github\.com/
+          builder.debug dir, options, "add github link"
+          builder.exec dir, options, 'replace github link',
+            cmd: replace
+            args: [
+              '(<div id="container")>'
+              '$1 tabindex="0"><a id="fork" href="'+pack.repository.url+'"
+              title="Fork me on GitHub"></a>'
+              path.join dir, 'doc'
+              '-r'
+            ]
+            cwd: dir
+          , cb
+        (cb) ->
+          builder.debug dir, options, "add viewport"
+          builder.exec dir, options, 'replace add viewport',
+            cmd: replace
+            args: [
+              '(</head>)'
+              '<meta name="viewport" content="width=device-width, initial-scale=1.0" />$1'
+              path.join dir, 'doc'
+              '-r'
+            ]
+            cwd: dir
+          , cb
+        (cb) ->
+          builder.debug dir, options, "remove empty code"
+          builder.exec dir, options, 'replace removes empty code',
+            cmd: 'sh'
+            args: [
+              '-c'
+              "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/<pre[^>]*>\\s*<\\/pre>//g'"
+            ]
+            cwd: dir
+          , cb
+        (cb) ->
+          # remove empty lines at end of code elements
+          builder.debug dir, options, "remove empty lines"
+          builder.exec dir, options, 'replace removes empty lines in code',
+            cmd: 'sh'
+            args: [
+              '-c'
+              "find doc -name \\*.html | xargs sed -i ':a;N;$!ba;s/\\s*<\\/pre>/<\\/pre>/g'"
+            ]
+            cwd: dir
+          , cb
+        (cb) ->
+          return cb() unless alinex
+          builder.debug dir, options, "add alinex header"
+          builder.exec dir, options, 'replace alinex header',
+            cmd: replace
+            args: [
+              '(<div id="sidebar_wrapper">)'
+              '''
+              <nav>
+              <div class="logo"><a href="http://alinex.github.io"
+                onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+                onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+                <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+                  width="150" title="Alinex Universe Homepage" />
+                </a>
+                <img src="http://alinex.github.io/images/Alinex-200.png"
+                  style="display:none" alt="preloading" />
+              </div>
+              <div class="links">
+                <a href="http://alinex.github.io/blog"
+                  class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+                <a href="http://alinex.github.io/develop"
+                  class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+                <a href="http://alinex.github.io/code.html"
+                  class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+              </div>
+              </nav>$1
+              '''
+              path.join dir, 'doc'
+              '-r'
+            ]
+            cwd: dir
+          , cb
+        (cb) ->
+          async.filter [
+            path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
+            path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
+          ], fs.exists, (files) ->
+            return cb() unless files.length
+            fs.copy files[0], path.join(dir, 'doc', 'doc-style.css'),
+              overwrite: true
+            , cb
+        (cb) ->
+          async.filter [
+            path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
+            path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
+          ], fs.exists, (files) ->
+            return cb() unless files.length
+            fs.copy files[0], path.join(dir, 'doc', 'doc-script.js'),
+              overwrite: true
+            , cb
+      ], cb
