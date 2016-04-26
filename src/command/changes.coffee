@@ -44,14 +44,8 @@ exports.handler = (options, cb) ->
       (cb) -> git dir, options, cb
       (cb) -> builder.task 'npmChanges', dir, options, cb
     ], (err, results) ->
-      return cb err if err
-      # output results
-      console.log()
-      console.log chalk.bold "Results for #{path.basename dir} "
-      console.log()
-      console.log results.join('').trim()
-      console.log()
-      cb()
+      builder.results dir, options, "Results for #{path.basename dir}", results
+      cb err
   , cb
 
 

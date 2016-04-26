@@ -6,7 +6,6 @@
 # -------------------------------------------------
 
 # node modules
-chalk = require 'chalk'
 path = require 'path'
 # include alinex modules
 async = require 'alinex-async'
@@ -66,12 +65,6 @@ exports.handler = (options, cb) ->
             target: path.join dir, 'report', 'metrics', 'index.html'
           , cb
     ], (err, results) ->
-      return cb err if err
-      # output results
-      console.log()
-      console.log chalk.bold "Results for #{path.basename dir} "
-      console.log()
-      console.log results.join('').trim()
-      console.log()
-      cb()
+      builder.results dir, options, "Results for #{path.basename dir}", results
+      cb err
   , cb

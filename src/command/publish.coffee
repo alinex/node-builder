@@ -7,7 +7,6 @@
 
 # include base modules
 path = require 'path'
-chalk = require 'chalk'
 moment = require 'moment'
 # include alinex modules
 fs = require 'alinex-fs'
@@ -94,7 +93,11 @@ exports.handler = (options, cb) ->
         # publish
         (cb) ->
           async.parallel [
-            (cb) -> gitTag dir, options, pack, cb
+            (cb) ->
+              async.series [
+                (cb) -> gitTag dir, options, pack, cb
+                (cb) -> builder.task 'gitPush', dir, options, cb
+              ], cb
             (cb) -> pushNpm dir, options, cb
             (cb) ->
               async.series [
@@ -103,16 +106,13 @@ exports.handler = (options, cb) ->
               ], cb
           ], cb
       ], (err, results) ->
-        return cb err if err
-        # output results
-        console.log()
-        console.log chalk.bold "Results for #{path.basename dir} "
-        console.log()
-        console.log resultsJoin(results).trim()
-        console.log()
-        cb()
+        builder.results dir, options, "Results for #{path.basename dir}", results
+        cb err
   , cb
 
+
+# Helper
+# ------------------------------------------------------------------
 
 resultsJoin = (res) ->
   return res if typeof res is 'string'
@@ -120,10 +120,6 @@ resultsJoin = (res) ->
     resultsJoin(res).join ''
   else
     ''
-
-
-# Helper
-# ------------------------------------------------------------------
 
 getVersion = (dir, options, pack, cb) ->
   options.oldVersion = pack.version
@@ -189,16 +185,7 @@ gitTag = (dir, options, pack, cb) ->
       '-m', "Created version #{options.newVersion}#{changelog}"
     ]
     cwd: dir
-  , (err) ->
-    return cb err if err
-    builder.exec dir, options, 'git tag',
-      cmd: 'git'
-      args: [
-        'push'
-        'origin', "v#{options.newVersion}"
-      ]
-      cwd: dir
-    , cb
+  , cb
 
 # ### Push new version to npm
 pushNpm = (dir, options, cb) ->

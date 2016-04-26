@@ -89,3 +89,19 @@ exports.exec = (dir, args, type, exec, cb) ->
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       console.log()
     cb err, proc
+
+exports.results = (dir, options, title, results) ->
+  # output results
+  console.log()
+  console.log chalk.bold title
+  console.log()
+  console.log resultsJoin(results).trim()
+  console.log()
+
+resultsJoin = (res) ->
+  return res if typeof res is 'string'
+  if Array.isArray res
+    resultsJoin(res).join ''
+  else
+    ''
+    
