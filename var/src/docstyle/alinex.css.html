@@ -7,7 +7,7 @@
   <script src="../../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../../";
-    var thisFile = "home/alex/github/node-builder/var/src/docstyle/alinex.css";
+    var thisFile = "var/src/docstyle/alinex.css";
     var defaultSidebar = true;
   </script>
   <script src="../../../doc-script.js"></script>
@@ -80,7 +80,7 @@
           <div class="pilwrap">
   <a class="pilcrow" href="#section-2" id="section-2"></a>
 </div>
-<p>Original style from softwaremaniacs.org (c) Ivan Sagalaev <a href="mailto:Maniac@SoftwareManiacs.Org.html.html">Maniac@SoftwareManiacs.Org</a></p>
+<p>Original style from softwaremaniacs.org (c) Ivan Sagalaev <a href="mailto:Maniac@SoftwareManiacs.Org.html">Maniac@SoftwareManiacs.Org</a></p>
 
         </td>
         <td class="code highlight">
@@ -898,6 +898,21 @@
 <span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar_wrapper</span>, <span class="hljs-class">.sidebar</span> <span class="hljs-id">#container</span>, <span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar-toggle</span>,
 <span class="hljs-class">.slidey</span> <span class="hljs-id">#container</span> <span class="hljs-rules">{
   <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">50px</span></span></span>;
+}</span>
+
+
+<span class="hljs-id">#fork</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">right</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">145px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">145px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">10000</span></span></span>;
+}</span>
+<span class="hljs-id">#fork</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png)</span></span>;
 }</span></pre>
         </td>
       </tr>

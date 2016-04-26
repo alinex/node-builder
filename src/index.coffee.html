@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>index.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "src/index.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#main-controlling-class">Main controlling class</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#initialize">Initialize</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#output-helper">Output Helper</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#controll-flow-helper">Controll flow helper</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="main-controlling-class">
+  <h1>
+    <a href="#main-controlling-class" name="main-controlling-class" class="pilcrow"></a>
+Main controlling class
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="initialize">
+  <h2>
+    <a href="#initialize" name="initialize" class="pilcrow"></a>
+Initialize
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.setup = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
+  async.each [Exec], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
+    mod.setup cb
+  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>set module search path</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    config.register <span class="hljs-string">'scripter'</span>, path.dirname __dirname
+    cb()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="output-helper">
+  <h2>
+    <a href="#output-helper" name="output-helper" class="pilcrow"></a>
+Output Helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.command = <span class="hljs-function"><span class="hljs-params">(name, lib, args, cb)</span> -&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Run <span class="hljs-subst">#{name}</span> command..."</span>
+  <span class="hljs-keyword">if</span> lib.options
+    <span class="hljs-keyword">for</span> name, def <span class="hljs-keyword">of</span> lib.options
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{def.describe ? name}</span> = <span class="hljs-subst">#{args[name]}</span>"</span> <span class="hljs-keyword">if</span> args[name]
+  <span class="hljs-keyword">try</span>
+    lib.handler args, cb
+  <span class="hljs-keyword">catch</span> error
+    error.description = error.stack.split(<span class="hljs-regexp">/\n/</span>)[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>
+    cb error
+
+exports.info = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> args.verbose
+    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
+
+exports.debug = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> args.verbose &gt; <span class="hljs-number">1</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
+
+exports.noisy = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> args.verbose &gt; <span class="hljs-number">2</span>
+    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="controll-flow-helper">
+  <h2>
+    <a href="#controll-flow-helper" name="controll-flow-helper" class="pilcrow"></a>
+Controll flow helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.dirs = <span class="hljs-function"><span class="hljs-params">(args, fn, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>check for directories</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  list = args._[<span class="hljs-number">1.</span>.]
+  list.push path.dirname __dirname <span class="hljs-keyword">unless</span> list.length
+  list = list.map (e) -&gt; path.resolve e</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>execute</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  problems = []
+  async.eachLimit list, <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(dir, cb)</span> -&gt;</span>
+    exports.info dir, args, <span class="hljs-string">'started'</span>
+    fn dir, args, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      exports.info dir, args, <span class="hljs-string">'done'</span>
+      problems.push <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
+      cb()
+  , <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> problems.length
+    cb <span class="hljs-keyword">new</span> Error problems.join <span class="hljs-string">'\n'</span>
+
+exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir, args, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">try</span>
+    lib = <span class="hljs-built_in">require</span> <span class="hljs-string">"./task/<span class="hljs-subst">#{task}</span>"</span>
+    lib dir, args, cb
+  <span class="hljs-keyword">catch</span> error
+    cb error
+
+exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, args, type, exec, cb)</span> -&gt;</span>
+  exports.debug dir, args, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
+  Exec.run exec, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> args.verbose &gt; <span class="hljs-number">2</span>
+      <span class="hljs-built_in">console</span>.log()
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{type}</span>"</span>
+      <span class="hljs-built_in">console</span>.log()
+      <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
+      <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
+      <span class="hljs-built_in">console</span>.log()
+    cb err, proc</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

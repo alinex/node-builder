@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-builder/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -52,12 +52,24 @@
         <a href="#install">Install</a>
       </div>
 
+      <div class="heading h3">
+        <a href="#bash-code-completion">Bash Code completion</a>
+      </div>
+
       <div class="heading h2">
         <a href="#usage">Usage</a>
       </div>
 
       <div class="heading h3">
+        <a href="#include-in-own-package">Include in own package</a>
+      </div>
+
+      <div class="heading h3">
         <a href="#general-options">General options</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#commands">Commands</a>
       </div>
 
       <div class="heading h3">
@@ -127,6 +139,7 @@ Alinex Builder
   </h1>
 </div>
 <p><a href="https://travis-ci.org/alinex/node-builder"><img src="https://travis-ci.org/alinex/node-builder.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-builder?branch=master"><img src="https://coveralls.io/repos/alinex/node-builder/badge.png?branch=master" alt="Coverage Status"></a>
 <a href="https://gemnasium.com/alinex/node-builder"><img src="https://gemnasium.com/alinex/node-builder.png" alt="Dependency Status"></a></p>
 <p>This package contains some helper commands for development of the alinex
 node packages. Realized as a superset of npm and other command line tools.</p>
@@ -171,41 +184,90 @@ as development dependency.</p>
 <pre><code class="sh">sudo npm install -g alinex-builder --production
 builder --help
 </code></pre>
-<p>After global installation you may directly call <code>builder</code> from anywhere like shown
-above.</p>
+<p>After global installation you may directly call <code>builder</code> from anywhere.</p>
+<pre><code class="sh">builder --help
+</code></pre>
 <p>Or you may integrate it into your own package:</p>
 <pre><code class="sh">npm install alinex-builder --save-devs
 ./node_modules/.bin/builder --help
 </code></pre>
 <p>By integrating it you won't need all the development tools within your package.</p>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
+<div class="pilwrap" id="bash-code-completion">
+  <h3>
+    <a href="#bash-code-completion" name="bash-code-completion" class="pilcrow"></a>
+Bash Code completion
+  </h3>
+</div>
+<p>If you like, you can add code completion for bash by copying the output of:</p>
+<pre><code class="text">&gt; builder bashrc-script
+
+###-begin-cli.coffee-completions-###
+#
+# yargs command completion script
+#
+# Installation: builder completion &gt;&gt; ~/.bashrc
+#    or builder completion &gt;&gt; ~/.bash_profile on OSX.
+#
+_yargs_completions()
+{
+    local cur_word args type_list
+
+    cur_word=&quot;${COMP_WORDS[COMP_CWORD]}&quot;
+    args=$(printf &quot;%s &quot; &quot;${COMP_WORDS[@]}&quot;)
+
+    # ask yargs to generate completions.
+    type_list=`builder --get-yargs-completions $args`
+
+    COMPREPLY=( $(compgen -W &quot;${type_list}&quot; -- ${cur_word}) )
+
+    # if no match was found, fall back to filename completion
+    if [ ${#COMPREPLY[@]} -eq 0 ]; then
+      COMPREPLY=( $(compgen -f -- &quot;${cur_word}&quot; ) )
+    fi
+
+    return 0
+}
+complete -F _yargs_completions scripter
+###-end-cli.coffee-completions-###
+</code></pre>
+<p>Put these lines into your <code>~/.bashrc</code> file.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
 Usage
   </h2>
 </div>
-<p>The tool will be called with:</p>
-<pre><code class="sh">builder [<span class="hljs-built_in">dirs</span>] [general options] -c &lt;commands&gt; [<span class="hljs-built_in">command</span> options]
+<p>You can simple call the <code>builder</code> command with one of the configured commands:</p>
+<pre><code>&gt; builder &lt;command&gt; [&lt;options&gt;]...
+
+Initializing...
+Run the command...
+...
+Goodbye
 </code></pre>
-<p>But if not installed globally you may run:</p>
-<pre><code class="sh">node_modules/.bin/builder [<span class="hljs-built_in">dirs</span>] [general options] -c &lt;commands&gt;
+<p>To list all the possible commands:</p>
+<pre><code>&gt; builder --help
 </code></pre>
-<p>With the option <code>--help</code> a screen explaining all commands and options will be
-displayed. The major commands will be described here.</p>
+<p>This will show the possible commands which are defined.</p>
+<p>But if not installed globally you may run it as:</p>
+<pre><code class="sh">node_modules/.bin/builder &lt;<span class="hljs-built_in">command</span>&gt; [&lt;options&gt;]...
+</code></pre>
 <p>Multiple directory names can be given. They specify on which project to work on.
 It should point to the base package directory of a module. If not specified the
-command will run from the current directory.
-You may change the order of the options like you want but keep the directories
-before them. If you give a directory just behind a command it is interpreted
-as additional command instead as directory.</p>
-<p>If you want to give multiple commands add a second <code>-c</code> option or just put them
-one behind the other in one option.</p>
+command will run from the current directory.</p>
+<p>To run multiple commands, call the program for each one.</p>
+<div class="pilwrap" id="include-in-own-package">
+  <h3>
+    <a href="#include-in-own-package" name="include-in-own-package" class="pilcrow"></a>
+Include in own package
+  </h3>
+</div>
 <p>Within your <code>package.json</code> it may look like:</p>
 <pre><code class="json">{
   "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder -c compile --uglify"</span></span>,
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder -c test"</span>
+    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile --uglify"</span></span>,
+    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span>
   </span>}
 </span>}
 </code></pre>
@@ -215,10 +277,23 @@ one behind the other in one option.</p>
 General options
   </h3>
 </div>
-<p><code>-v</code>or <code>--verbose</code> will display a lot of information of what is going on.
+<p><code>-v</code> or <code>--verbose</code> will display a lot of information of what is going on.
 This information will sometimes look discarded because of the parallel
 processing of some tasks.</p>
+<ol>
+<li>simple verbose mode</li>
+<li>with step information</li>
+<li>with command output</li>
+</ol>
 <p><code>-C</code> or <code>--no-colors</code> can be used to disable the colored output.</p>
+<p><code>-q</code> or <code>-quiet</code> is used to remove the unneccessary output like header and
+footer.</p>
+<div class="pilwrap" id="commands">
+  <h2>
+    <a href="#commands" name="commands" class="pilcrow"></a>
+Commands
+  </h2>
+</div>
 <div class="pilwrap" id="create">
   <h3>
     <a href="#create" name="create" class="pilcrow"></a>
@@ -238,8 +313,8 @@ through the api. And you may specify the <code>--package</code> setting for the 
 of the package. The also mandatory path will be used as the github repository
 name, too.</p>
 <p>Some example calls will look like:</p>
-<pre><code class="sh">builder ./node-error -c create --package alinex-error
-builder ./private-module -c create --private
+<pre><code class="sh">builder ./node-error create --package alinex-error
+builder ./private-module create --private
 </code></pre>
 <p>This process is interactive and will ask you some more details. After that you
 may directly start to add your code.</p>
@@ -251,11 +326,10 @@ push
 </div>
 <p>This will push the changes to the origin repository. With the <code>--message</code> option
 it will also add and commit all other changes before doing so.</p>
-<pre><code class="sh">builder -c push                  <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c push     <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder -push                  <span class="hljs-comment"># from within the package directory</span>
 </code></pre>
 <p>or to also commit the last changes</p>
-<pre><code class="sh">builder ./node-error -c push --message <span class="hljs-string">"commit message"</span>
+<pre><code class="sh">builder ./node-error push --message <span class="hljs-string">"commit message"</span>
 </code></pre>
 <div class="pilwrap" id="pull">
   <h3>
@@ -263,13 +337,9 @@ builder ./node-error -c push     <span class="hljs-comment"># or from anywhere e
 pull
   </h3>
 </div>
-<p>Like <code>push</code> this will fetch the newest changes from git origin.</p>
-<pre><code class="sh">builder -c pull                  <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c pull     <span class="hljs-comment"># or from anywhere else</span>
-</code></pre>
-<pre><code class="text">Pull from origin
-Von https://github.com/alinex/node-make
-* branch            master     -&gt; FETCH_HEAD
+<p>Like <code>push</code> this will fetch the newest changes from git origin and merge them with
+your local changes.</p>
+<pre><code class="sh">builder pull                  <span class="hljs-comment"># from within the package directory</span>
 </code></pre>
 <div class="pilwrap" id="link">
   <h3>
@@ -279,30 +349,39 @@ link
 </div>
 <p>This task will link a local package installed in a parallel directory into the
 packages node_modules directory.</p>
-<pre><code class="sh">builder -c link                  <span class="hljs-comment"># link all node-... as alinex-...  packages</span>
-builder -c link --locale config  <span class="hljs-comment"># or link only the config package</span>
+<pre><code class="sh">builder link                  <span class="hljs-comment"># link all alinex-... packages to their node-... folders</span>
+builder link --link alinex-config --local node-config  <span class="hljs-comment"># or link only the config package</span>
 </code></pre>
+<p>Like seen above, you can use the two options <code>--link</code> and <code>--local</code> to specify
+the link. You may only use the directory name or the full path if it's not in the
+default path beside your package.</p>
 <div class="pilwrap" id="compile">
   <h3>
     <a href="#compile" name="compile" class="pilcrow"></a>
 compile
   </h3>
 </div>
-<p>This task is used to compile the sources into for runtime optimized library.</p>
-<pre><code class="sh">builder -c compile               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c compile  <span class="hljs-comment"># or from anywhere else</span>
+<p>This task is used to compile the sources into a runtime optimized library.</p>
+<pre><code class="sh">builder compile               <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error compile  <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <pre><code class="text">Remove old directories
 Compile man pages
 Compile coffee script
 </code></pre>
 <p>Or give an directory and use uglify to compress the extension.</p>
-<pre><code class="sh">builder ./node-error -c compile --uglify
+<pre><code class="sh">builder ./node-error compile --uglify
 </code></pre>
+<p>This command may also compiled the linked packages and does the following steps:</p>
+<ul>
+<li>compile coffee -&gt; js (maybe with uglify)</li>
+<li>copy js (maybe with uglify)</li>
+<li>compile md -&gt; man pages</li>
+</ul>
 <p>Mostly this task will be added as prepublish script to the <code>package.json</code> like:</p>
 <pre><code class="json">{
   "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder -c compile -u"</span>
+    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile -u"</span>
   </span>}
 </span>}
 </code></pre>
@@ -315,8 +394,8 @@ update
   </h3>
 </div>
 <p>This task is a handy addition to include the npm install and npm update commands:</p>
-<pre><code class="sh">builder -c update               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c update  <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder update               <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error update  <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <p>At the end this task will list all direct subpackages which are outdated and may
 be updated in the package.json.</p>
@@ -341,8 +420,8 @@ errors the automatic tests will be run.</p>
 a code coverage report will be build.
 And at last code metrics will be analyzed but only on the compiled version at
 the moment. You will find this reports under '/reports' directory as html.</p>
-<pre><code class="sh">builder -c <span class="hljs-built_in">test</span>                  <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c <span class="hljs-built_in">test</span>     <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder <span class="hljs-built_in">test</span>                  <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error <span class="hljs-built_in">test</span>     <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <pre><code class="text">Linting coffee code
 Run mocha tests
@@ -353,10 +432,10 @@ Simple mocha test
 1 passing (9ms)
 </code></pre>
 <p>Or to contineously watch it:</p>
-<pre><code class="sh">builder ./node-error -c <span class="hljs-built_in">test</span> --watch
+<pre><code class="sh">builder ./node-error <span class="hljs-built_in">test</span> --watch
 </code></pre>
 <p>You may also create an html coverage report:</p>
-<pre><code class="sh">builder -c <span class="hljs-built_in">test</span> --coverage
+<pre><code class="sh">builder <span class="hljs-built_in">test</span> --coverage
 </code></pre>
 <p>If you want to stop after the  first error occurs use the <code>--bail</code> flag.</p>
 <p>And at last you can add the <code>--browser</code> flag to open the coverage report
@@ -370,7 +449,7 @@ results to coveralls.</p>
 </span>}
 </code></pre>
 <p>Often you would also need the following combination:</p>
-<pre><code class="sh">builder -v -c compile <span class="hljs-built_in">test</span>           <span class="hljs-comment"># to check your just finished code changes</span>
+<pre><code class="sh">builder -v compile <span class="hljs-built_in">test</span>           <span class="hljs-comment"># to check your just finished code changes</span>
 </code></pre>
 <div class="pilwrap" id="doc">
   <h3>
@@ -384,8 +463,8 @@ own documentation space with an auto generated index page.</p>
 <p>This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.</p>
-<pre><code class="sh">builder -c doc                   <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c doc      <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder doc                   <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error doc      <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <pre><code class="text">Create html documentation
 Done.
@@ -395,10 +474,10 @@ configure this for GitHub pages, you have to do nothing, for all others you
 need to specify an <code>doc-publish</code> script in <code>package.json</code>. This may be an
 rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
 Start the document creation with publication using:</p>
-<pre><code class="sh">builder ./node-error -c doc --publish
+<pre><code class="sh">builder ./node-error doc --publish
 </code></pre>
 <p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
-<pre><code class="sh">builder  ./node-error -c doc --watch
+<pre><code class="sh">builder  ./node-error doc --watch
 </code></pre>
 <p>But this process will never end, you have to stop it manually to end it.</p>
 <p>And at last you may also add the <code>--browser</code> flag to open the documentation in
@@ -415,32 +494,61 @@ changes
 </div>
 <p>This will list all changes in</p>
 <ul>
-<li>packages</li>
-<li>since last version tag</li>
-<li>in current committe</li>
+<li>packages since last version tag</li>
+<li>in current commit</li>
 <li>and things are staged only</li>
 </ul>
 <p>Use this to check if you should make a new publication or if it can wait.</p>
-<pre><code class="sh">builder -c changes
+<pre><code class="sh">builder changes
 </code></pre>
-<pre><code class="text">NPM Update check:
-- docker            😕  NOTUSED?  Possibly never referenced in the code.
-- alinex-config     😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-config/
-- marked-man        😕  NOTUSED?  Possibly never referenced in the code.
-- coffee-coverage   😕  NOTUSED?  Possibly never referenced in the code.
-- coffeelint        😕  NOTUSED?  Possibly never referenced in the code.
-- coveralls         😕  NOTUSED?  Possibly never referenced in the code.
-- istanbul          😕  NOTUSED?  Possibly never referenced in the code.
-- npm-check         😕  NOTUSED?  Possibly never referenced in the code.
-- replace           😕  NOTUSED?  Possibly never referenced in the code.
-- uglify-js         😕  NOTUSED?  Possibly never referenced in the code.
-Changes since last publication as v1.1.13:
-- Upgraded config module.
-Changes to be committed:
-- modified: src/tasks/changes.coffee
+<pre><code class="text">Initializing...
+Run changes command...
+
+Results for node-builder
+
+Changes since last publication as v1.2.9:
+- Converted changes command to new builder.
+- Use new command based cli interface.
+- Upgraded lots of packages.
+- Add correct exit code on test.
 Changes not staged for commit:
-- modified: README.md
-- modified: src/tasks/changes.coffee
+- modified: src/command/changes.coffee
+NPM Update check:
+- coffee-coverage      😕  NOTUSED?  Still using coffee-coverage?
+- coffeelint           😕  NOTUSED?  Still using coffeelint?
+- coveralls            😕  NOTUSED?  Still using coveralls?
+- debounce             😕  NOTUSED?  Still using debounce?
+- docker               😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+- istanbul             😕  NOTUSED?  Still using istanbul?
+- marked-man           😕  NOTUSED?  Still using marked-man?
+- node-sass            😕  NOTUSED?  Still using node-sass?
+- npm-check            😕  NOTUSED?  Still using npm-check?
+- plato                😕  NOTUSED?  Still using plato?
+- replace              😕  NOTUSED?  Still using replace?
+- typescript           😕  NOTUSED?  Still using typescript?
+- uglify-js            😕  NOTUSED?  Still using uglify-js?
+Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
+</code></pre>
+<p>Sometimes you may skip the unused packages:</p>
+<pre><code class="sh">builder changes --skip-unused
+</code></pre>
+<pre><code class="text">Initializing...
+Run changes command...
+Skip check for unused packages.
+
+Results for node-builder
+
+Changes since last publication as v1.2.9:
+- Converted changes command to new builder.
+- Use new command based cli interface.
+- Upgraded lots of packages.
+- Add correct exit code on test.
+Changes not staged for commit:
+- modified: src/command/changes.coffee
+NPM Update check:
+- alinex-core   😍  UPDATE!   Your local install is out of date. from 0.2.0 to 0.2.2
+- docker        😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
 </code></pre>
 <div class="pilwrap" id="publish">
   <h3>
@@ -452,8 +560,8 @@ publish
 new version. The version can be set by signaling if it should be a <code>--major</code>,
 <code>--minor</code> or bugfix version if no switch given.</p>
 <p>To publish the next bugfix version only call:</p>
-<pre><code class="sh">builder -c publish               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c publish  <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder publish               <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error publish  <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <p>The output will be:</p>
 <pre><code class="text">push changes to repository
@@ -514,10 +622,10 @@ Done.
 compile with compression and run all tests before publishing. And the documentation
 will be updated afterwards, too.</p>
 <p>For the next minor version (second number) call:</p>
-<pre><code class="sh">builder ./node-error -c publish --minor
+<pre><code class="sh">builder ./node-error publish --minor
 </code></pre>
 <p>And for a new major version:</p>
-<pre><code class="sh">builder ./node-error -c publish --major
+<pre><code class="sh">builder ./node-error publish --major
 </code></pre>
 <p>And you may use the switches <code>--try</code> to not really publish but to check if it will
 be possible and <code>--force</code> to always publish also if it is not possible because of
@@ -534,14 +642,14 @@ state of the system. To create a usable system you have to build it again.</p>
 <code>--dist</code> or <code>--auto</code> to remove all automatically generated files in the
 development environment.</p>
 <p>To cleanup all safe files:</p>
-<pre><code class="sh">builder -c clean                 <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error -c clean    <span class="hljs-comment"># or from anywhere else</span>
+<pre><code class="sh">builder clean                 <span class="hljs-comment"># from within the package directory</span>
+builder ./node-error clean    <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <p>Or on the development system remove all created files:</p>
-<pre><code class="sh">builder ./node-error -c clean --auto
+<pre><code class="sh">builder ./node-error clean --auto
 </code></pre>
 <p>And at last for production remove development files:</p>
-<pre><code class="sh">builder ./node-error -c clean --dist
+<pre><code class="sh">builder ./node-error clean --dist
 </code></pre>
 <div class="pilwrap" id="configuration">
   <h2>

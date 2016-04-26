@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>changes.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "src/command/changes.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#test-script">Test Script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#handler">Handler</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#helper">Helper</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="test-script">
+  <h1>
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>internal mhelper modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.title = <span class="hljs-string">'show changes since last release'</span>
+exports.description = <span class="hljs-string">"""
+List all changes since last published version. This contains local file changes,
+last commits and updates of depending packages.
+
+This information is useful before publishing to check if everything is ready and
+what goes into the new version.
+"""</span>
+
+exports.options =
+  <span class="hljs-string">'skip-unused'</span>:
+    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'s'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Skip check for unused packages'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="handler">
+  <h2>
+    <a href="#handler" name="handler" class="pilcrow"></a>
+Handler
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.handler = <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>step over directories</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  builder.dirs options, <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+    async.parallel [
+      (cb) -&gt; git dir, options, cb
+      (cb) -&gt; <span class="hljs-built_in">npm</span> dir, options, cb
+    ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>output results</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-built_in">console</span>.log()
+      <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span> "</span>
+      <span class="hljs-built_in">console</span>.log()
+      <span class="hljs-built_in">console</span>.log results.join(<span class="hljs-string">''</span>).trim()
+      <span class="hljs-built_in">console</span>.log()
+      cb()
+  , cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="helper">
+  <h2>
+    <a href="#helper" name="helper" class="pilcrow"></a>
+Helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
+<span class="hljs-title">npm</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.debug dir, options, <span class="hljs-string">"check npm packages"</span>
+  fs.npmbin <span class="hljs-string">'npm-check'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+    msg = <span class="hljs-string">"NPM Update check:\n"</span>
+    params = []
+    params.push <span class="hljs-string">'-s'</span> <span class="hljs-keyword">if</span> options[<span class="hljs-string">'skip-unused'</span>]
+    builder.exec dir, options, <span class="hljs-string">'npm-check'</span>,
+      <span class="hljs-attribute">cmd</span>: cmd
+      <span class="hljs-attribute">args</span>: params
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">exitCode</span>:
+          <span class="hljs-attribute">args</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      upgrade = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">if</span> proc.stdout()
+        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().trim().split <span class="hljs-regexp">/\n/</span>
+          <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/Use npm-check/</span>
+          <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\w/</span>
+            msg += chalk.yellow <span class="hljs-string">"- <span class="hljs-subst">#{line.trim()}</span>\n"</span>
+            <span class="hljs-keyword">if</span> match = line.match <span class="hljs-regexp">/to go (from .*)/</span>
+              msg = msg.replace <span class="hljs-regexp">/(\s*http.*)?\n.*?$/</span>, chalk.grey <span class="hljs-string">" <span class="hljs-subst">#{match[<span class="hljs-number">1</span>]}</span>\n"</span>
+            <span class="hljs-keyword">unless</span> line.match <span class="hljs-regexp">/NOTUSED\?/</span>
+              upgrade = <span class="hljs-literal">true</span>
+      <span class="hljs-keyword">return</span> cb err, <span class="hljs-string">''</span> <span class="hljs-keyword">if</span> msg.split(<span class="hljs-regexp">/\n/</span>).length &lt; <span class="hljs-number">3</span>
+      msg += chalk.grey <span class="hljs-string">"Use `<span class="hljs-subst">#{chalk.underline cmd + <span class="hljs-string">' -u'</span>}</span>` to upgrade.\n"</span> <span class="hljs-keyword">if</span> upgrade
+      cb <span class="hljs-literal">null</span>, msg
+<span class="hljs-function">
+<span class="hljs-title">git</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  fs.exists path.join(dir, <span class="hljs-string">'.git'</span>), <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists <span class="hljs-comment"># no git repository</span>
+    async.parallel [
+      (cb) -&gt; gitChanges dir, options, cb
+      (cb) -&gt; gitStatus dir, options, cb
+    ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      cb <span class="hljs-literal">null</span>, results.join <span class="hljs-string">''</span>
+<span class="hljs-function">
+
+<span class="hljs-title">gitChanges</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.debug dir, options, <span class="hljs-string">"check git commits"</span>
+  builder.exec dir, options, <span class="hljs-string">'git last publication'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'describe'</span>, <span class="hljs-string">'--abbrev=0'</span> ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+    tag = proc.stdout().trim()
+    msg = <span class="hljs-string">"Changes since last publication as <span class="hljs-subst">#{tag}</span>:\n"</span>
+    builder.exec dir, options, <span class="hljs-string">'git log'</span>,
+      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+      <span class="hljs-attribute">args</span>: [<span class="hljs-string">'log'</span>, <span class="hljs-string">"<span class="hljs-subst">#{tag}</span>..HEAD"</span>, <span class="hljs-string">"--format=oneline"</span>]
+      <span class="hljs-attribute">cwd</span>: dir
+    , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">if</span> proc.stdout()
+        msg += chalk.yellow <span class="hljs-string">"- <span class="hljs-subst">#{line[<span class="hljs-number">41.</span>.]}</span>\n"</span> <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().trim().split <span class="hljs-regexp">/\n/</span>
+      <span class="hljs-keyword">else</span>
+        msg += chalk.yellow <span class="hljs-string">"Nothing changed.\n"</span>
+      cb err, msg
+<span class="hljs-function">
+<span class="hljs-title">gitStatus</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.debug dir, options, <span class="hljs-string">"check git status"</span>
+  msg = <span class="hljs-string">''</span>
+  builder.exec dir, options, <span class="hljs-string">'git status'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'status'</span>]
+    <span class="hljs-attribute">cwd</span>: dir
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">if</span> proc.stdout()
+      <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().trim().split <span class="hljs-regexp">/\n/</span>
+        msg += <span class="hljs-string">"<span class="hljs-subst">#{line.trim()}</span>\n"</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^Changes/</span>
+        msg += chalk.yellow <span class="hljs-string">"- <span class="hljs-subst">#{line.trim().replace <span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">' '</span>}</span>\n"</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\t/</span>
+    <span class="hljs-keyword">else</span>
+      msg += chalk.yellow <span class="hljs-string">"Nothing changed.\n"</span>
+    cb err, msg</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
