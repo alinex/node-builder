@@ -14,18 +14,18 @@ builder = require '../index'
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
-module.exports = (dir, args, cb) ->
-  builder.debug dir, args, "commit all changes"
+module.exports = (dir, options, cb) ->
+  builder.debug dir, options, "commit all changes"
   # run the pull options
-  builder.exec dir, args, 'git add all',
+  builder.exec dir, options, 'git add all',
     cmd: 'git'
     args: [ 'add', '-A' ]
     cwd: dir
   , (err) ->
     return cb err if err
-    builder.exec dir, args, 'git commit',
+    builder.exec dir, options, 'git commit',
       cmd: 'git'
-      args: [ 'commit', '-m', args.message ]
+      args: [ 'commit', '-m', options.message ]
       cwd: dir
       retry:
         times: 3

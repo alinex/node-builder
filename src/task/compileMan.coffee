@@ -20,12 +20,12 @@ builder = require '../index'
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
-module.exports = (dir, args, cb) ->
+module.exports = (dir, options, cb) ->
   # check for configured man pages
-  builder.task 'packageJson', dir, args, (err, pack) ->
+  builder.task 'packageJson', dir, options, (err, pack) ->
     return cb err if err
     return cb() unless pack.man?
-    builder.debug dir, args, "compile man pages"
+    builder.debug dir, options, "compile man pages"
     pack.man = [pack.man] if typeof pack.man is 'string'
     src = path.join dir, 'src'
     # create output directory
@@ -36,15 +36,15 @@ module.exports = (dir, args, cb) ->
         input = "#{src}/#{name}.md"
         fs.exists input, (exists) ->
           return cb new Error "The file '#{input}' didn't exist" unless exists
-          builder.noisy dir, args, "create #{pack.man}"
+          builder.noisy dir, options, "create #{pack.man}"
           fs.npmbin 'marked-man', path.dirname(path.dirname __dirname), (err, cmd) ->
             return cb err if err
-            builder.exec dir, args, 'compile into man',
+            builder.exec dir, options, 'compile into man',
               cmd: cmd
               args: [ input ]
               cwd: dir
             , (err, proc) ->
               return cb err if err
-              builder.noisy dir, args, "write into " + path.join(dir, name)
+              builder.noisy dir, options, "write into " + path.join(dir, name)
               fs.writeFile path.join(dir, name), proc.stdout(), cb
       , cb

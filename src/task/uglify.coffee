@@ -23,20 +23,20 @@ builder = require '../index'
 # - `tojs` - (string) destination js
 # - `frommap` - (string, optional) source map
 # - `tomap` - (string) destination map
-module.exports = (dir, args, cb) ->
-  builder.noisy dir, args, "uglify #{args.fromjs} -> #{args.tojs}"
+module.exports = (dir, options, cb) ->
+  builder.noisy dir, options, "uglify #{options.fromjs} -> #{options.tojs}"
   # run the pull options
   fs.npmbin 'uglifyjs', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
-    param = [
-      args.fromjs,
-      '--source-map', args.tomap
-      '-o', args.tojs
+    args = [
+      options.fromjs,
+      '--source-map', options.tomap
+      '-o', options.tojs
       '-m', '-c'
     ]
-    param.push '--in-source-map', args.frommap if args.frommap
-    builder.exec dir, args, 'run uglify',
+    args.push '--in-source-map', options.frommap if options.frommap
+    builder.exec dir, options, 'run uglify',
       cmd: cmd
-      args: param
-      cwd: args.dir
+      args: args
+      cwd: options.dir
     , cb

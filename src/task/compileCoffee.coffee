@@ -21,20 +21,20 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 # - `uglify` - (boolean) should uglify be used
-module.exports = (dir, args, cb) ->
+module.exports = (dir, options, cb) ->
   src = path.join dir, 'src'
   lib = path.join dir, 'lib'
   # find files to compile
   fs.find src, {include: '*.coffee'}, (err, files) ->
     return cb err if err
     return cb() unless files.length
-    builder.debug dir, args, "compile coffee script files"
+    builder.debug dir, options, "compile coffee script files"
     async.each files, (file, cb) ->
       fs.readFile file, 'utf8', (err, data) ->
         return cb err if err
         jsfile = path.basename(file, '.coffee') + '.js'
         mapfile = path.basename(file, '.coffee') + '.map'
-        builder.noisy dir, args, "compile #{file[src.length+1..]}"
+        builder.noisy dir, options, "compile #{file[src.length+1..]}"
         compiled = coffee.compile data,
           filename: path.basename file
           generatedFile: jsfile
@@ -55,9 +55,9 @@ module.exports = (dir, args, cb) ->
               return cb err if err and err.code isnt 'EEXIST'
               fs.writeFile filepathmap, compiled.v3SourceMap, cb
         ], (err) ->
-          return cb err if err or not args.uglify
+          return cb err if err or not options.uglify
           builder.task 'uglify', dir,
-            verbose: args.verbose
+            verbose: options.verbose
             dir: path.dirname filepathjs
             fromjs: jsfile
             frommap: mapfile

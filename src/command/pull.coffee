@@ -24,11 +24,11 @@ Pull the newest changes from the origin repository.
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
+exports.handler = (options, cb) ->
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
+  builder.dirs options, (dir, options, cb) ->
     # check for existing git repository
     fs.exists path.join(dir, '.git'), (exists) ->
       return cb() unless exists # no git repository
-      builder.task 'gitPull', dir, args, cb
+      builder.task 'gitPull', dir, options, cb
   , cb

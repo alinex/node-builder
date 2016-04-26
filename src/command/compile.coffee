@@ -5,8 +5,6 @@
 # Node modules
 # -------------------------------------------------
 
-# include base modules
-path = require 'path'
 # include alinex modules
 fs = require 'alinex-fs'
 async = require 'alinex-async'
@@ -31,27 +29,27 @@ exports.options =
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
+exports.handler = (options, cb) ->
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
-    compile dir, args, cb
+  builder.dirs options, (dir, options, cb) ->
+    compile dir, options, cb
   , cb
 
-compile = (dir, args, cb) ->
+compile = (dir, options, cb) ->
   async.parallel [
     # check for existing source files
     (cb) ->
       fs.exists "#{dir}/src", (exists) ->
         return cb new Error "No source files found" unless exists
         # remove old lib dir
-        builder.debug dir, args, "remove lib"
+        builder.debug dir, options, "remove lib"
         fs.remove "#{dir}/lib", (err) ->
           return cb err if err
           # compile
           async.parallel [
-            (cb) -> builder.task 'compileCoffee', dir, args, cb
-            (cb) -> builder.task 'copyJs', dir, args, cb
-            (cb) -> builder.task 'compileMan', dir, args, cb
+            (cb) -> builder.task 'compileCoffee', dir, options, cb
+            (cb) -> builder.task 'copyJs', dir, options, cb
+            (cb) -> builder.task 'compileMan', dir, options, cb
           ], cb
     # check for linked libraries
     (cb) ->
@@ -63,6 +61,6 @@ compile = (dir, args, cb) ->
         , (err, list) ->
           return cb err if err
           async.each list, (subdir, cb) ->
-            compile subdir, args, cb
+            compile subdir, options, cb
           , cb
   ], cb

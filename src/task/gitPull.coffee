@@ -14,10 +14,10 @@ builder = require '../index'
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
-module.exports = (dir, args, cb) ->
-  builder.debug dir, args, "check git status"
+module.exports = (dir, options, cb) ->
+  builder.debug dir, options, "check git status"
   # run the pull options
-  builder.exec dir, args, 'git pull',
+  builder.exec dir, options, 'git pull',
     cmd: 'git'
     args: [ 'pull', '-t', '-p', 'origin', 'master' ]
     cwd: dir

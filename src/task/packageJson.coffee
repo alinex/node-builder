@@ -18,8 +18,8 @@ builder = require '../index'
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
-module.exports = (dir, args, cb) ->
-  builder.debug dir, args, "read package json"
+module.exports = (dir, options, cb) ->
+  builder.debug dir, options, "read package json"
   file = path.join dir, 'package.json'
   try
     pack = JSON.parse fs.readFileSync file

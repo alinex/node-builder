@@ -37,12 +37,12 @@ exports.options =
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
+exports.handler = (options, cb) ->
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
+  builder.dirs options, (dir, options, cb) ->
     async.parallel [
-      (cb) -> git dir, args, cb
-      (cb) -> npm dir, args, cb
+      (cb) -> git dir, options, cb
+      (cb) -> npm dir, options, cb
     ], (err, results) ->
       return cb err if err
       # output results
@@ -58,13 +58,13 @@ exports.handler = (args, cb) ->
 # Helper
 # ------------------------------------------------
 
-npm = (dir, args, cb) ->
-  builder.debug dir, args, "check npm packages"
+npm = (dir, options, cb) ->
+  builder.debug dir, options, "check npm packages"
   fs.npmbin 'npm-check', path.dirname(path.dirname __dirname), (err, cmd) ->
     msg = "NPM Update check:\n"
     params = []
-    params.push '-s' if args['skip-unused']
-    builder.exec dir, args, 'npm-check',
+    params.push '-s' if options['skip-unused']
+    builder.exec dir, options, 'npm-check',
       cmd: cmd
       args: params
       cwd: dir
@@ -87,28 +87,27 @@ npm = (dir, args, cb) ->
       msg += chalk.grey "Use `#{chalk.underline cmd + ' -u'}` to upgrade.\n" if upgrade
       cb null, msg
 
-git = (dir, args, cb) ->
+git = (dir, options, cb) ->
   fs.exists path.join(dir, '.git'), (exists) ->
     return cb() unless exists # no git repository
     async.parallel [
-      (cb) -> gitChanges dir, args, cb
-      (cb) -> gitStatus dir, args, cb
+      (cb) -> gitChanges dir, options, cb
+      (cb) -> gitStatus dir, options, cb
     ], (err, results) ->
       return cb err if err
       cb null, results.join ''
 
 
-gitChanges = (dir, args, cb) ->
-  builder.debug dir, args, "check git commits"
-  # run the pull args
-  builder.exec dir, args, 'git last publication',
+gitChanges = (dir, options, cb) ->
+  builder.debug dir, options, "check git commits"
+  builder.exec dir, options, 'git last publication',
     cmd: 'git'
     args: [ 'describe', '--abbrev=0' ]
     cwd: dir
   , (err, proc) ->
     tag = proc.stdout().trim()
     msg = "Changes since last publication as #{tag}:\n"
-    builder.exec dir, args, 'git log',
+    builder.exec dir, options, 'git log',
       cmd: 'git'
       args: ['log', "#{tag}..HEAD", "--format=oneline"]
       cwd: dir
@@ -120,11 +119,10 @@ gitChanges = (dir, args, cb) ->
         msg += chalk.yellow "Nothing changed.\n"
       cb err, msg
 
-gitStatus = (dir, args, cb) ->
-  builder.debug dir, args, "check git status"
+gitStatus = (dir, options, cb) ->
+  builder.debug dir, options, "check git status"
   msg = ''
-  # run the pull args
-  builder.exec dir, args, 'git status',
+  builder.exec dir, options, 'git status',
     cmd: 'git'
     args: ['status']
     cwd: dir

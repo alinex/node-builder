@@ -12,19 +12,15 @@ builder = require '../index'
 # Setup
 # -------------------------------------------------
 
-exports.title = 'cleanup files'
+exports.title = 'create api documentation'
 exports.description = """
-Remove unneccessary folders.
+Create a html api documentation and maybe upload it to github pages.
 """
 
 exports.options =
-  auto:
-    alias: 'a'
+  publish:
     type: 'boolean'
-    describe: 'Remove all automatically generated folders'
-  dist:
-    type: 'boolean'
-    describe: 'Remove unneccessary folders for production'
+    describe: 'publish documentation'
 
 
 # Handler
@@ -33,5 +29,5 @@ exports.options =
 exports.handler = (options, cb) ->
   # step over directories
   builder.dirs options, (dir, options, cb) ->
-    builder.task 'clean', dir, options, cb
+    builder.task 'docUpdate', dir, options, cb
   , cb

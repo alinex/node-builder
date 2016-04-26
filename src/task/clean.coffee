@@ -21,20 +21,20 @@ builder = require '../index'
 # - `verbose` - (integer) verbose level
 # - `dist` - (boolean) remove files unneccessary for production
 # - `auto` - (boolean) remove auto generated files
-module.exports = (dir, args, cb) ->
-  builder.debug dir, args, "cleanup directory"
+module.exports = (dir, options, cb) ->
+  builder.debug dir, options, "cleanup directory"
   # check what to remove
   remove = [
     path.join dir, 'doc'
     path.join dir, 'coverage'
     path.join dir, 'report'
   ]
-  if args.auto
+  if options.auto
     remove.push path.join dir, 'lib'
     remove.push path.join dir, 'var/lib'
     remove.push path.join dir, 'man'
     remove.push path.join dir, 'node_modules'
-  if args.dist
+  if options.dist
     remove.push path.join dir, 'test'
     remove.push path.join dir, 'src'
     remove.push path.join dir, 'var/src'
@@ -49,20 +49,20 @@ module.exports = (dir, args, cb) ->
       async.each remove, (rmdir, cb) ->
         fs.exists rmdir, (exists) ->
           return cb() unless exists
-          builder.noisy dir, args, "Remove #{rmdir[dir.length+1..]}"
+          builder.noisy dir, options, "Remove #{rmdir[dir.length+1..]}"
           fs.remove rmdir, cb
       , cb
     (cb) ->
-      return cb() unless args.dist
-      builder.debug dir, args, "remove development modules"
-      builder.exec dir, args, "development only modules",
+      return cb() unless options.dist
+      builder.debug dir, options, "remove development modules"
+      builder.exec dir, options, "development only modules",
         cmd: 'npm'
         args: [ 'prune', '--production' ]
         cwd: dir
       , cb
     (cb) ->
-      return cb() unless args.dist
-      builder.debug dir, args, "remove unneccessary files"
+      return cb() unless options.dist
+      builder.debug dir, options, "remove unneccessary files"
       selection = [
         include: 'LICENSE'
       ,
@@ -71,7 +71,7 @@ module.exports = (dir, args, cb) ->
         include: 'example?(s)'
       ]
       async.each selection, (spec, cb) ->
-        builder.noisy dir, args, "Remove #{spec.include}"
+        builder.noisy dir, options, "Remove #{spec.include}"
         fs.remove dir, spec, cb
       , cb
   ], cb

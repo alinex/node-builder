@@ -41,26 +41,28 @@ exports.options =
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
-  args.coverage = true if args.coveralls
+exports.handler = (options, cb) ->
+  options.coverage = true if options.coveralls
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
+  builder.dirs options, (dir, options, cb) ->
     async.parallel [
       (cb) ->
-        builder.task 'lintCoffee', dir, args, cb
+        builder.task 'lintCoffee', dir, options, cb
       (cb) ->
-        builder.task 'testMocha', dir, args, (err, results) ->
-          return cb err, results if err or not (args.browser and args.coverage)
-          builder.task 'browser', dir,
-            verbose: args.verbose
-            target: path.join dir, 'report', 'lcov-report', 'index.html'
-          , (err) ->
-            cb err, results
+        builder.task 'testMocha', dir, options, (err, results) ->
+          return cb err if err
+          builder.task 'testCoveralls', dir, options, (err) ->
+            return cb err, results if err or not (options.browser and options.coverage)
+            builder.task 'browser', dir,
+              verbose: options.verbose
+              target: path.join dir, 'report', 'lcov-report', 'index.html'
+            , (err) ->
+              cb err, results
       (cb) ->
-        builder.task 'metrics', dir, args, (err) ->
-          return cb err if err or not args.browser
+        builder.task 'metrics', dir, options, (err) ->
+          return cb err if err or not options.browser
           builder.task 'browser', dir,
-            verbose: args.verbose
+            verbose: options.verbose
             target: path.join dir, 'report', 'metrics', 'index.html'
           , cb
     ], (err, results) ->

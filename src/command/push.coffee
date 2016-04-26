@@ -30,20 +30,20 @@ exports.options =
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
+exports.handler = (options, cb) ->
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
+  builder.dirs options, (dir, options, cb) ->
     # check for existing git repository
     fs.exists path.join(dir, '.git'), (exists) ->
       return cb() unless exists # no git repository
       # check status
-      builder.task 'gitStatus', dir, args, (err, out) ->
+      builder.task 'gitStatus', dir, options, (err, out) ->
         return cb err if err
         unless out
-          return builder.task 'gitPush', dir, args, cb
-        unless args.message
+          return builder.task 'gitPush', dir, options, cb
+        unless options.message
           return cb new Error "Can't push to master if not everything is commited."
-        builder.task 'gitCommitAll', dir, args, (err) ->
+        builder.task 'gitCommitAll', dir, options, (err) ->
           return cb err if err
-          builder.task 'gitPush', dir, args, cb
+          builder.task 'gitPush', dir, options, cb
   , cb

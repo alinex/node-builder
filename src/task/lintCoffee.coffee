@@ -20,17 +20,17 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 # - `nocolors` - (boolean) used to harmonize with called command
-module.exports = (dir, args, cb) ->
+module.exports = (dir, options, cb) ->
   fs.exists "#{dir}/coffeelint.json", (exists) ->
     return cb() unless exists
     fs.npmbin 'coffeelint', path.dirname(path.dirname __dirname), (err, cmd) ->
       if err
         console.error chalk.yellow "Skipped lint because coffeelint is missing"
         return cb()
-      builder.debug dir, args, "linting coffee script"
+      builder.debug dir, options, "linting coffee script"
       # Run external options
       msg = "Lint coffee problems:\n"
-      builder.exec dir, args, 'coffee lint',
+      builder.exec dir, options, 'coffee lint',
         cmd: cmd
         args: [
           '-f', path.join dir, 'coffeelint.json'

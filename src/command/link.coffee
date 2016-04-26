@@ -37,11 +37,11 @@ exports.options =
 # Handler
 # ------------------------------------------------
 
-exports.handler = (args, cb) ->
+exports.handler = (options, cb) ->
   # step over directories
-  builder.dirs args, (dir, args, cb) ->
+  builder.dirs options, (dir, options, cb) ->
     # link all alinex packages if locally existing
-    unless args.link
+    unless options.link
       return fs.find dir,
         include: 'alinex-*'
         type: 'dir'
@@ -53,23 +53,23 @@ exports.handler = (args, cb) ->
           local = path.resolve "#{link}/../../node-#{subname}"
           fs.exists local, (exists) ->
             return cb() unless exists
-            setLink dir, args, link, local, cb
+            setLink dir, options, link, local, cb
         , cb
     # link specified
-    link = path.resolve "#{dir}/node_modules/", args.link
-    local = if args.local
-      path.resolve "#{dir}/../", args.local
+    link = path.resolve "#{dir}/node_modules/", options.link
+    local = if options.local
+      path.resolve "#{dir}/../", options.local
     else
-      name = path.basename(args.link).split '-'
+      name = path.basename(options.link).split '-'
       name = if name.length is 2 and name[0] is 'alinex'
         "node-#{name[1]}"
       else
-        path.basename args.link
+        path.basename options.link
       path.resolve "#{path.dirname link}/../../#{name}"
-    setLink dir, args, link, local, cb
+    setLink dir, options, link, local, cb
   , cb
 
-setLink = (dir, args, link, local, cb) ->
-  builder.info dir, args, "set link #{link} -> #{local}"
+setLink = (dir, options, link, local, cb) ->
+  builder.info dir, options, "set link #{link} -> #{local}"
   fs.remove link, ->
     fs.symlink local, link, cb

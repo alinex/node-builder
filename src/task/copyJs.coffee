@@ -21,22 +21,22 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 # - `uglify` - (boolean) should uglify be used
-module.exports = (dir, args, cb) ->
+module.exports = (dir, options, cb) ->
   src = path.join dir, 'src'
   lib = path.join dir, 'lib'
   # find files to compile
   fs.find src, {include: '*.js'}, (err, files) ->
     return cb err if err
     return cb() unless files.length
-    builder.debug dir, args, "copy javascript files"
+    builder.debug dir, options, "copy javascript files"
     async.each files, (file, cb) ->
       dest = path.join lib, file[src.length..]
-      unless args.uglify
-        builder.noisy dir, args, "copy file"
+      unless options.uglify
+        builder.noisy dir, options, "copy file"
         fs.copy file, dest, cb
       mapfile = path.basename(file, '.js') + '.map'
       builder.task 'uglify', dir,
-        verbose: args.verbose
+        verbose: options.verbose
         dir: dir
         fromjs: file
         tojs: dest
