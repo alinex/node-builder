@@ -50,6 +50,8 @@ exports.handler = (options, cb) ->
   builder.dirs options, (dir, options, cb) ->
     builder.task "packageJson", dir, options, (err, pack) ->
       return cb err if err
+      if pack.scripts.test?.match /^node_modules\/\.bin\/builder\s+test\s+(-s|--skip-unused)/
+        options['skip-unused'] = true
       async.series [
         # precheck
         (cb) ->
@@ -75,7 +77,7 @@ exports.handler = (options, cb) ->
             return cb err if err
             if resultsJoin(results).trim() and not options.force
               err = new Error "Stopped publish, you may use --force switch"
-              return cb err, results 
+              return cb err, results
         # create
         (cb) -> getVersion dir, options, pack, cb
         (cb) ->
