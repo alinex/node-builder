@@ -28,4 +28,4 @@ module.exports = (dir, options, cb) ->
     when 'win32' then 'start ""'
     # use Portlands xdg-open everywhere else
     else path.resolve __dirname, '../../bin/xdg-open'
-  exec opener + ' "' + encodeURI(options.target) + '"', cb
+  exec opener + ' "' + encodeURI(options.target) + '"', (err) -> cb err

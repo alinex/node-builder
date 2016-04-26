@@ -27,6 +27,9 @@ exports.options =
     alias: 'b'
     type: 'string'
     describe: 'stop on first error in unit tests'
+  coverage:
+    type: 'boolean'
+    describe: 'create coverage reports'
   coveralls:
     type: 'boolean'
     describe: 'send coverage to coveralls'
@@ -39,15 +42,27 @@ exports.options =
 # ------------------------------------------------
 
 exports.handler = (args, cb) ->
+  args.coverage = true if args.coveralls
   # step over directories
   builder.dirs args, (dir, args, cb) ->
     async.parallel [
       (cb) ->
         builder.task 'lintCoffee', dir, args, cb
       (cb) ->
-        builder.task 'testMocha', dir, args, cb
+        builder.task 'testMocha', dir, args, (err, results) ->
+          return cb err, results if err or not (args.browser and args.coverage)
+          builder.task 'browser', dir,
+            verbose: args.verbose
+            target: path.join dir, 'report', 'lcov-report', 'index.html'
+          , (err) ->
+            cb err, results
       (cb) ->
-        builder.task 'metrics', dir, args, cb
+        builder.task 'metrics', dir, args, (err) ->
+          return cb err if err or not args.browser
+          builder.task 'browser', dir,
+            verbose: args.verbose
+            target: path.join dir, 'report', 'metrics', 'index.html'
+          , cb
     ], (err, results) ->
       return cb err if err
       # output results

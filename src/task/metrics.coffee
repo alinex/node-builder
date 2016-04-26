@@ -31,6 +31,7 @@ module.exports = (dir, options, cb) ->
       args: [
         '-r'
         "-d", path.join dir, 'report/metrics'
+        '-t', "#{path.basename dir} JS Analysis"
         'lib'
       ]
       cwd: dir
