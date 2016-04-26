@@ -181,13 +181,13 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         <span class="hljs-keyword">if</span> options.publish
           builder.task <span class="hljs-string">"packageJson"</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-            <span class="hljs-built_in">console</span>.log <span class="hljs-string">'------'</span>
-            <span class="hljs-keyword">return</span> setTimeout -&gt;
+            setTimeout -&gt;
               builder.task <span class="hljs-string">"browser"</span>, dir,
                 <span class="hljs-attribute">verbose</span>: options.verbose
                 <span class="hljs-attribute">target</span>: pack.homepage
               , cb
             , <span class="hljs-number">50000</span>
+        <span class="hljs-keyword">else</span>
           builder.task <span class="hljs-string">"browser"</span>, dir,
             <span class="hljs-attribute">verbose</span>: options.verbose
             <span class="hljs-attribute">target</span>: path.join dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'index.html'</span>
