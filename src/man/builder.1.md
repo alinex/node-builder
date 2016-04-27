@@ -51,7 +51,7 @@ Commands and options
 
 The tool will be called with
 
-    builder [dirs] [general options] -c <command> [command options]
+    builder [dirs] [general options] <command> [command options]
 
 With the option `--help` a screen explaining all commands and options will be
 displayed. The major commands will be described here.
@@ -62,9 +62,6 @@ command will run from the current directory.
 You may change the order of the options like you want but keep the directories
 before them. If you give a directory just behind a command it is interpreted
 as additional command instead as directory.
-
-If you want to give multiple commands add a second `-c` option or just put them
-one behind the other in one option.
 
 ### General options
 
@@ -91,8 +88,8 @@ name, too.
 
 Some example calls will look like:
 
-    > builder ./node-error -c create --package alinex-error
-    > builder ./private-module -c create --private
+    > builder ./node-error create --package alinex-error
+    > builder ./private-module create --private
 
 This process is interactive and will ask you some more details. After that you
 may directly start to add your code.
@@ -103,82 +100,56 @@ may directly start to add your code.
 This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
-    > builder -c push                  # from within the package directory
-    > builder ./node-error -c push     # or from anywhere else
+    > builder push                  # from within the package directory
+    > builder ./node-error push     # or from anywhere else
 
-or to also commit the last changes
+Options:
 
-    > builder -c push ./node-error --message "commit message"
-
+    --message, -m  Commit message for local changes                       [string]
 
 ### Command `pull`
 
 Like `push` this will fetch the newest changes from git origin.
 
-    > builder -c pull                  # from within the package directory
-    > builder ./node-error -c pull     # or from anywhere else
+    > builder pull                  # from within the package directory
+    > builder ./node-error pull     # or from anywhere else
 
     Pull from origin
     Von https://github.com/alinex/node-make
      * branch            master     -> FETCH_HEAD
-
 
 ### Command `link`
 
 This task will link a local package installed in a parallel directory into the
 packages node_modules directory.
 
-    > builder -c link                  # link all node-... as alinex-...  packages
-    > builder -c link --locale config  # or link only the config package
+    > builder link                  # link all node-... as alinex-...  packages
+    > builder link --locale config  # or link only the config package
 
+Options:
+
+    --link, -l  package name to link                                      [string]
+    --local     local path which is used                                  [string]
 
 ### Command `compile`
 
 This task is used to compile the sources into for runtime optimized library.
 
-    > builder -c compile               # from within the package directory
-    > builder ./node-error -c compile  # or from anywhere else
+    > builder compile               # from within the package directory
+    > builder ./node-error compile  # or from anywhere else
 
-    Remove old directories
-    Compile man pages
-    Compile coffee script
+Options:
 
-
-Or give an directory and use uglify to compress the **just now experimental**
-extension. It works for live server but will break source maps for node-error
-and makes your coverage report unreadable.
-
-    > builder ./node-error -c compile  --uglify
+    --uglify, -u  run uglify for each file                               [boolean]
 
 Mostly this task will be added as prepublish script to the `package.json` like:
 
     "scripts": {
-      "prepublish": "node_modules/.bin/builder -c compile -u"
+      "prepublish": "node_modules/.bin/builder compile -u"
     }
 
 Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
-
-
-### Command `update`
-
-This task is a handy addition to include the npm install and npm update commands:
-
-    > builder -c update               # from within the package directory
-    > builder ./node-error -c update  # or from anywhere else
-
-At the end this task will list all direct subpackages which are outdated and may
-be updated in the package.json.
-
-    update and installation of package with dependent packages
-    update ./
-    Install through npm
-    Update npm packages
-    List outdated packages
-    Package               Current  Wanted     Latest  Location
-    Nothing to upgrade in this package found.
-    Done.
-
 
 ### Command `test`
 
@@ -188,35 +159,15 @@ errors the automatic tests will be run.
 If the [istanbul](http://gotwarlost.github.io/istanbul/) module is installed
 a code coverage report will be build.
 
-    > builder -c test                  # from within the package directory
-    > builder ./node-error -c test     # or from anywhere else
+    > builder test                  # from within the package directory
+    > builder ./node-error test     # or from anywhere else
 
-    Linting coffee code
-    Run mocha tests
+Options:
 
-      Simple mocha test
-        ✓ should add two numbers
-
-      1 passing (9ms)
-
-Or to contineously watch it:
-
-    > builder ./node-error -c test --watch
-
-You may also create an html coverage report:
-
-    > builder -c test --coverage
-
-And at last you can add the `--browser` flag to open the coverage report
-automatically in the browser. Also `--coveralls` may be added to send the
-results to coveralls.
-
-This task can also be added to the `package.json` to be called using `npm test`:
-
-    "scripts": {
-      "test": "node_modules/.bin/builder test"
-    }
-
+    --bail, -b   stop on first error in unit tests                        [string]
+    --coverage   create coverage reports                                 [boolean]
+    --coveralls  send coverage to coveralls                              [boolean]
+    --browser    open results in browser                                 [boolean]
 
 ### Command: `doc`
 
@@ -228,49 +179,24 @@ This tool will extract the documentation from the markup and code files in
 any language and generate HTML pages with the documentation beside the
 code.
 
-    > builder -c doc                   # from within the package directory
-    > builder ./node-error -c doc      # or from anywhere else
+    > builder doc                   # from within the package directory
+    > builder ./node-error doc      # or from anywhere else
 
-    Create html documentation
-    Done.
+Options:
 
-It is also possible to update the documentation stored on any website. To
-configure this for GitHub pages, you have to do nothing, for all others you
-need to specify an `doc-publish` script in `package.json`. This may be an
-rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
-Start the document creation with publication using:
-
-    > builder ./node-error -c doc --publish
-
-With the `--watch` option it is possible to keep the documentation updated.
-
-    > builder ./node-error -c doc  --watch
-
-But this process will never end, you have to stop it manually to end it.
-
-And at last you may also add the `--browser` flag to open the documentation in
-the browser after created.
-
-The style of the documentation can be specified if a specific css is present
-in the alinex make package. It have to be under the path `src/data` and be called
-by the `<basename>.css` while basename is the package name before the first
-hyphen.
-
+    --publish  publish documentation                                     [boolean]
+    --browser  open api in browser                                       [boolean]
 
 ### Command `changes`
 
 This will list all changes (checkins) which are done since the last publication.
 Use this to check if you should make a new publication or if it can wait.
 
-    > builder -c changes
+    > builder changes
 
-    Changes since last publication:
-    - Small bugfix in creating docs for non alinex packages.
-    - Fixed internal links in documentation.
-    - Changed created script calls to support newer make.
-    - Updated to use newest make version in created files.
-    - Fixed create task which was completely buggy since last rewrite.
+Options:
 
+    --skip-unused, -s  Skip check for unused packages                    [boolean]
 
 ### Command `publish`
 
@@ -280,34 +206,20 @@ new version. The version can be set by signaling if it should be a `--major`,
 
 To publish the next bugfix version only call:
 
-    > builder -c publish               # from within the package directory
-    > builder ./node-error -c publish  # or from anywhere else
+    > builder publish               # from within the package directory
+    > builder ./node-error publish  # or from anywhere else
 
-    Change package.json
-    Write new changelog
-    Commit new version information
-    Push to git origin
-    To https://github.com/alinex/node-make
-       a06c5ec..c93df17  master -> master
-    Push new tag to git origin
-    To https://github.com/alinex/node-make
-     * [new tag]         v0.4.6 -> v0.4.6
-    Push to npm
-    Created v0.4.6.
+Options:
 
-
-For the next minor version (second number) call:
-
-    > builder ./node-error -c publish --minor
-
-And for a new major version:
-
-    > builder ./node-error -c publish --major
+    --major    release next major version                                [boolean]
+    --minor    release next minor version                                [boolean]
+    --version  version to release                                         [string]
+    --release  release message                                            [string]
+    --force    force publish also on problems
 
 And you may use the switches `--try` to not really publish but to check if it will
 be possible and `--force` to always publish also if it is not possible because of
 failed tests or not up-to-date dependent packages.
-
 
 ### Command: `clean`
 
@@ -320,17 +232,13 @@ development environment.
 
 To cleanup all safe files:
 
-    > builder -c clean                 # from within the package directory
-    > builder ./node-error -c clean    # or from anywhere else
+    > builder clean                 # from within the package directory
+    > builder ./node-error clean    # or from anywhere else
 
-Or on the development system remove all created files:
+Options:
 
-    > builder ./node-error -c clean --auto
-
-And at last for production remove development files:
-
-    > builder ./node-error -c clean --dist
-
+    --auto, -a  Remove all automatically generated folders               [boolean]
+    --dist      Remove unneccessary folders for production               [boolean]
 
 Configuration
 -------------------------------------------------
