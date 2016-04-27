@@ -77,8 +77,10 @@ builder.setup (err) ->
   .usage "\nUsage: $0 <command> [options] [dir]..."
   .env 'BUILDER' # use environment arguments prefixed with SCRIPTER_
   # examples
-  .example '$0 --update', 'to initialize and update the scripts'
-  .example '$0 <command>', 'to simply run the command script'
+  .example '$0 test -vb', 'to run the tests till first failure'
+  .example '$0 test -v --coverage --browser', 'to run all the tests and also show coverage info'
+  .example '$0 changes', 'show overview of changes'
+  .example '$0 publish --minor', 'to publish on npm new minor version'
   # general options
   .options
     help:

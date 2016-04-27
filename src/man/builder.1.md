@@ -7,47 +7,43 @@ The builder helps you to develop node modules.
 Usage
 -------------------------------------------------
 
-    builder [-vC] -c command... [dir]...
+    builder <command> [options] [dir]...
 
 You can give the following commands:
 
-    - list - show the list of possible commands
-    - create - create a new package
-    - update - update and installation of package with dependent packages
-    - link - link local parallel installed packages into this one
-    - compile - compile code
-    - pull - pull newest version from repository
-    - push - push changes to repository
-    - publish - publish package in npm
-    - doc - create documentation pages
-    - test - run automatic tests
-    - clean - cleanup files
-    - changes - list unpublished changes
+    create   create a new package (interactive)  changes  show changes since last release
+    clean    cleanup files
+    compile  compile code
+    doc      create api documentation
+    link     replace released package with locally linked module
+    publish  publish package in npm
+    pull     pull newest version from repository
+    push     push changes to remote repository
+    test     run automatic tests
 
-And the available options are:
+General Options:
 
-    -c, --command   command to execute (use list to see more)           [required]
-    -C, --nocolors  turn of color output
-    -v, --verbose   run in verbose mode
-    --private       create: private repository
-    --package       create: set package name
-    -m, --message   push: text for commit message
-    --local <pkg>   link: specify the packages to link
-    -u, --uglify    compile: run uglify for each file
-    --minor         publish: change to next minor version
-    --major         publish: change to next major version
-    --try           publish: don't really publish but check if it is possible
-    --force         publish: also if tests have errors or submodules not
-                    up-to-date
-    -b, --bail      test: stop on first error
-    --coverage      test: create coverage report
-    --coveralls     test: send coverage to coveralls
-    --watch         test,doc: keep process running while watching for changes
-    --browser       test,doc: open in browser
-    --publish       doc: push to github pages
-    --dist          clean: all which is not needed in production
-    --auto          clean: all which is created automatically
-    -h, --help      Show help
+    --help, -h      Show help                                            [boolean]
+    --nocolors, -C  turn of color output                                 [boolean]
+    --verbose, -v   run in verbose mode (multiple makes more verbose)      [count]
+    --quiet, -q     don't output header and footer                       [boolean]
+
+Examples:
+
+    builder test -vb            to run the tests till first failure
+    builder test -v --coverage  to run all the tests and also show
+    --browser                   coverage info
+    builder changes             show overview of changes
+    builder publish --minor     to publish on npm new minor version
+
+You may use environment variables prefixed with 'BUILDER_' to set any of
+the options like 'BUILDER_VERBOSE' to set the verbose level.
+
+For help for a specific command call:
+
+    builder <command> --help
+
+This will show also the specific options, only available for this command.
 
 
 Commands and options

@@ -2,7 +2,6 @@
 .settings
 .DS_Store
 *.sublime-*
-/coverage/
 /report/
 /data/
 /doc/
