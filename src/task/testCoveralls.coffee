@@ -29,6 +29,10 @@ module.exports = (dir, options, cb) ->
       if err and options.coverage
         console.error chalk.yellow "Skipped coveralls service because not installed"
         return cb()
-      builder.info dir, options, "Send to coveralls"
-      exec "cat #{dir}/report/lcov.info | #{coveralls} --verbose", (err) ->
-        cb err
+      builder.exec dir, options, "send to coveralls",
+        cmd: 'sh'
+        args: ['-c', "cat report/lcov.info | #{coveralls} --verbose"]
+        cwd: dir
+        retry:
+          times: 3
+      , cb

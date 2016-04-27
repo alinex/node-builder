@@ -51,7 +51,8 @@ sudo npm install -g alinex-builder --production
 builder --help
 ```
 
-After global installation you may directly call `builder` from anywhere.
+After global installation you may directly call `builder` from anywhere to work
+in the current or defined directory:
 
 ``` sh
 builder --help
@@ -60,7 +61,7 @@ builder --help
 Or you may integrate it into your own package:
 
 ``` sh
-npm install alinex-builder --save-devs
+npm install alinex-builder --save-dev
 ./node_modules/.bin/builder --help
 ```
 
@@ -101,7 +102,7 @@ _yargs_completions()
 
     return 0
 }
-complete -F _yargs_completions scripter
+complete -F _yargs_completions builder
 ###-end-cli.coffee-completions-###
 ```
 
@@ -124,9 +125,12 @@ To list all the possible commands:
 
     > builder --help
 
-This will show the possible commands which are defined.
+This will show the possible commands which are defined. And to know more about
+a specific command or it's options you may call the help on the command:
 
-But if not installed globally you may run it as:
+    > builder <command> --help
+
+If not installed globally you may run it as:
 
 ``` sh
 node_modules/.bin/builder <command> [<options>]...
@@ -202,14 +206,19 @@ This will push the changes to the origin repository. With the `--message` option
 it will also add and commit all other changes before doing so.
 
 ``` sh
-builder -push                  # from within the package directory
+builder push                  # from within the package directory
 ```
 
 or to also commit the last changes
 
 ``` sh
-builder ./node-error push --message "commit message"
+builder push --message "commit message"
 ```
+
+The push is only possible if you have the newest changes merged into your repository.
+On any problems try to `pull` first before pushing your changes.
+
+If you want to only commit some changes you have to do this on your own.
 
 ### pull
 
@@ -219,6 +228,9 @@ your local changes.
 ``` sh
 builder pull                  # from within the package directory
 ```
+
+If a merge conflict occurs, you have to edit the files and solve it before a
+proper push will be working again.
 
 ### link
 

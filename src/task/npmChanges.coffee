@@ -30,6 +30,8 @@ module.exports = (dir, options, cb) ->
       cmd: cmd
       args: params
       cwd: dir
+      retry:
+        times: 3
       check:
         exitCode:
           args: [0, 1]

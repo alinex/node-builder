@@ -30,6 +30,8 @@ module.exports = (dir, options, cb) ->
         cmd: 'sh'
         args: ['-c', pack.scripts['doc-publish']]
         cwd: dir
+        retry:
+          times: 3
       , cb()
     else if ~pack.repository?.url?.indexOf 'github.com/'
       fs.tempdir null, 'alinex-builder-', (err, tmpdir) ->
@@ -57,6 +59,8 @@ cloneGit = (dir, options, tmpdir, pack, cb) ->
     cmd: 'git'
     args: ['clone', pack.repository.url, tmpdir]
     cwd: dir
+    retry:
+      times: 3
   , cb
 
 checkout = (dir, options, tmpdir, cb) ->
@@ -105,4 +109,6 @@ push = (dir, options, tmpdir, cb) ->
     cmd: 'git'
     args: ['push', 'origin', 'gh-pages']
     cwd: tmpdir
+    retry:
+      times: 3
   , cb
