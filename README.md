@@ -264,7 +264,7 @@ Compile coffee script
 Or give an directory and use uglify to compress the extension.
 
 ``` sh
-builder ./node-error compile --uglify
+builder compile --uglify
 ```
 
 This command may also compiled the linked packages and does the following steps:
@@ -287,29 +287,6 @@ Also this will make man files from mardown documents in `src/man` if they
 are referenced in the package.json.
 
 
-### update
-
-This task is a handy addition to include the npm install and npm update commands:
-
-``` sh
-builder update               # from within the package directory
-builder ./node-error update  # or from anywhere else
-```
-
-At the end this task will list all direct subpackages which are outdated and may
-be updated in the package.json.
-
-``` text
-update and installation of package with dependent packages
-update ./
-Install through npm
-Update npm packages
-List outdated packages
-Package               Current  Wanted     Latest  Location
-Nothing to upgrade in this package found.
-Done.
-```
-
 ### test
 
 As a first test a coffeelint check will be run. Only if this won't have any
@@ -322,36 +299,29 @@ the moment. You will find this reports under '/reports' directory as html.
 
 ``` sh
 builder test                  # from within the package directory
-builder ./node-error test     # or from anywhere else
+builder ./node-util test      # or from anywhere else
 ```
 
-``` text
-Linting coffee code
-Run mocha tests
+This will:
 
-Simple mocha test
-✓ should add two numbers
+- lint the coffee script code
+- run mocha tests
+- collect and build coverage report (option --coverage)
+- send results from travis to coveralls (option --coveralls)
+- run metric analyses of compiled js
+- open reports in browser (option --browser)
 
-1 passing (9ms)
-```
-
-Or to contineously watch it:
+So you may also create an html coverage report and open it:
 
 ``` sh
-builder ./node-error test --watch
-```
-
-You may also create an html coverage report:
-
-``` sh
-builder test --coverage
+builder test --coverage --browser
 ```
 
 If you want to stop after the  first error occurs use the `--bail` flag.
 
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
-results to coveralls.
+results from the coverage from travis to coveralls.
 
 This task can also be added to the `package.json` to be called using `npm test`:
 
@@ -363,11 +333,8 @@ This task can also be added to the `package.json` to be called using `npm test`:
 }
 ```
 
-Often you would also need the following combination:
-
-``` sh
-builder -v compile test           # to check your just finished code changes
-```
+Attention, the metrics are build out of the compiled JavaScript. So you need to
+compile your code first before the metrics are updated.
 
 ### doc
 
@@ -384,11 +351,6 @@ builder doc                   # from within the package directory
 builder ./node-error doc      # or from anywhere else
 ```
 
-``` text
-Create html documentation
-Done.
-```
-
 It is also possible to update the documentation stored on any website. To
 configure this for GitHub pages, you have to do nothing, for all others you
 need to specify an `doc-publish` script in `package.json`. This may be an
@@ -396,25 +358,17 @@ rsync copy job like `rsync -av --delete doc root@myserver:/var/www`.
 Start the document creation with publication using:
 
 ``` sh
-builder ./node-error doc --publish
+builder doc --publish
 ```
-
-With the `--watch` option it is possible to keep the documentation updated.
-
-``` sh
-builder  ./node-error doc --watch
-```
-
-But this process will never end, you have to stop it manually to end it.
 
 And at last you may also add the `--browser` flag to open the documentation in
-the browser after created.
+the browser after created. This will wait some seconds for the remote server to
+update if published.
 
 The style of the documentation can be specified if a specific css is present
 in the alinex make package. It have to be under the path `src/data` and be called
 by the `<basename>.css` while basename is the package name before the first
 hyphen.
-
 
 ### changes
 
@@ -444,11 +398,14 @@ Changes since last publication as v1.2.9:
 Changes not staged for commit:
 - modified: src/command/changes.coffee
 NPM Update check:
+- alinex-core          😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-alinex/
+                          npm install --save alinex-core (from 0.2.0 to 0.2.4)
 - coffee-coverage      😕  NOTUSED?  Still using coffee-coverage?
 - coffeelint           😕  NOTUSED?  Still using coffeelint?
 - coveralls            😕  NOTUSED?  Still using coveralls?
 - debounce             😕  NOTUSED?  Still using debounce?
 - docker               😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+                          npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
 - istanbul             😕  NOTUSED?  Still using istanbul?
 - marked-man           😕  NOTUSED?  Still using marked-man?
 - node-sass            😕  NOTUSED?  Still using node-sass?
@@ -457,7 +414,7 @@ NPM Update check:
 - replace              😕  NOTUSED?  Still using replace?
 - typescript           😕  NOTUSED?  Still using typescript?
 - uglify-js            😕  NOTUSED?  Still using uglify-js?
-Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
+To upgrade all use: /usr/lib/node_modules/alinex-builder/node_modules/.bin/npm-check /home/alex/github/node-builder -u
 ```
 
 Sometimes you may skip the unused packages:
@@ -482,7 +439,9 @@ Changes not staged for commit:
 - modified: src/command/changes.coffee
 NPM Update check:
 - alinex-core   😍  UPDATE!   Your local install is out of date. from 0.2.0 to 0.2.2
+                    npm install --save alinex-core (from 0.2.0 to 0.2.4)
 - docker        😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+                    npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
 Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
 ```
 
@@ -490,7 +449,8 @@ Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check
 
 With the push command you can publish your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a `--major`,
-`--minor` or bugfix version if no switch given.
+`--minor` or bugfix version if no switch given. Alternatively you can specify the
+new veriosn directly using `--version`.
 
 To publish the next bugfix version only call:
 
@@ -564,13 +524,13 @@ will be updated afterwards, too.
 For the next minor version (second number) call:
 
 ``` sh
-builder ./node-error publish --minor
+builder publish --minor
 ```
 
 And for a new major version:
 
 ``` sh
-builder ./node-error publish --major
+builder publish --major
 ```
 
 And you may use the switches `--try` to not really publish but to check if it will
@@ -597,13 +557,13 @@ builder ./node-error clean    # or from anywhere else
 Or on the development system remove all created files:
 
 ``` sh
-builder ./node-error clean --auto
+builder clean --auto
 ```
 
 And at last for production remove development files:
 
 ``` sh
-builder ./node-error clean --dist
+builder clean --dist
 ```
 
 

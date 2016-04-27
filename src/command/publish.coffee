@@ -36,8 +36,11 @@ exports.options =
   release:
     type: 'string'
     describe: 'release message'
+  try:
+    type: 'boolean'
+    describe: 'try if publication is possible'
   force:
-    type: 'sboolean'
+    type: 'boolean'
     describe: 'force publish also on problems'
 
 
@@ -123,7 +126,9 @@ resultsJoin = (res) ->
 getVersion = (dir, options, pack, cb) ->
   options.oldVersion = pack.version
   builder.info dir, options, "old version is #{options.oldVersion}"
-  return cb() if options.version
+  if options.version
+    return cb new Error "Stopped because of try run" if options.try
+    return cb()
   # calculate new version
   version = pack.version.split /\./
   if options.major
@@ -136,6 +141,7 @@ getVersion = (dir, options, pack, cb) ->
     version[2]++
   options.version = version.join '.'
   builder.info dir, options, "new version is #{options.version}"
+  return cb new Error "Stopped because of try run" if options.try
   cb()
 
 writePackageJson = (dir, options, pack, cb) ->
