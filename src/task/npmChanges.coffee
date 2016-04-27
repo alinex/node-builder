@@ -40,14 +40,14 @@ module.exports = (dir, options, cb) ->
         for line in proc.stdout().trim().split /\n/
           continue if line.match /Use npm-check/
           if line.match /^\w/
-            msg += chalk.yellow "- #{line.trim()}\n"
+            msg += "- #{chalk.yellow line.trim()}\n"
             if match = line.match /to go (from .*)/
-              msg = msg.replace /(\s*http.*)?\n.*?$/, chalk.grey " #{match[1]}\n"
+              msg = msg.replace /(\s*http.*)?\n.*?$/, " #{chalk.grey match[1]}\n"
             if line.match /UPDATE!/
               upgrade = true
           else if line.match /npm install/
             line = line.replace /(npm install.*)@.* to go (from.*)/, chalk.underline('$1')+' ($2)'
-            msg += chalk.grey "  #{line}\n"
+            msg += "  #{chalk.grey line}\n"
       return cb err, '' if msg.split(/\n/).length < 3
       msg += chalk.grey "To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u\n" if upgrade
       cb null, msg

@@ -79,9 +79,9 @@ gitChanges = (dir, options, cb) ->
     , (err, proc) ->
       return cb err if err
       if proc.stdout()
-        msg += chalk.yellow "- #{line[41..]}\n" for line in proc.stdout().trim().split /\n/
+        msg += "- #{chalk.yellow line[41..]}\n" for line in proc.stdout().trim().split /\n/
       else
-        msg += chalk.yellow "Nothing changed.\n"
+        msg += chalk.yellow("Nothing changed.") + "\n"
       cb err, msg
 
 gitStatus = (dir, options, cb) ->
@@ -96,7 +96,7 @@ gitStatus = (dir, options, cb) ->
     if proc.stdout()
       for line in proc.stdout().trim().split /\n/
         msg += "#{line.trim()}\n" if line.match /^Changes/
-        msg += chalk.yellow "- #{line.trim().replace /\s+/g, ' '}\n" if line.match /^\t/
+        msg += "- #{chalk.yellow line.trim().replace /\s+/g, ' '}\n" if line.match /^\t/
     else
-      msg += chalk.yellow "Nothing changed.\n"
+      msg += chalk.yellow("Nothing changed.") + "\n"
     cb err, msg
