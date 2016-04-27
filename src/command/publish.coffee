@@ -53,9 +53,10 @@ exports.handler = (options, cb) ->
         options['skip-unused'] = true
       async.series [
         # precheck
+        (cb) -> builder.task 'clean', dir, {verbose: options.verbose, auto: true}, cb
+        (cb) -> builder.task 'npmInstall', dir, options, cb
         (cb) ->
           async.parallel [
-            (cb) -> builder.task 'npmChanges', dir, options, cb
             (cb) ->
               async.series [
                 (cb) -> builder.task 'gitCommitAll', dir, options, cb
@@ -65,18 +66,15 @@ exports.handler = (options, cb) ->
             (cb) ->
               async.series [
                 (cb) -> builder.task 'testCheck', dir, options, cb
-                (cb) -> builder.task 'testMocha', dir, options, cb
+                (cb) -> builder.task 'testMocha', dir, options, (err) -> cb err
               ], cb
-            (cb) ->
-              async.series [
-                (cb) -> builder.task 'clean', dir, {verbose: options.verbose, auto: true}, cb
-                (cb) -> builder.task 'npmInstall', dir, options, cb
-              ], cb
+            (cb) -> builder.task 'npmChanges', dir, options, cb
           ], (err, results) ->
             return cb err if err
             if resultsJoin(results).trim() and not options.force
               err = new Error "Stopped publish, you may use --force switch"
               return cb err, results
+            cb()
         # create
         (cb) -> getVersion dir, options, pack, cb
         (cb) ->
@@ -87,7 +85,7 @@ exports.handler = (options, cb) ->
         (cb) ->
           builder.task 'gitCommitAll', dir,
             verbose: options.verbose
-            message: "Added information for version #{options.newVersion}"
+            message: "Added information for version #{options.version}"
           , cb
         (cb) -> builder.task 'gitPush', dir, options, cb
         # publish
@@ -137,6 +135,7 @@ getVersion = (dir, options, pack, cb) ->
   else
     version[2]++
   options.version = version.join '.'
+  builder.info dir, options, "new version is #{options.version}"
   cb()
 
 writePackageJson = (dir, options, pack, cb) ->
@@ -163,7 +162,7 @@ updateChangelog = (dir, options, cb) ->
     release = if options.release then "#{options.release}\n\n" else ''
     changelog = lines[..5].join('\n') + """
 
-      Version #{options.newVersion} (#{moment().format('YYYY-MM-DD')})
+      Version #{options.version} (#{moment().format('YYYY-MM-DD')})
       -------------------------------------------------
       #{release + newlines.join '\n'}
 
@@ -182,8 +181,8 @@ gitTag = (dir, options, pack, cb) ->
     cmd: 'git'
     args: [
       'tag'
-      '-a', "v#{options.newVersion}"
-      '-m', "Created version #{options.newVersion}#{changelog}"
+      '-a', "v#{options.version}"
+      '-m', "Created version #{options.version}#{changelog}"
     ]
     cwd: dir
   , cb
@@ -192,8 +191,8 @@ gitTag = (dir, options, pack, cb) ->
 pushNpm = (dir, options, cb) ->
   builder.info dir, options, 'publish on npm'
   builder.exec dir, options, 'npm publish',
-    dir: 'npm'
-    args: [ 'publish' ]
+    cmd: 'npm'
+    args: ['publish']
     cwd: dir
   , (err) ->
-    cb err, "Created version #{options.newVersion}"
+    cb err, "Created version #{options.version}"

@@ -90,7 +90,7 @@ exports.exec = (dir, args, type, exec, cb) ->
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       console.log()
     if err and proc.stderr() and args.verbose < 3
-      exports.results dir, args, "git pull", chalk.magenta proc.stderr()
+      exports.results dir, args, type, chalk.magenta proc.stderr()
     cb err, proc
 
 exports.results = (dir, options, title, results) ->
@@ -104,9 +104,9 @@ exports.results = (dir, options, title, results) ->
   results
 
 resultsJoin = (res) ->
-  return res if typeof res is 'string'
+  return res.trim() if typeof res is 'string'
   if Array.isArray res
     res.map (e) -> resultsJoin e
-    .join ''
+    .join '\n\n'
   else
     ''

@@ -43,7 +43,7 @@ module.exports = (dir, options, cb) ->
         (cb) -> addAlinex dir, options, docPath, alinex, replace, cb
         (cb) -> copyCss dir, options, pack, cb
         (cb) -> copyJs dir, options, pack, cb
-      ], cb
+      ], (err) -> cb err
 
 
 # Helper
