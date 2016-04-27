@@ -27,70 +27,70 @@ exports.setup = (cb) ->
 
 # Output Helper
 # -------------------------------------------------
-exports.command = (name, lib, args, cb) ->
+exports.command = (name, lib, options, cb) ->
   console.log "Run #{name} command..."
   if lib.options
     for name, def of lib.options
-      console.log "#{def.describe ? name} = #{args[name]}" if args[name]
+      console.log "#{def.describe ? name} = #{options[name]}" if options[name]
   try
-    lib.handler args, cb
+    lib.handler options, cb
   catch error
     error.description = error.stack.split(/\n/)[1..].join '\n'
     cb error
 
-exports.info = (dir, args, message) ->
-  if args.verbose
+exports.info = (dir, options, message) ->
+  if options.verbose
     console.log chalk.grey "#{path.basename dir}: #{message}"
 
-exports.debug = (dir, args, message) ->
-  if args.verbose > 1
+exports.debug = (dir, options, message) ->
+  if options.verbose > 1
     console.log chalk.grey "#{path.basename dir}: #{message}"
 
-exports.noisy = (dir, args, message) ->
-  if args.verbose > 2
+exports.noisy = (dir, options, message) ->
+  if options.verbose > 2
     console.log chalk.grey "#{path.basename dir}: #{message}"
 
 
 # Controll flow helper
 # -------------------------------------------------
 
-exports.dirs = (args, fn, cb) ->
+exports.dirs = (options, fn, cb) ->
   # check for directories
-  list = args._[1..]
+  list = options._[1..]
   list.push process.cwd() unless list.length
   list = list.map (e) -> path.resolve e
   # execute
   problems = []
   async.eachLimit list, 3, (dir, cb) ->
-    exports.info dir, args, 'started'
-    fn dir, args, (err) ->
-      exports.info dir, args, 'done'
+    exports.info dir, options, 'started'
+    fn dir, options, (err) ->
+      exports.info dir, options, 'done'
       problems.push "#{path.basename dir}: #{err.message}" if err
       cb()
   , ->
     return cb() unless problems.length
     cb new Error problems.join '\n'
 
-exports.task = (task, dir, args, cb) ->
+exports.task = (task, dir, options, cb) ->
   try
     lib = require "./task/#{task}"
-    lib dir, args, cb
+    lib dir, options, cb
   catch error
     cb error
 
-exports.exec = (dir, args, type, exec, cb) ->
-  exports.debug dir, args, "#{type}"
-  exports.debug dir, args, "> #{exec.cmd} #{exec.args.join ' '}"
+exports.exec = (dir, options, type, exec, cb) ->
+  exports.debug dir, options, "#{type}"
+  exports.debug dir, options, "> #{exec.cmd} #{exec.options.join ' '}"
   Exec.run exec, (err, proc) ->
-    if proc.stdout() and args.verbose > 2
+    if proc.stdout() and options.verbose > 2
       console.log()
       console.log "#{path.basename dir}: #{type}"
       console.log()
       console.log chalk.grey proc.stdout().trim().replace /s*\n+/g, '\n'
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       console.log()
-    if err and proc.stderr() and args.verbose < 3
-      exports.results dir, args, type, chalk.magenta proc.stderr()
+    if err and proc.stderr() and options.verbose < 3
+      exports.results dir, options, type, chalk.magenta proc.stderr()
     cb err, proc
 
 exports.results = (dir, options, title, results) ->
