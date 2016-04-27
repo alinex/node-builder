@@ -89,19 +89,24 @@ exports.exec = (dir, args, type, exec, cb) ->
       console.log chalk.grey proc.stdout().trim().replace /s*\n+/g, '\n'
       console.error chalk.magenta proc.stderr().trim() if proc.stderr()
       console.log()
+    if err and proc.stderr() and args.verbose < 3
+      exports.results dir, args, "git pull", chalk.magenta proc.stderr()
     cb err, proc
 
 exports.results = (dir, options, title, results) ->
+  return unless results = resultsJoin(results).trim()
   # output results
   console.log()
   console.log chalk.bold title
   console.log()
-  console.log resultsJoin(results).trim()
+  console.log results
   console.log()
+  results
 
 resultsJoin = (res) ->
   return res if typeof res is 'string'
   if Array.isArray res
-    resultsJoin(res).join ''
+    res.map (e) -> resultsJoin e
+    .join ''
   else
     ''

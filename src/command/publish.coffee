@@ -117,13 +117,14 @@ exports.handler = (options, cb) ->
 resultsJoin = (res) ->
   return res if typeof res is 'string'
   if Array.isArray res
-    resultsJoin(res).join ''
+    res.map (e) -> resultsJoin e
+    .join ''
   else
     ''
 
 getVersion = (dir, options, pack, cb) ->
   options.oldVersion = pack.version
-  builder.debug dir, options, "old version is #{options.oldVersion}"
+  builder.info dir, options, "old version is #{options.oldVersion}"
   return cb() if options.version
   # calculate new version
   version = pack.version.split /\./
@@ -139,14 +140,14 @@ getVersion = (dir, options, pack, cb) ->
   cb()
 
 writePackageJson = (dir, options, pack, cb) ->
-  builder.debug dir, options, "change package.json"
+  builder.info dir, options, "change package.json"
   file = path.join dir, 'package.json'
   pack.version = options.version
   fs.writeFile file, JSON.stringify(pack, null, 2), cb
 
 # ### add changes since last version to Changelog
 updateChangelog = (dir, options, cb) ->
-  builder.debug dir, options, "read git log"
+  builder.info dir, options, "update changelog"
   args = ['log', '--pretty=format:%s']
   unless options.oldVersion is '0.0.0'
     args.push "v#{options.oldVersion}..HEAD"
@@ -176,7 +177,7 @@ gitTag = (dir, options, pack, cb) ->
   changelog = ''
   if pack.homepage?
     changelog = " see more in [Changelog.md](#{pack.homepage}/Changelog.md.html)"
-  builder.debug dir, options, "push new tag"
+  builder.info dir, options, "add new tag"
   builder.exec dir, options, 'git tag',
     cmd: 'git'
     args: [
@@ -189,7 +190,7 @@ gitTag = (dir, options, pack, cb) ->
 
 # ### Push new version to npm
 pushNpm = (dir, options, cb) ->
-  builder.debug dir, options, 'publish on npm'
+  builder.info dir, options, 'publish on npm'
   builder.exec dir, options, 'npm publish',
     dir: 'npm'
     args: [ 'publish' ]

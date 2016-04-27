@@ -64,7 +64,7 @@ git = (dir, options, cb) ->
 
 
 gitChanges = (dir, options, cb) ->
-  builder.debug dir, options, "check git commits"
+  builder.info dir, options, "check git commits"
   builder.exec dir, options, 'git last publication',
     cmd: 'git'
     args: [ 'describe', '--abbrev=0' ]
@@ -85,7 +85,7 @@ gitChanges = (dir, options, cb) ->
       cb err, msg
 
 gitStatus = (dir, options, cb) ->
-  builder.debug dir, options, "check git status"
+  builder.info dir, options, "check git status"
   msg = ''
   builder.exec dir, options, 'git status',
     cmd: 'git'
