@@ -32,7 +32,7 @@ module.exports = (dir, options, cb) ->
         if err
           console.error chalk.yellow "Skipped tests because mocha is missing"
           return cb()
-        builder.debug dir, options, "Run mocha tests"
+        builder.info dir, options, "Run mocha tests"
         # Run external options
         msg = "Mocha Test results:\n"
         args = []

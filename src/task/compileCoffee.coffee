@@ -28,7 +28,7 @@ module.exports = (dir, options, cb) ->
   fs.find src, {include: '*.coffee'}, (err, files) ->
     return cb err if err
     return cb() unless files.length
-    builder.debug dir, options, "compile coffee script files"
+    builder.info dir, options, "compile coffee script files"
     async.each files, (file, cb) ->
       fs.readFile file, 'utf8', (err, data) ->
         return cb err if err

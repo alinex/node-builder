@@ -28,7 +28,7 @@ module.exports = (dir, options, cb) ->
       if err
         console.error chalk.yellow "Skipped metrics because plato is missing"
         return cb()
-      builder.debug dir, options, "create metrics report"
+      builder.info dir, options, "create metrics report"
       # Run external options
       builder.exec dir, options, 'metrics report',
         cmd: cmd

@@ -21,7 +21,7 @@ builder = require '../index'
 # - `verbose` - (integer) verbose level
 # - `skip-unused` - (boolean) don't report unused packages
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "check npm packages"
+  builder.info dir, options, "check npm packages"
   fs.npmbin 'npm-check', path.dirname(path.dirname __dirname), (err, cmd) ->
     msg = "NPM Update check:\n"
     params = []

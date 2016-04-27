@@ -25,7 +25,7 @@ module.exports = (dir, options, cb) ->
   builder.task 'packageJson', dir, options, (err, pack) ->
     return cb err if err
     return cb() unless pack.man?
-    builder.debug dir, options, "compile man pages"
+    builder.info dir, options, "compile man pages"
     pack.man = [pack.man] if typeof pack.man is 'string'
     src = path.join dir, 'src'
     # create output directory
@@ -36,7 +36,7 @@ module.exports = (dir, options, cb) ->
         input = "#{src}/#{name}.md"
         fs.exists input, (exists) ->
           return cb new Error "The file '#{input}' didn't exist" unless exists
-          builder.noisy dir, options, "create #{pack.man}"
+          builder.debug dir, options, "create #{pack.man}"
           fs.npmbin 'marked-man', path.dirname(path.dirname __dirname), (err, cmd) ->
             return cb err if err
             builder.exec dir, options, 'compile into man',
@@ -45,6 +45,6 @@ module.exports = (dir, options, cb) ->
               cwd: dir
             , (err, proc) ->
               return cb err if err
-              builder.noisy dir, options, "write into " + path.join(dir, name)
+              builder.debug dir, options, "write into " + path.join(dir, name)
               fs.writeFile path.join(dir, name), proc.stdout(), cb
       , cb

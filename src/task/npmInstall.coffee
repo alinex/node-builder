@@ -15,7 +15,7 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "install through npm"
+  builder.info dir, options, "install through npm"
   # run the pull options
   builder.exec dir, options, 'npm install',
     cmd: 'npm'

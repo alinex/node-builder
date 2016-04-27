@@ -21,7 +21,7 @@ builder = require '../index'
 # - `verbose` - (integer) verbose level
 # - `publish` - (boolean) flag if result should be published
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "create api documentation"
+  builder.info dir, options, "create api documentation"
   docPath = path.join dir, 'doc'
   builder.task "packageJson", dir, options, (err, pack) ->
     alinex = (pack.name.split /-/)[0] is 'alinex'
@@ -80,7 +80,6 @@ createIndex = (dir, options, docPath, cb) ->
 docker = (dir, options, docPath, cb) ->
   fs.npmbin 'docker', path.dirname(path.dirname __dirname), (err, cmd) ->
     return cb err if err
-    builder.debug dir, options, "run docker"
     args = [
       '-i', dir
       if options.watch then '-w' else ''
@@ -88,7 +87,7 @@ docker = (dir, options, docPath, cb) ->
       '.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'
       '-o', docPath
     ]
-    builder.exec dir, options, 'docker',
+    builder.exec dir, options, 'create api',
       cmd: cmd
       args: args
       cwd: dir
@@ -107,8 +106,7 @@ copyImages = (dir, options, docPath, cb) ->
 
 githubLink = (dir, options, docPath, pack, replace, cb) ->
   return cb() unless pack.repository.url.match /github\.com/
-  builder.debug dir, options, "add github link"
-  builder.exec dir, options, 'replace github link',
+  builder.exec dir, options, 'add github link',
     cmd: replace
     args: [
       '(<div id="container")>'
@@ -121,8 +119,7 @@ githubLink = (dir, options, docPath, pack, replace, cb) ->
   , cb
 
 addViewport = (dir, options, docPath, replace, cb) ->
-  builder.debug dir, options, "add viewport"
-  builder.exec dir, options, 'replace add viewport',
+  builder.exec dir, options, 'add viewport',
     cmd: replace
     args: [
       '(</head>)'
@@ -134,8 +131,7 @@ addViewport = (dir, options, docPath, replace, cb) ->
   , cb
 
 emptyCode = (dir, options, docPath, cb) ->
-  builder.debug dir, options, "remove empty code"
-  builder.exec dir, options, 'replace removes empty code',
+  builder.exec dir, options, 'remove empty code',
     cmd: 'sh'
     args: [
       '-c'
@@ -146,8 +142,7 @@ emptyCode = (dir, options, docPath, cb) ->
 
 emptyLines = (dir, options, docPath, cb) ->
   # remove empty lines at end of code elements
-  builder.debug dir, options, "remove empty lines"
-  builder.exec dir, options, 'replace removes empty lines in code',
+  builder.exec dir, options, 'remove empty lines in code',
     cmd: 'sh'
     args: [
       '-c'
@@ -158,8 +153,7 @@ emptyLines = (dir, options, docPath, cb) ->
 
 addAlinex = (dir, options, docPath, alinex, replace, cb) ->
   return cb() unless alinex
-  builder.debug dir, options, "add alinex header"
-  builder.exec dir, options, 'replace alinex header',
+  builder.exec dir, options, 'add alinex header',
     cmd: replace
     args: [
       '(<div id="sidebar_wrapper">)'
@@ -190,7 +184,7 @@ addAlinex = (dir, options, docPath, alinex, replace, cb) ->
     cwd: dir
   , cb
 
-copyCss = (dir, options, cb) ->
+copyCss = (dir, options, pack, cb) ->
   async.filter [
     path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
     path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
@@ -200,7 +194,7 @@ copyCss = (dir, options, cb) ->
       overwrite: true
     , cb
 
-copyJs = (dir, options, cb) ->
+copyJs = (dir, options, pack, cb) ->
   async.filter [
     path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
     path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'

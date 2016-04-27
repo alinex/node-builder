@@ -27,7 +27,7 @@ module.exports = (dir, options, cb) ->
       if err
         console.error chalk.yellow "Skipped lint because coffeelint is missing"
         return cb()
-      builder.debug dir, options, "linting coffee script"
+      builder.info dir, options, "linting coffee script"
       # Run external options
       msg = "Lint coffee problems:\n"
       builder.exec dir, options, 'coffee lint',

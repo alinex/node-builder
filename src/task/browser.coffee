@@ -19,7 +19,7 @@ builder = require '../index'
 # - `verbose` - (integer) verbose level
 # - `target` - (string) url to open
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "open #{options.target} in browser"
+  builder.info dir, options, "open #{options.target} in browser"
   # call browser
   opener = switch process.platform
     when 'darwin' then 'open'
@@ -28,4 +28,7 @@ module.exports = (dir, options, cb) ->
     when 'win32' then 'start ""'
     # use Portlands xdg-open everywhere else
     else path.resolve __dirname, '../../bin/xdg-open'
-  exec opener + ' "' + encodeURI(options.target) + '"', (err) -> cb err
+  builder.exec dir, options, "open browser",
+    cmd: 'sh'
+    args: ['-c', "#{opener} \"#{encodeURI options.target}\""]
+  , cb

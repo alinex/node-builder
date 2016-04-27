@@ -157,9 +157,9 @@ Within your `package.json` it may look like:
 This information will sometimes look discarded because of the parallel
 processing of some tasks.
 
-1. simple verbose mode
-2. with step information
-3. with command output
+1. show the big actions going on
+2. detailed actions with commandline calls
+3. also show command output and more details
 
 `-C` or `--no-colors` can be used to disable the colored output.
 

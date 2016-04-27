@@ -17,7 +17,7 @@ builder = require '../index'
 # - `message` - (string) commit message
 module.exports = (dir, options, cb) ->
   return cb() unless options.message
-  builder.debug dir, options, "commit all changes"
+  builder.info dir, options, "commit all changes"
   # run the pull options
   builder.exec dir, options, 'git add all',
     cmd: 'git'

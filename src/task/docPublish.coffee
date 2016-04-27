@@ -22,11 +22,10 @@ builder = require '../index'
 # - `publish` - (boolean) flag if result should be published
 module.exports = (dir, options, cb) ->
   return cb() unless options.publish
-  builder.debug dir, options, "publish documentation"
+  builder.info dir, options, "publish documentation"
   builder.task "packageJson", dir, options, (err, pack) ->
     return cb err if err
     if pack.scripts?['doc-publish']?
-      builder.debug dir, options, "run publish script"
       builder.exec dir, options, "publish script",
         cmd: 'sh'
         args: ['-c', pack.scripts['doc-publish']]
@@ -54,31 +53,27 @@ module.exports = (dir, options, cb) ->
 # ------------------------------------------------------------
 
 cloneGit = (dir, options, tmpdir, pack, cb) ->
-  builder.debug dir, options, "cloning git repository"
-  builder.exec dir, options, "publish script",
+  builder.exec dir, options, "git clone",
     cmd: 'git'
     args: ['clone', pack.repository.url, tmpdir]
     cwd: dir
   , cb
 
 checkout = (dir, options, tmpdir, cb) ->
-  builder.debug dir, options, "checkout gh-pages"
-  builder.exec dir, options, "checkout",
+  builder.exec dir, options, "checkout gh-pages",
     cmd: 'git'
     args: ['checkout', 'gh-pages']
     cwd: tmpdir
   , (err) ->
     return cb() unless err
-    builder.debug dir, options, "checkout gh-pages (orphan)"
-    builder.exec dir, options, "checkout",
+    builder.exec dir, options, "checkout gh-pages (orphan)",
       cmd: 'git'
       args: ['checkout', '--orphan', 'gh-pages']
       cwd: tmpdir
     , cb
 
 removeFiles = (dir, options, tmpdir, cb) ->
-  builder.debug dir, options, "remove old files"
-  builder.exec dir, options, "remove",
+  builder.exec dir, options, "remove old files",
     cmd: 'git'
     args: ['rm', '-rf', '.']
     cwd: tmpdir
@@ -88,7 +83,6 @@ copyFiles = (dir, options, tmpdir, cb) ->
   builder.debug dir, options, "copy new files"
   fs.copy path.join(dir, 'doc'), tmpdir, (err) ->
     return cb err if err
-    builder.debug dir, options, "add files to git"
     builder.exec dir, options, "git add",
       cmd: 'git'
       args: ['add', '*']
@@ -96,7 +90,6 @@ copyFiles = (dir, options, tmpdir, cb) ->
     , cb
 
 commit = (dir, options, tmpdir, cb) ->
-  builder.debug dir, options, "commit changes"
   builder.exec dir, options, "git commit",
     cmd: 'git'
     args: [
@@ -108,7 +101,6 @@ commit = (dir, options, tmpdir, cb) ->
   , cb
 
 push = (dir, options, tmpdir, cb) ->
-  builder.debug dir, options, "push to github"
   builder.exec dir, options, "git push origin",
     cmd: 'git'
     args: ['push', 'origin', 'gh-pages']

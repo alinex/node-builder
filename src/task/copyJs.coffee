@@ -28,7 +28,7 @@ module.exports = (dir, options, cb) ->
   fs.find src, {include: '*.js'}, (err, files) ->
     return cb err if err
     return cb() unless files.length
-    builder.debug dir, options, "copy javascript files"
+    builder.info dir, options, "copy javascript files"
     async.each files, (file, cb) ->
       dest = path.join lib, file[src.length..]
       unless options.uglify

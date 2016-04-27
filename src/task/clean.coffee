@@ -22,7 +22,7 @@ builder = require '../index'
 # - `dist` - (boolean) remove files unneccessary for production
 # - `auto` - (boolean) remove auto generated files
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "cleanup directory"
+  builder.info dir, options, "cleanup directory"
   # check what to remove
   remove = [
     path.join dir, 'doc'
@@ -49,13 +49,12 @@ module.exports = (dir, options, cb) ->
       async.each remove, (rmdir, cb) ->
         fs.exists rmdir, (exists) ->
           return cb() unless exists
-          builder.noisy dir, options, "Remove #{rmdir[dir.length+1..]}"
+          builder.debug dir, options, "remove #{rmdir[dir.length+1..]}"
           fs.remove rmdir, cb
       , cb
     (cb) ->
       return cb() unless options.dist
-      builder.debug dir, options, "remove development modules"
-      builder.exec dir, options, "development only modules",
+      builder.exec dir, options, "remove development only modules",
         cmd: 'npm'
         args: [ 'prune', '--production' ]
         cwd: dir
@@ -71,7 +70,7 @@ module.exports = (dir, options, cb) ->
         include: 'example?(s)'
       ]
       async.each selection, (spec, cb) ->
-        builder.noisy dir, options, "Remove #{spec.include}"
+        builder.debug dir, options, "Remove #{spec.include}"
         fs.remove dir, spec, cb
       , cb
   ], cb

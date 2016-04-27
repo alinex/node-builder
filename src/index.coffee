@@ -79,6 +79,7 @@ exports.task = (task, dir, args, cb) ->
     cb error
 
 exports.exec = (dir, args, type, exec, cb) ->
+  exports.debug dir, args, "#{type}"
   exports.debug dir, args, "> #{exec.cmd} #{exec.args.join ' '}"
   Exec.run exec, (err, proc) ->
     if proc.stdout() and args.verbose > 2
@@ -104,4 +105,3 @@ resultsJoin = (res) ->
     resultsJoin(res).join ''
   else
     ''
-    

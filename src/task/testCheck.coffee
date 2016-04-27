@@ -20,7 +20,7 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 module.exports = (dir, options, cb) ->
-  builder.debug dir, options, "check tests"
+  builder.info dir, options, "check tests"
   fs.find path.join(dir, 'test', 'mocha'),
     type: 'file'
   , (err, list) ->
