@@ -57,7 +57,7 @@ exports.noisy = (dir, args, message) ->
 exports.dirs = (args, fn, cb) ->
   # check for directories
   list = args._[1..]
-  list.push path.dirname __dirname unless list.length
+  list.push process.cwd() unless list.length
   list = list.map (e) -> path.resolve e
   # execute
   problems = []
