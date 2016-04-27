@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/compileMan.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/compileMan.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -163,7 +163,7 @@ Compile md -&gt; man page
           <pre class="coffeescript">  builder.task <span class="hljs-string">'packageJson'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> pack.man?
-    builder.debug dir, options, <span class="hljs-string">"compile man pages"</span>
+    builder.info dir, options, <span class="hljs-string">"compile man pages"</span>
     pack.man = [pack.man] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> pack.man <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
     src = path.join dir, <span class="hljs-string">'src'</span></pre>
         </td>
@@ -196,7 +196,7 @@ Compile md -&gt; man page
         input = <span class="hljs-string">"<span class="hljs-subst">#{src}</span>/<span class="hljs-subst">#{name}</span>.md"</span>
         fs.exists input, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The file '<span class="hljs-subst">#{input}</span>' didn't exist"</span> <span class="hljs-keyword">unless</span> exists
-          builder.noisy dir, options, <span class="hljs-string">"create <span class="hljs-subst">#{pack.man}</span>"</span>
+          builder.debug dir, options, <span class="hljs-string">"create <span class="hljs-subst">#{pack.man}</span>"</span>
           fs.npmbin <span class="hljs-string">'marked-man'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
             builder.exec dir, options, <span class="hljs-string">'compile into man'</span>,
@@ -205,7 +205,7 @@ Compile md -&gt; man page
               <span class="hljs-attribute">cwd</span>: dir
             , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
               <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-              builder.noisy dir, options, <span class="hljs-string">"write into "</span> + path.join(dir, name)
+              builder.debug dir, options, <span class="hljs-string">"write into "</span> + path.join(dir, name)
               fs.writeFile path.join(dir, name), proc.stdout(), cb
       , cb</pre>
         </td>

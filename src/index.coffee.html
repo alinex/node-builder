@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "src/index.coffee";
+    var thisFile = "home/alex/github/node-builder/src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -256,6 +256,7 @@ exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir,
     cb error
 
 exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, args, type, exec, cb)</span> -&gt;</span>
+  exports.debug dir, args, <span class="hljs-string">"<span class="hljs-subst">#{type}</span>"</span>
   exports.debug dir, args, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
   Exec.run exec, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
     <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> args.verbose &gt; <span class="hljs-number">2</span>
@@ -265,7 +266,38 @@ exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, args,
       <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
       <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
       <span class="hljs-built_in">console</span>.log()
-    cb err, proc</pre>
+    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> args.verbose &lt; <span class="hljs-number">3</span>
+      exports.results dir, args, type, chalk.magenta proc.stderr()
+    cb err, proc
+
+exports.results = <span class="hljs-function"><span class="hljs-params">(dir, options, title, results)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> results = resultsJoin(results).trim()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>output results</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log()
+  <span class="hljs-built_in">console</span>.log chalk.bold title
+  <span class="hljs-built_in">console</span>.log()
+  <span class="hljs-built_in">console</span>.log results
+  <span class="hljs-built_in">console</span>.log()
+  results
+<span class="hljs-function">
+<span class="hljs-title">resultsJoin</span> = <span class="hljs-params">(res)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> res.trim() <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> res <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+  <span class="hljs-keyword">if</span> Array.isArray res
+    res.map (e) -&gt; resultsJoin e
+    .join <span class="hljs-string">'\n\n'</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-string">''</span></pre>
         </td>
       </tr>
     

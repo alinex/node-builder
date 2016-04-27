@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/compileCoffee.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/compileCoffee.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -166,7 +166,7 @@ Compile coffee -&gt; js
           <pre class="coffeescript">  fs.find src, {<span class="hljs-attribute">include</span>: <span class="hljs-string">'*.coffee'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
-    builder.debug dir, options, <span class="hljs-string">"compile coffee script files"</span>
+    builder.info dir, options, <span class="hljs-string">"compile coffee script files"</span>
     async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
       fs.readFile file, <span class="hljs-string">'utf8'</span>, <span class="hljs-function"><span class="hljs-params">(err, data)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err

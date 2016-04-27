@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/command/doc.coffee";
+    var thisFile = "home/alex/github/node-builder/src/command/doc.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -181,12 +181,13 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         <span class="hljs-keyword">if</span> options.publish
           builder.task <span class="hljs-string">"packageJson"</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.dirname dir}</span>: waiting for github to update site... (10sec)"</span>
             setTimeout -&gt;
               builder.task <span class="hljs-string">"browser"</span>, dir,
                 <span class="hljs-attribute">verbose</span>: options.verbose
                 <span class="hljs-attribute">target</span>: pack.homepage
               , cb
-            , <span class="hljs-number">50000</span>
+            , <span class="hljs-number">10000</span>
         <span class="hljs-keyword">else</span>
           builder.task <span class="hljs-string">"browser"</span>, dir,
             <span class="hljs-attribute">verbose</span>: options.verbose

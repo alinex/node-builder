@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/testCoveralls.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/testCoveralls.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -156,7 +156,7 @@ Send to coveralls
       <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> options.coverage
         <span class="hljs-built_in">console</span>.error chalk.yellow <span class="hljs-string">"Skipped coveralls service because not installed"</span>
         <span class="hljs-keyword">return</span> cb()
-      builder.debug dir, options, <span class="hljs-string">"Send to coveralls"</span>
+      builder.info dir, options, <span class="hljs-string">"Send to coveralls"</span>
       exec <span class="hljs-string">"cat <span class="hljs-subst">#{dir}</span>/report/lcov.info | <span class="hljs-subst">#{coveralls}</span> --verbose"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
         cb err</pre>
         </td>

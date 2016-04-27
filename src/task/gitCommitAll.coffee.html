@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/gitCommitAll.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/gitCommitAll.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -115,12 +115,14 @@ Commit all changed files
 <p><em>Arguments:</em></p>
 <ul>
 <li><code>verbose</code> - (integer) verbose level</li>
+<li><code>message</code> - (string) commit message</li>
 </ul>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  builder.debug dir, options, <span class="hljs-string">"commit all changes"</span></pre>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.message
+  builder.info dir, options, <span class="hljs-string">"commit all changes"</span></pre>
         </td>
       </tr>
     

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/browser.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/browser.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -135,7 +135,7 @@ Pull newest git changes
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  builder.debug dir, options, <span class="hljs-string">"open <span class="hljs-subst">#{options.target}</span> in browser"</span></pre>
+  builder.info dir, options, <span class="hljs-string">"open <span class="hljs-subst">#{options.target}</span> in browser"</span></pre>
         </td>
       </tr>
     
@@ -177,7 +177,10 @@ so we pass a blank title so we can quote the file we are opening</p>
         </td>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">else</span> path.resolve __dirname, <span class="hljs-string">'../../bin/xdg-open'</span>
-  exec opener + <span class="hljs-string">' "'</span> + encodeURI(options.target) + <span class="hljs-string">'"'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> cb err</pre>
+  builder.exec dir, options, <span class="hljs-string">"open browser"</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"<span class="hljs-subst">#{opener}</span> \"<span class="hljs-subst">#{encodeURI options.target}</span>\""</span>]
+  , cb</pre>
         </td>
       </tr>
     

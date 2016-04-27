@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/copyJs.coffee";
+    var thisFile = "home/alex/github/node-builder/src/task/copyJs.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -166,7 +166,7 @@ Copy js
           <pre class="coffeescript">  fs.find src, {<span class="hljs-attribute">include</span>: <span class="hljs-string">'*.js'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
-    builder.debug dir, options, <span class="hljs-string">"copy javascript files"</span>
+    builder.info dir, options, <span class="hljs-string">"copy javascript files"</span>
     async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
       dest = path.join lib, file[src.length..]
       <span class="hljs-keyword">unless</span> options.uglify

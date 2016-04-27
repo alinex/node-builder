@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>npmChanges.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "home/alex/github/node-builder/src/task/npmChanges.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#test-script">Test Script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#npm-changes">NPM changes</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="test-script">
+  <h1>
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>node packages</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>alinex packages</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>internal mhelper modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="npm-changes">
+  <h2>
+    <a href="#npm-changes" name="npm-changes" class="pilcrow"></a>
+NPM changes
+  </h2>
+</div>
+<p><em>Arguments:</em></p>
+<ul>
+<li><code>verbose</code> - (integer) verbose level</li>
+<li><code>skip-unused</code> - (boolean) don't report unused packages</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">"check npm packages"</span>
+  fs.npmbin <span class="hljs-string">'npm-check'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+    msg = <span class="hljs-string">"NPM Update check:\n"</span>
+    params = []
+    params.push <span class="hljs-string">'-s'</span> <span class="hljs-keyword">if</span> options[<span class="hljs-string">'skip-unused'</span>]
+    builder.exec dir, options, <span class="hljs-string">'npm-check'</span>,
+      <span class="hljs-attribute">cmd</span>: cmd
+      <span class="hljs-attribute">args</span>: params
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">exitCode</span>:
+          <span class="hljs-attribute">args</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      upgrade = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">if</span> proc.stdout()
+        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().trim().split <span class="hljs-regexp">/\n/</span>
+          <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/Use npm-check/</span>
+          <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\w/</span>
+            msg += <span class="hljs-string">"- <span class="hljs-subst">#{chalk.yellow line.trim()}</span>\n"</span>
+            <span class="hljs-keyword">if</span> match = line.match <span class="hljs-regexp">/to go (from .*)/</span>
+              msg = msg.replace <span class="hljs-regexp">/(\s*http.*)?\n.*?$/</span>, <span class="hljs-string">" <span class="hljs-subst">#{chalk.grey match[<span class="hljs-number">1</span>]}</span>\n"</span>
+            <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/UPDATE!/</span>
+              upgrade = <span class="hljs-literal">true</span>
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/npm install/</span>
+            line = line.replace <span class="hljs-regexp">/(npm install.*)@.* to go (from.*)/</span>, chalk.underline(<span class="hljs-string">'$1'</span>)+<span class="hljs-string">' ($2)'</span>
+            msg += <span class="hljs-string">"  <span class="hljs-subst">#{chalk.grey line}</span>\n"</span>
+      <span class="hljs-keyword">return</span> cb err, <span class="hljs-string">''</span> <span class="hljs-keyword">if</span> msg.split(<span class="hljs-regexp">/\n/</span>).length &lt; <span class="hljs-number">3</span>
+      msg += chalk.grey <span class="hljs-string">"To upgrade all use: "</span> + chalk.underline <span class="hljs-string">"<span class="hljs-subst">#{cmd}</span> <span class="hljs-subst">#{dir}</span> -u\n"</span> <span class="hljs-keyword">if</span> upgrade
+      cb <span class="hljs-literal">null</span>, msg</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>
