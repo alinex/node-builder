@@ -4,6 +4,44 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.0 (2016-04-27)
+-------------------------------------------------
+- Fixed comands in compiled version.
+- Fix publish task using wrong variables.
+- Removed unneccessary newlines in output.
+- Better error output.
+- Optimize output levels in verbose mode.
+- Optimize results output.
+- Use test options from package.json on publish.
+- Publish command rewritten with release message.
+- Add npm install task.
+- Added new doc command.
+- Code name change args -> options.
+- Integrate browser open on metrics and coverage.
+- Added mocha/coverage tests.
+- Made new test process with coffee lint.
+- Move clean code into task.
+- Converted clean command to new structure.
+- Added support for js files in compile.
+- Also compile linked packages.
+- Update documentation.
+- Rewrite of compile task.
+- Remade the link command.
+- Upgrade info only if upgrade is possible in changes command.
+- Collect error in parallel run to show at the end.
+- Updated documentation.
+- Fixed new push task.
+- Fixed new push task.
+- Made more modular with tasks.
+- Added pull and push commands.
+- Fixed bug in running multiple different commands.
+- Document changes command.
+- Add skip-unused switch for changes.
+- Converted changes command to new builder.
+- Use new command based cli interface.
+- Upgraded lots of packages.
+- Add correct exit code on test.
+
 Version 1.2.9 (2016-04-04)
 -------------------------------------------------
 - Downgraded npm-check.
