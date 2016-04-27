@@ -103,6 +103,7 @@ builder.setup (err) ->
   list = fs.findSync __dirname + '/command',
     type: 'f'
   for file in list
+    continue unless file.match /\.(coffee|js)$/
     name = path.basename file, path.extname file
     lib = require file
     yargs.command name, lib.title, command name, file
