@@ -45,11 +45,12 @@ module.exports = (dir, options, cb) ->
             msg += "- #{chalk.yellow line.trim()}\n"
             if match = line.match /to go (from .*)/
               msg = msg.replace /(\s*http.*)?\n.*?$/, " #{chalk.grey match[1]}\n"
-            if line.match /UPDATE!/
+            if line.match /UPDATE!|MAJOR UP/
               upgrade = true
           else if line.match /npm install/
             line = line.replace /(npm install.*)@.* to go (from.*)/, chalk.underline('$1')+' ($2)'
             msg += "  #{chalk.grey line}\n"
       return cb err, '' if msg.split(/\n/).length < 3
+      console.log upgrade
       msg += chalk.grey "To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u\n" if upgrade
       cb null, msg

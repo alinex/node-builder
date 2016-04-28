@@ -56,7 +56,7 @@ exports.noisy = (dir, options, message) ->
 
 exports.dirs = (options, fn, cb) ->
   # check for directories
-  list = options._[2..]
+  list = options._[1..]
   list.push process.cwd() unless list.length
   list = list.map (e) -> path.resolve e
   # execute
@@ -80,7 +80,7 @@ exports.task = (task, dir, options, cb) ->
 
 exports.exec = (dir, options, type, exec, cb) ->
   exports.debug dir, options, "#{type}"
-  exports.debug dir, options, "> #{exec.cmd} #{exec.options.join ' '}"
+  exports.debug dir, options, "> #{exec.cmd} #{exec.args.join ' '}"
   Exec.run exec, (err, proc) ->
     if proc.stdout() and options.verbose > 2
       console.log()
