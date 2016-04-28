@@ -56,13 +56,13 @@ exports.noisy = (dir, options, message) ->
 
 exports.dirs = (options, fn, cb) ->
   # check for directories
-  list = options._[1..]
+  list = options._[2..]
   list.push process.cwd() unless list.length
   list = list.map (e) -> path.resolve e
   # execute
   problems = []
   async.eachLimit list, 3, (dir, cb) ->
-    exports.info dir, options, 'started'
+    exports.info dir, options, "started in #{dir}"
     fn dir, options, (err) ->
       exports.info dir, options, 'done'
       problems.push "#{path.basename dir}: #{err.message}" if err

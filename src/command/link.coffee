@@ -58,7 +58,7 @@ exports.handler = (options, cb) ->
     # link specified
     link = path.resolve "#{dir}/node_modules/", options.link
     local = if options.local
-      path.resolve "#{dir}/../", options.local
+      path.resolve dir, options.local
     else
       name = path.basename(options.link).split '-'
       name = if name.length is 2 and name[0] is 'alinex'
