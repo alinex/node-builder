@@ -59,7 +59,7 @@ command = (name, file) ->
       """
   handler: (args) ->
     builder.command name, lib, args, (err) ->
-      alinex.exit 1, err if err
+      alinex.exit err if err
       alinex.exit 0
     return true
 
@@ -136,10 +136,4 @@ builder.setup (err) ->
   chalk.enabled = false if args.nocolors
 
   unless args._.length
-    # generall command
-    unless args.update
-      alinex.exit 2, new Error "Nothing to do specify --help for available options"
-    console.log "Updating scripts..."
-    # update scripts
-    require('./update') (err) ->
-      alinex.exit 1, err if err
+    alinex.exit 2, new Error "Nothing to do specify --help for available options"
