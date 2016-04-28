@@ -51,6 +51,5 @@ module.exports = (dir, options, cb) ->
             line = line.replace /(npm install.*)@.* to go (from.*)/, chalk.underline('$1')+' ($2)'
             msg += "  #{chalk.grey line}\n"
       return cb err, '' if msg.split(/\n/).length < 3
-      console.log upgrade
       msg += chalk.grey "To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u\n" if upgrade
       cb null, msg
