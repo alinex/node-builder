@@ -9,6 +9,7 @@
 chalk = require 'chalk'
 path = require 'path'
 inquirer = require 'inquirer'
+request = require 'request'
 # include alinex modules
 async = require 'alinex-async'
 fs = require 'alinex-fs'
@@ -37,15 +38,15 @@ exports.handler = (options, cb) ->
     err.exit = 2
     return cb err
   builder.info dir, options, "started on #{dir}"
-  ask dir, options, (err, answer) ->
+  ask dir, options, (err, data) ->
     return cb err if err
-    console.log answer
-    console.log 'lllllllllllllllllll'
+    util.extend options, data
     async.series [
       (cb) -> createDir dir, options, cb
-#      (cb) -> initGit dir, options, cb
-#      (cb) -> createNodePackage dir, options, cb
-#      (cb) -> initGitHub dir, options, cb
+      (cb) -> initGit dir, options, cb
+      (cb) -> createNodePackage dir, options, cb
+      (cb) -> updatePackageJson dir, options, cb
+      (cb) -> initGitHub dir, options, cb
   #    (cb) -> createTravis dir, options, cb
   #    (cb) -> createReadme dir, options, cb
   #    (cb) -> createChangelog dir, options, cb
@@ -62,6 +63,7 @@ ask = (dir, options, cb) ->
   builder.info dir, options, "get information"
   # check system
   async.parallel
+    hasDir: (cb) -> fs.exists dir, (exists) -> cb null, exists
     hasGit: (cb) -> fs.exists "#{dir}/.git", (exists) -> cb null, exists
     hasPack: (cb) -> fs.exists "#{dir}/package.json", (exists) -> cb null, exists
     pack: (cb) -> builder.task 'packageJson', dir, options, (err, pack) -> cb null, pack
@@ -77,242 +79,185 @@ ask = (dir, options, cb) ->
       message: "Give a package name like alinex-...:"
       when: -> not system.pack.name
     ,
+      type: 'input'
+      name: 'description'
+      message: "Give a short description:"
+      when: -> not system.pack.description
+    ,
+      type: 'confirm'
+      name: 'private'
+      message: "Should this be kept private?"
+      default: false
+      when: -> not system.pack.private?
+    ,
       type: 'confirm'
       name: 'initGit'
       message: "Should a git repository be initialized?"
       when: -> not system.hasGit
     ,
       type: 'confirm'
-      name: 'github'
+      name: 'initGithub'
       message: "Should a github repository be used?"
-      when: (answer) -> answer.initGit
+      when: (answer) -> answer.initGit and not (system.pack.private or answer.private)
+    ,
+      type: 'input'
+      name: 'user'
+      message: "Your github username:"
+      default: 'alinex'
+      when: (answer) -> answer.initGithub
+    ,
+      type: 'password'
+      name: 'password'
+      message: "Your password for github:"
+      when: (answer) -> answer.initGithub
     ]
     .then (answer) ->
+      answer.pack = name: answer.name
+      delete answer.name
       console.log()
-      console.log '-----'
       cb null, util.extend system, answer
 
 # add bottombar
 
 createDir = (dir, options, cb) ->
+  return cb() if options.hasDir
   builder.info dir, options, "create folder if neccessary"
   fs.mkdirs dir, (err) -> cb err
 
 # ### Create initial git repository
 # It will set the `options.git` variable to the local uri
 initGit = (dir, options, cb) ->
-  fs.exists "#{dir}/.git", (exists) ->
-    if exists
-      data.git = true
-      return cb()
-    console.log()
-    inquirer.prompt [
-      type: 'confirm'
-      name: 'git'
-      message: "Should a git repository be initialized?"
-    ]
-    .then (answer) ->
-      util.extend data, answer
-      console.log()
-      return cb() unless answer.git
-      builder.exec dir, options, "init git",
-        cmd: 'git'
-        args: ['init']
-        cwd: dir
-      , (err) ->
+  return cb() unless options.initGit
+  builder.info dir, options, "initialize git"
+  builder.exec dir, options, "git init",
+    cmd: 'git'
+    args: ['init']
+    cwd: dir
+  , (err) ->
+    return cb err if err
+    async.filter [
+      path.resolve __dirname, '../../var/src/template/git'
+      path.resolve __dirname, '../../var/local/template/git'
+    ], fs.exists, (files) ->
+      return cb() unless files.length
+      async.each files, (file, cb) ->
+        builder.debug dir, options, "copy template from #{file}"
+        fs.copy file, path.join(dir),
+          overwrite: true
+        , cb
+      , cb
+    , cb
+
+createNodePackage = (dir, options, cb) ->
+  return cb() if options.hasPack
+  builder.info dir, options, "create node package"
+  async.filter [
+    path.resolve __dirname, '../../var/src/template/node'
+    path.resolve __dirname, '../../var/local/template/node'
+  ], fs.exists, (files) ->
+    return cb() unless files.length
+    async.each files, (file, cb) ->
+      builder.debug dir, options, "copy template from #{file}"
+      fs.copy file, path.join(dir),
+        overwrite: true
+      , cb
+    , (err) ->
+      return cb err if err
+      fs.find dir,
+        type: 'file'
+        exclude: '**/.git/**'
+      , (err, list) ->
         return cb err if err
-        async.filter [
-          path.resolve __dirname, '../../var/src/template/git'
-          path.resolve __dirname, '../../var/local/template/git'
-        ], fs.exists, (files) ->
-          return cb() unless files.length
-          async.each files, (file, cb) ->
-            builder.debug dir, options, "copy template from #{file}"
-            fs.copy file, path.join(dir),
-              overwrite: true
-            , cb
-          , cb
+        async.each list, (file, cb) ->
+          # read, replace
+          builder.noisy dir, options, "replace variables in #{file}"
+          fs.readFile file, 'utf8', (err, content) ->
+            content = content.replace /###<year>###/g, (new Date()).getFullYear()
+            content = content.replace /###<pack>###/g, options.pack.name
+            content = content.replace /###<user>###/g, options.user
+            content = content.replace /###<username>###/g, options.username
+            content = content.replace /###<dirname>###/g, path.basename dir
+            content = content.replace /###<title>###/g,
+            options.pack.name.split(/-/).map((e) -> util.string.ucFirst e). join ' '
+            fs.writeFile file, content, 'utf8', cb
         , cb
 
-# ### Create new package.json
-createNodePackage = (dir, options, cb) ->
-  fs.exists "#{dir}/package.json", (exists) ->
-    if exists
-      builder.task 'packageJson', dir, options, (err, pack) ->
-        data.pack = pack
-        return cb err
-    builder.debug dir, options, "create node package"
-
-
-    pack =
-      name: options.package
-      version: '0.0.0'
-      description: ''
-      copyright: "#{PKG.author?.name ? ''} #{(new Date()).getFullYear()}"
-      private: options.private ? false
-      keywords: []
-      homepage: if options.github then "http://#{gituser}.github.io/#{gitname}/" else ""
-      repository:
-        type: 'git'
-        url: options.github ? options.git
-      bugs: if options.github then "#{options.github}/issues" else ""
-      author: PKG.author
-      contributors: []
-      license: PKG.license
-      main: './lib/index.js'
-      scripts:
-        prepublish: "node_modules/.bin/builder -c compile --uglify"
-        test: "node_modules/.bin/builder -c test"
-      directories:
-        lib: './lib'
-      dependencies: {}
-      devDependencies:
-        "alinex-builder": "1.x"
-        "chai": "2.x"
-      optionalDependencies: {}
-      engines: PKG.engines
-      os: []
-
-test = ->
-  gitname = path.basename dir
-  gituser = path.basename path.dirname options.github
-  pack =
-    name: options.package
-    version: '0.0.0'
-    description: ''
-    copyright: "#{PKG.author?.name ? ''} #{(new Date()).getFullYear()}"
-    private: options.private ? false
-    keywords: []
-    homepage: if options.github then "http://#{gituser}.github.io/#{gitname}/" else ""
-    repository:
-      type: 'git'
-      url: options.github ? options.git
-    bugs: if options.github then "#{options.github}/issues" else ""
-    author: PKG.author
-    contributors: []
-    license: PKG.license
-    main: './lib/index.js'
-    scripts:
-      prepublish: "node_modules/.bin/builder -c compile --uglify"
-      test: "node_modules/.bin/builder -c test"
-    directories:
-      lib: './lib'
-    dependencies: {}
-    devDependencies:
-      "alinex-builder": "1.x"
-      "chai": "2.x"
-    optionalDependencies: {}
-    engines: PKG.engines
-    os: []
-  fs.writeFile file, JSON.stringify(pack, null, 2), cb
+updatePackageJson = (dir, options, cb) ->
+  return cb() if options.hasPack
+  builder.info dir, options, "update package.json"
+  return cb()
+  setup =
+    description: options.description
+    copyright: "#{options.user} #{(new Date()).getFullYear()}"
+  setup.private = options.private if options.private?
+  setup.homepage = "http://#{options.user}.github.io/#{path.basename dir}/" if options.initGithub
+  setup.repository = {}
+  if options.hasGit or options.initGit
+    setup.repository.type = 'git'
+    setup.repository.url = if options.initGithub
+      "https://github.com/#{options.user}/#{path.basename dir}"
+    else
+      "file://#{dir}"
+    setup.bugs = "https://#{options.user}.github.io/#{path.basename dir}/issues" if options.initGithub
+  util.extend options.pack, setup
+  cb()
 
 
 
 # ### Create new GitHub repository if not existing
 # It will set the `options.github` variable
 initGitHub = (dir, options, cb) ->
-  return cb() unless data.git
-  console.log()
-  inquirer.prompt [
-    type: 'confirm'
-    name: 'git'
-    message: "Should a git repository be initialized?"
-  ]
-
-  return cb() if options.private
-  # check for existing package with github url
-  if options.verbose
-    console.log chalk.grey "Check for configured git"
-  file = path.join dir, 'package.json'
-  if fs.existsSync file
-    try
-      pack = JSON.parse fs.readFileSync file
-    catch error
-      return cb new Error "Could not load #{file} as valid JSON: #{error.message}"
-    unless pack.repository.type is 'git'
-      console.out chalk.yellow "Only git repositories can be added to github."
-      return cb()
-    console.log pack.repository.url
-    console.log ~pack.repository.url.indexOf 'github.com/'
-    if ~pack.repository.url.indexOf 'github.com/'
-      options.github = pack.repository.url
-      return cb()
-  # check for other remote origin
-  debug "exec #{dir}> git remote show origin"
-  execFile "git", ['remote', 'show', 'origin'], {cwd: dir}, (err, stdout) ->
+  return cb() unless options.initGithub
+  builder.info dir, options, "initialize github"
+  builder.exec dir, options, "git remote",
+    cmd: 'git'
+    args: ['remote', 'show', 'origin']
+    cwd: dir
+  , (err) ->
     unless err
-      console.log chalk.grey stdout.trim() if stdout and options.verbose
-      console.log "Skipped GitHub because other origin exists already"
+      console.warn chalk.magenta "Skipped GitHub because other origin exists already"
       return cb()
-    # create github repository
-    prompt.get
-      message: "Should a github repository be initialized?"
-      validator: /y[es]*|n[o]?/,
-      warning: 'You must respond with yes or no',
-      default: 'yes'
-    , (err, input) ->
-      console.log input
-      return cb err if err or input.question isnt 'yes'
-      console.log "Init new git repository"
-      prompt.get [{
-        message: "GitHub username:"
-        name: 'username'
-        required: true
-        default: 'alinex'
-      }, {
-        message: "Password for GitHub login:"
-        name: 'password'
-        hidden: true
-        required: true
-      }, {
-        message: "Give a short description of this module."
-        name: 'description'
-        required: true
-      }], (err, input) ->
-        gitname = path.basename dir
-        options.github = "https://github.com/#{input.username}/#{gitname}"
+      builder.detail dir, options, "check github repository"
+      builder.noisy dir, options, "GET https://api.github.com/user/repos"
+      request {
+        uri: "https://api.github.com/repos/#{options.user}/#{path.basename dir}"
+        auth:
+          user: options.user
+          pass: options.password
+        headers:
+          'User-Agent': options.user
+      }, (err, response) ->
+        return cb err if err
+        answer = JSON.parse response.body
+        unless answer.message?
+          return cb new Error 'No response from github'
+        unless answer.message is 'Not Found'
+          return cb new Error answer.message
+        builder.detail dir, options, "create github repository"
+        builder.noisy dir, options, "POST https://api.github.com/user/repos"
         request {
-          uri: "https://api.github.com/repos/#{input.username}/#{gitname}"
+          uri: "https://api.github.com/user/repos"
           auth:
-            user: input.username
-            pass: input.password
+            user: options.user
+            pass: options.password
           headers:
-            'User-Agent': input.username
+            'User-Agent': options.user
+          method: 'POST'
+          body: JSON.stringify
+            name: path.basename dir
+            description: options.description
+            homepage: "http://#{options.user}.github.io/#{path.basename dir}"
+            private: false
+            has_issues: true
+            has_wiki: false
+            has_downloads: true
         }, (err, response) ->
           return cb err if err
-          answer = JSON.parse response.body
-          unless answer.message?
-            return cb()
-          unless answer.message is 'Not Found'
-            return cb answer.message
-          console.log "Create new GitHub repository"
-          debug "POST https://api.github.com/user/repos"
-          request {
-            uri: "https://api.github.com/user/repos"
-            auth:
-              user: input.username
-              pass: input.password
-            headers:
-              'User-Agent': input.username
-            method: 'POST'
-            body: JSON.stringify
-              name: gitname
-              description: input.description
-              homepage: "http://#{input.username}.github.io/#{gitname}"
-              private: false
-              has_issues: true
-              has_wiki: false
-              has_downloads: true
-          }, (err, response) ->
-            return cb err if err
-            unless response?.statusCode is 201
-              return cb "GitHub status was #{response.statusCode} in try to create repository"
-            console.log "Connect with GitHub repository"
-            debug "exec #{dir}> git remote add origin #{options.github}"
-            execFile "git", [
-              'remote'
-              'add', 'origin', options.github
-            ], {cwd: dir}, (err, stdout, stderr) ->
-              console.log chalk.grey stdout.trim() if stdout and options.verbose
-              console.error chalk.magenta stderr.trim() if stderr
-              cb err
+          unless response?.statusCode is 201
+            return cb new Error "GitHub status was #{response.statusCode} in try to create repository"
+          builder.detail dir, options, "set github as origin"
+          builder.exec dir, options, 'git remote add',
+            cmd: 'git'
+            args: ['remote', 'add', 'origin', "https://github.com/#{options.user}/#{path.basename dir}"]
+            cwd: dir
+          , cb
