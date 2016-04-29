@@ -24,7 +24,7 @@ Pull the newest changes from the origin repository.
 exports.options =
   bail:
     alias: 'b'
-    type: 'string'
+    type: 'boolean'
     describe: 'stop on first error in unit tests'
   coverage:
     type: 'boolean'
