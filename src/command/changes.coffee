@@ -58,10 +58,7 @@ git = (dir, options, cb) ->
     async.parallel [
       (cb) -> gitChanges dir, options, cb
       (cb) -> gitStatus dir, options, cb
-    ], (err, results) ->
-      return cb err if err
-      cb null, results.join ''
-
+    ], cb
 
 gitChanges = (dir, options, cb) ->
   builder.info dir, options, "check git commits"
