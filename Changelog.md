@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.2 (2016-04-29)
+-------------------------------------------------
+Small internal optimizations.
+
+- Upgrades sass, docker and alinex-core packages.
+- Replace alinex-async with async v2.
+
 Version 2.0.1 (2016-04-29)
 -------------------------------------------------
 Some fixes and added the create task.
