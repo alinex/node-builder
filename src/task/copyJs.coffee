@@ -7,10 +7,9 @@
 
 # node packages
 path = require 'path'
-coffee = require 'coffee-script'
+async = require 'async'
 # alinex packages
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # internal mhelper modules
 builder = require '../index'
 

@@ -8,8 +8,8 @@
 # include base modules
 chalk = require 'chalk'
 path = require 'path'
+async = require 'async'
 # include alinex modules
-async = require 'alinex-async'
 fs = require 'alinex-fs'
 # internal mhelper modules
 builder = require '../index'
@@ -40,12 +40,25 @@ exports.options =
 exports.handler = (options, cb) ->
   # step over directories
   builder.dirs options, (dir, options, cb) ->
-    async.parallel [
-      (cb) -> git dir, options, cb
-      (cb) -> builder.task 'npmChanges', dir, options, cb
-    ], (err, results) ->
-      builder.results dir, options, "Results for #{path.basename dir}", results
-      cb err
+    fs.exists "#{dir}/src", (exists) ->
+      return cb() unless exists
+      # remove old lib dir
+      builder.debug dir, options, "remove lib"
+      fs.remove "#{dir}/lib", (err) ->
+        return cb err if err
+        # compile
+        async.parallel [
+          (cb) -> builder.task 'compileCoffee', dir, options, cb
+          (cb) -> builder.task 'copyJs', dir, options, cb
+          (cb) -> builder.task 'compileMan', dir, options, cb
+        ], (err) ->
+          return cb err if err
+          async.parallel [
+            (cb) -> git dir, options, cb
+            (cb) -> builder.task 'npmChanges', dir, options, cb
+          ], (err, results) ->
+            builder.results dir, options, "Results for #{path.basename dir}", results
+            cb err
   , cb
 
 

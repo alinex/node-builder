@@ -7,9 +7,9 @@
 
 # node modules
 path = require 'path'
+async = require 'async'
 # alinex modules
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # internal mhelper modules
 builder = require '../index'
 

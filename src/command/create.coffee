@@ -10,8 +10,8 @@ chalk = require 'chalk'
 path = require 'path'
 inquirer = require 'inquirer'
 request = require 'request'
+async = require 'async'
 # include alinex modules
-async = require 'alinex-async'
 fs = require 'alinex-fs'
 util = require 'alinex-util'
 # internal mhelper modules
@@ -138,7 +138,10 @@ initGit = (dir, options, cb) ->
     async.filter [
       path.resolve __dirname, '../../var/src/template/git'
       path.resolve __dirname, '../../var/local/template/git'
-    ], fs.exists, (files) ->
+    ], (file, cb) ->
+      fs.exists file, (exists) -> cb null, exists
+    , (err, files) ->
+      return cb err if err
       return cb() unless files.length
       async.each files, (file, cb) ->
         builder.debug dir, options, "copy template from #{file}"
@@ -154,7 +157,10 @@ createNodePackage = (dir, options, cb) ->
   async.filter [
     path.resolve __dirname, '../../var/src/template/node'
     path.resolve __dirname, '../../var/local/template/node'
-  ], fs.exists, (files) ->
+  ], (file, cb) ->
+    fs.exists file, (exists) -> cb null, exists
+  , (err, files) ->
+    return cb err if err
     return cb() unless files.length
     async.each files, (file, cb) ->
       builder.debug dir, options, "copy template from #{file}"

@@ -7,9 +7,9 @@
 
 # node packages
 path = require 'path'
+async = require 'async'
 # alinex packages
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # internal mhelper modules
 builder = require '../index'
 
@@ -188,7 +188,10 @@ copyCss = (dir, options, pack, cb) ->
   async.filter [
     path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
     path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
-  ], fs.exists, (files) ->
+  ], (file, cb) ->
+    fs.exists file, (exists) -> cb null, exists
+  , (err, files) ->
+    return cb err if err
     return cb() unless files.length
     fs.copy files[0], path.join(dir, 'doc', 'doc-style.css'),
       overwrite: true
@@ -198,7 +201,9 @@ copyJs = (dir, options, pack, cb) ->
   async.filter [
     path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
     path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
-  ], fs.exists, (files) ->
+  ], (file, cb) ->
+    fs.exists file, (exists) -> cb null, exists
+  , (err, files) ->
     return cb() unless files.length
     fs.copy files[0], path.join(dir, 'doc', 'doc-script.js'),
       overwrite: true

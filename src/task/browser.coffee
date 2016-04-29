@@ -7,7 +7,6 @@
 
 # node packages
 path = require 'path'
-{exec} = require 'child_process'
 # internal mhelper modules
 builder = require '../index'
 

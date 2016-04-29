@@ -8,7 +8,6 @@
 # node packages
 path = require 'path'
 chalk = require 'chalk'
-{exec} = require 'child_process'
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules

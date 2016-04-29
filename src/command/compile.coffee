@@ -5,9 +5,10 @@
 # Node modules
 # -------------------------------------------------
 
+# node packages
+async = require 'async'
 # include alinex modules
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # internal modules
 builder = require '../index'
 

@@ -7,10 +7,10 @@
 
 # node packages
 path = require 'path'
+async = require 'async'
 # use marked-man binary
 # alinex packages
 fs = require 'alinex-fs'
-async = require 'alinex-async'
 # internal mhelper modules
 builder = require '../index'
 

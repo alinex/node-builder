@@ -8,8 +8,8 @@
 # include base modules
 path = require 'path'
 chalk = require 'chalk'
+async = require 'async'
 # include alinex modules
-async = require 'alinex-async'
 config = require 'alinex-config'
 Exec = require 'alinex-exec'
 
