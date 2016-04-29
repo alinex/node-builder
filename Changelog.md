@@ -4,6 +4,24 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.1 (2016-04-29)
+-------------------------------------------------
+Some fixes and added the create task.
+
+- Let the join of changes command output be done in the end.
+- Finished create command.
+- Create node package from template and github repository.
+- Added basic interactive mode for create command.
+- Fixed change detection to also add link on major updates.
+- Made exit code optional.
+- Fix link command to work properly.
+- Update man page.
+- Rename args to options to be consistent.
+- Add ability to make a try run in  publishing.
+- Add retries for all processes with external ressources.
+- Use current directory iff nothing given.
+- Update man page and examples.
+
 Version 2.0.0 (2016-04-27)
 -------------------------------------------------
 - Fixed comands in compiled version.
