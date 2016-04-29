@@ -48,7 +48,6 @@ module.exports = (dir, options, cb) ->
         args.push '-c' # colors
         args.push '--recursive'
         args.push '--bail' if options.bail
-        console.log options
         args.push 'test/mocha'
         builder.exec dir, options, 'mocha tests',
           cmd: cmd

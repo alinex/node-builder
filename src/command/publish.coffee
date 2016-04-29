@@ -24,6 +24,10 @@ Build and publish package to npm.
 """
 
 exports.options =
+  message:
+    alias: 'm'
+    type: 'string'
+    describe: 'Commit message for local changes'
   major:
     type: 'boolean'
     describe: 'release next major version'
@@ -64,6 +68,7 @@ exports.handler = (options, cb) ->
               async.series [
                 (cb) -> builder.task 'gitCommitAll', dir, options, cb
                 (cb) -> builder.task 'gitPush', dir, options, cb
+                (cb) -> builder.task 'npmChanges', dir, options, cb
               ], cb
             (cb) -> builder.task 'lintCoffee', dir, options, cb
             (cb) ->
@@ -71,7 +76,6 @@ exports.handler = (options, cb) ->
                 (cb) -> builder.task 'testCheck', dir, options, cb
                 (cb) -> builder.task 'testMocha', dir, options, (err) -> cb err
               ], cb
-            (cb) -> builder.task 'npmChanges', dir, options, cb
           ], (err, results) ->
             return cb err if err
             if resultsJoin(results).trim() and not options.force
