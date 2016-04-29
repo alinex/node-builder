@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.3 (2016-04-29)
+-------------------------------------------------
+- Run push in publich before changes.
+- Fix bail option to work in test command.
+- Output problems in test command.
+
 Version 2.0.2 (2016-04-29)
 -------------------------------------------------
 Small internal optimizations.
