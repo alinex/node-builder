@@ -41,16 +41,15 @@ exports.handler = (options, cb) ->
   ask dir, options, (err, data) ->
     return cb err if err
     util.extend options, data
+    options.message = "Initial setup of new project"
     async.series [
       (cb) -> createDir dir, options, cb
       (cb) -> initGit dir, options, cb
       (cb) -> createNodePackage dir, options, cb
       (cb) -> updatePackageJson dir, options, cb
       (cb) -> initGitHub dir, options, cb
-  #    (cb) -> createTravis dir, options, cb
-  #    (cb) -> createReadme dir, options, cb
-  #    (cb) -> createChangelog dir, options, cb
-  #    (cb) -> initialCommit dir, options, cb
+      (cb) -> builder.task 'gitCommitAll', dir, options, cb
+      (cb) -> builder.task 'gitPush', dir, options, cb
     ], (err, results) ->
       builder.results dir, options, "Results for #{path.basename dir}", results
       builder.info dir, options, 'done'
@@ -112,7 +111,8 @@ ask = (dir, options, cb) ->
       when: (answer) -> answer.initGithub
     ]
     .then (answer) ->
-      answer.pack = name: answer.name
+      answer.pack =
+        name: answer.name
       delete answer.name
       console.log()
       cb null, util.extend system, answer
@@ -198,11 +198,10 @@ updatePackageJson = (dir, options, cb) ->
       "https://github.com/#{options.user}/#{path.basename dir}"
     else
       "file://#{dir}"
-    setup.bugs = "https://#{options.user}.github.io/#{path.basename dir}/issues" if options.initGithub
+    if options.initGithub
+      setup.bugs = "https://#{options.user}.github.io/#{path.basename dir}/issues"
   util.extend options.pack, setup
   cb()
-
-
 
 # ### Create new GitHub repository if not existing
 # It will set the `options.github` variable
@@ -254,10 +253,14 @@ initGitHub = (dir, options, cb) ->
         }, (err, response) ->
           return cb err if err
           unless response?.statusCode is 201
-            return cb new Error "GitHub status was #{response.statusCode} in try to create repository"
+            return cb new Error "GitHub status was #{response.statusCode} in try
+            to create repository"
           builder.detail dir, options, "set github as origin"
           builder.exec dir, options, 'git remote add',
             cmd: 'git'
-            args: ['remote', 'add', 'origin', "https://github.com/#{options.user}/#{path.basename dir}"]
+            args: [
+              'remote', 'add'
+              'origin', "https://github.com/#{options.user}/#{path.basename dir}"
+            ]
             cwd: dir
           , cb

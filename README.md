@@ -192,8 +192,7 @@ name, too.
 Some example calls will look like:
 
 ``` sh
-builder ./node-error create --package alinex-error
-builder ./private-module create --private
+builder create ../node-test
 ```
 
 This process is interactive and will ask you some more details. After that you
