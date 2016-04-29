@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/command/link.coffee";
+    var thisFile = "src/command/link.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -104,7 +104,8 @@ Node modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -117,8 +118,7 @@ Node modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
         </td>
       </tr>
     
@@ -231,7 +231,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         <td class="code highlight">
           <pre class="coffeescript">    link = path.resolve <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/node_modules/"</span>, options.link
     local = <span class="hljs-keyword">if</span> options.local
-      path.resolve <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/../"</span>, options.local
+      path.resolve dir, options.local
     <span class="hljs-keyword">else</span>
       name = path.basename(options.link).split <span class="hljs-string">'-'</span>
       name = <span class="hljs-keyword">if</span> name.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span> <span class="hljs-keyword">and</span> name[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'alinex'</span>

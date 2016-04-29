@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/command/compile.coffee";
+    var thisFile = "src/command/compile.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -100,12 +100,11 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>include alinex modules</p>
+<p>node packages</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -113,6 +112,19 @@ async = <span class="hljs-built_in">require</span> <span class="hljs-string">'al
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
 <p>internal modules</p>
 
@@ -166,7 +178,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-7" id="section-7"></a>
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
 <p>step over directories</p>
 
@@ -184,30 +196,13 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8"></a>
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
 <p>check for existing source files</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    (cb) -&gt;
-      fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/src"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
-        <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No source files found"</span> <span class="hljs-keyword">unless</span> exists</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9"></a>
-</div>
-<p>remove old lib dir</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">        builder.debug dir, options, <span class="hljs-string">"remove lib"</span>
-        fs.remove <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/lib"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
+          <pre class="coffeescript">    (cb) -&gt; builder.task <span class="hljs-string">'compile'</span>, dir, options, cb</pre>
         </td>
       </tr>
     
@@ -215,23 +210,6 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         <td class="docs">
           <div class="pilwrap">
   <a class="pilcrow" href="#section-10" id="section-10"></a>
-</div>
-<p>compile</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">          async.parallel [
-            (cb) -&gt; builder.task <span class="hljs-string">'compileCoffee'</span>, dir, options, cb
-            (cb) -&gt; builder.task <span class="hljs-string">'copyJs'</span>, dir, options, cb
-            (cb) -&gt; builder.task <span class="hljs-string">'compileMan'</span>, dir, options, cb
-          ], cb</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
 <p>check for linked libraries</p>
 

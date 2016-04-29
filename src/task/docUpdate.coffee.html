@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/task/docUpdate.coffee";
+    var thisFile = "src/task/docUpdate.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -104,7 +104,8 @@ Node modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -117,8 +118,7 @@ Node modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
         </td>
       </tr>
     
@@ -351,7 +351,10 @@ Helper
   async.filter [
     path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
     path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
-  ], fs.exists, <span class="hljs-function"><span class="hljs-params">(files)</span> -&gt;</span>
+  ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+    fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+  , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-style.css'</span>),
       <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
@@ -361,7 +364,9 @@ Helper
   async.filter [
     path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
     path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
-  ], fs.exists, <span class="hljs-function"><span class="hljs-params">(files)</span> -&gt;</span>
+  ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+    fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+  , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-script.js'</span>),
       <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>

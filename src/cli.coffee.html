@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-builder/src/cli.coffee";
+    var thisFile = "src/cli.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -250,7 +250,7 @@ Command Setup
       """</span>
   <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span>
     builder.command name, lib, args, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      alinex.exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err
+      alinex.exit err <span class="hljs-keyword">if</span> err
       alinex.exit <span class="hljs-number">0</span>
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
         </td>
@@ -300,8 +300,10 @@ builder.setup (err) -&gt;
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  .example <span class="hljs-string">'$0 --update'</span>, <span class="hljs-string">'to initialize and update the scripts'</span>
-  .example <span class="hljs-string">'$0 &lt;command&gt;'</span>, <span class="hljs-string">'to simply run the command script'</span></pre>
+          <pre class="coffeescript">  .example <span class="hljs-string">'$0 test -vb'</span>, <span class="hljs-string">'to run the tests till first failure'</span>
+  .example <span class="hljs-string">'$0 test -v --coverage --browser'</span>, <span class="hljs-string">'to run all the tests and also show coverage info'</span>
+  .example <span class="hljs-string">'$0 changes'</span>, <span class="hljs-string">'show overview of changes'</span>
+  .example <span class="hljs-string">'$0 publish --minor'</span>, <span class="hljs-string">'to publish on npm new minor version'</span></pre>
         </td>
       </tr>
     
@@ -422,36 +424,8 @@ builder.setup (err) -&gt;
         <td class="code highlight">
           <pre class="coffeescript">  chalk.enabled = <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> args.nocolors
 
-  <span class="hljs-keyword">unless</span> args._.length</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-21" id="section-21"></a>
-</div>
-<p>generall command</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-keyword">unless</span> args.update
-      alinex.exit <span class="hljs-number">2</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Nothing to do specify --help for available options"</span>
-    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Updating scripts..."</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-22" id="section-22"></a>
-</div>
-<p>update scripts</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    <span class="hljs-built_in">require</span>(<span class="hljs-string">'./update'</span>) (err) -&gt;
-      alinex.exit <span class="hljs-number">1</span>, err <span class="hljs-keyword">if</span> err</pre>
+  <span class="hljs-keyword">unless</span> args._.length
+    alinex.exit <span class="hljs-number">2</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Nothing to do specify --help for available options"</span></pre>
         </td>
       </tr>
     

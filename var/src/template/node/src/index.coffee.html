@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>gitPull.coffee</title>
+  <title>index.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../../doc-style.css" />
-  <script src="../../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
+  <script src="../../../../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../";
-    var thisFile = "src/task/gitPull.coffee";
+    var relativeDir = "../../../../../";
+    var thisFile = "var/src/template/node/src/index.coffee";
     var defaultSidebar = true;
   </script>
-  <script src="../../doc-script.js"></script>
+  <script src="../../../../../doc-script.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
 <body>
@@ -41,15 +41,15 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#test-script">Test Script</a>
+        <a href="#main-controlling-class">Main controlling class</a>
       </div>
 
       <div class="heading h2">
-        <a href="#node-modules">Node modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
 
       <div class="heading h2">
-        <a href="#pull-newest-git-changes">Pull newest git changes</a>
+        <a href="#initialize">Initialize</a>
       </div>
 
     </div>
@@ -63,10 +63,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="test-script">
+          <div class="pilwrap" id="main-controlling-class">
   <h1>
-    <a href="#test-script" name="test-script" class="pilcrow"></a>
-Test Script
+    <a href="#main-controlling-class" name="main-controlling-class" class="pilcrow"></a>
+Main controlling class
   </h1>
 </div>
 
@@ -81,7 +81,7 @@ Test Script
           <div class="pilwrap" id="node-modules">
   <h2>
     <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node modules
+Node Modules
   </h2>
 </div>
 
@@ -96,50 +96,40 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>internal mhelper modules</p>
+<p>include base modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="pull-newest-git-changes">
-  <h2>
-    <a href="#pull-newest-git-changes" name="pull-newest-git-changes" class="pilcrow"></a>
-Pull newest git changes
-  </h2>
-</div>
-<p><em>Arguments:</em></p>
-<ul>
-<li><code>verbose</code> - (integer) verbose level</li>
-</ul>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  builder.info dir, options, <span class="hljs-string">"pull from git origin"</span></pre>
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'### name ###'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5"></a>
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
-<p>run the pull options</p>
+<p>include alinex modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'git pull'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'pull'</span>, <span class="hljs-string">'-t'</span>, <span class="hljs-string">'-p'</span>, <span class="hljs-string">'origin'</span>, <span class="hljs-string">'master'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
-    <span class="hljs-attribute">retry</span>:
-      <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
-  , cb</pre>
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="initialize">
+  <h2>
+    <a href="#initialize" name="initialize" class="pilcrow"></a>
+Initialize
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.setup = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     

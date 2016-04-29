@@ -7,7 +7,7 @@
   <script src="../doc-filelist.js"></script>
   <script>
     var relativeDir = "../";
-    var thisFile = "home/alex/github/node-builder/src/index.coffee";
+    var thisFile = "src/index.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
@@ -109,7 +109,8 @@ Node Modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -122,8 +123,7 @@ chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'ch
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
+          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
 Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
         </td>
       </tr>
@@ -172,27 +172,27 @@ Output Helper
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.command = <span class="hljs-function"><span class="hljs-params">(name, lib, args, cb)</span> -&gt;</span>
+          <pre class="coffeescript">exports.command = <span class="hljs-function"><span class="hljs-params">(name, lib, options, cb)</span> -&gt;</span>
   <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Run <span class="hljs-subst">#{name}</span> command..."</span>
   <span class="hljs-keyword">if</span> lib.options
     <span class="hljs-keyword">for</span> name, def <span class="hljs-keyword">of</span> lib.options
-      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{def.describe ? name}</span> = <span class="hljs-subst">#{args[name]}</span>"</span> <span class="hljs-keyword">if</span> args[name]
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{def.describe ? name}</span> = <span class="hljs-subst">#{options[name]}</span>"</span> <span class="hljs-keyword">if</span> options[name]
   <span class="hljs-keyword">try</span>
-    lib.handler args, cb
+    lib.handler options, cb
   <span class="hljs-keyword">catch</span> error
     error.description = error.stack.split(<span class="hljs-regexp">/\n/</span>)[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>
     cb error
 
-exports.info = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> args.verbose
+exports.info = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> options.verbose
     <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
 
-exports.debug = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> args.verbose &gt; <span class="hljs-number">1</span>
+exports.debug = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> options.verbose &gt; <span class="hljs-number">1</span>
     <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
 
-exports.noisy = <span class="hljs-function"><span class="hljs-params">(dir, args, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> args.verbose &gt; <span class="hljs-number">2</span>
+exports.noisy = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> options.verbose &gt; <span class="hljs-number">2</span>
     <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span></pre>
         </td>
       </tr>
@@ -209,7 +209,7 @@ Controll flow helper
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-exports.dirs = <span class="hljs-function"><span class="hljs-params">(args, fn, cb)</span> -&gt;</span></pre>
+exports.dirs = <span class="hljs-function"><span class="hljs-params">(options, fn, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -222,8 +222,8 @@ exports.dirs = <span class="hljs-function"><span class="hljs-params">(args, fn, 
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  list = args._[<span class="hljs-number">1.</span>.]
-  list.push path.dirname __dirname <span class="hljs-keyword">unless</span> list.length
+          <pre class="coffeescript">  list = options._[<span class="hljs-number">1.</span>.]
+  list.push process.cwd() <span class="hljs-keyword">unless</span> list.length
   list = list.map (e) -&gt; path.resolve e</pre>
         </td>
       </tr>
@@ -239,35 +239,35 @@ exports.dirs = <span class="hljs-function"><span class="hljs-params">(args, fn, 
         <td class="code highlight">
           <pre class="coffeescript">  problems = []
   async.eachLimit list, <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(dir, cb)</span> -&gt;</span>
-    exports.info dir, args, <span class="hljs-string">'started'</span>
-    fn dir, args, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      exports.info dir, args, <span class="hljs-string">'done'</span>
+    exports.info dir, options, <span class="hljs-string">"started in <span class="hljs-subst">#{dir}</span>"</span>
+    fn dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      exports.info dir, options, <span class="hljs-string">'done'</span>
       problems.push <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
       cb()
   , <span class="hljs-function">-&gt;</span>
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> problems.length
     cb <span class="hljs-keyword">new</span> Error problems.join <span class="hljs-string">'\n'</span>
 
-exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir, args, cb)</span> -&gt;</span>
+exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir, options, cb)</span> -&gt;</span>
   <span class="hljs-keyword">try</span>
     lib = <span class="hljs-built_in">require</span> <span class="hljs-string">"./task/<span class="hljs-subst">#{task}</span>"</span>
-    lib dir, args, cb
+    lib dir, options, cb
   <span class="hljs-keyword">catch</span> error
     cb error
 
-exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, args, type, exec, cb)</span> -&gt;</span>
-  exports.debug dir, args, <span class="hljs-string">"<span class="hljs-subst">#{type}</span>"</span>
-  exports.debug dir, args, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
+exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, options, type, exec, cb)</span> -&gt;</span>
+  exports.debug dir, options, <span class="hljs-string">"<span class="hljs-subst">#{type}</span>"</span>
+  exports.debug dir, options, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
   Exec.run exec, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> args.verbose &gt; <span class="hljs-number">2</span>
+    <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> options.verbose &gt; <span class="hljs-number">2</span>
       <span class="hljs-built_in">console</span>.log()
       <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{type}</span>"</span>
       <span class="hljs-built_in">console</span>.log()
       <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
       <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
       <span class="hljs-built_in">console</span>.log()
-    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> args.verbose &lt; <span class="hljs-number">3</span>
-      exports.results dir, args, type, chalk.magenta proc.stderr()
+    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> options.verbose &lt; <span class="hljs-number">3</span>
+      exports.results dir, options, type, chalk.magenta proc.stderr()
     cb err, proc
 
 exports.results = <span class="hljs-function"><span class="hljs-params">(dir, options, title, results)</span> -&gt;</span>

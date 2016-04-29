@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/task/npmChanges.coffee";
+    var thisFile = "src/task/npmChanges.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -157,6 +157,8 @@ NPM changes
       <span class="hljs-attribute">cmd</span>: cmd
       <span class="hljs-attribute">args</span>: params
       <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">retry</span>:
+        <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
       <span class="hljs-attribute">check</span>:
         <span class="hljs-attribute">exitCode</span>:
           <span class="hljs-attribute">args</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
@@ -170,7 +172,7 @@ NPM changes
             msg += <span class="hljs-string">"- <span class="hljs-subst">#{chalk.yellow line.trim()}</span>\n"</span>
             <span class="hljs-keyword">if</span> match = line.match <span class="hljs-regexp">/to go (from .*)/</span>
               msg = msg.replace <span class="hljs-regexp">/(\s*http.*)?\n.*?$/</span>, <span class="hljs-string">" <span class="hljs-subst">#{chalk.grey match[<span class="hljs-number">1</span>]}</span>\n"</span>
-            <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/UPDATE!/</span>
+            <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/UPDATE!|MAJOR UP/</span>
               upgrade = <span class="hljs-literal">true</span>
           <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/npm install/</span>
             line = line.replace <span class="hljs-regexp">/(npm install.*)@.* to go (from.*)/</span>, chalk.underline(<span class="hljs-string">'$1'</span>)+<span class="hljs-string">' ($2)'</span>

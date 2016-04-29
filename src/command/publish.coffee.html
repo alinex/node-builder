@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/command/publish.coffee";
+    var thisFile = "src/command/publish.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -121,7 +121,8 @@ Node modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span></pre>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -134,8 +135,7 @@ moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'m
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span></pre>
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
         </td>
       </tr>
     
@@ -182,8 +182,11 @@ exports.options =
   <span class="hljs-attribute">release</span>:
     <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
     <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release message'</span>
+  <span class="hljs-attribute">try</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'try if publication is possible'</span>
   <span class="hljs-attribute">force</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'sboolean'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
     <span class="hljs-attribute">describe</span>: <span class="hljs-string">'force publish also on problems'</span></pre>
         </td>
       </tr>
@@ -333,7 +336,9 @@ Helper
 <span class="hljs-title">getVersion</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
   options.oldVersion = pack.version
   builder.info dir, options, <span class="hljs-string">"old version is <span class="hljs-subst">#{options.oldVersion}</span>"</span>
-  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> options.version</pre>
+  <span class="hljs-keyword">if</span> options.version
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Stopped because of try run"</span> <span class="hljs-keyword">if</span> options.<span class="hljs-keyword">try</span>
+    <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -357,6 +362,7 @@ Helper
     version[<span class="hljs-number">2</span>]++
   options.version = version.join <span class="hljs-string">'.'</span>
   builder.info dir, options, <span class="hljs-string">"new version is <span class="hljs-subst">#{options.version}</span>"</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Stopped because of try run"</span> <span class="hljs-keyword">if</span> options.<span class="hljs-keyword">try</span>
   cb()
 <span class="hljs-function">
 <span class="hljs-title">writePackageJson</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>

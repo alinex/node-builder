@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>compileMan.coffee</title>
+  <title>compile.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/compileMan.coffee";
+    var thisFile = "src/task/compile.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -49,7 +49,7 @@
       </div>
 
       <div class="heading h2">
-        <a href="#compile-md-greater-man-page">Compile md -&amp;gt; man page</a>
+        <a href="#compile-coffee-greater-js">Compile coffee -&amp;gt; js</a>
       </div>
 
     </div>
@@ -100,8 +100,7 @@ Node modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
+          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -110,8 +109,7 @@ async = <span class="hljs-built_in">require</span> <span class="hljs-string">'as
           <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
-<p>use marked-man binary
-alinex packages</p>
+<p>alinex packages</p>
 
         </td>
         <td class="code highlight">
@@ -134,20 +132,23 @@ alinex packages</p>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="compile-md-greater-man-page">
+          <div class="pilwrap" id="compile-coffee-greater-js">
   <h2>
-    <a href="#compile-md-greater-man-page" name="compile-md-greater-man-page" class="pilcrow"></a>
-Compile md -&gt; man page
+    <a href="#compile-coffee-greater-js" name="compile-coffee-greater-js" class="pilcrow"></a>
+Compile coffee -&gt; js
   </h2>
 </div>
 <p><em>Arguments:</em></p>
 <ul>
 <li><code>verbose</code> - (integer) verbose level</li>
+<li><code>uglify</code> - (boolean) should uglify be used</li>
 </ul>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/src"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"No source files found"</span> <span class="hljs-keyword">unless</span> exists</pre>
         </td>
       </tr>
     
@@ -156,16 +157,13 @@ Compile md -&gt; man page
           <div class="pilwrap">
   <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
-<p>check for configured man pages</p>
+<p>remove old lib dir</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  builder.task <span class="hljs-string">'packageJson'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> pack.man?
-    builder.info dir, options, <span class="hljs-string">"compile man pages"</span>
-    pack.man = [pack.man] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> pack.man <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-    src = path.join dir, <span class="hljs-string">'src'</span></pre>
+          <pre class="coffeescript">    builder.debug dir, options, <span class="hljs-string">"remove lib"</span>
+    fs.remove <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/lib"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
         </td>
       </tr>
     
@@ -174,40 +172,15 @@ Compile md -&gt; man page
           <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
-<p>create output directory</p>
+<p>compile</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    fs.mkdirs path.join(dir, <span class="hljs-string">'man'</span>), <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-9" id="section-9"></a>
-</div>
-<p>make all manpages</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">      async.each pack.man, <span class="hljs-function"><span class="hljs-params">(name, cb)</span> -&gt;</span>
-        input = <span class="hljs-string">"<span class="hljs-subst">#{src}</span>/<span class="hljs-subst">#{name}</span>.md"</span>
-        fs.exists input, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"The file '<span class="hljs-subst">#{input}</span>' didn't exist"</span> <span class="hljs-keyword">unless</span> exists
-          builder.debug dir, options, <span class="hljs-string">"create <span class="hljs-subst">#{pack.man}</span>"</span>
-          fs.npmbin <span class="hljs-string">'marked-man'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
-            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-            builder.exec dir, options, <span class="hljs-string">'compile into man'</span>,
-              <span class="hljs-attribute">cmd</span>: cmd
-              <span class="hljs-attribute">args</span>: [ input ]
-              <span class="hljs-attribute">cwd</span>: dir
-            , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-              <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-              builder.debug dir, options, <span class="hljs-string">"write into "</span> + path.join(dir, name)
-              fs.writeFile path.join(dir, name), proc.stdout(), cb
-      , cb</pre>
+          <pre class="coffeescript">      async.parallel [
+        (cb) -&gt; builder.task <span class="hljs-string">'compileCoffee'</span>, dir, options, cb
+        (cb) -&gt; builder.task <span class="hljs-string">'copyJs'</span>, dir, options, cb
+        (cb) -&gt; builder.task <span class="hljs-string">'compileMan'</span>, dir, options, cb
+      ], cb</pre>
         </td>
       </tr>
     

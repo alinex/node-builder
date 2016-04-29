@@ -7,7 +7,7 @@
   <script src="doc-filelist.js"></script>
   <script>
     var relativeDir = "";
-    var thisFile = "home/alex/github/node-builder/README.md";
+    var thisFile = "README.md";
     var defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
@@ -90,10 +90,6 @@
 
       <div class="heading h3">
         <a href="#compile">compile</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#update">update</a>
       </div>
 
       <div class="heading h3">
@@ -184,15 +180,16 @@ as development dependency.</p>
 <pre><code class="sh">sudo npm install -g alinex-builder --production
 builder --help
 </code></pre>
-<p>After global installation you may directly call <code>builder</code> from anywhere.</p>
+<p>After global installation you may directly call <code>builder</code> from anywhere to work
+in the current or defined directory:</p>
 <pre><code class="sh">builder --help
 </code></pre>
 <p>Or you may integrate it into your own package:</p>
-<pre><code class="sh">npm install alinex-builder --save-devs
+<pre><code class="sh">npm install alinex-builder --save-dev
 ./node_modules/.bin/builder --help
 </code></pre>
 <p>By integrating it you won't need all the development tools within your package.</p>
-<p>Always have a look at the latest <a href="Changelog.md.html.html">changes</a>.</p>
+<p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
 <div class="pilwrap" id="bash-code-completion">
   <h3>
     <a href="#bash-code-completion" name="bash-code-completion" class="pilcrow"></a>
@@ -228,7 +225,7 @@ _yargs_completions()
 
     return 0
 }
-complete -F _yargs_completions scripter
+complete -F _yargs_completions builder
 ###-end-cli.coffee-completions-###
 </code></pre>
 <p>Put these lines into your <code>~/.bashrc</code> file.</p>
@@ -249,8 +246,11 @@ Goodbye
 <p>To list all the possible commands:</p>
 <pre><code>&gt; builder --help
 </code></pre>
-<p>This will show the possible commands which are defined.</p>
-<p>But if not installed globally you may run it as:</p>
+<p>This will show the possible commands which are defined. And to know more about
+a specific command or it's options you may call the help on the command:</p>
+<pre><code>&gt; builder &lt;command&gt; --help
+</code></pre>
+<p>If not installed globally you may run it as:</p>
 <pre><code class="sh">node_modules/.bin/builder &lt;<span class="hljs-built_in">command</span>&gt; [&lt;options&gt;]...
 </code></pre>
 <p>Multiple directory names can be given. They specify on which project to work on.
@@ -313,8 +313,7 @@ through the api. And you may specify the <code>--package</code> setting for the 
 of the package. The also mandatory path will be used as the github repository
 name, too.</p>
 <p>Some example calls will look like:</p>
-<pre><code class="sh">builder ./node-error create --package alinex-error
-builder ./private-module create --private
+<pre><code class="sh">builder create ../node-test
 </code></pre>
 <p>This process is interactive and will ask you some more details. After that you
 may directly start to add your code.</p>
@@ -326,11 +325,14 @@ push
 </div>
 <p>This will push the changes to the origin repository. With the <code>--message</code> option
 it will also add and commit all other changes before doing so.</p>
-<pre><code class="sh">builder -push                  <span class="hljs-comment"># from within the package directory</span>
+<pre><code class="sh">builder push                  <span class="hljs-comment"># from within the package directory</span>
 </code></pre>
 <p>or to also commit the last changes</p>
-<pre><code class="sh">builder ./node-error push --message <span class="hljs-string">"commit message"</span>
+<pre><code class="sh">builder push --message <span class="hljs-string">"commit message"</span>
 </code></pre>
+<p>The push is only possible if you have the newest changes merged into your repository.
+On any problems try to <code>pull</code> first before pushing your changes.</p>
+<p>If you want to only commit some changes you have to do this on your own.</p>
 <div class="pilwrap" id="pull">
   <h3>
     <a href="#pull" name="pull" class="pilcrow"></a>
@@ -341,6 +343,8 @@ pull
 your local changes.</p>
 <pre><code class="sh">builder pull                  <span class="hljs-comment"># from within the package directory</span>
 </code></pre>
+<p>If a merge conflict occurs, you have to edit the files and solve it before a
+proper push will be working again.</p>
 <div class="pilwrap" id="link">
   <h3>
     <a href="#link" name="link" class="pilcrow"></a>
@@ -370,7 +374,7 @@ Compile man pages
 Compile coffee script
 </code></pre>
 <p>Or give an directory and use uglify to compress the extension.</p>
-<pre><code class="sh">builder ./node-error compile --uglify
+<pre><code class="sh">builder compile --uglify
 </code></pre>
 <p>This command may also compiled the linked packages and does the following steps:</p>
 <ul>
@@ -387,27 +391,6 @@ Compile coffee script
 </code></pre>
 <p>Also this will make man files from mardown documents in <code>src/man</code> if they
 are referenced in the package.json.</p>
-<div class="pilwrap" id="update">
-  <h3>
-    <a href="#update" name="update" class="pilcrow"></a>
-update
-  </h3>
-</div>
-<p>This task is a handy addition to include the npm install and npm update commands:</p>
-<pre><code class="sh">builder update               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error update  <span class="hljs-comment"># or from anywhere else</span>
-</code></pre>
-<p>At the end this task will list all direct subpackages which are outdated and may
-be updated in the package.json.</p>
-<pre><code class="text">update and installation of package with dependent packages
-update ./
-Install through npm
-Update npm packages
-List outdated packages
-Package               Current  Wanted     Latest  Location
-Nothing to upgrade in this package found.
-Done.
-</code></pre>
 <div class="pilwrap" id="test">
   <h3>
     <a href="#test" name="test" class="pilcrow"></a>
@@ -421,26 +404,24 @@ a code coverage report will be build.
 And at last code metrics will be analyzed but only on the compiled version at
 the moment. You will find this reports under '/reports' directory as html.</p>
 <pre><code class="sh">builder <span class="hljs-built_in">test</span>                  <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error <span class="hljs-built_in">test</span>     <span class="hljs-comment"># or from anywhere else</span>
+builder ./node-util <span class="hljs-built_in">test</span>      <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
-<pre><code class="text">Linting coffee code
-Run mocha tests
-
-Simple mocha test
-✓ should add two numbers
-
-1 passing (9ms)
-</code></pre>
-<p>Or to contineously watch it:</p>
-<pre><code class="sh">builder ./node-error <span class="hljs-built_in">test</span> --watch
-</code></pre>
-<p>You may also create an html coverage report:</p>
-<pre><code class="sh">builder <span class="hljs-built_in">test</span> --coverage
+<p>This will:</p>
+<ul>
+<li>lint the coffee script code</li>
+<li>run mocha tests</li>
+<li>collect and build coverage report (option --coverage)</li>
+<li>send results from travis to coveralls (option --coveralls)</li>
+<li>run metric analyses of compiled js</li>
+<li>open reports in browser (option --browser)</li>
+</ul>
+<p>So you may also create an html coverage report and open it:</p>
+<pre><code class="sh">builder <span class="hljs-built_in">test</span> --coverage --browser
 </code></pre>
 <p>If you want to stop after the  first error occurs use the <code>--bail</code> flag.</p>
 <p>And at last you can add the <code>--browser</code> flag to open the coverage report
 automatically in the browser. Also <code>--coveralls</code> may be added to send the
-results to coveralls.</p>
+results from the coverage from travis to coveralls.</p>
 <p>This task can also be added to the <code>package.json</code> to be called using <code>npm test</code>:</p>
 <pre><code class="json">{
   "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
@@ -448,9 +429,8 @@ results to coveralls.</p>
   </span>}
 </span>}
 </code></pre>
-<p>Often you would also need the following combination:</p>
-<pre><code class="sh">builder -v compile <span class="hljs-built_in">test</span>           <span class="hljs-comment"># to check your just finished code changes</span>
-</code></pre>
+<p>Attention, the metrics are build out of the compiled JavaScript. So you need to
+compile your code first before the metrics are updated.</p>
 <div class="pilwrap" id="doc">
   <h3>
     <a href="#doc" name="doc" class="pilcrow"></a>
@@ -466,22 +446,16 @@ code.</p>
 <pre><code class="sh">builder doc                   <span class="hljs-comment"># from within the package directory</span>
 builder ./node-error doc      <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
-<pre><code class="text">Create html documentation
-Done.
-</code></pre>
 <p>It is also possible to update the documentation stored on any website. To
 configure this for GitHub pages, you have to do nothing, for all others you
 need to specify an <code>doc-publish</code> script in <code>package.json</code>. This may be an
 rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
 Start the document creation with publication using:</p>
-<pre><code class="sh">builder ./node-error doc --publish
+<pre><code class="sh">builder doc --publish
 </code></pre>
-<p>With the <code>--watch</code> option it is possible to keep the documentation updated.</p>
-<pre><code class="sh">builder  ./node-error doc --watch
-</code></pre>
-<p>But this process will never end, you have to stop it manually to end it.</p>
 <p>And at last you may also add the <code>--browser</code> flag to open the documentation in
-the browser after created.</p>
+the browser after created. This will wait some seconds for the remote server to
+update if published.</p>
 <p>The style of the documentation can be specified if a specific css is present
 in the alinex make package. It have to be under the path <code>src/data</code> and be called
 by the <code>&lt;basename&gt;.css</code> while basename is the package name before the first
@@ -514,11 +488,14 @@ Changes since last publication as v1.2.9:
 Changes not staged for commit:
 - modified: src/command/changes.coffee
 NPM Update check:
+- alinex-core          😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-alinex/
+                          npm install --save alinex-core (from 0.2.0 to 0.2.4)
 - coffee-coverage      😕  NOTUSED?  Still using coffee-coverage?
 - coffeelint           😕  NOTUSED?  Still using coffeelint?
 - coveralls            😕  NOTUSED?  Still using coveralls?
 - debounce             😕  NOTUSED?  Still using debounce?
 - docker               😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+                          npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
 - istanbul             😕  NOTUSED?  Still using istanbul?
 - marked-man           😕  NOTUSED?  Still using marked-man?
 - node-sass            😕  NOTUSED?  Still using node-sass?
@@ -527,7 +504,7 @@ NPM Update check:
 - replace              😕  NOTUSED?  Still using replace?
 - typescript           😕  NOTUSED?  Still using typescript?
 - uglify-js            😕  NOTUSED?  Still using uglify-js?
-Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
+To upgrade all use: /usr/lib/node_modules/alinex-builder/node_modules/.bin/npm-check /home/alex/github/node-builder -u
 </code></pre>
 <p>Sometimes you may skip the unused packages:</p>
 <pre><code class="sh">builder changes --skip-unused
@@ -547,7 +524,9 @@ Changes not staged for commit:
 - modified: src/command/changes.coffee
 NPM Update check:
 - alinex-core   😍  UPDATE!   Your local install is out of date. from 0.2.0 to 0.2.2
+                    npm install --save alinex-core (from 0.2.0 to 0.2.4)
 - docker        😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
+                    npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
 Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
 </code></pre>
 <div class="pilwrap" id="publish">
@@ -558,7 +537,8 @@ publish
 </div>
 <p>With the push command you can publish your newest changes to github and npm as a
 new version. The version can be set by signaling if it should be a <code>--major</code>,
-<code>--minor</code> or bugfix version if no switch given.</p>
+<code>--minor</code> or bugfix version if no switch given. Alternatively you can specify the
+new veriosn directly using <code>--version</code>.</p>
 <p>To publish the next bugfix version only call:</p>
 <pre><code class="sh">builder publish               <span class="hljs-comment"># from within the package directory</span>
 builder ./node-error publish  <span class="hljs-comment"># or from anywhere else</span>
@@ -622,10 +602,10 @@ Done.
 compile with compression and run all tests before publishing. And the documentation
 will be updated afterwards, too.</p>
 <p>For the next minor version (second number) call:</p>
-<pre><code class="sh">builder ./node-error publish --minor
+<pre><code class="sh">builder publish --minor
 </code></pre>
 <p>And for a new major version:</p>
-<pre><code class="sh">builder ./node-error publish --major
+<pre><code class="sh">builder publish --major
 </code></pre>
 <p>And you may use the switches <code>--try</code> to not really publish but to check if it will
 be possible and <code>--force</code> to always publish also if it is not possible because of
@@ -646,10 +626,10 @@ development environment.</p>
 builder ./node-error clean    <span class="hljs-comment"># or from anywhere else</span>
 </code></pre>
 <p>Or on the development system remove all created files:</p>
-<pre><code class="sh">builder ./node-error clean --auto
+<pre><code class="sh">builder clean --auto
 </code></pre>
 <p>And at last for production remove development files:</p>
-<pre><code class="sh">builder ./node-error clean --dist
+<pre><code class="sh">builder clean --dist
 </code></pre>
 <div class="pilwrap" id="configuration">
   <h2>

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/command/changes.coffee";
+    var thisFile = "src/command/changes.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -109,7 +109,8 @@ Node modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -122,8 +123,7 @@ path = <span class="hljs-built_in">require</span> <span class="hljs-string">'pat
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">async = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-async'</span>
-fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
         </td>
       </tr>
     
@@ -195,12 +195,14 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  builder.dirs options, <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-    async.parallel [
-      (cb) -&gt; git dir, options, cb
-      (cb) -&gt; builder.task <span class="hljs-string">'npmChanges'</span>, dir, options, cb
-    ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
-      builder.results dir, options, <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span>"</span>, results
-      cb err
+    builder.task <span class="hljs-string">'compile'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      async.parallel [
+        (cb) -&gt; git dir, options, cb
+        (cb) -&gt; builder.task <span class="hljs-string">'npmChanges'</span>, dir, options, cb
+      ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+        builder.results dir, options, <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span>"</span>, results
+        cb err
   , cb</pre>
         </td>
       </tr>
@@ -223,11 +225,8 @@ Helper
     async.parallel [
       (cb) -&gt; gitChanges dir, options, cb
       (cb) -&gt; gitStatus dir, options, cb
-    ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-      cb <span class="hljs-literal">null</span>, results.join <span class="hljs-string">''</span>
+    ], cb
 <span class="hljs-function">
-
 <span class="hljs-title">gitChanges</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
   builder.info dir, options, <span class="hljs-string">"check git commits"</span>
   builder.exec dir, options, <span class="hljs-string">'git last publication'</span>,

@@ -7,7 +7,7 @@
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "home/alex/github/node-builder/src/task/testCoveralls.coffee";
+    var thisFile = "src/task/testCoveralls.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -101,8 +101,7 @@ Node modules
         </td>
         <td class="code highlight">
           <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-{exec} = <span class="hljs-built_in">require</span> <span class="hljs-string">'child_process'</span></pre>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
         </td>
       </tr>
     
@@ -156,9 +155,13 @@ Send to coveralls
       <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> options.coverage
         <span class="hljs-built_in">console</span>.error chalk.yellow <span class="hljs-string">"Skipped coveralls service because not installed"</span>
         <span class="hljs-keyword">return</span> cb()
-      builder.info dir, options, <span class="hljs-string">"Send to coveralls"</span>
-      exec <span class="hljs-string">"cat <span class="hljs-subst">#{dir}</span>/report/lcov.info | <span class="hljs-subst">#{coveralls}</span> --verbose"</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-        cb err</pre>
+      builder.exec dir, options, <span class="hljs-string">"send to coveralls"</span>,
+        <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+        <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"cat report/lcov.info | <span class="hljs-subst">#{coveralls}</span> --verbose"</span>]
+        <span class="hljs-attribute">cwd</span>: dir
+        <span class="hljs-attribute">retry</span>:
+          <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
+      , cb</pre>
         </td>
       </tr>
     
