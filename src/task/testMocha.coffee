@@ -54,7 +54,6 @@ module.exports = (dir, options, cb) ->
           args: args
           cwd: dir
         , (err, proc) ->
-          return cb err if err
           skip = true
           for line in proc.stdout().split /\n/
             continue unless line
@@ -62,4 +61,4 @@ module.exports = (dir, options, cb) ->
             continue if skip
             msg += line + '\n'
           return cb err, '' if msg.split(/\n/).length < 2
-          cb null, msg
+          cb err, msg

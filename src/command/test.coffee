@@ -49,7 +49,7 @@ exports.handler = (options, cb) ->
         builder.task 'lintCoffee', dir, options, cb
       (cb) ->
         builder.task 'testMocha', dir, options, (err, results) ->
-          return cb err if err
+          return cb err, results if err
           builder.task 'testCoveralls', dir, options, (err) ->
             return cb err, results if err or not (options.browser and options.coverage)
             builder.task 'browser', dir,
