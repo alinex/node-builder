@@ -42,6 +42,7 @@ module.exports = (dir, options, cb) ->
         for line in proc.stdout().trim().split /\n/
           continue if line.match /Use npm-check/
           if line.match /^\w/
+            continue if line.match /#{\w+}/
             msg += "- #{chalk.yellow line.trim()}\n"
             if match = line.match /to go (from .*)/
               msg = msg.replace /(\s*http.*)?\n.*?$/, " #{chalk.grey match[1]}\n"
