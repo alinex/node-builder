@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.4 (2016-05-02)
+-------------------------------------------------
+- Remove calculated requires.
+- Added v6 for travis but didn't activate, yet.
+
 Version 2.0.3 (2016-04-29)
 -------------------------------------------------
 - Run push in publich before changes.
