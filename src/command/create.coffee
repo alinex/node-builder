@@ -83,6 +83,12 @@ ask = (dir, options, cb) ->
       message: "Give a short description:"
       when: -> not system.pack.description
     ,
+      type: 'input'
+      name: 'copyright'
+      message: "Give your full name for copyright:"
+      default: "Alexander Schilling"
+      when: -> not system.pack.copyright
+    ,
       type: 'confirm'
       name: 'private'
       message: "Should this be kept private?"
@@ -180,8 +186,9 @@ createNodePackage = (dir, options, cb) ->
           fs.readFile file, 'utf8', (err, content) ->
             content = content.replace /###<year>###/g, (new Date()).getFullYear()
             content = content.replace /###<pack>###/g, options.pack.name
+            content = content.replace /###<description>###/g, options.pack.description
             content = content.replace /###<user>###/g, options.user
-            content = content.replace /###<username>###/g, options.username
+            content = content.replace /###<copyright>###/g, options.copyright
             content = content.replace /###<dirname>###/g, path.basename dir
             content = content.replace /###<title>###/g,
             options.pack.name.split(/-/).map((e) -> util.string.ucFirst e). join ' '
