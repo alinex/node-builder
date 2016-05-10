@@ -6,7 +6,7 @@
 # -------------------------------------------------
 
 # include base modules
-debug = require('debug') '### name ###'
+debug = require('debug') '###<name>###'
 chalk = require 'chalk'
 # include alinex modules
 
