@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.5 (2016-05-10)
+-------------------------------------------------
+- Upgraded config, exec, fs, sass and yargs packages.
+- Added debug name in index script.
+- Add more details automatically in package.json.
+- Add copyright to new packages.
+- Fixed create to make github entry.
+- Optimize direct install command.
+- Fix npm upgrade detection to work for patch up and also don't check for sub requires.
+- Fix variable require detection.
+
 Version 2.0.4 (2016-05-02)
 -------------------------------------------------
 - Remove calculated requires.
