@@ -222,51 +222,51 @@ initGitHub = (dir, options, cb) ->
     unless err
       console.warn chalk.magenta "Skipped GitHub because other origin exists already"
       return cb()
-      builder.detail dir, options, "check github repository"
-      builder.noisy dir, options, "GET https://api.github.com/user/repos"
+    builder.debug dir, options, "check github repository"
+    builder.noisy dir, options, "GET https://api.github.com/user/repos"
+    request {
+      uri: "https://api.github.com/repos/#{options.user}/#{path.basename dir}"
+      auth:
+        user: options.user
+        pass: options.password
+      headers:
+        'User-Agent': options.user
+    }, (err, response) ->
+      return cb err if err
+      answer = JSON.parse response.body
+      unless answer.message?
+        return cb new Error 'No response from github'
+      unless answer.message is 'Not Found'
+        return cb new Error answer.message
+      builder.debug dir, options, "create github repository"
+      builder.noisy dir, options, "POST https://api.github.com/user/repos"
       request {
-        uri: "https://api.github.com/repos/#{options.user}/#{path.basename dir}"
+        uri: "https://api.github.com/user/repos"
         auth:
           user: options.user
           pass: options.password
         headers:
           'User-Agent': options.user
+        method: 'POST'
+        body: JSON.stringify
+          name: path.basename dir
+          description: options.description
+          homepage: "http://#{options.user}.github.io/#{path.basename dir}"
+          private: false
+          has_issues: true
+          has_wiki: false
+          has_downloads: true
       }, (err, response) ->
         return cb err if err
-        answer = JSON.parse response.body
-        unless answer.message?
-          return cb new Error 'No response from github'
-        unless answer.message is 'Not Found'
-          return cb new Error answer.message
-        builder.detail dir, options, "create github repository"
-        builder.noisy dir, options, "POST https://api.github.com/user/repos"
-        request {
-          uri: "https://api.github.com/user/repos"
-          auth:
-            user: options.user
-            pass: options.password
-          headers:
-            'User-Agent': options.user
-          method: 'POST'
-          body: JSON.stringify
-            name: path.basename dir
-            description: options.description
-            homepage: "http://#{options.user}.github.io/#{path.basename dir}"
-            private: false
-            has_issues: true
-            has_wiki: false
-            has_downloads: true
-        }, (err, response) ->
-          return cb err if err
-          unless response?.statusCode is 201
-            return cb new Error "GitHub status was #{response.statusCode} in try
-            to create repository"
-          builder.detail dir, options, "set github as origin"
-          builder.exec dir, options, 'git remote add',
-            cmd: 'git'
-            args: [
-              'remote', 'add'
-              'origin', "https://github.com/#{options.user}/#{path.basename dir}"
-            ]
-            cwd: dir
-          , cb
+        unless response?.statusCode is 201
+          return cb new Error "GitHub status was #{response.statusCode} in try
+          to create repository"
+        builder.debug dir, options, "set github as origin"
+        builder.exec dir, options, 'git remote add',
+          cmd: 'git'
+          args: [
+            'remote', 'add'
+            'origin', "https://github.com/#{options.user}/#{path.basename dir}"
+          ]
+          cwd: dir
+        , cb
