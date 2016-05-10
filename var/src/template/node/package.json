@@ -2,14 +2,14 @@
   "name": "###<pack>###",
   "version": "0.0.0",
   "description": "###<description>###",
-  "copyright": "###<username>### ###<year>###",
+  "copyright": "###<copyright>### ###<year>###",
   "keywords": [],
-  "homepage": "",
+  "homepage": "###<homepage>###",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "###<repository>###"
   },
-  "bugs": "",
+  "bugs": "###<bugs>###",
   "author": {
     "name": "Alexander Schilling",
     "email": "info@alinex.de",

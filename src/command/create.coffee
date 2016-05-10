@@ -193,6 +193,12 @@ createNodePackage = (dir, options, cb) ->
             content = content.replace /###<title>###/g,
             options.pack.name.split(/-/).map((e) -> util.string.ucFirst e). join ' '
             fs.writeFile file, content, 'utf8', cb
+            content = content.replace /###<homepage>###/g, \
+            "http://#{options.user}.github.io/#{path.basename dir}"
+            content = content.replace /###<reposiutory>###/g,
+            "https://github.com/#{options.user}/#{path.basename dir}"
+            content = content.replace /###<bugs>###/g,
+            "https://github.com/#{options.user}/#{path.basename dir}/issues"
         , cb
 
 updatePackageJson = (dir, options, cb) ->
