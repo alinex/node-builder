@@ -186,8 +186,8 @@ addAlinex = (dir, options, docPath, alinex, replace, cb) ->
 
 copyCss = (dir, options, pack, cb) ->
   async.filter [
-    path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.css'
-    path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.css'
+    path.join __dirname, '../../var/local/docstyle', (pack.name.split /-/)[0] + '.css'
+    path.join __dirname, '../../var/src/docstyle', (pack.name.split /-/)[0] + '.css'
   ], (file, cb) ->
     fs.exists file, (exists) -> cb null, exists
   , (err, files) ->
@@ -199,8 +199,8 @@ copyCss = (dir, options, pack, cb) ->
 
 copyJs = (dir, options, pack, cb) ->
   async.filter [
-    path.join dir, 'var/local/docstyle', (pack.name.split /-/)[0] + '.js'
-    path.join dir, 'var/src/docstyle', (pack.name.split /-/)[0] + '.js'
+    path.join __dirname, '../../var/local/docstyle', (pack.name.split /-/)[0] + '.js'
+    path.join __dirname, '../../var/src/docstyle', (pack.name.split /-/)[0] + '.js'
   ], (file, cb) ->
     fs.exists file, (exists) -> cb null, exists
   , (err, files) ->
