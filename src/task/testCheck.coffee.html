@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ini.coffee</title>
+  <title>testCheck.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/type/ini.coffee";
+    var thisFile = "src/task/testCheck.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -41,19 +41,15 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#serializer-for-ini-syntax">Serializer for ini syntax</a>
+        <a href="#test-script">Test Script</a>
       </div>
 
       <div class="heading h2">
-        <a href="#node-modules">Node Modules</a>
+        <a href="#node-modules">Node modules</a>
       </div>
 
       <div class="heading h2">
-        <a href="#object-greater-string">object -&amp;gt; string</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#string-greater-object">string -&amp;gt; object</a>
+        <a href="#check-for.only-tests">check for .only tests</a>
       </div>
 
     </div>
@@ -67,10 +63,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="serializer-for-ini-syntax">
+          <div class="pilwrap" id="test-script">
   <h1>
-    <a href="#serializer-for-ini-syntax" name="serializer-for-ini-syntax" class="pilcrow"></a>
-Serializer for ini syntax
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
   </h1>
 </div>
 
@@ -85,7 +81,7 @@ Serializer for ini syntax
           <div class="pilwrap" id="node-modules">
   <h2>
     <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node Modules
+Node modules
   </h2>
 </div>
 
@@ -100,65 +96,81 @@ Node Modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>include base modules</p>
+<p>node packages</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">ini = <span class="hljs-built_in">require</span> <span class="hljs-string">'ini'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="object-greater-string">
-  <h2>
-    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
-object -&gt; string
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="string-greater-object">
-  <h2>
-    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
-string -&gt; object
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">try</span>
-    result = ini.decode text
-  <span class="hljs-keyword">catch</span> error
-    <span class="hljs-keyword">return</span> cb error</pre>
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6"></a>
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
-<p>detect failed parsing</p>
+<p>alinex packages</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> result?
-    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"could not parse any result"</span>
-  <span class="hljs-keyword">if</span> result[<span class="hljs-string">'{'</span>]
-    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unexpected token { at start"</span>
-  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> result
-    <span class="hljs-keyword">if</span> v <span class="hljs-keyword">is</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">and</span> k.match <span class="hljs-regexp">/:/</span>
-      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Unexpected key name containing ':' with value true"</span>
-  cb <span class="hljs-literal">null</span>, result</pre>
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>internal mhelper modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="check-for.only-tests">
+  <h2>
+    <a href="#check-for.only-tests" name="check-for.only-tests" class="pilcrow"></a>
+check for .only tests
+  </h2>
+</div>
+<p><em>Arguments:</em></p>
+<ul>
+<li><code>verbose</code> - (integer) verbose level</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">"check tests"</span>
+  fs.find path.join(dir, <span class="hljs-string">'test'</span>, <span class="hljs-string">'mocha'</span>),
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
+  , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    async.each list, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>check for .only tests</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      fs.readFile file, <span class="hljs-string">'utf-8'</span>, <span class="hljs-function"><span class="hljs-params">(err, content)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> err <span class="hljs-keyword">if</span> err
+        <span class="hljs-keyword">if</span> content.match <span class="hljs-regexp">/(describe|it)\.only/</span>
+          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Found .only test in <span class="hljs-subst">#{file}</span>"</span>
+        cb()
+    , cb</pre>
         </td>
       </tr>
     

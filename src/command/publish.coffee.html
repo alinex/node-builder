@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>publish.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "src/command/publish.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#test-script">Test Script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#handler">Handler</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#helper">Helper</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#add-changes-since-last-version-to-changelog">add changes since last version to Changelog</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#add-version-tag-to-git">Add version tag to git</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#push-new-version-to-npm">Push new version to npm</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="test-script">
+  <h1>
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+moment = <span class="hljs-built_in">require</span> <span class="hljs-string">'moment'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>internal mhelper modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="setup">
+  <h2>
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.title = <span class="hljs-string">'publish package in npm'</span>
+exports.description = <span class="hljs-string">"""
+Build and publish package to npm.
+"""</span>
+
+exports.options =
+  <span class="hljs-attribute">message</span>:
+    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'m'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Commit message for local changes'</span>
+  <span class="hljs-attribute">major</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release next major version'</span>
+  <span class="hljs-attribute">minor</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release next minor version'</span>
+  <span class="hljs-attribute">version</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'version to release'</span>
+  <span class="hljs-attribute">release</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release message'</span>
+  <span class="hljs-attribute">try</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'try if publication is possible'</span>
+  <span class="hljs-attribute">force</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'force publish also on problems'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="handler">
+  <h2>
+    <a href="#handler" name="handler" class="pilcrow"></a>
+Handler
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.handler = <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>step over directories</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  builder.dirs options, <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+    builder.task <span class="hljs-string">"packageJson"</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">if</span> pack.scripts.test?.match <span class="hljs-regexp">/^node_modules\/\.bin\/builder\s+test\s+(-s|--skip-unused)/</span>
+        options[<span class="hljs-string">'skip-unused'</span>] = <span class="hljs-literal">true</span>
+      async.series [</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>precheck</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        (cb) -&gt; builder.task <span class="hljs-string">'clean'</span>, dir, {<span class="hljs-attribute">verbose</span>: options.verbose, <span class="hljs-attribute">auto</span>: <span class="hljs-literal">true</span>}, cb
+        (cb) -&gt; builder.task <span class="hljs-string">'npmInstall'</span>, dir, options, cb
+        (cb) -&gt;
+          async.parallel [
+            (cb) -&gt;
+              async.series [
+                (cb) -&gt; builder.task <span class="hljs-string">'gitCommitAll'</span>, dir, options, cb
+                (cb) -&gt; builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb
+                (cb) -&gt; builder.task <span class="hljs-string">'npmChanges'</span>, dir, options, cb
+              ], cb
+            (cb) -&gt; builder.task <span class="hljs-string">'lintCoffee'</span>, dir, options, cb
+            (cb) -&gt;
+              async.series [
+                (cb) -&gt; builder.task <span class="hljs-string">'testCheck'</span>, dir, options, cb
+                (cb) -&gt; builder.task <span class="hljs-string">'testMocha'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> cb err
+              ], cb
+          ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+            <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+            <span class="hljs-keyword">if</span> resultsJoin(results).trim() <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> options.force
+              err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Stopped publish, you may use --force switch"</span>
+              <span class="hljs-keyword">return</span> cb err, results
+            cb()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>create</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        (cb) -&gt; getVersion dir, options, pack, cb
+        (cb) -&gt;
+          async.parallel [
+            (cb) -&gt; writePackageJson dir, options, pack, cb
+            (cb) -&gt; updateChangelog dir, options, cb
+          ], cb
+        (cb) -&gt;
+          builder.task <span class="hljs-string">'gitCommitAll'</span>, dir,
+            <span class="hljs-attribute">verbose</span>: options.verbose
+            <span class="hljs-attribute">message</span>: <span class="hljs-string">"Added information for version <span class="hljs-subst">#{options.version}</span>"</span>
+          , cb
+        (cb) -&gt; builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>publish</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">        (cb) -&gt;
+          async.parallel [
+            (cb) -&gt;
+              async.series [
+                (cb) -&gt; gitTag dir, options, pack, cb
+                (cb) -&gt; builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb
+              ], cb
+            (cb) -&gt; pushNpm dir, options, cb
+            (cb) -&gt;
+              async.series [
+                (cb) -&gt; builder.task <span class="hljs-string">'docUpdate'</span>, dir, options, cb
+                (cb) -&gt; builder.task <span class="hljs-string">'docPublish'</span>, dir, options, cb
+              ], cb
+          ], cb
+      ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
+        builder.results dir, options, <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span>"</span>, results
+        cb err
+  , cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="helper">
+  <h2>
+    <a href="#helper" name="helper" class="pilcrow"></a>
+Helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
+<span class="hljs-title">resultsJoin</span> = <span class="hljs-params">(res)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> res <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> res <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
+  <span class="hljs-keyword">if</span> Array.isArray res
+    res.map (e) -&gt; resultsJoin e
+    .join <span class="hljs-string">''</span>
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-string">''</span>
+<span class="hljs-function">
+<span class="hljs-title">getVersion</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+  options.oldVersion = pack.version
+  builder.info dir, options, <span class="hljs-string">"old version is <span class="hljs-subst">#{options.oldVersion}</span>"</span>
+  <span class="hljs-keyword">if</span> options.version
+    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Stopped because of try run"</span> <span class="hljs-keyword">if</span> options.<span class="hljs-keyword">try</span>
+    <span class="hljs-keyword">return</span> cb()</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>calculate new version</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  version = pack.version.split <span class="hljs-regexp">/\./</span>
+  <span class="hljs-keyword">if</span> options.major
+    version[<span class="hljs-number">0</span>]++
+    version[<span class="hljs-number">1</span>] = version[<span class="hljs-number">2</span>] = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> options.minor
+    version[<span class="hljs-number">1</span>]++
+    version[<span class="hljs-number">2</span>] = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">else</span>
+    version[<span class="hljs-number">2</span>]++
+  options.version = version.join <span class="hljs-string">'.'</span>
+  builder.info dir, options, <span class="hljs-string">"new version is <span class="hljs-subst">#{options.version}</span>"</span>
+  <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Stopped because of try run"</span> <span class="hljs-keyword">if</span> options.<span class="hljs-keyword">try</span>
+  cb()
+<span class="hljs-function">
+<span class="hljs-title">writePackageJson</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">"change package.json"</span>
+  file = path.join dir, <span class="hljs-string">'package.json'</span>
+  pack.version = options.version
+  fs.writeFile file, JSON.stringify(pack, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>), cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="add-changes-since-last-version-to-changelog">
+  <h3>
+    <a href="#add-changes-since-last-version-to-changelog" name="add-changes-since-last-version-to-changelog" class="pilcrow"></a>
+add changes since last version to Changelog
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">updateChangelog</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">"update changelog"</span>
+  args = [<span class="hljs-string">'log'</span>, <span class="hljs-string">'--pretty=format:%s'</span>]
+  <span class="hljs-keyword">unless</span> options.oldVersion <span class="hljs-keyword">is</span> <span class="hljs-string">'0.0.0'</span>
+    args.push <span class="hljs-string">"v<span class="hljs-subst">#{options.oldVersion}</span>..HEAD"</span>
+  builder.exec dir, options, <span class="hljs-string">"git log"</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+    <span class="hljs-attribute">args</span>: args
+    <span class="hljs-attribute">cwd</span>: dir
+  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    file = path.join dir, <span class="hljs-string">'Changelog.md'</span>
+    lines = fs.readFileSync(file, <span class="hljs-string">'utf-8'</span>).split <span class="hljs-regexp">/\n/</span>
+    newlines = proc.stdout().trim().split(<span class="hljs-regexp">/\n/</span>).map (val) -&gt; <span class="hljs-string">"- <span class="hljs-subst">#{val}</span>"</span>
+    release = <span class="hljs-keyword">if</span> options.release <span class="hljs-keyword">then</span> <span class="hljs-string">"<span class="hljs-subst">#{options.release}</span>\n\n"</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
+    changelog = lines[.<span class="hljs-number">.5</span>].join(<span class="hljs-string">'\n'</span>) + <span class="hljs-string">"""
+
+      Version <span class="hljs-subst">#{options.version}</span> (<span class="hljs-subst">#{moment().format(<span class="hljs-string">'YYYY-MM-DD'</span>)}</span>)
+      -------------------------------------------------
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>{release + newlines.join '\n'}</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+      <span class="hljs-string">""" + lines[5..].join('\n')
+    builder.debug dir, options, "write new changelog"
+    fs.writeFile file, changelog, cb
+
+
+</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="add-version-tag-to-git">
+  <h3>
+    <a href="#add-version-tag-to-git" name="add-version-tag-to-git" class="pilcrow"></a>
+Add version tag to git
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">gitTag</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+  changelog = <span class="hljs-string">''</span>
+  <span class="hljs-keyword">if</span> pack.homepage?
+    changelog = <span class="hljs-string">" see more in [Changelog.md](<span class="hljs-subst">#{pack.homepage}</span>/Changelog.md.html)"</span>
+  builder.info dir, options, <span class="hljs-string">"add new tag"</span>
+  builder.exec dir, options, <span class="hljs-string">'git tag'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'tag'</span>
+      <span class="hljs-string">'-a'</span>, <span class="hljs-string">"v<span class="hljs-subst">#{options.version}</span>"</span>
+      <span class="hljs-string">'-m'</span>, <span class="hljs-string">"Created version <span class="hljs-subst">#{options.version}</span><span class="hljs-subst">#{changelog}</span>"</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="push-new-version-to-npm">
+  <h3>
+    <a href="#push-new-version-to-npm" name="push-new-version-to-npm" class="pilcrow"></a>
+Push new version to npm
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">pushNpm</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">'publish on npm'</span>
+  builder.exec dir, options, <span class="hljs-string">'npm publish'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
+    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'publish'</span>]
+    <span class="hljs-attribute">cwd</span>: dir
+  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    cb err, <span class="hljs-string">"Created version <span class="hljs-subst">#{options.version}</span>"</span></pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

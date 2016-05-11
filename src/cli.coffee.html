@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cli.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../";
+    var thisFile = "src/cli.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#startup-script">Startup script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#support-quiet-mode-through-switch">Support quiet mode through switch</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#error-management">Error management</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#command-setup">Command Setup</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#main-routine">Main routine</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="startup-script">
+  <h1>
+    <a href="#startup-script" name="startup-script" class="pilcrow"></a>
+Startup script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">yargs = <span class="hljs-built_in">require</span> <span class="hljs-string">'yargs'</span>
+chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>include alinex modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span>
+alinex = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-core'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-util'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>include classes and helpers</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'./index'</span>
+
+process.title = <span class="hljs-string">'Builder'</span>
+logo = alinex.logo <span class="hljs-string">'Development Builder'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="support-quiet-mode-through-switch">
+  <h2>
+    <a href="#support-quiet-mode-through-switch" name="support-quiet-mode-through-switch" class="pilcrow"></a>
+Support quiet mode through switch
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">quiet = <span class="hljs-literal">false</span>
+<span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> [<span class="hljs-string">'--get-yargs-completions'</span>, <span class="hljs-string">'bashrc'</span>, <span class="hljs-string">'-q'</span>, <span class="hljs-string">'--quiet'</span>]
+  quiet = <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> a <span class="hljs-keyword">in</span> process.argv</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="error-management">
+  <h2>
+    <a href="#error-management" name="error-management" class="pilcrow"></a>
+Error management
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">alinex.initExit()
+process.<span class="hljs-literal">on</span> <span class="hljs-string">'exit'</span>, <span class="hljs-function">-&gt;</span>
+  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Goodbye\n"</span> <span class="hljs-keyword">unless</span> quiet</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="command-setup">
+  <h2>
+    <a href="#command-setup" name="command-setup" class="pilcrow"></a>
+Command Setup
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">command</span> = <span class="hljs-params">(name, file)</span> -&gt;</span>
+  <span class="hljs-keyword">try</span>
+    lib = <span class="hljs-built_in">require</span> file
+  <span class="hljs-keyword">catch</span> error
+    alinex.exit <span class="hljs-number">1</span>, error <span class="hljs-keyword">if</span> error</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>return builder and handler</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-attribute">builder</span>: <span class="hljs-function"><span class="hljs-params">(yargs)</span> -&gt;</span>
+    yargs
+    .usage <span class="hljs-string">"\nUsage: $0 <span class="hljs-subst">#{name}</span> [options] [dir]...\n\n<span class="hljs-subst">#{lib.description ? <span class="hljs-string">''</span>}</span>"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>add options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> lib.options
+      yargs.option key, def <span class="hljs-keyword">for</span> key, def <span class="hljs-keyword">of</span> lib.options
+      yargs.group Object.keys(lib.options), <span class="hljs-string">"<span class="hljs-subst">#{util.string.ucFirst name}</span> Command Options:"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>help</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    yargs.strict()
+    .help <span class="hljs-string">'h'</span>
+    .alias <span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>
+    .epilogue <span class="hljs-string">"""
+      This is the description of the '<span class="hljs-subst">#{name}</span>' command. You may also look into the
+      general help using or the man page.
+      """</span>
+  <span class="hljs-attribute">handler</span>: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span>
+    builder.command name, lib, args, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+      alinex.exit err <span class="hljs-keyword">if</span> err
+      alinex.exit <span class="hljs-number">0</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="main-routine">
+  <h2>
+    <a href="#main-routine" name="main-routine" class="pilcrow"></a>
+Main routine
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-keyword">unless</span> quiet
+  <span class="hljs-built_in">console</span>.log logo
+  <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"Initializing..."</span>
+
+builder.setup (err) -&gt;
+  alinex.exit <span class="hljs-number">16</span>, err <span class="hljs-keyword">if</span> err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>Start argument parsing</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  yargs
+  .usage <span class="hljs-string">"\nUsage: $0 &lt;command&gt; [options] [dir]..."</span>
+  .env <span class="hljs-string">'BUILDER'</span> <span class="hljs-comment"># use environment arguments prefixed with SCRIPTER_</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>examples</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  .example <span class="hljs-string">'$0 test -vb'</span>, <span class="hljs-string">'to run the tests till first failure'</span>
+  .example <span class="hljs-string">'$0 test -v --coverage --browser'</span>, <span class="hljs-string">'to run all the tests and also show coverage info'</span>
+  .example <span class="hljs-string">'$0 changes'</span>, <span class="hljs-string">'show overview of changes'</span>
+  .example <span class="hljs-string">'$0 publish --minor'</span>, <span class="hljs-string">'to publish on npm new minor version'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>general options</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  .options
+    <span class="hljs-attribute">help</span>:
+      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'h'</span>,
+      <span class="hljs-attribute">description</span>: <span class="hljs-string">'display help message'</span>
+    <span class="hljs-attribute">nocolors</span>:
+      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'C'</span>
+      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'turn of color output'</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">verbose</span>:
+      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'v'</span>
+      <span class="hljs-attribute">describe</span>: <span class="hljs-string">'run in verbose mode (multiple makes more verbose)'</span>
+      <span class="hljs-attribute">count</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attribute">quiet</span>:
+      <span class="hljs-attribute">alias</span>: <span class="hljs-string">'q'</span>
+      <span class="hljs-attribute">describe</span>: <span class="hljs-string">"don't output header and footer"</span>
+      <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+      <span class="hljs-attribute">global</span>: <span class="hljs-literal">true</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>add the commands</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  list = fs.findSync __dirname + <span class="hljs-string">'/command'</span>,
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'f'</span>
+  <span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> list
+    <span class="hljs-keyword">continue</span> <span class="hljs-keyword">unless</span> file.match <span class="hljs-regexp">/\.(coffee|js)$/</span>
+    name = path.basename file, path.extname file
+    lib = <span class="hljs-built_in">require</span> file
+    yargs.command name, lib.title, command name, file
+  jobs = path.join path.dirname(__dirname), <span class="hljs-string">'var/lib/script/index.js'</span>
+  <span class="hljs-keyword">if</span> fs.existsSync jobs
+    jobs = <span class="hljs-built_in">require</span> jobs
+    jobs.addTo yargs</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>help</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  yargs.help <span class="hljs-string">'help'</span>
+  .updateStrings
+    <span class="hljs-string">'Options:'</span>: <span class="hljs-string">'General Options:'</span>
+  .epilogue <span class="hljs-string">"""
+    You may use environment variables prefixed with 'BUILDER_' to set any of
+    the options like 'BUILDER_VERBOSE' to set the verbose level.
+
+    For more information, look into the man page.
+    """</span>
+  .completion <span class="hljs-string">'bashrc-script'</span>, <span class="hljs-literal">false</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>validation</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  .strict()
+  .fail (err) -&gt;
+    err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"CLI <span class="hljs-subst">#{err}</span>"</span>
+    err.description = <span class="hljs-string">'Specify --help for available options'</span>
+    alinex.exit <span class="hljs-number">2</span>, err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>now parse the arguments</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  args = yargs.argv</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-20" id="section-20"></a>
+</div>
+<p>implement some global switches</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  chalk.enabled = <span class="hljs-literal">false</span> <span class="hljs-keyword">if</span> args.nocolors
+
+  <span class="hljs-keyword">unless</span> args._.length
+    alinex.exit <span class="hljs-number">2</span>, <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Nothing to do specify --help for available options"</span></pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

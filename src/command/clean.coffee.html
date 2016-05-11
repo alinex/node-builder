@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>yaml.coffee</title>
+  <title>clean.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/type/yaml.coffee";
+    var thisFile = "src/command/clean.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -41,19 +41,19 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#serializer-for-yaml-syntax">Serializer for yaml syntax</a>
+        <a href="#test-script">Test Script</a>
       </div>
 
       <div class="heading h2">
-        <a href="#node-modules">Node Modules</a>
+        <a href="#node-modules">Node modules</a>
       </div>
 
       <div class="heading h2">
-        <a href="#object-greater-string">object -&amp;gt; string</a>
+        <a href="#setup">Setup</a>
       </div>
 
       <div class="heading h2">
-        <a href="#string-greater-object">string -&amp;gt; object</a>
+        <a href="#handler">Handler</a>
       </div>
 
     </div>
@@ -67,10 +67,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="serializer-for-yaml-syntax">
+          <div class="pilwrap" id="test-script">
   <h1>
-    <a href="#serializer-for-yaml-syntax" name="serializer-for-yaml-syntax" class="pilcrow"></a>
-Serializer for yaml syntax
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
   </h1>
 </div>
 
@@ -85,7 +85,7 @@ Serializer for yaml syntax
           <div class="pilwrap" id="node-modules">
   <h2>
     <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node Modules
+Node modules
   </h2>
 </div>
 
@@ -100,72 +100,70 @@ Node Modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>include base modules</p>
+<p>internal mhelper modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">yaml = <span class="hljs-built_in">require</span> <span class="hljs-string">'js-yaml'</span></pre>
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="object-greater-string">
+          <div class="pilwrap" id="setup">
   <h2>
-    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
-object -&gt; string
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h2>
 </div>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">try</span>
-    text = yaml.safeDump obj</pre>
+          <pre class="coffeescript">
+exports.title = <span class="hljs-string">'cleanup files'</span>
+exports.description = <span class="hljs-string">"""
+Remove unneccessary folders.
+"""</span>
+
+exports.options =
+  <span class="hljs-attribute">auto</span>:
+    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'a'</span>
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Remove all automatically generated folders'</span>
+  <span class="hljs-attribute">dist</span>:
+    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
+    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Remove unneccessary folders for production'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="handler">
+  <h2>
+    <a href="#handler" name="handler" class="pilcrow"></a>
+Handler
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.handler = <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5"></a>
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
 </div>
-<pre><code> indent: options?.indent ? 2
-</code></pre>
+<p>step over directories</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-keyword">catch</span> error
-    cb <span class="hljs-keyword">new</span> Error(
-      error.message
-      .replace <span class="hljs-string">'JS-YAML: '</span>, <span class="hljs-string">''</span>
-      .replace <span class="hljs-regexp">/[\s^]+/g</span>, <span class="hljs-string">' '</span>
-    )
-  cb <span class="hljs-literal">null</span>, text</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="string-greater-object">
-  <h2>
-    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
-string -&gt; object
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">try</span>
-    obj = yaml.safeLoad text
-  <span class="hljs-keyword">catch</span> error
-    <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error(
-      error.message
-      .replace <span class="hljs-string">'JS-YAML: '</span>, <span class="hljs-string">''</span>
-      .replace <span class="hljs-regexp">/[\s^]+/g</span>, <span class="hljs-string">' '</span>
-    )
-  cb <span class="hljs-literal">null</span>, obj</pre>
+          <pre class="coffeescript">  builder.dirs options, <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+    builder.task <span class="hljs-string">'clean'</span>, dir, options, cb
+  , cb</pre>
         </td>
       </tr>
     

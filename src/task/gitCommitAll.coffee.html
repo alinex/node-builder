@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>coffee.coffee</title>
+  <title>gitCommitAll.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/type/coffee.coffee";
+    var thisFile = "src/task/gitCommitAll.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -41,19 +41,15 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#serializer-for-js-syntax">Serializer for js syntax</a>
+        <a href="#test-script">Test Script</a>
       </div>
 
       <div class="heading h2">
-        <a href="#node-modules">Node Modules</a>
+        <a href="#node-modules">Node modules</a>
       </div>
 
       <div class="heading h2">
-        <a href="#object-greater-string">object -&amp;gt; string</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#string-greater-object">string -&amp;gt; object</a>
+        <a href="#commit-all-changed-files">Commit all changed files</a>
       </div>
 
     </div>
@@ -67,10 +63,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="serializer-for-js-syntax">
+          <div class="pilwrap" id="test-script">
   <h1>
-    <a href="#serializer-for-js-syntax" name="serializer-for-js-syntax" class="pilcrow"></a>
-Serializer for js syntax
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
   </h1>
 </div>
 
@@ -85,7 +81,7 @@ Serializer for js syntax
           <div class="pilwrap" id="node-modules">
   <h2>
     <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node Modules
+Node modules
   </h2>
 </div>
 
@@ -100,52 +96,60 @@ Node Modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>include base modules</p>
+<p>internal mhelper modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">coffee = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span>
-CSON = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span></pre>
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="object-greater-string">
+          <div class="pilwrap" id="commit-all-changed-files">
   <h2>
-    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
-object -&gt; string
+    <a href="#commit-all-changed-files" name="commit-all-changed-files" class="pilcrow"></a>
+Commit all changed files
   </h2>
 </div>
+<p><em>Arguments:</em></p>
+<ul>
+<li><code>verbose</code> - (integer) verbose level</li>
+<li><code>message</code> - (string) commit message</li>
+</ul>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span>
-  CSON ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'cson-parser'</span>
-  cb <span class="hljs-literal">null</span>, CSON.stringify obj, <span class="hljs-literal">null</span>, options?.indent ? <span class="hljs-number">2</span></pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.message
+  builder.info dir, options, <span class="hljs-string">"commit all changes"</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="string-greater-object">
-  <h2>
-    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
-string -&gt; object
-  </h2>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
+<p>run the pull options</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
-  coffee ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span>
-  <span class="hljs-keyword">try</span>
-    text = <span class="hljs-string">"module.exports =\n  "</span> + text.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">'\n  '</span>
-    m = <span class="hljs-keyword">new</span> <span class="hljs-built_in">module</span>.constructor()
-    m._compile coffee.compile(text), <span class="hljs-string">'inline.coffee'</span>
-  <span class="hljs-keyword">catch</span> error
-    <span class="hljs-keyword">return</span> cb error
-  cb <span class="hljs-literal">null</span>, m.exports</pre>
+          <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'git add all'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'add'</span>, <span class="hljs-string">'-A'</span> ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    builder.exec dir, options, <span class="hljs-string">'git commit'</span>,
+      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
+      <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'commit'</span>, <span class="hljs-string">'-m'</span>, options.message ]
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">retry</span>:
+        <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+    , cb</pre>
         </td>
       </tr>
     

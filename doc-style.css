@@ -1,3 +1,13 @@
+@import url(https://alinex.github.io/fonts/sansation/stylesheet.css);
+@import url(https://alinex.github.io/fonts/xcelsion/style.css);
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('http://alinex.github.io/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://alinex.github.io/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg'); format('svg');
+}
+
+
 /*
 
 Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
@@ -351,7 +361,7 @@ table td {
 }
 td.docs {
   max-width: 450px;
-  min-width: 450px;
+  min-width: 150px;
   min-height: 5px;
   padding: 10px 25px 1px 50px;
   overflow-x: hidden;
@@ -469,4 +479,367 @@ code {
 }
 .line-num:before {
   content: attr(data-line);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  font-family: 'SansationRegular';
+  font-size: 15px;
+  line-height: 110%;
+  line-height: 120%;
+  margin: 0;
+  padding: 0;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 15px 0;}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'SansationBold';
+  line-height: 100%;
+}
+h1, h2, h3, h4, #headings .heading.h1 a {
+  color: #f0ad4e;
+}
+a { text-decoration: none; }
+h1 {
+  margin-top: 10px;
+}
+#tree, #headings {
+  font-family: 'SansationBold';
+  position: absolute;
+  top: 30px;
+  left: 0;
+  bottom: 0;
+  width: 290px;
+  padding: 10px 0;
+  overflow: auto; }
+
+#sidebar_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  overflow: hidden; }
+
+#sidebar_switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 290px;
+  height: 29px;
+  border-bottom: 1px solid; }
+  #sidebar_switch span {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: center;
+    line-height: 29px;
+    cursor: pointer; }
+  #sidebar_switch .selected {
+    font-weight: bold; }
+
+.slidey #sidebar_wrapper {
+  -webkit-transition: width 250ms linear;
+  -moz-transition: width 250ms linear;
+  -ms-transition: width 250ms linear;
+  -o-transition: width 250ms linear;
+  transition: width 250ms linear; }
+
+.sidebar #sidebar_wrapper {
+  width: 290px; }
+
+/* All the stuff that can depend on colour scheme goes below here: */
+body {
+  background: #333333;
+  color: #eeeeee;
+}
+
+a {
+  color: #337ab7; }
+a:visited {
+  color: #337ab7;
+}
+a:hover {
+  color: #f0ad4e;
+}
+
+#sidebar_wrapper {
+  background: #000; }
+
+#sidebar_switch {
+  background: #555555;
+  border-bottom-color: #333333; }
+#sidebar_switch span {
+  color: #dddddd; }
+#sidebar_switch span:hover {
+  background: #777777; }
+#sidebar_switch .selected {
+  background: #666666;
+  color: #eeeeee; }
+
+#tree {
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  color: #dddddd; }
+
+#headings .heading a {
+  font-weight: bold;
+  color: #337ab7; }
+#headings .heading a:hover {
+ color: #f0ad4e; }
+
+#sidebar-toggle {
+  background: #63C0F5; }
+#sidebar-toggle:hover {
+  background: #f0ad4e; }
+
+.docs.markdown {
+  background: #222; }
+.docs pre {
+  border-color: #999999;
+  background: #ccc;
+  color: black;
+  border-radius: 5px;
+}
+#container table {
+  width: 100%;
+  background: #333;
+}
+div.background {
+  background: #333;
+  border: 0;
+}
+td.code {
+  background: #333;
+  width: auto;
+}
+td.code pre {
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+pre code.sh::before {
+  content: "Shell Script";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.coffee::before {
+  content: "CoffeeScript";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+pre code.json::before {
+  content: "JSON data";
+  color: #505050;
+  font-weight: bold;
+  display: block;
+  background: rgba(225, 135, 40, 0.38);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
+
+pre, tt, code {
+  background: #ccc;
+  color: black;
+}
+.docs p tt, .docs p code, .docs li tt, .docs li code {
+  border-color: #666;
+  background: #444;
+  color: white;
+}
+.highlight {
+  background: #ededf3;
+  color: auto;
+}
+.dox {
+  border-top: 0;
+}
+.dox .details {
+  background: #ededf3;
+  border-color: #d8d8dc;
+}
+
+.pilwrap .pilcrow {
+  color: #3a3a2f; }
+
+td.code, .background {
+  border-left-color: #63C0F5;
+}
+
+#tree .file {
+  color: #337ab7;
+}
+
+/*  HEADER LINE */
+nav {
+  height: 40px;
+  position: absolute;
+  width: 100%;
+  background: black;
+  z-index: 1000;
+}
+nav .logo {
+  padding: 8px 20px 5px 33px;
+}
+nav .links {
+  margin-top: -40px;
+  float: right;
+  padding-right: 10px;
+}
+nav .btn {
+  -webkit-user-select: none;
+  background-image: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  height: 24px;
+  line-height: 17.142858505249px;
+  margin-bottom: 0px;
+  outline-color: black;
+  outline-style: none;
+  outline-width: 0px;
+  padding-bottom: 1px;
+  padding-left: 6px;
+  padding-right: 10px;
+  padding-top: 3px;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: SansationBold;
+  font-weight: boldest;
+}
+nav .btn:hover {
+  color: #fff;
+}
+nav .btn span {
+  position: relative;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+nav .btn-primary {
+  background-color: rgb(40, 96, 144);
+  border-bottom-color: rgb(32, 77, 116);
+  border-left-color: rgb(32, 77, 116);
+  border-right-color: rgb(32, 77, 116);
+  border-top-color: rgb(32, 77, 116);
+}
+nav .btn-warning {
+  background-color: rgb(240, 173, 78);
+  border-bottom-color: rgb(238, 162, 54);
+  border-left-color: rgb(238, 162, 54);
+  border-right-color: rgb(238, 162, 54);
+  border-top-color: rgb(238, 162, 54);
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-pencil:before {
+  content: "\270f";
+}
+.glyphicon-cog:before {
+  content: "\e019";
+}
+.glyphicon-book:before {
+  content: "\e043";
+}
+#sidebar-toggle {
+  background: #666;
+  width: 12px;
+}
+#sidebar-toggle:hover {
+  width: 12px;
+}
+.sidebar #sidebar_wrapper, .sidebar #container, .sidebar #sidebar-toggle,
+.slidey #container {
+  top: 50px;
+}
+
+
+#fork {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  width: 145px;
+  height: 145px;
+  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png);
+  z-index: 10000;
+}
+#fork:hover {
+  background: url(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png);
 }

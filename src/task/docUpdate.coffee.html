@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>docUpdate.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "src/task/docUpdate.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#test-script">Test Script</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#create-new-api-documentation">Create new API documentation</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#helper">Helper</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="test-script">
+  <h1>
+    <a href="#test-script" name="test-script" class="pilcrow"></a>
+Test Script
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>node packages</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>alinex packages</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-fs'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>internal mhelper modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="create-new-api-documentation">
+  <h2>
+    <a href="#create-new-api-documentation" name="create-new-api-documentation" class="pilcrow"></a>
+Create new API documentation
+  </h2>
+</div>
+<p><em>Arguments:</em></p>
+<ul>
+<li><code>verbose</code> - (integer) verbose level</li>
+<li><code>publish</code> - (boolean) flag if result should be published</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  builder.info dir, options, <span class="hljs-string">"create api documentation"</span>
+  docPath = path.join dir, <span class="hljs-string">'doc'</span>
+  builder.task <span class="hljs-string">"packageJson"</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span>
+    alinex = (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">'alinex'</span>
+    fs.npmbin <span class="hljs-string">'replace'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, replace)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+      async.series [
+        (cb) -&gt; revodeDir dir, options, docPath, cb
+        (cb) -&gt; createFolder dir, options, docPath, cb
+        (cb) -&gt;
+          async.parallel [
+            (cb) -&gt; createIndex dir, options, docPath, cb
+            (cb) -&gt; docker dir, options, docPath, cb
+            (cb) -&gt; copyImages dir, options, docPath, cb
+          ], cb
+        (cb) -&gt; githubLink dir, options, docPath, pack, replace, cb
+        (cb) -&gt; addViewport dir, options, docPath, replace, cb
+        (cb) -&gt; emptyCode dir, options, docPath, cb
+        (cb) -&gt; emptyLines dir, options, docPath, cb
+        (cb) -&gt; addAlinex dir, options, docPath, alinex, replace, cb
+        (cb) -&gt; copyCss dir, options, pack, cb
+        (cb) -&gt; copyJs dir, options, pack, cb
+      ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> cb err</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="helper">
+  <h2>
+    <a href="#helper" name="helper" class="pilcrow"></a>
+Helper
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function">
+<span class="hljs-title">revodeDir</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
+  fs.exists docPath, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists
+    builder.debug dir, options, <span class="hljs-string">"remove doc/ folder"</span>
+    fs.remove docPath, cb
+<span class="hljs-function">
+<span class="hljs-title">createFolder</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
+  builder.debug dir, options, <span class="hljs-string">"create doc/ folder"</span>
+  fs.mkdirs docPath, cb
+<span class="hljs-function">
+<span class="hljs-title">createIndex</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
+  builder.debug dir, options, <span class="hljs-string">"create index page"</span>
+  fs.writeFile path.join(docPath, <span class="hljs-string">'index.html'</span>), <span class="hljs-string">"""
+    &lt;html&gt;
+    &lt;head&gt;
+      &lt;meta http-equiv="refresh" content="0; url=README.md.html" /&gt;
+      &lt;script type="text/javascript"&gt;
+          window.location.href = "README.md.html"
+      &lt;/script&gt;
+      &lt;title&gt;Page Redirection&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+      If you are not redirected automatically, follow the link to the
+      &lt;a href='README.md.html'&gt;README&lt;/a&gt;.
+    &lt;/body&gt;
+    &lt;/html&gt;
+    """</span>, cb
+<span class="hljs-function">
+<span class="hljs-title">docker</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
+  fs.npmbin <span class="hljs-string">'docker'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    args = [
+      <span class="hljs-string">'-i'</span>, dir
+      <span class="hljs-keyword">if</span> options.watch <span class="hljs-keyword">then</span> <span class="hljs-string">'-w'</span> <span class="hljs-keyword">else</span> <span class="hljs-string">''</span>
+      <span class="hljs-string">'-x'</span>
+      <span class="hljs-string">'.git,bin,doc,report,node_modules,test,lib,public,view,log,config,*/angular'</span>
+      <span class="hljs-string">'-o'</span>, docPath
+    ]
+    builder.exec dir, options, <span class="hljs-string">'create api'</span>,
+      <span class="hljs-attribute">cmd</span>: cmd
+      <span class="hljs-attribute">args</span>: args
+      <span class="hljs-attribute">cwd</span>: dir
+      <span class="hljs-attribute">check</span>:
+        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+    , cb
+<span class="hljs-function">
+<span class="hljs-title">copyImages</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>copy images</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  builder.debug dir, options, <span class="hljs-string">"copy images"</span>
+  from = path.join dir, <span class="hljs-string">'src'</span>
+  to = path.join docPath, <span class="hljs-string">'src'</span>
+  fs.copy from, to,
+    <span class="hljs-attribute">include</span>: <span class="hljs-string">'*.{png,jpg,gif}'</span>
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">githubLink</span> = <span class="hljs-params">(dir, options, docPath, pack, replace, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> pack.repository.url.match <span class="hljs-regexp">/github\.com/</span>
+  builder.exec dir, options, <span class="hljs-string">'add github link'</span>,
+    <span class="hljs-attribute">cmd</span>: replace
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'(&lt;div id="container")&gt;'</span>
+      <span class="hljs-string">'$1 tabindex="0"&gt;&lt;a id="fork" href="'</span>+pack.repository.url+<span class="hljs-string">'"
+      title="Fork me on GitHub"&gt;&lt;/a&gt;'</span>
+      docPath,
+      <span class="hljs-string">'-r'</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">addViewport</span> = <span class="hljs-params">(dir, options, docPath, replace, cb)</span> -&gt;</span>
+  builder.exec dir, options, <span class="hljs-string">'add viewport'</span>,
+    <span class="hljs-attribute">cmd</span>: replace
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'(&lt;/head&gt;)'</span>
+      <span class="hljs-string">'&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;$1'</span>
+      docPath
+      <span class="hljs-string">'-r'</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">emptyCode</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
+  builder.exec dir, options, <span class="hljs-string">'remove empty code'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'-c'</span>
+      <span class="hljs-string">"find <span class="hljs-subst">#{docPath}</span> -name \\*.html | xargs sed -i ':a;N;$!ba;s/&lt;pre[^&gt;]*&gt;\\s*&lt;\\/pre&gt;//g'"</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">emptyLines</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>remove empty lines at end of code elements</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'remove empty lines in code'</span>,
+    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'-c'</span>
+      <span class="hljs-string">"find <span class="hljs-subst">#{docPath}</span> -name \\*.html | xargs sed -i ':a;N;$!ba;s/\\s*&lt;\\/pre&gt;/&lt;\\/pre&gt;/g'"</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">addAlinex</span> = <span class="hljs-params">(dir, options, docPath, alinex, replace, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> alinex
+  builder.exec dir, options, <span class="hljs-string">'add alinex header'</span>,
+    <span class="hljs-attribute">cmd</span>: replace
+    <span class="hljs-attribute">args</span>: [
+      <span class="hljs-string">'(&lt;div id="sidebar_wrapper"&gt;)'</span>
+      <span class="hljs-string">'''
+      &lt;nav&gt;
+      &lt;div class="logo"&gt;&lt;a href="http://alinex.github.io"
+        onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+        onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'"&gt;
+        &lt;img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+          width="150" title="Alinex Universe Homepage" /&gt;
+        &lt;/a&gt;
+        &lt;img src="http://alinex.github.io/images/Alinex-200.png"
+          style="display:none" alt="preloading" /&gt;
+      &lt;/div&gt;
+      &lt;div class="links"&gt;
+        &lt;a href="http://alinex.github.io/blog"
+          class="btn btn-primary"&gt;&lt;span class="glyphicon-pencil"&gt;&lt;/span&gt; Blog&lt;/a&gt;
+        &lt;a href="http://alinex.github.io/develop"
+          class="btn btn-primary"&gt;&lt;span class="glyphicon-book"&gt;&lt;/span&gt; Develop&lt;/a&gt;
+        &lt;a href="http://alinex.github.io/code.html"
+          class="btn btn-warning"&gt;&lt;span class="glyphicon-cog"&gt;&lt;/span&gt; Code&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;/nav&gt;$1
+      '''</span>
+      docPath
+      <span class="hljs-string">'-r'</span>
+    ]
+    <span class="hljs-attribute">cwd</span>: dir
+  , cb
+<span class="hljs-function">
+<span class="hljs-title">copyCss</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+  async.filter [
+    path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+    path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+  ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+    fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+  , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
+    fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-style.css'</span>),
+      <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+    , cb
+<span class="hljs-function">
+<span class="hljs-title">copyJs</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
+  async.filter [
+    path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+    path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+  ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+    fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+  , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
+    fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-script.js'</span>),
+      <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+    , cb</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

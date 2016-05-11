@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>alinex.css</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../";
+    var thisFile = "var/src/docstyle/alinex.css";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>alinex.css</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css">@import url(https://alinex.github.io/fonts/sansation/stylesheet.css);
+@import url(https://alinex.github.io/fonts/xcelsion/style.css);
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('http://alinex.github.io/fonts/glyphicons-halflings-regular.eot');
+  src: url('http://alinex.github.io/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://alinex.github.io/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg'); format('svg');
+}</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Original style from softwaremaniacs.org (c) Ivan Sagalaev <a href="mailto:Maniac@SoftwareManiacs.Org.html">Maniac@SoftwareManiacs.Org</a></p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="css"><span class="hljs-class">.hljs</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow-x</span>:<span class="hljs-value"> auto</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0.5em</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-text-size-adjust</span>:<span class="hljs-value"> none</span></span>;
+}</span>
+<span class="hljs-class">.hljs</span>,
+<span class="hljs-class">.hljs-subst</span>,
+<span class="hljs-class">.hljs-tag</span> <span class="hljs-class">.hljs-title</span>,
+<span class="hljs-class">.nginx</span> <span class="hljs-class">.hljs-title</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+}</span>
+<span class="hljs-class">.hljs-string</span>,
+<span class="hljs-class">.hljs-title</span>,
+<span class="hljs-class">.hljs-constant</span>,
+<span class="hljs-class">.hljs-parent</span>,
+<span class="hljs-class">.hljs-tag</span> <span class="hljs-class">.hljs-value</span>,
+<span class="hljs-class">.hljs-rule</span> <span class="hljs-class">.hljs-value</span>,
+<span class="hljs-class">.hljs-preprocessor</span>,
+<span class="hljs-class">.hljs-pragma</span>,
+<span class="hljs-class">.hljs-name</span>,
+<span class="hljs-class">.haml</span> <span class="hljs-class">.hljs-symbol</span>,
+<span class="hljs-class">.ruby</span> <span class="hljs-class">.hljs-symbol</span>,
+<span class="hljs-class">.ruby</span> <span class="hljs-class">.hljs-symbol</span> <span class="hljs-class">.hljs-string</span>,
+<span class="hljs-class">.hljs-template_tag</span>,
+<span class="hljs-class">.django</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.smalltalk</span> <span class="hljs-class">.hljs-class</span>,
+<span class="hljs-class">.hljs-addition</span>,
+<span class="hljs-class">.hljs-flow</span>,
+<span class="hljs-class">.hljs-stream</span>,
+<span class="hljs-class">.bash</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.pf</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.apache</span> <span class="hljs-class">.hljs-tag</span>,
+<span class="hljs-class">.apache</span> <span class="hljs-class">.hljs-cbracket</span>,
+<span class="hljs-class">.tex</span> <span class="hljs-class">.hljs-command</span>,
+<span class="hljs-class">.tex</span> <span class="hljs-class">.hljs-special</span>,
+<span class="hljs-class">.erlang_repl</span> <span class="hljs-class">.hljs-function_or_atom</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-header</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-header</span>,
+<span class="hljs-class">.coffeescript</span> <span class="hljs-class">.hljs-attribute</span>,
+<span class="hljs-class">.tp</span> <span class="hljs-class">.hljs-variable</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#800</span></span></span>;
+}</span>
+<span class="hljs-class">.smartquote</span>,
+<span class="hljs-class">.hljs-comment</span>,
+<span class="hljs-class">.hljs-annotation</span>,
+<span class="hljs-class">.diff</span> <span class="hljs-class">.hljs-header</span>,
+<span class="hljs-class">.hljs-chunk</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-blockquote</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-blockquote</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#888</span></span></span>;
+}</span>
+<span class="hljs-class">.hljs-number</span>,
+<span class="hljs-class">.hljs-date</span>,
+<span class="hljs-class">.hljs-regexp</span>,
+<span class="hljs-class">.hljs-literal</span>,
+<span class="hljs-class">.hljs-hexcolor</span>,
+<span class="hljs-class">.smalltalk</span> <span class="hljs-class">.hljs-symbol</span>,
+<span class="hljs-class">.smalltalk</span> <span class="hljs-class">.hljs-char</span>,
+<span class="hljs-class">.go</span> <span class="hljs-class">.hljs-constant</span>,
+<span class="hljs-class">.hljs-change</span>,
+<span class="hljs-class">.lasso</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.makefile</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-bullet</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-bullet</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-link_url</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-link_url</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#080</span></span></span>;
+}</span>
+<span class="hljs-class">.hljs-label</span>,
+<span class="hljs-class">.ruby</span> <span class="hljs-class">.hljs-string</span>,
+<span class="hljs-class">.hljs-decorator</span>,
+<span class="hljs-class">.hljs-filter</span> <span class="hljs-class">.hljs-argument</span>,
+<span class="hljs-class">.hljs-localvars</span>,
+<span class="hljs-class">.hljs-array</span>,
+<span class="hljs-class">.hljs-attr_selector</span>,
+<span class="hljs-class">.hljs-important</span>,
+<span class="hljs-class">.hljs-pseudo</span>,
+<span class="hljs-class">.hljs-pi</span>,
+<span class="hljs-class">.haml</span> <span class="hljs-class">.hljs-bullet</span>,
+<span class="hljs-class">.hljs-doctype</span>,
+<span class="hljs-class">.hljs-deletion</span>,
+<span class="hljs-class">.hljs-envvar</span>,
+<span class="hljs-class">.hljs-shebang</span>,
+<span class="hljs-class">.apache</span> <span class="hljs-class">.hljs-sqbracket</span>,
+<span class="hljs-class">.nginx</span> <span class="hljs-class">.hljs-built_in</span>,
+<span class="hljs-class">.tex</span> <span class="hljs-class">.hljs-formula</span>,
+<span class="hljs-class">.erlang_repl</span> <span class="hljs-class">.hljs-reserved</span>,
+<span class="hljs-class">.hljs-prompt</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-link_label</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-link_label</span>,
+<span class="hljs-class">.vhdl</span> <span class="hljs-class">.hljs-attribute</span>,
+<span class="hljs-class">.clojure</span> <span class="hljs-class">.hljs-attribute</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-attribute</span>,
+<span class="hljs-class">.lasso</span> <span class="hljs-class">.hljs-attribute</span>,
+<span class="hljs-class">.coffeescript</span> <span class="hljs-class">.hljs-property</span>,
+<span class="hljs-class">.hljs-phony</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#88f</span></span></span>;
+}</span>
+<span class="hljs-class">.hljs-keyword</span>,
+<span class="hljs-class">.hljs-id</span>,
+<span class="hljs-class">.hljs-title</span>,
+<span class="hljs-class">.hljs-built_in</span>,
+<span class="hljs-class">.css</span> <span class="hljs-class">.hljs-tag</span>,
+<span class="hljs-class">.hljs-doctag</span>,
+<span class="hljs-class">.smalltalk</span> <span class="hljs-class">.hljs-class</span>,
+<span class="hljs-class">.hljs-winutils</span>,
+<span class="hljs-class">.bash</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.pf</span> <span class="hljs-class">.hljs-variable</span>,
+<span class="hljs-class">.apache</span> <span class="hljs-class">.hljs-tag</span>,
+<span class="hljs-class">.hljs-type</span>,
+<span class="hljs-class">.hljs-typename</span>,
+<span class="hljs-class">.tex</span> <span class="hljs-class">.hljs-command</span>,
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-strong</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-strong</span>,
+<span class="hljs-class">.hljs-request</span>,
+<span class="hljs-class">.hljs-status</span>,
+<span class="hljs-class">.tp</span> <span class="hljs-class">.hljs-data</span>,
+<span class="hljs-class">.tp</span> <span class="hljs-class">.hljs-io</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+}</span>
+<span class="hljs-class">.asciidoc</span> <span class="hljs-class">.hljs-emphasis</span>,
+<span class="hljs-class">.markdown</span> <span class="hljs-class">.hljs-emphasis</span>,
+<span class="hljs-class">.tp</span> <span class="hljs-class">.hljs-units</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-style</span>:<span class="hljs-value"> italic</span></span>;
+}</span>
+<span class="hljs-class">.nginx</span> <span class="hljs-class">.hljs-built_in</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> normal</span></span>;
+}</span>
+<span class="hljs-class">.coffeescript</span> <span class="hljs-class">.javascript</span>,
+<span class="hljs-class">.javascript</span> <span class="hljs-class">.xml</span>,
+<span class="hljs-class">.lasso</span> <span class="hljs-class">.markup</span>,
+<span class="hljs-class">.tex</span> <span class="hljs-class">.hljs-formula</span>,
+<span class="hljs-class">.xml</span> <span class="hljs-class">.javascript</span>,
+<span class="hljs-class">.xml</span> <span class="hljs-class">.vbscript</span>,
+<span class="hljs-class">.xml</span> <span class="hljs-class">.css</span>,
+<span class="hljs-class">.xml</span> <span class="hljs-class">.hljs-cdata</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0.5</span></span></span>;
+}</span>
+<span class="hljs-tag">body</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'Palatino Linotype'</span>, <span class="hljs-string">'Book Antiqua'</span>, Palatino, FreeSerif, serif</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">15px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">22px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ffffff</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#0c0c0c</span></span></span>;
+}</span>
+<span class="hljs-tag">p</span>,
+<span class="hljs-tag">h1</span>,
+<span class="hljs-tag">h2</span>,
+<span class="hljs-tag">h3</span>,
+<span class="hljs-tag">h4</span>,
+<span class="hljs-tag">h5</span>,
+<span class="hljs-tag">h6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">15px</span> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-tag">h1</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">40px</span></span></span>;
+}</span>
+<span class="hljs-tag">a</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#080</span></span></span>;
+}</span>
+<span class="hljs-tag">a</span><span class="hljs-pseudo">:visited</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#080</span></span></span>;
+}</span>
+<span class="hljs-id">#tree</span>,
+<span class="hljs-id">#headings</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">30px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">10px</span> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> fixed</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> hidden</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#e4e4e4</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">29px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#dddddd</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#cccccc</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-tag">span</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value"> left</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">29px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#0a0a0a</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-tag">span</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#e4e4e4</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-class">.selected</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ebebeb</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+}</span>
+<span class="hljs-class">.slidey</span> <span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-o-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+}</span>
+<span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.nodename</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">text-indent</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAg0lEQVQYlWNIS0tbAcSK////Z8CHGTIzM7+mp6d/ASouwqswKyvrO1DRfyg+CcRaxCgE4Z9A3AjEbIQUgjHQOQvwKgS6+ffChQt3AiUDcCqsra29d/v27R6ghCVWN2ZnZ/9YuXLlRqBAPBALYvVMR0fHmQcPHrQBOUZ4gwfqFj5CAQ4Al6wLIYDwo9QAAAAASUVORK5CYII="</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background-repeat</span>:<span class="hljs-value"> no-repeat</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background-position</span>:<span class="hljs-value"> left center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.open</span> &gt; <span class="hljs-class">.nodename</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background-image</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(<span class="hljs-string">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAlElEQVQYlWNIS0tbCsT/8eCN////Z2B49OhRfHZ29jdsioDiP27evJkNVggkONeuXbscm8Jly5atA8rzwRSCsG5DQ8MtZEU1NTUPgOLGUHm4QgaQFVlZWT9BijIzM39fuHChDCaHohBkBdCq9SCF8+bN2wHkC+FSCMLGkyZNOvb9+3dbNHEMhSDsDsRMxCjEiolWCADeUBHgU/IGQQAAAABJRU5ErkJggg=="</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background-position</span>:<span class="hljs-value"> left <span class="hljs-number">7px</span></span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.dir</span>,
+<span class="hljs-id">#tree</span> <span class="hljs-class">.file</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">min-height</span>:<span class="hljs-value"> <span class="hljs-number">20px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">20px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.dir</span> &gt; <span class="hljs-class">.children</span>,
+<span class="hljs-id">#tree</span> <span class="hljs-class">.file</span> &gt; <span class="hljs-class">.children</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> none</span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.dir</span><span class="hljs-class">.open</span> &gt; <span class="hljs-class">.children</span>,
+<span class="hljs-id">#tree</span> <span class="hljs-class">.file</span><span class="hljs-class">.open</span> &gt; <span class="hljs-class">.children</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+}</span>
+<span class="hljs-id">#tree</span> <span class="hljs-class">.file</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">24px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+}</span>
+<span class="hljs-id">#tree</span> &gt; <span class="hljs-class">.dir</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.heading</span> <span class="hljs-tag">a</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h1</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">1.3em</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h2</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">8px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">1.1em</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h3</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">20px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">1em</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h4</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">30px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">3px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">0.9em</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h5</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">40px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">0.8em</span></span></span>;
+}</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.h6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">50px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">0.75em</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar-toggle</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> fixed</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">2</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#d8d8d8</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar-toggle</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#cccccc</span></span></span>;
+}</span>
+<span class="hljs-class">.slidey</span> <span class="hljs-id">#sidebar-toggle</span>,
+<span class="hljs-class">.slidey</span> <span class="hljs-id">#container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-transition</span>:<span class="hljs-value"> all <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-transition</span>:<span class="hljs-value"> all <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-transition</span>:<span class="hljs-value"> all <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-o-transition</span>:<span class="hljs-value"> all <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">transition</span>:<span class="hljs-value"> all <span class="hljs-number">250ms</span> linear</span></span>;
+}</span>
+<span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar-toggle</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+}</span>
+<span class="hljs-id">#container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> fixed</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">right</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-class">.sidebar</span> <span class="hljs-id">#container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">295px</span></span></span>;
+}</span>
+<span class="hljs-class">.no-sidebar</span> <span class="hljs-id">#sidebar_wrapper</span>,
+<span class="hljs-class">.no-sidebar</span> <span class="hljs-id">#sidebar-toggle</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> none</span></span>;
+}</span>
+<span class="hljs-class">.no-sidebar</span> <span class="hljs-id">#container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-id">#page</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding-top</span>:<span class="hljs-value"> <span class="hljs-number">40px</span></span></span>;
+}</span>
+<span class="hljs-tag">table</span> <span class="hljs-tag">td</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">outline</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-class">.docs</span><span class="hljs-class">.markdown</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">10px</span> <span class="hljs-number">50px</span></span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.docs</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">max-width</span>:<span class="hljs-value"> <span class="hljs-number">450px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">min-width</span>:<span class="hljs-value"> <span class="hljs-number">150px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">min-height</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">10px</span> <span class="hljs-number">25px</span> <span class="hljs-number">1px</span> <span class="hljs-number">50px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow-x</span>:<span class="hljs-value"> hidden</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">vertical-align</span>:<span class="hljs-value"> top</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> left</span></span>;
+}</span>
+<span class="hljs-class">.docs</span> <span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">15px</span> <span class="hljs-number">0</span> <span class="hljs-number">15px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#cccccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-class">.docs</span> <span class="hljs-tag">pre</span><span class="hljs-class">.code_stats</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">60%</span></span></span>;
+}</span>
+<span class="hljs-class">.docs</span> <span class="hljs-tag">p</span> <span class="hljs-tag">tt</span>,
+<span class="hljs-class">.docs</span> <span class="hljs-tag">li</span> <span class="hljs-tag">tt</span>,
+<span class="hljs-class">.docs</span> <span class="hljs-tag">p</span> <span class="hljs-tag">code</span>,
+<span class="hljs-class">.docs</span> <span class="hljs-tag">li</span> <span class="hljs-tag">code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#cccccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-number">0.2em</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#e4e4e4</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-top</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#d5d5d5</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-top</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-bottom</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.details</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#cccccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.dox_tag_title</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.dox_tag_detail</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.dox_tag_detail</span> <span class="hljs-tag">span</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-right</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.dox_type</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-style</span>:<span class="hljs-value"> italic</span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.dox_tag_name</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+}</span>
+<span class="hljs-class">.pilwrap</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-top</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+}</span>
+<span class="hljs-class">.pilwrap</span> <span class="hljs-class">.pilcrow</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font</span>:<span class="hljs-value"> <span class="hljs-number">12px</span> Arial</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#454545</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> -<span class="hljs-number">20px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-transition</span>:<span class="hljs-value"> opacity <span class="hljs-number">0.2s</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-transition</span>:<span class="hljs-value"> opacity <span class="hljs-number">0.2s</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-transition</span>:<span class="hljs-value"> opacity <span class="hljs-number">0.2s</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-o-transition</span>:<span class="hljs-value"> opacity <span class="hljs-number">0.2s</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">transition</span>:<span class="hljs-value"> opacity <span class="hljs-number">0.2s</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#181818</span></span></span>;
+}</span>
+<span class="hljs-class">.pilwrap</span> <span class="hljs-class">.pilcrow</span><span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">'\b6'</span></span></span>;
+}</span>
+<span class="hljs-class">.pilwrap</span><span class="hljs-pseudo">:hover</span> <span class="hljs-class">.pilcrow</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">8px</span> <span class="hljs-number">15px</span> <span class="hljs-number">8px</span> <span class="hljs-number">25px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">vertical-align</span>:<span class="hljs-value"> top</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-left</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#cccccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+}</span>
+<span class="hljs-class">.background</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-left</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid <span class="hljs-hexcolor">#cccccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> -<span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">right</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">525px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+}</span>
+<span class="hljs-tag">pre</span>,
+<span class="hljs-tag">tt</span>,
+<span class="hljs-tag">code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">18px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> Menlo, Monaco, Consolas, <span class="hljs-string">"Lucida Console"</span>, monospace</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> pre-wrap</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0f0f0</span></span></span>;
+}</span>
+<span class="hljs-class">.line-num</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> inline-block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">50px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> right</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">opacity</span>:<span class="hljs-value"> <span class="hljs-number">0.3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-left</span>:<span class="hljs-value"> -<span class="hljs-number">20px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#888</span></span></span>;
+}</span>
+<span class="hljs-class">.line-num</span><span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-function">attr</span>(data-line)</span></span>;
+}</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="hljs-tag">body</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'SansationRegular'</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">15px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">110%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">120%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-tag">p</span>, <span class="hljs-tag">h1</span>, <span class="hljs-tag">h2</span>, <span class="hljs-tag">h3</span>, <span class="hljs-tag">h4</span>, <span class="hljs-tag">h5</span>, <span class="hljs-tag">h6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">15px</span> <span class="hljs-number">0</span></span></span>;}</span>
+<span class="hljs-tag">h1</span>, <span class="hljs-tag">h2</span>, <span class="hljs-tag">h3</span>, <span class="hljs-tag">h4</span>, <span class="hljs-tag">h5</span>, <span class="hljs-tag">h6</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'SansationBold'</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+}</span>
+<span class="hljs-tag">h1</span>, <span class="hljs-tag">h2</span>, <span class="hljs-tag">h3</span>, <span class="hljs-tag">h4</span>, <span class="hljs-id">#headings</span> <span class="hljs-class">.heading</span><span class="hljs-class">.h1</span> <span class="hljs-tag">a</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0ad4e</span></span></span>;
+}</span>
+<span class="hljs-tag">a</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>; }</span>
+<span class="hljs-tag">h1</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-id">#tree</span>, <span class="hljs-id">#headings</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'SansationBold'</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">30px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">10px</span> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> auto</span></span>; }</span>
+
+<span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> fixed</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">bottom</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">overflow</span>:<span class="hljs-value"> hidden</span></span>; }</span>
+
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">left</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">29px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom</span>:<span class="hljs-value"> <span class="hljs-number">1px</span> solid</span></span>; }</span>
+  <span class="hljs-id">#sidebar_switch</span> <span class="hljs-tag">span</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value"> left</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">50%</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">29px</span></span></span>;
+    <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>; }</span>
+  <span class="hljs-id">#sidebar_switch</span> <span class="hljs-class">.selected</span> <span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>; }</span>
+
+<span class="hljs-class">.slidey</span> <span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-ms-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-o-transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">transition</span>:<span class="hljs-value"> width <span class="hljs-number">250ms</span> linear</span></span>; }</span>
+
+<span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">290px</span></span></span>; }</span>
+
+<span class="hljs-comment">/* All the stuff that can depend on colour scheme goes below here: */</span>
+<span class="hljs-tag">body</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333333</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#eeeeee</span></span></span>;
+}</span>
+
+<span class="hljs-tag">a</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#337ab7</span></span></span>; }</span>
+<span class="hljs-tag">a</span><span class="hljs-pseudo">:visited</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#337ab7</span></span></span>;
+}</span>
+<span class="hljs-tag">a</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0ad4e</span></span></span>;
+}</span>
+
+<span class="hljs-id">#sidebar_wrapper</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#000</span></span></span>; }</span>
+
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#555555</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333333</span></span></span>; }</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-tag">span</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#dddddd</span></span></span>; }</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-tag">span</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#777777</span></span></span>; }</span>
+<span class="hljs-id">#sidebar_switch</span> <span class="hljs-class">.selected</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#666666</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#eeeeee</span></span></span>; }</span>
+
+<span class="hljs-id">#tree</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> Monaco, <span class="hljs-string">"Bitstream Vera Sans Mono"</span>, <span class="hljs-string">"Lucida Console"</span>, Terminal, monospace</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#dddddd</span></span></span>; }</span>
+
+<span class="hljs-id">#headings</span> <span class="hljs-class">.heading</span> <span class="hljs-tag">a</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#337ab7</span></span></span>; }</span>
+<span class="hljs-id">#headings</span> <span class="hljs-class">.heading</span> <span class="hljs-tag">a</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0ad4e</span></span></span>; }</span>
+
+<span class="hljs-id">#sidebar-toggle</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#63C0F5</span></span></span>; }</span>
+<span class="hljs-id">#sidebar-toggle</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#f0ad4e</span></span></span>; }</span>
+
+<span class="hljs-class">.docs</span><span class="hljs-class">.markdown</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#222</span></span></span>; }</span>
+<span class="hljs-class">.docs</span> <span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#999999</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-radius</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+}</span>
+<span class="hljs-id">#container</span> <span class="hljs-tag">table</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+}</span>
+<span class="hljs-tag">div</span><span class="hljs-class">.background</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#333</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span> <span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-radius</span>:<span class="hljs-value"> <span class="hljs-number">8px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">5px</span> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-tag">pre</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> pre-wrap</span></span>;       <span class="hljs-comment">/* css-3 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -moz-pre-wrap</span></span>;  <span class="hljs-comment">/* Mozilla, since 1999 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -pre-wrap</span></span>;      <span class="hljs-comment">/* Opera 4-6 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> -o-pre-wrap</span></span>;    <span class="hljs-comment">/* Opera 7 */</span>
+  <span class="hljs-rule"><span class="hljs-attribute">word-wrap</span>:<span class="hljs-value"> break-word</span></span>;       <span class="hljs-comment">/* Internet Explorer 5.5+ */</span>
+}</span>
+<span class="hljs-tag">pre</span> <span class="hljs-tag">code</span><span class="hljs-class">.sh</span><span class="hljs-pseudo">::before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"Shell Script"</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#505050</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">rgba</span>(<span class="hljs-number">225</span>, <span class="hljs-number">135</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0.38</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-left-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-right-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> -<span class="hljs-number">6px</span> -<span class="hljs-number">5px</span> <span class="hljs-number">2px</span> -<span class="hljs-number">11px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-tag">pre</span> <span class="hljs-tag">code</span><span class="hljs-class">.coffee</span><span class="hljs-pseudo">::before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"CoffeeScript"</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#505050</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">rgba</span>(<span class="hljs-number">225</span>, <span class="hljs-number">135</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0.38</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-left-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-right-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> -<span class="hljs-number">6px</span> -<span class="hljs-number">5px</span> <span class="hljs-number">2px</span> -<span class="hljs-number">11px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-tag">pre</span> <span class="hljs-tag">code</span><span class="hljs-class">.json</span><span class="hljs-pseudo">::before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"JSON data"</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#505050</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> bold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">rgba</span>(<span class="hljs-number">225</span>, <span class="hljs-number">135</span>, <span class="hljs-number">40</span>, <span class="hljs-number">0.38</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-left-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-right-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-number">5px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin</span>:<span class="hljs-value"> -<span class="hljs-number">6px</span> -<span class="hljs-number">5px</span> <span class="hljs-number">2px</span> -<span class="hljs-number">11px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span></span></span>;
+}</span>
+
+<span class="hljs-tag">pre</span>, <span class="hljs-tag">tt</span>, <span class="hljs-tag">code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ccc</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+}</span>
+<span class="hljs-class">.docs</span> <span class="hljs-tag">p</span> <span class="hljs-tag">tt</span>, <span class="hljs-class">.docs</span> <span class="hljs-tag">p</span> <span class="hljs-tag">code</span>, <span class="hljs-class">.docs</span> <span class="hljs-tag">li</span> <span class="hljs-tag">tt</span>, <span class="hljs-class">.docs</span> <span class="hljs-tag">li</span> <span class="hljs-tag">code</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#666</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#444</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> white</span></span>;
+}</span>
+<span class="hljs-class">.highlight</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ededf3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> auto</span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+}</span>
+<span class="hljs-class">.dox</span> <span class="hljs-class">.details</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#ededf3</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#d8d8dc</span></span></span>;
+}</span>
+
+<span class="hljs-class">.pilwrap</span> <span class="hljs-class">.pilcrow</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#3a3a2f</span></span></span>; }</span>
+
+<span class="hljs-tag">td</span><span class="hljs-class">.code</span>, <span class="hljs-class">.background</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">border-left-color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#63C0F5</span></span></span>;
+}</span>
+
+<span class="hljs-id">#tree</span> <span class="hljs-class">.file</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#337ab7</span></span></span>;
+}</span>
+
+<span class="hljs-comment">/*  HEADER LINE */</span>
+<span class="hljs-tag">nav</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">40px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> black</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">1000</span></span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.logo</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">padding</span>:<span class="hljs-value"> <span class="hljs-number">8px</span> <span class="hljs-number">20px</span> <span class="hljs-number">5px</span> <span class="hljs-number">33px</span></span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.links</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">margin-top</span>:<span class="hljs-value"> -<span class="hljs-number">40px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">float</span>:<span class="hljs-value"> right</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-right</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.btn</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-user-select</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background-image</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-left-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-right-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-style</span>:<span class="hljs-value"> solid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-width</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-image-outset</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-image-repeat</span>:<span class="hljs-value"> stretch</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-image-slice</span>:<span class="hljs-value"> <span class="hljs-number">100%</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-image-source</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-image-width</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-left-style</span>:<span class="hljs-value"> solid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-left-width</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-right-style</span>:<span class="hljs-value"> solid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-right-width</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-left-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-right-radius</span>:<span class="hljs-value"> <span class="hljs-number">4px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-style</span>:<span class="hljs-value"> solid</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-width</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">box-sizing</span>:<span class="hljs-value"> border-box</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> black</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">cursor</span>:<span class="hljs-value"> pointer</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> inline-block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-size</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">24px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">17.142858505249px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">margin-bottom</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">outline-color</span>:<span class="hljs-value"> black</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">outline-style</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">outline-width</span>:<span class="hljs-value"> <span class="hljs-number">0px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-bottom</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-left</span>:<span class="hljs-value"> <span class="hljs-number">6px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-right</span>:<span class="hljs-value"> <span class="hljs-number">10px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">padding-top</span>:<span class="hljs-value"> <span class="hljs-number">3px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-align</span>:<span class="hljs-value"> center</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">text-decoration</span>:<span class="hljs-value"> none</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">touch-action</span>:<span class="hljs-value"> manipulation</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">vertical-align</span>:<span class="hljs-value"> middle</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">white-space</span>:<span class="hljs-value"> nowrap</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> SansationBold</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> boldest</span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.btn</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#fff</span></span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.btn</span> <span class="hljs-tag">span</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> inline-block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'Glyphicons Halflings'</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-style</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-font-smoothing</span>:<span class="hljs-value"> antialiased</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-osx-font-smoothing</span>:<span class="hljs-value"> grayscale</span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.btn-primary</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">40</span>, <span class="hljs-number">96</span>, <span class="hljs-number">144</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">32</span>, <span class="hljs-number">77</span>, <span class="hljs-number">116</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-left-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">32</span>, <span class="hljs-number">77</span>, <span class="hljs-number">116</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-right-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">32</span>, <span class="hljs-number">77</span>, <span class="hljs-number">116</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">32</span>, <span class="hljs-number">77</span>, <span class="hljs-number">116</span>)</span></span>;
+}</span>
+<span class="hljs-tag">nav</span> <span class="hljs-class">.btn-warning</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">240</span>, <span class="hljs-number">173</span>, <span class="hljs-number">78</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-bottom-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">238</span>, <span class="hljs-number">162</span>, <span class="hljs-number">54</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-left-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">238</span>, <span class="hljs-number">162</span>, <span class="hljs-number">54</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-right-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">238</span>, <span class="hljs-number">162</span>, <span class="hljs-number">54</span>)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border-top-color</span>:<span class="hljs-value"> <span class="hljs-function">rgb</span>(<span class="hljs-number">238</span>, <span class="hljs-number">162</span>, <span class="hljs-number">54</span>)</span></span>;
+}</span>
+
+<span class="hljs-class">.glyphicon</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> relative</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">1px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">display</span>:<span class="hljs-value"> inline-block</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-family</span>:<span class="hljs-value"> <span class="hljs-string">'Glyphicons Halflings'</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-style</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">font-weight</span>:<span class="hljs-value"> normal</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">line-height</span>:<span class="hljs-value"> <span class="hljs-number">1</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-webkit-font-smoothing</span>:<span class="hljs-value"> antialiased</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">-moz-osx-font-smoothing</span>:<span class="hljs-value"> grayscale</span></span>;
+}</span>
+<span class="hljs-class">.glyphicon-pencil</span><span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"\270f"</span></span></span>;
+}</span>
+<span class="hljs-class">.glyphicon-cog</span><span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"\e019"</span></span></span>;
+}</span>
+<span class="hljs-class">.glyphicon-book</span><span class="hljs-pseudo">:before</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">content</span>:<span class="hljs-value"> <span class="hljs-string">"\e043"</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar-toggle</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-hexcolor">#666</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+}</span>
+<span class="hljs-id">#sidebar-toggle</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">12px</span></span></span>;
+}</span>
+<span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar_wrapper</span>, <span class="hljs-class">.sidebar</span> <span class="hljs-id">#container</span>, <span class="hljs-class">.sidebar</span> <span class="hljs-id">#sidebar-toggle</span>,
+<span class="hljs-class">.slidey</span> <span class="hljs-id">#container</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">50px</span></span></span>;
+}</span>
+
+
+<span class="hljs-id">#fork</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">position</span>:<span class="hljs-value"> absolute</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">top</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">right</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">border</span>:<span class="hljs-value"> <span class="hljs-number">0</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">width</span>:<span class="hljs-value"> <span class="hljs-number">145px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">145px</span></span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png)</span></span>;
+  <span class="hljs-rule"><span class="hljs-attribute">z-index</span>:<span class="hljs-value"> <span class="hljs-number">10000</span></span></span>;
+}</span>
+<span class="hljs-id">#fork</span><span class="hljs-pseudo">:hover</span> <span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">background</span>:<span class="hljs-value"> <span class="hljs-function">url</span>(https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png)</span></span>;
+}</span></pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

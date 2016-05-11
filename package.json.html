@@ -65,20 +65,19 @@
         </td>
         <td class="code highlight">
           <pre class="json">{
-  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"alinex-formatter"</span></span>,
-  "<span class="hljs-attribute">version</span>": <span class="hljs-value"><span class="hljs-string">"0.2.0"</span></span>,
-  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Parse and format multiple data serialization types."</span></span>,
-  "<span class="hljs-attribute">copyright</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling 2016"</span></span>,
+  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"alinex-builder"</span></span>,
+  "<span class="hljs-attribute">version</span>": <span class="hljs-value"><span class="hljs-string">"2.0.5"</span></span>,
+  "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Build tools for development of npm packages."</span></span>,
+  "<span class="hljs-attribute">copyright</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling 2013-2016"</span></span>,
   "<span class="hljs-attribute">keywords</span>": <span class="hljs-value">[
-    <span class="hljs-string">"serialization"</span>,
-    <span class="hljs-string">"xml"</span>,
-    <span class="hljs-string">"json"</span>,
-    <span class="hljs-string">"bson"</span>,
-    <span class="hljs-string">"cson"</span>,
-    <span class="hljs-string">"yaml"</span>,
-    <span class="hljs-string">"csv"</span>,
-    <span class="hljs-string">"properties"</span>,
-    <span class="hljs-string">"ini"</span>
+    <span class="hljs-string">"make"</span>,
+    <span class="hljs-string">"build"</span>,
+    <span class="hljs-string">"doc"</span>,
+    <span class="hljs-string">"create"</span>,
+    <span class="hljs-string">"tool"</span>,
+    <span class="hljs-string">"compile"</span>,
+    <span class="hljs-string">"test"</span>,
+    <span class="hljs-string">"publish"</span>
   ]</span>,
   "<span class="hljs-attribute">homepage</span>": <span class="hljs-value"><span class="hljs-string">"http://alinex.github.io/node-builder"</span></span>,
   "<span class="hljs-attribute">repository</span>": <span class="hljs-value">{
@@ -93,23 +92,51 @@
   </span>}</span>,
   "<span class="hljs-attribute">contributors</span>": <span class="hljs-value">[]</span>,
   "<span class="hljs-attribute">license</span>": <span class="hljs-value"><span class="hljs-string">"Apache-2.0"</span></span>,
+  "<span class="hljs-attribute">bin</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">builder</span>": <span class="hljs-value"><span class="hljs-string">"./bin/builder"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">man</span>": <span class="hljs-value"><span class="hljs-string">"./man/builder.1"</span></span>,
   "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile --uglify"</span></span>,
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span></span>,
-    "<span class="hljs-attribute">coveralls</span>": <span class="hljs-value"><span class="hljs-string">"COVERALLS_SERVICE_NAME=travis-ci COVERALLS_REPO_TOKEN=???????????? node_modules/.bin/builder test --coveralls"</span>
+    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/coffee -c -m -o lib src"</span></span>,
+    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter spec -c test/mocha"</span></span>,
+    "<span class="hljs-attribute">start</span>": <span class="hljs-value"><span class="hljs-string">"bin/builder"</span>
   </span>}</span>,
   "<span class="hljs-attribute">directories</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">lib</span>": <span class="hljs-value"><span class="hljs-string">"./lib"</span>
+    "<span class="hljs-attribute">bin</span>": <span class="hljs-value"><span class="hljs-string">"./bin"</span></span>,
+    "<span class="hljs-attribute">lib</span>": <span class="hljs-value"><span class="hljs-string">"./lib"</span></span>,
+    "<span class="hljs-attribute">man</span>": <span class="hljs-value"><span class="hljs-string">"./man"</span>
   </span>}</span>,
   "<span class="hljs-attribute">dependencies</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">async</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.0-rc.4"</span></span>,
+    "<span class="hljs-attribute">alinex-config</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.2"</span></span>,
+    "<span class="hljs-attribute">alinex-core</span>": <span class="hljs-value"><span class="hljs-string">"^0.2.5"</span></span>,
+    "<span class="hljs-attribute">alinex-exec</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.2"</span></span>,
+    "<span class="hljs-attribute">alinex-fs</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.1"</span></span>,
+    "<span class="hljs-attribute">alinex-util</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.3"</span></span>,
+    "<span class="hljs-attribute">async</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.0-rc.3"</span></span>,
     "<span class="hljs-attribute">chalk</span>": <span class="hljs-value"><span class="hljs-string">"^1.1.3"</span></span>,
+    "<span class="hljs-attribute">coffee-coverage</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.1"</span></span>,
     "<span class="hljs-attribute">coffee-script</span>": <span class="hljs-value"><span class="hljs-string">"^1.10.0"</span></span>,
-    "<span class="hljs-attribute">cson-parser</span>": <span class="hljs-value"><span class="hljs-string">"^1.3.3"</span></span>,
-    "<span class="hljs-attribute">debug</span>": <span class="hljs-value"><span class="hljs-string">"^2.2.0"</span>
+    "<span class="hljs-attribute">coffeelint</span>": <span class="hljs-value"><span class="hljs-string">"^1.15.7"</span></span>,
+    "<span class="hljs-attribute">coveralls</span>": <span class="hljs-value"><span class="hljs-string">"^2.11.9"</span></span>,
+    "<span class="hljs-attribute">debounce</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0"</span></span>,
+    "<span class="hljs-attribute">debug</span>": <span class="hljs-value"><span class="hljs-string">"^2.2.0"</span></span>,
+    "<span class="hljs-attribute">docker</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0-alpha.2"</span></span>,
+    "<span class="hljs-attribute">inquirer</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.2"</span></span>,
+    "<span class="hljs-attribute">istanbul</span>": <span class="hljs-value"><span class="hljs-string">"^0.4.3"</span></span>,
+    "<span class="hljs-attribute">marked-man</span>": <span class="hljs-value"><span class="hljs-string">"0.1.x"</span></span>,
+    "<span class="hljs-attribute">mocha</span>": <span class="hljs-value"><span class="hljs-string">"^2.4.5"</span></span>,
+    "<span class="hljs-attribute">moment</span>": <span class="hljs-value"><span class="hljs-string">"^2.13.0"</span></span>,
+    "<span class="hljs-attribute">node-sass</span>": <span class="hljs-value"><span class="hljs-string">"^3.7.0"</span></span>,
+    "<span class="hljs-attribute">npm-check</span>": <span class="hljs-value"><span class="hljs-string">"^5.2.1"</span></span>,
+    "<span class="hljs-attribute">plato</span>": <span class="hljs-value"><span class="hljs-string">"^1.5.0"</span></span>,
+    "<span class="hljs-attribute">prompt</span>": <span class="hljs-value"><span class="hljs-string">"^1.0.0"</span></span>,
+    "<span class="hljs-attribute">replace</span>": <span class="hljs-value"><span class="hljs-string">"&gt;=0.2.0 &lt;0.4.0"</span></span>,
+    "<span class="hljs-attribute">request</span>": <span class="hljs-value"><span class="hljs-string">"^2.72.0"</span></span>,
+    "<span class="hljs-attribute">typescript</span>": <span class="hljs-value"><span class="hljs-string">"^1.8.10"</span></span>,
+    "<span class="hljs-attribute">uglify-js</span>": <span class="hljs-value"><span class="hljs-string">"^2.6.2"</span></span>,
+    "<span class="hljs-attribute">yargs</span>": <span class="hljs-value"><span class="hljs-string">"^4.7.0"</span>
   </span>}</span>,
   "<span class="hljs-attribute">devDependencies</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">alinex-builder</span>": <span class="hljs-value"><span class="hljs-string">"^2.0.0"</span></span>,
     "<span class="hljs-attribute">chai</span>": <span class="hljs-value"><span class="hljs-string">"^3.5.0"</span>
   </span>}</span>,
   "<span class="hljs-attribute">optionalDependencies</span>": <span class="hljs-value">{}</span>,
