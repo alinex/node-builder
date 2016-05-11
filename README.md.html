@@ -41,19 +41,11 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#alinex-builder">Alinex Builder</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#motivation">Motivation</a>
+        <a href="#alinex-formatter">Alinex Formatter</a>
       </div>
 
       <div class="heading h2">
         <a href="#install">Install</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#bash-code-completion">Bash Code completion</a>
       </div>
 
       <div class="heading h2">
@@ -61,63 +53,47 @@
       </div>
 
       <div class="heading h3">
-        <a href="#include-in-own-package">Include in own package</a>
+        <a href="#format">format</a>
       </div>
 
       <div class="heading h3">
-        <a href="#general-options">General options</a>
+        <a href="#parse">parse</a>
       </div>
 
       <div class="heading h2">
-        <a href="#commands">Commands</a>
+        <a href="#formats">Formats</a>
       </div>
 
       <div class="heading h3">
-        <a href="#create">create</a>
+        <a href="#json">JSON</a>
       </div>
 
       <div class="heading h3">
-        <a href="#push">push</a>
+        <a href="#javascript">JavaScript</a>
       </div>
 
       <div class="heading h3">
-        <a href="#pull">pull</a>
+        <a href="#cson">CSON</a>
       </div>
 
       <div class="heading h3">
-        <a href="#link">link</a>
+        <a href="#coffee">Coffee</a>
       </div>
 
       <div class="heading h3">
-        <a href="#compile">compile</a>
+        <a href="#yaml">YAML</a>
       </div>
 
       <div class="heading h3">
-        <a href="#test">test</a>
+        <a href="#xml">XML</a>
       </div>
 
       <div class="heading h3">
-        <a href="#doc">doc</a>
+        <a href="#ini">INI</a>
       </div>
 
       <div class="heading h3">
-        <a href="#changes">changes</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#publish">publish</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#clean">clean</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#configuration">Configuration</a>
-      </div>
-
-      <div class="heading h3">
-        <a href="#document-template">Document Template</a>
+        <a href="#properties">PROPERTIES</a>
       </div>
 
       <div class="heading h2">
@@ -128,536 +104,490 @@
   </div>
   <div id="sidebar-toggle"></div>
   <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
-    <div class="docs markdown"><div class="pilwrap" id="alinex-builder">
+    <div class="docs markdown"><div class="pilwrap" id="alinex-formatter">
   <h1>
-    <a href="#alinex-builder" name="alinex-builder" class="pilcrow"></a>
-Alinex Builder
+    <a href="#alinex-formatter" name="alinex-formatter" class="pilcrow"></a>
+Alinex Formatter
   </h1>
 </div>
-<p><a href="https://travis-ci.org/alinex/node-builder"><img src="https://travis-ci.org/alinex/node-builder.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/r/alinex/node-builder?branch=master"><img src="https://coveralls.io/repos/alinex/node-builder/badge.png?branch=master" alt="Coverage Status"></a>
-<a href="https://gemnasium.com/alinex/node-builder"><img src="https://gemnasium.com/alinex/node-builder.png" alt="Dependency Status"></a></p>
-<p>This package contains some helper commands for development of the alinex
-node packages. Realized as a superset of npm and other command line tools.</p>
-<p>It may help a lot while developing to automatize the consequently done tasks.</p>
+<p><a href="https://travis-ci.org/alinex/node-formatter"><img src="https://travis-ci.org/alinex/node-formatter.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/alinex/node-formatter?branch=master"><img src="https://coveralls.io/repos/alinex/node-formatter/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/alinex/node-formatter"><img src="https://gemnasium.com/alinex/node-formatter.png" alt="Dependency Status"></a></p>
+<p>This package will give you an easy way to serialize and deserialize different data
+objects into multiple formats.</p>
+<p>The major features are:</p>
 <ul>
-<li>easy to use build tool</li>
-<li>supporting complete process</li>
-<li>specialized for the alinex modules</li>
-<li>usable for other modules, too</li>
-<li>working with multiple packages at once</li>
+<li>easy to use</li>
+<li>load format libraries on demand</li>
+<li>auto detection</li>
 </ul>
 <blockquote>
 <p>It is one of the modules of the <a href="http://alinex.github.io/code.html">Alinex Universe</a>
 following the code standards defined in the <a href="http://alinex.github.io/develop">General Docs</a>.</p>
 </blockquote>
-<div class="pilwrap" id="motivation">
-  <h2>
-    <a href="#motivation" name="motivation" class="pilcrow"></a>
-Motivation
-  </h2>
-</div>
-<p>While developing an automated build tool always help saving time and make things
-magic and smooth.</p>
-<p>My first intention was to use the standardized tools so I looked at Bower and
-Cake. To have more possibilities above the tasks I decided to create a Cakefile.
-This was a good way but over time it got bloated.</p>
-<p>Because the general tasks are easy but have to be modularized I decided to
-separate them into build tasks which stay in the package and overall management
-tasks which were moved out into this helper tool.</p>
 <div class="pilwrap" id="install">
   <h2>
     <a href="#install" name="install" class="pilcrow"></a>
 Install
   </h2>
 </div>
-<p><a href="https://www.npmjs.com/package/alinex-builder"><img src="https://nodei.co/npm/alinex-builder.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
-<img src="https://nodei.co/npm-dl/alinex-builder.png?months=9&amp;height=3" alt="Downloads">
+<p><a href="https://www.npmjs.com/package/alinex-formatter"><img src="https://nodei.co/npm/alinex-formatter.png?downloads=true&amp;downloadRank=true&amp;stars=true" alt="NPM">
+<img src="https://nodei.co/npm-dl/alinex-formatter.png?months=9&amp;height=3" alt="Downloads">
 </a></p>
-<p>It may be installed globally as an universal helper or integrated into a package
-as development dependency.</p>
-<p>Install the package globally using npm:</p>
-<pre><code class="sh">sudo npm install -g alinex-builder --production
-builder --help
+<p>The easiest way is to let npm add the module directly to your modules
+(from within you node modules directory):</p>
+<pre><code class="sh">npm install alinex-formatter --save
 </code></pre>
-<p>After global installation you may directly call <code>builder</code> from anywhere to work
-in the current or defined directory:</p>
-<pre><code class="sh">builder --help
+<p>And update it to the latest version later:</p>
+<pre><code class="sh">npm update alinex-formatter --save
 </code></pre>
-<p>Or you may integrate it into your own package:</p>
-<pre><code class="sh">npm install alinex-builder --save-dev
-./node_modules/.bin/builder --help
-</code></pre>
-<p>By integrating it you won't need all the development tools within your package.</p>
 <p>Always have a look at the latest <a href="Changelog.md.html">changes</a>.</p>
-<div class="pilwrap" id="bash-code-completion">
-  <h3>
-    <a href="#bash-code-completion" name="bash-code-completion" class="pilcrow"></a>
-Bash Code completion
-  </h3>
-</div>
-<p>If you like, you can add code completion for bash by copying the output of:</p>
-<pre><code class="text">&gt; builder bashrc-script
-
-###-begin-cli.coffee-completions-###
-#
-# yargs command completion script
-#
-# Installation: builder completion &gt;&gt; ~/.bashrc
-#    or builder completion &gt;&gt; ~/.bash_profile on OSX.
-#
-_yargs_completions()
-{
-    local cur_word args type_list
-
-    cur_word=&quot;${COMP_WORDS[COMP_CWORD]}&quot;
-    args=$(printf &quot;%s &quot; &quot;${COMP_WORDS[@]}&quot;)
-
-    # ask yargs to generate completions.
-    type_list=`builder --get-yargs-completions $args`
-
-    COMPREPLY=( $(compgen -W &quot;${type_list}&quot; -- ${cur_word}) )
-
-    # if no match was found, fall back to filename completion
-    if [ ${#COMPREPLY[@]} -eq 0 ]; then
-      COMPREPLY=( $(compgen -f -- &quot;${cur_word}&quot; ) )
-    fi
-
-    return 0
-}
-complete -F _yargs_completions builder
-###-end-cli.coffee-completions-###
-</code></pre>
-<p>Put these lines into your <code>~/.bashrc</code> file.</p>
 <div class="pilwrap" id="usage">
   <h2>
     <a href="#usage" name="usage" class="pilcrow"></a>
 Usage
   </h2>
 </div>
-<p>You can simple call the <code>builder</code> command with one of the configured commands:</p>
-<pre><code>&gt; builder &lt;command&gt; [&lt;options&gt;]...
-
-Initializing...
-Run the command...
-...
-Goodbye
+<p>To use the formatter you have to load the module first:</p>
+<pre><code class="coffee">formatter = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-formatter'</span>
 </code></pre>
-<p>To list all the possible commands:</p>
-<pre><code>&gt; builder --help
-</code></pre>
-<p>This will show the possible commands which are defined. And to know more about
-a specific command or it's options you may call the help on the command:</p>
-<pre><code>&gt; builder &lt;command&gt; --help
-</code></pre>
-<p>If not installed globally you may run it as:</p>
-<pre><code class="sh">node_modules/.bin/builder &lt;<span class="hljs-built_in">command</span>&gt; [&lt;options&gt;]...
-</code></pre>
-<p>Multiple directory names can be given. They specify on which project to work on.
-It should point to the base package directory of a module. If not specified the
-command will run from the current directory.</p>
-<p>To run multiple commands, call the program for each one.</p>
-<div class="pilwrap" id="include-in-own-package">
+<p>This gives you back the main formatter instance which holds two methods to use:</p>
+<div class="pilwrap" id="format">
   <h3>
-    <a href="#include-in-own-package" name="include-in-own-package" class="pilcrow"></a>
-Include in own package
+    <a href="#format" name="format" class="pilcrow"></a>
+format
   </h3>
 </div>
-<p>Within your <code>package.json</code> it may look like:</p>
-<pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile --uglify"</span></span>,
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span>
-  </span>}
-</span>}
-</code></pre>
-<div class="pilwrap" id="general-options">
+<p>Serialize data object into string.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>obj</code>
+object to be formatted</li>
+<li><code>format</code>
+formatter to use or filename to read format from</li>
+<li><code>options</code> (optional)
+specific for the formatter</li>
+<li><code>cb</code>
+callback will be called with (err, text)</li>
+</ul>
+<div class="pilwrap" id="parse">
   <h3>
-    <a href="#general-options" name="general-options" class="pilcrow"></a>
-General options
+    <a href="#parse" name="parse" class="pilcrow"></a>
+parse
   </h3>
 </div>
-<p><code>-v</code> or <code>--verbose</code> will display a lot of information of what is going on.
-This information will sometimes look discarded because of the parallel
-processing of some tasks.</p>
-<ol>
-<li>show the big actions going on</li>
-<li>detailed actions with commandline calls</li>
-<li>also show command output and more details</li>
-</ol>
-<p><code>-C</code> or <code>--no-colors</code> can be used to disable the colored output.</p>
-<p><code>-q</code> or <code>-quiet</code> is used to remove the unneccessary output like header and
-footer.</p>
-<div class="pilwrap" id="commands">
+<p>Try to parse object from string. Auto detect if no format is given.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>string</code>
+text to be parsed</li>
+<li><code>format</code> (optional)
+formatter to use or filename to read format from</li>
+<li><code>cb</code>
+callback will be called with (err, object)</li>
+</ul>
+<div class="pilwrap" id="formats">
   <h2>
-    <a href="#commands" name="commands" class="pilcrow"></a>
-Commands
+    <a href="#formats" name="formats" class="pilcrow"></a>
+Formats
   </h2>
 </div>
-<div class="pilwrap" id="create">
+<p>This configuration class allows multiple formats to be used.</p>
+<p>The following table will give a short comparison.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Format</th>
+<th style="text-align:center">Readable</th>
+<th style="text-align:center">Comments</th>
+<th style="text-align:center">Arrays</th>
+<th style="text-align:center">Deep</th>
+<th style="text-align:center">Calc</th>
+<th style="text-align:center">Ref.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">JSON</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:left">JS</td>
+<td style="text-align:center">++</td>
+<td style="text-align:center">allow</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">read</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:left">CSON</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">allow</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:left">Coffee</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">allow</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">read</td>
+<td style="text-align:center">no</td>
+</tr>
+<tr>
+<td style="text-align:left">YAML</td>
+<td style="text-align:center">+++</td>
+<td style="text-align:center">allow</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">yes</td>
+<td style="text-align:center">no</td>
+<td style="text-align:center">read</td>
+</tr>
+</tbody>
+</table>
+<p>Legend: +++ to --- = good to bad; no = not possible; allow = allowed but unused;
+read = only red but not written; write = only written but not red; yes = fully
+supported; ? = unknown</p>
+<p>See details for each format below.</p>
+<p>Some of the formats support comments but they won't read or write them, they
+only will allow them to be there in the file.</p>
+<div class="pilwrap" id="json">
   <h3>
-    <a href="#create" name="create" class="pilcrow"></a>
-create
+    <a href="#json" name="json" class="pilcrow"></a>
+JSON
   </h3>
 </div>
-<p>Create a new package from scratch. This will create:</p>
-<ul>
-<li>the directory</li>
-<li>make some initial files</li>
-<li>init git repository</li>
-<li>setup github repository</li>
-<li>add and commit everything</li>
-</ul>
-<p>The create task needs the <code>--password</code> setting to access github
-through the api. And you may specify the <code>--package</code> setting for the npm name
-of the package. The also mandatory path will be used as the github repository
-name, too.</p>
-<p>Some example calls will look like:</p>
-<pre><code class="sh">builder create ../node-test
-</code></pre>
-<p>This process is interactive and will ask you some more details. After that you
-may directly start to add your code.</p>
-<div class="pilwrap" id="push">
-  <h3>
-    <a href="#push" name="push" class="pilcrow"></a>
-push
-  </h3>
-</div>
-<p>This will push the changes to the origin repository. With the <code>--message</code> option
-it will also add and commit all other changes before doing so.</p>
-<pre><code class="sh">builder push                  <span class="hljs-comment"># from within the package directory</span>
-</code></pre>
-<p>or to also commit the last changes</p>
-<pre><code class="sh">builder push --message <span class="hljs-string">"commit message"</span>
-</code></pre>
-<p>The push is only possible if you have the newest changes merged into your repository.
-On any problems try to <code>pull</code> first before pushing your changes.</p>
-<p>If you want to only commit some changes you have to do this on your own.</p>
-<div class="pilwrap" id="pull">
-  <h3>
-    <a href="#pull" name="pull" class="pilcrow"></a>
-pull
-  </h3>
-</div>
-<p>Like <code>push</code> this will fetch the newest changes from git origin and merge them with
-your local changes.</p>
-<pre><code class="sh">builder pull                  <span class="hljs-comment"># from within the package directory</span>
-</code></pre>
-<p>If a merge conflict occurs, you have to edit the files and solve it before a
-proper push will be working again.</p>
-<div class="pilwrap" id="link">
-  <h3>
-    <a href="#link" name="link" class="pilcrow"></a>
-link
-  </h3>
-</div>
-<p>This task will link a local package installed in a parallel directory into the
-packages node_modules directory.</p>
-<pre><code class="sh">builder link                  <span class="hljs-comment"># link all alinex-... packages to their node-... folders</span>
-builder link --link alinex-config --local node-config  <span class="hljs-comment"># or link only the config package</span>
-</code></pre>
-<p>Like seen above, you can use the two options <code>--link</code> and <code>--local</code> to specify
-the link. You may only use the directory name or the full path if it's not in the
-default path beside your package.</p>
-<div class="pilwrap" id="compile">
-  <h3>
-    <a href="#compile" name="compile" class="pilcrow"></a>
-compile
-  </h3>
-</div>
-<p>This task is used to compile the sources into a runtime optimized library.</p>
-<pre><code class="sh">builder compile               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error compile  <span class="hljs-comment"># or from anywhere else</span>
-</code></pre>
-<pre><code class="text">Remove old directories
-Compile man pages
-Compile coffee script
-</code></pre>
-<p>Or give an directory and use uglify to compress the extension.</p>
-<pre><code class="sh">builder compile --uglify
-</code></pre>
-<p>This command may also compiled the linked packages and does the following steps:</p>
-<ul>
-<li>compile coffee -&gt; js (maybe with uglify)</li>
-<li>copy js (maybe with uglify)</li>
-<li>compile md -&gt; man pages</li>
-</ul>
-<p>Mostly this task will be added as prepublish script to the <code>package.json</code> like:</p>
+<p>This format uses the javascript object notation a human readable structure. It
+is widely used in different languages not only JavaScript. See description at
+<a href="http://en.wikipedia.org/wiki/Json">Wikipedia</a>.</p>
+<p>Common file extension <code>json</code>.</p>
 <pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile -u"</span>
-  </span>}
+  "<span class="hljs-attribute">null</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">boolean</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">string</span>": <span class="hljs-value"><span class="hljs-string">"test"</span></span>,
+  "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">5.6</span></span>,
+  "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-05-10T19:06:36.909Z"</span></span>,
+  "<span class="hljs-attribute">list</span>": <span class="hljs-value">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]</span>,
+  "<span class="hljs-attribute">person</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Alexander Schilling"</span></span>,
+    "<span class="hljs-attribute">job</span>": <span class="hljs-value"><span class="hljs-string">"Developer"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">complex</span>": <span class="hljs-value">[
+    {"<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Egon"</span></span>},
+    {"<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Janina"</span></span>}
+  ]
 </span>}
 </code></pre>
-<p>Also this will make man files from mardown documents in <code>src/man</code> if they
-are referenced in the package.json.</p>
-<div class="pilwrap" id="test">
-  <h3>
-    <a href="#test" name="test" class="pilcrow"></a>
-test
-  </h3>
-</div>
-<p>As a first test a coffeelint check will be run. Only if this won't have any
-errors the automatic tests will be run.</p>
-<p>If the <a href="http://gotwarlost.github.io/istanbul/">istanbul</a> module is installed
-a code coverage report will be build.
-And at last code metrics will be analyzed but only on the compiled version at
-the moment. You will find this reports under '/reports' directory as html.</p>
-<pre><code class="sh">builder <span class="hljs-built_in">test</span>                  <span class="hljs-comment"># from within the package directory</span>
-builder ./node-util <span class="hljs-built_in">test</span>      <span class="hljs-comment"># or from anywhere else</span>
-</code></pre>
-<p>This will:</p>
+<p>JSON's basic data types are:</p>
 <ul>
-<li>lint the coffee script code</li>
-<li>run mocha tests</li>
-<li>collect and build coverage report (option --coverage)</li>
-<li>send results from travis to coveralls (option --coveralls)</li>
-<li>run metric analyses of compiled js</li>
-<li>open reports in browser (option --browser)</li>
+<li>Number: a signed decimal number that may contain a fractional part and may use
+exponential E notation, but cannot include non-numbers like <code>NaN</code>.</li>
+<li>String: a sequence of zero or more Unicode characters. Strings are delimited
+with double-quotation marks and support a backslash escaping syntax.</li>
+<li>Boolean: either of the values <code>true</code> or <code>false</code></li>
+<li>Array: an ordered list of zero or more values, each of which may be of any type.
+Arrays use square bracket notation with elements being comma-separated.</li>
+<li>Object: an unordered collection of name/value pairs where the keys are strings.
+Objects are delimited with curly brackets and use commas to separate each pair,
+while within each pair the colon ':' character separates the key or name from
+its value.</li>
+<li>Date: will be formatted as ISO string and stay as string after parsing</li>
+<li>null: An empty value, using the word null</li>
 </ul>
-<p>So you may also create an html coverage report and open it:</p>
-<pre><code class="sh">builder <span class="hljs-built_in">test</span> --coverage --browser
-</code></pre>
-<p>If you want to stop after the  first error occurs use the <code>--bail</code> flag.</p>
-<p>And at last you can add the <code>--browser</code> flag to open the coverage report
-automatically in the browser. Also <code>--coveralls</code> may be added to send the
-results from the coverage from travis to coveralls.</p>
-<p>This task can also be added to the <code>package.json</code> to be called using <code>npm test</code>:</p>
-<pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span>
-  </span>}
-</span>}
-</code></pre>
-<p>Attention, the metrics are build out of the compiled JavaScript. So you need to
-compile your code first before the metrics are updated.</p>
-<div class="pilwrap" id="doc">
-  <h3>
-    <a href="#doc" name="doc" class="pilcrow"></a>
-doc
-  </h3>
-</div>
-<p>Generate the documentation this will create the documentation in the <code>doc</code>
-folder. It includes the API documentation with code. Each module will get his
-own documentation space with an auto generated index page.</p>
-<p>This tool will extract the documentation from the markup and code files in
-any language and generate HTML pages with the documentation beside the
-code.</p>
-<pre><code class="sh">builder doc                   <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error doc      <span class="hljs-comment"># or from anywhere else</span>
-</code></pre>
-<p>It is also possible to update the documentation stored on any website. To
-configure this for GitHub pages, you have to do nothing, for all others you
-need to specify an <code>doc-publish</code> script in <code>package.json</code>. This may be an
-rsync copy job like <code>rsync -av --delete doc root@myserver:/var/www</code>.
-Start the document creation with publication using:</p>
-<pre><code class="sh">builder doc --publish
-</code></pre>
-<p>And at last you may also add the <code>--browser</code> flag to open the documentation in
-the browser after created. This will wait some seconds for the remote server to
-update if published.</p>
-<p>The style of the documentation can be specified if a specific css is present
-in the alinex make package. It have to be under the path <code>src/data</code> and be called
-by the <code>&lt;basename&gt;.css</code> while basename is the package name before the first
-hyphen.</p>
-<div class="pilwrap" id="changes">
-  <h3>
-    <a href="#changes" name="changes" class="pilcrow"></a>
-changes
-  </h3>
-</div>
-<p>This will list all changes in</p>
+<p>Whitespace (space, horizontal tab, line feed, and carriage return) is allowed
+and ignored around or between syntactic elements.</p>
+<p>JSON won't allow comments but you may use JavaScript like comments using
+<code>//</code> and <code>/*...*/</code> like known in javascript. Therefore use the javascript
+parsing described below.</p>
+<p><strong>Format Options:</strong></p>
 <ul>
-<li>packages since last version tag</li>
-<li>in current commit</li>
-<li>and things are staged only</li>
+<li><code>indent</code> - number of spaces or text to indent each level (defaults to 2 spaces)</li>
 </ul>
-<p>Use this to check if you should make a new publication or if it can wait.</p>
-<pre><code class="sh">builder changes
+<p>With <code>indent: 0</code> the above example would look like:</p>
+<pre><code class="json">{"<span class="hljs-attribute">null</span>":<span class="hljs-value"><span class="hljs-literal">null</span></span>,"<span class="hljs-attribute">boolean</span>":<span class="hljs-value"><span class="hljs-literal">true</span></span>,"<span class="hljs-attribute">string</span>":<span class="hljs-value"><span class="hljs-string">"test"</span></span>,"<span class="hljs-attribute">number</span>":<span class="hljs-value"><span class="hljs-number">5.6</span></span>,"<span class="hljs-attribute">date</span>":<span class="hljs-value"><span class="hljs-string">"2016-05-10T19:06:36.909Z"</span></span>,"<span class="hljs-attribute">list</span>":<span class="hljs-value">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]</span>,"<span class="hljs-attribute">person</span>":<span class="hljs-value">{"<span class="hljs-attribute">name</span>":<span class="hljs-value"><span class="hljs-string">"Alexander Schilling"</span></span>,"<span class="hljs-attribute">job</span>":<span class="hljs-value"><span class="hljs-string">"Developer"</span></span>}</span>}
 </code></pre>
-<pre><code class="text">Initializing...
-Run changes command...
-
-Results for node-builder
-
-Changes since last publication as v1.2.9:
-- Converted changes command to new builder.
-- Use new command based cli interface.
-- Upgraded lots of packages.
-- Add correct exit code on test.
-Changes not staged for commit:
-- modified: src/command/changes.coffee
-NPM Update check:
-- alinex-core          😍  UPDATE!   Your local install is out of date. http://alinex.github.io/node-alinex/
-                          npm install --save alinex-core (from 0.2.0 to 0.2.4)
-- coffee-coverage      😕  NOTUSED?  Still using coffee-coverage?
-- coffeelint           😕  NOTUSED?  Still using coffeelint?
-- coveralls            😕  NOTUSED?  Still using coveralls?
-- debounce             😕  NOTUSED?  Still using debounce?
-- docker               😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
-                          npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
-- istanbul             😕  NOTUSED?  Still using istanbul?
-- marked-man           😕  NOTUSED?  Still using marked-man?
-- node-sass            😕  NOTUSED?  Still using node-sass?
-- npm-check            😕  NOTUSED?  Still using npm-check?
-- plato                😕  NOTUSED?  Still using plato?
-- replace              😕  NOTUSED?  Still using replace?
-- typescript           😕  NOTUSED?  Still using typescript?
-- uglify-js            😕  NOTUSED?  Still using uglify-js?
-To upgrade all use: /usr/lib/node_modules/alinex-builder/node_modules/.bin/npm-check /home/alex/github/node-builder -u
-</code></pre>
-<p>Sometimes you may skip the unused packages:</p>
-<pre><code class="sh">builder changes --skip-unused
-</code></pre>
-<pre><code class="text">Initializing...
-Run changes command...
-Skip check for unused packages.
-
-Results for node-builder
-
-Changes since last publication as v1.2.9:
-- Converted changes command to new builder.
-- Use new command based cli interface.
-- Upgraded lots of packages.
-- Add correct exit code on test.
-Changes not staged for commit:
-- modified: src/command/changes.coffee
-NPM Update check:
-- alinex-core   😍  UPDATE!   Your local install is out of date. from 0.2.0 to 0.2.2
-                    npm install --save alinex-core (from 0.2.0 to 0.2.4)
-- docker        😍  UPDATE!   Your local install is out of date. from 1.0.0-alpha.1 to 1.0.0-alpha.2
-                    npm install --save docker (from 1.0.0-alpha.1 to 1.0.0-alpha.2)
-Use `npm install` or `/home/alex/github/node-builder/node_modules/.bin/npm-check -u` to upgrade.
-</code></pre>
-<div class="pilwrap" id="publish">
+<div class="pilwrap" id="javascript">
   <h3>
-    <a href="#publish" name="publish" class="pilcrow"></a>
-publish
+    <a href="#javascript" name="javascript" class="pilcrow"></a>
+JavaScript
   </h3>
 </div>
-<p>With the push command you can publish your newest changes to github and npm as a
-new version. The version can be set by signaling if it should be a <code>--major</code>,
-<code>--minor</code> or bugfix version if no switch given. Alternatively you can specify the
-new veriosn directly using <code>--version</code>.</p>
-<p>To publish the next bugfix version only call:</p>
-<pre><code class="sh">builder publish               <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error publish  <span class="hljs-comment"># or from anywhere else</span>
+<p>Also allowed are normal JavaScript files. In comparison to the JSON format it
+is more loosely so you may use single quotes, keys don't need quotes at all and
+at last you may use calculations. But you may only access elements in the same
+file accessing data from outside is prevented by security.</p>
+<p>Common file extension <code>js</code>.</p>
+<pre><code class="javascript"><span class="hljs-comment">// use an object</span>
+{
+  <span class="hljs-comment">// null value</span>
+  <span class="hljs-literal">null</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-comment">// boolean setting</span>
+  boolean: <span class="hljs-literal">true</span>,
+  <span class="hljs-comment">// include a string</span>
+  string: <span class="hljs-string">'test'</span>,
+  <span class="hljs-comment">// any integer or float number</span>
+  number: <span class="hljs-number">5.6</span>,
+  <span class="hljs-comment">// a date as string</span>
+  date: <span class="hljs-string">"2016-05-10T19:06:36.909Z"</span>,
+  <span class="hljs-comment">// and a list of numbers</span>
+  list: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-comment">// add a sub object</span>
+  person: {
+    name: <span class="hljs-string">"Alexander Schilling"</span>,
+    job: <span class="hljs-string">"Developer"</span>
+  },
+  <span class="hljs-comment">// complex list with object</span>
+  complex: [
+    {name: <span class="hljs-string">'Egon'</span>},
+    {name: <span class="hljs-string">'Janina'</span>}
+  ],
+  <span class="hljs-comment">// calculate session timeout in milliseconds</span>
+  calc: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>,
+  math: <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">16</span>)
+}
 </code></pre>
-<p>The output will be:</p>
-<pre><code class="text">push changes to repository
-push node-builder
-Push to origin
-remote: This repository moved. Please use the new location:
-remote:   https://github.com/alinex/node-builder.git
-To https://github.com/alinex/node-make
-   46f16d7..34a0a61  master -&gt; master
-cleanup files
-clean node-builder
-Remove unnecessary folders
-update and installation of package with dependent packages
-update node-builder
-Install through npm
-Update npm packages
-List outdated packages
-Package               Current  Wanted     Latest  Location
-Nothing to upgrade in this package found.
-run automatic tests
-test node-builder
-Linting coffee code
-Run mocha tests
-  Simple mocha test
-    ✓ should add two numbers
-  1 passing (5ms)
-create documentation pages
-doc node-builder
-Create html documentation
-Cloning git repository
-Nach »/tmp/alinex-make-2088206155« wird geklont
-Checkout gh-pages branch
-Zu neuem Zweig »gh-pages« gewechselt
-Update documentation
-Push to git origin
-To https://github.com/alinex/node-builder
-   bfc73a0..1114a9b  gh-pages -&gt; gh-pages
-publish package in npm
-publish node-builder
-Change package.json
-Write new changelog
-Commit new version information
-Push to git origin
-remote: This repository moved. Please use the new location:
-remote:   https://github.com/alinex/node-builder.git
-To https://github.com/alinex/node-make
-   34a0a61..0fef12e  master -&gt; master
-Push new tag to git origin
-remote: This repository moved. Please use the new location:
-remote:   https://github.com/alinex/node-builder.git
-To https://github.com/alinex/node-make
- * [new tag]         v1.0.9 -&gt; v1.0.9
-Push to npm
-Created v1.0.9.
-Done.
-</code></pre>
-<p>Like seen above this will also push last changes, cleanup, reinstall the package
-compile with compression and run all tests before publishing. And the documentation
-will be updated afterwards, too.</p>
-<p>For the next minor version (second number) call:</p>
-<pre><code class="sh">builder publish --minor
-</code></pre>
-<p>And for a new major version:</p>
-<pre><code class="sh">builder publish --major
-</code></pre>
-<p>And you may use the switches <code>--try</code> to not really publish but to check if it will
-be possible and <code>--force</code> to always publish also if it is not possible because of
-failed tests or not up-to-date dependent packages.</p>
-<div class="pilwrap" id="clean">
+<p><strong>Format Options:</strong></p>
+<ul>
+<li><code>indent</code> - number of spaces or text to indent each level (defaults to 2 spaces)</li>
+</ul>
+<div class="pilwrap" id="cson">
   <h3>
-    <a href="#clean" name="clean" class="pilcrow"></a>
-clean
+    <a href="#cson" name="cson" class="pilcrow"></a>
+CSON
   </h3>
 </div>
-<p>Remove all automatically generated files. This will bring you to the initial
-state of the system. To create a usable system you have to build it again.</p>
-<p>To clean everything which you won't need for a production environment use
-<code>--dist</code> or <code>--auto</code> to remove all automatically generated files in the
-development environment.</p>
-<p>To cleanup all safe files:</p>
-<pre><code class="sh">builder clean                 <span class="hljs-comment"># from within the package directory</span>
-builder ./node-error clean    <span class="hljs-comment"># or from anywhere else</span>
+<p>Like JSON but here the object is defined using CoffeeScript instead of javascript.</p>
+<p>Common file extension <code>cson</code>.</p>
+<pre><code class="coffee"><span class="hljs-comment"># null value</span>
+<span class="hljs-attribute">null</span>: <span class="hljs-literal">null</span>
+<span class="hljs-comment"># boolean values</span>
+<span class="hljs-attribute">boolean</span>: <span class="hljs-literal">true</span>
+<span class="hljs-comment"># include a string</span>
+<span class="hljs-attribute">string</span>: <span class="hljs-string">'test'</span>
+<span class="hljs-attribute">date</span>: <span class="hljs-string">'2016-05-10T19:06:36.909Z'</span>
+<span class="hljs-comment"># numbers</span>
+<span class="hljs-attribute">numberInt</span>: -<span class="hljs-number">8</span>
+<span class="hljs-attribute">numberFloat</span>: <span class="hljs-number">5.6</span>
+<span class="hljs-comment"># and a list of numbers</span>
+<span class="hljs-attribute">list</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-attribute">list2</span>: [
+  <span class="hljs-number">1</span>
+  <span class="hljs-number">2</span>
+  <span class="hljs-number">3</span>
+]
+<span class="hljs-comment"># add a sub object</span>
+<span class="hljs-attribute">person</span>:
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'Alexander Schilling'</span>
+  <span class="hljs-attribute">job</span>: <span class="hljs-string">'Developer'</span>
+<span class="hljs-comment"># complex list with object</span>
+<span class="hljs-attribute">complex</span>: [
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'Egon'</span>
+,
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'Janina'</span>
+]
+<span class="hljs-comment"># Multi-Line Strings! Without Quote Escaping!</span>
+<span class="hljs-attribute">emissions</span>: <span class="hljs-string">'''
+  Livestock and their byproducts account for at least 32,000 million tons of carbon dioxide (CO2) per year, or 51% of all worldwide greenhouse gas emissions.
+  Goodland, R Anhang, J. “Livestock and Climate Change: What if the key actors in climate change were pigs, chickens and cows?”
+  WorldWatch, November/December 2009. Worldwatch Institute, Washington, DC, USA. Pp. 10–19.
+  http://www.worldwatch.org/node/6294
+  '''</span>
 </code></pre>
-<p>Or on the development system remove all created files:</p>
-<pre><code class="sh">builder clean --auto
-</code></pre>
-<p>And at last for production remove development files:</p>
-<pre><code class="sh">builder clean --dist
-</code></pre>
-<div class="pilwrap" id="configuration">
-  <h2>
-    <a href="#configuration" name="configuration" class="pilcrow"></a>
-Configuration
-  </h2>
-</div>
-<p>The only thing you may configure using configuration files is the layout of the
-documentation.</p>
-<div class="pilwrap" id="document-template">
+<p>CSON solves several major problems with hand-writing JSON by providing:</p>
+<ul>
+<li>the ability to use both single-quoted and double-quoted strings</li>
+<li>the ability to write multi-line strings in multiple lines</li>
+<li>the ability to write a redundant comma</li>
+<li>comments start with <code>#</code> and are allowed</li>
+</ul>
+<p>Besides this facts it's the same as JSON and have the same types.</p>
+<p><strong>Format Options:</strong></p>
+<ul>
+<li><code>indent</code> - number of spaces or text to indent each level (defaults to 2 spaces)</li>
+</ul>
+<div class="pilwrap" id="coffee">
   <h3>
-    <a href="#document-template" name="document-template" class="pilcrow"></a>
-Document Template
+    <a href="#coffee" name="coffee" class="pilcrow"></a>
+Coffee
   </h3>
 </div>
-<p>You may specify a different document layout by creating a file named like the
-main part of your package (name till the first hyphen). Use the file
-<code>/var/src/docstyle/default.css</code> as a default and store your own in
-<code>/var/local/docstyle/&lt;basename&gt;.css</code>.</p>
-<p>Also the javascript may be changed for each package basename in <code>&lt;basename&gt;.js</code>
-like done for the css.</p>
+<p>The Coffee Script format is nearly the same as CSON but caused by the changed
+parser it may contain calculations, too.</p>
+<p>Common file extension <code>coffee</code>.</p>
+<pre><code class="coffee"><span class="hljs-attribute">null</span>: <span class="hljs-literal">null</span>
+<span class="hljs-attribute">boolean</span>: <span class="hljs-literal">true</span>
+<span class="hljs-comment"># include a string</span>
+<span class="hljs-attribute">string</span>: <span class="hljs-string">'test'</span>
+<span class="hljs-attribute">number</span>: <span class="hljs-number">5.6</span>
+<span class="hljs-attribute">date</span>: <span class="hljs-string">'2016-05-10T19:06:36.909Z'</span>
+<span class="hljs-comment"># and a list of numbers</span>
+<span class="hljs-attribute">list</span>: [
+  <span class="hljs-number">1</span>
+  <span class="hljs-number">2</span>
+  <span class="hljs-number">3</span>
+]
+<span class="hljs-comment"># add a sub object</span>
+<span class="hljs-attribute">person</span>:
+  <span class="hljs-attribute">name</span>: <span class="hljs-string">'Alexander Schilling'</span>
+  <span class="hljs-attribute">job</span>: <span class="hljs-string">'Developer'</span>
+<span class="hljs-comment"># complex structure</span>
+<span class="hljs-attribute">complex</span>: [
+  {<span class="hljs-attribute">name</span>: <span class="hljs-string">'Egon'</span>}
+  {<span class="hljs-attribute">name</span>: <span class="hljs-string">'Janina'</span>}
+]
+<span class="hljs-comment"># Multi-Line Strings! Without Quote Escaping!</span>
+<span class="hljs-attribute">emissions</span>: <span class="hljs-string">'''
+  Livestock and their byproducts account for at least 32,000 million tons of carbon dioxide (CO2) per year, or 51% of all worldwide greenhouse gas emissions.
+  Goodland, R Anhang, J. “Livestock and Climate Change: What if the key actors in climate change were pigs, chickens and cows?”
+  WorldWatch, November/December 2009. Worldwatch Institute, Washington, DC, USA. Pp. 10–19.
+  http://www.worldwatch.org/node/6294
+  '''</span>
+<span class="hljs-comment"># calculate session timeout in milliseconds</span>
+<span class="hljs-attribute">calc</span>: <span class="hljs-number">15</span>*<span class="hljs-number">60</span>*<span class="hljs-number">1000</span>
+<span class="hljs-attribute">math</span>: Math.sqrt <span class="hljs-number">16</span>
+</code></pre>
+<p><strong>Format Options:</strong></p>
+<ul>
+<li><code>indent</code> - number of spaces or text to indent each level (defaults to 2 spaces)</li>
+</ul>
+<div class="pilwrap" id="yaml">
+  <h3>
+    <a href="#yaml" name="yaml" class="pilcrow"></a>
+YAML
+  </h3>
+</div>
+<p>This is a simplified and best human readable language to write structured
+information. See some examples at <a href="http://en.wikipedia.org/wiki/YAML">Wikipedia</a>.</p>
+<p>Common file extensions <code>yml</code> or <code>yaml</code>.</p>
+<p><strong>Example</strong></p>
+<pre><code class="yaml"># null value
+null: null
+# boolean values
+boolean: true
+# include a string
+string: test
+unicode: &quot;Sosa did fine.\u263A&quot;
+control: &quot;\b1998\t1999\t2000\n&quot;
+hex esc: &quot;\x0d\x0a is \r\n&quot;
+single: '&quot;Howdy!&quot; he cried.'
+quoted: ' # Not a ''comment''.'
+# date support
+date: 2016-05-10T19:06:36.909Z
+# numbers
+numberInt: -8
+numberFloat: 5.6
+octal: 0o14
+hexadecimal: 0xC
+exponential: 12.3015e+02
+fixed: 1230.15
+negative infinity: -.inf
+not a number: .NaN
+# and a list of numbers
+list: [one, two, three]
+list2:
+  - one
+  - two
+  - three
+# add a sub object
+person:
+  name: Alexander Schilling
+  job: Developer
+# complex list with object
+complex:
+  - name: Egon
+  - {name: Janina}
+# multiline support
+multiline:
+  This text will be read
+  as one line without
+  linebreaks.
+multilineQuoted: &quot;This text will be read
+  as one line without
+  linebreaks.&quot;
+lineBreaks: |
+  This text will keep
+  as it is and all line
+  breaks will be kept.
+lineSingle: &gt;
+  This text will be read
+  as one line without
+  linebreaks.
+lineBreak: &gt;
+  The empty line
+
+  will be a line break.
+# use references
+address1: &amp;adr001
+  city: Stuttgart
+address2: *adr001
+# specific type casts
+numberString: &quot;123&quot;
+numberString2: !!str 123
+#numberFloat: !!float 123
+# binary type
+picture: !!binary |
+  R0lGODdhDQAIAIAAAAAAANn
+  Z2SwAAAAADQAIAAACF4SDGQ
+  ar3xxbJ9p0qa7R0YxwzaFME
+  1IAADs=
+# complex mapping key
+? - Detroit Tigers
+  - Chicago cubs
+: 2001-07-23
+</code></pre>
+<p>The YAML syntax is very powerful but also easy to write in it's basics:</p>
+<ul>
+<li>comments allowed starting with <code>#</code></li>
+<li>dates are allowed as ISO string, too</li>
+<li>different multiline text entries</li>
+<li>special number values</li>
+<li>referenceswith <code>*xxx</code> to the defined '&amp;xxx' anchor</li>
+</ul>
+<p>See the example above.</p>
+<div class="pilwrap" id="xml">
+  <h3>
+    <a href="#xml" name="xml" class="pilcrow"></a>
+XML
+  </h3>
+</div>
+<p>The XML format should only use Tags and values, but no arguments.</p>
+<p>Common file extension <code>xml</code>.</p>
+<pre><code class="xml"></code></pre>
+<div class="pilwrap" id="ini">
+  <h3>
+    <a href="#ini" name="ini" class="pilcrow"></a>
+INI
+  </h3>
+</div>
+<p>This is one of the oldest formats used for configurations. It is very simple but
+allows also complex objects through extended groups.</p>
+<p>Common file extension <code>ini</code>.</p>
+<pre><code class="ini"></code></pre>
+<div class="pilwrap" id="properties">
+  <h3>
+    <a href="#properties" name="properties" class="pilcrow"></a>
+PROPERTIES
+  </h3>
+</div>
+<p>Mainly in the Java world properties are used to setup configuration values.
+But it won't have support for arrays, you only may use objects with numbered keys.</p>
+<pre><code class="properties"></code></pre>
 <div class="pilwrap" id="license">
   <h2>
     <a href="#license" name="license" class="pilcrow"></a>
 License
   </h2>
 </div>
-<p>Copyright 2013-2016 Alexander Schilling</p>
+<p>Copyright 2016 Alexander Schilling</p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>

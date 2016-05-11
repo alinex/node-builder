@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>gitStatus.coffee</title>
+  <title>cson.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/task/gitStatus.coffee";
+    var thisFile = "src/type/cson.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -41,15 +41,19 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#test-script">Test Script</a>
+        <a href="#serializer-for-cson-syntax">Serializer for cson syntax</a>
       </div>
 
       <div class="heading h2">
-        <a href="#node-modules">Node modules</a>
+        <a href="#node-modules">Node Modules</a>
       </div>
 
       <div class="heading h2">
-        <a href="#check-git-status">Check git status</a>
+        <a href="#object-greater-string">object -&amp;gt; string</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#string-greater-object">string -&amp;gt; object</a>
       </div>
 
     </div>
@@ -63,10 +67,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="test-script">
+          <div class="pilwrap" id="serializer-for-cson-syntax">
   <h1>
-    <a href="#test-script" name="test-script" class="pilcrow"></a>
-Test Script
+    <a href="#serializer-for-cson-syntax" name="serializer-for-cson-syntax" class="pilcrow"></a>
+Serializer for cson syntax
   </h1>
 </div>
 
@@ -81,7 +85,7 @@ Test Script
           <div class="pilwrap" id="node-modules">
   <h2>
     <a href="#node-modules" name="node-modules" class="pilcrow"></a>
-Node modules
+Node Modules
   </h2>
 </div>
 
@@ -96,53 +100,47 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>internal mhelper modules</p>
+<p>include base modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">builder = <span class="hljs-built_in">require</span> <span class="hljs-string">'../index'</span></pre>
+          <pre class="coffeescript">CSON = <span class="hljs-built_in">require</span> <span class="hljs-string">'cson-parser'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="check-git-status">
+          <div class="pilwrap" id="object-greater-string">
   <h2>
-    <a href="#check-git-status" name="check-git-status" class="pilcrow"></a>
-Check git status
+    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
+object -&gt; string
   </h2>
 </div>
-<p><em>Arguments:</em></p>
-<ul>
-<li><code>verbose</code> - (integer) verbose level</li>
-</ul>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
-  builder.info dir, options, <span class="hljs-string">"check git status"</span></pre>
+          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span>
+  cb <span class="hljs-literal">null</span>, CSON.stringify obj, <span class="hljs-literal">null</span>, options?.indent ? <span class="hljs-number">2</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-5" id="section-5"></a>
+          <div class="pilwrap" id="string-greater-object">
+  <h2>
+    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
+string -&gt; object
+  </h2>
 </div>
-<p>run the pull options</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'git status'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'status'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
-    <span class="hljs-attribute">env</span>:
-      <span class="hljs-attribute">LANG</span>: <span class="hljs-string">'C'</span>
-  , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> ~proc.stdout().indexOf <span class="hljs-string">'nothing to commit'</span>
-    cb <span class="hljs-literal">null</span>, proc.stdout()</pre>
+          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">try</span>
+    result = CSON.parse text
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb error
+  cb <span class="hljs-literal">null</span>, result</pre>
         </td>
       </tr>
     

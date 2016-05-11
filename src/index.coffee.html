@@ -41,7 +41,7 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#main-controlling-class">Main controlling class</a>
+        <a href="#utility-functions-for-objects">Utility functions for objects.</a>
       </div>
 
       <div class="heading h2">
@@ -49,15 +49,19 @@
       </div>
 
       <div class="heading h2">
-        <a href="#initialize">Initialize</a>
+        <a href="#setup">Setup</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#extension-to-parser">Extension to Parser</a>
       </div>
 
       <div class="heading h2">
-        <a href="#output-helper">Output Helper</a>
+        <a href="#format-object-into-string">Format Object into String</a>
       </div>
 
       <div class="heading h2">
-        <a href="#controll-flow-helper">Controll flow helper</a>
+        <a href="#parse-object-from-string">Parse Object from String</a>
       </div>
 
     </div>
@@ -71,10 +75,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="main-controlling-class">
+          <div class="pilwrap" id="utility-functions-for-objects">
   <h1>
-    <a href="#main-controlling-class" name="main-controlling-class" class="pilcrow"></a>
-Main controlling class
+    <a href="#utility-functions-for-objects" name="utility-functions-for-objects" class="pilcrow"></a>
+Utility functions for objects.
   </h1>
 </div>
 
@@ -108,108 +112,123 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'formatter'</span>
 chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
-async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span>
+path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'util'</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4"></a>
-</div>
-<p>include alinex modules</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">config = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-config'</span>
-Exec = <span class="hljs-built_in">require</span> <span class="hljs-string">'alinex-exec'</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="initialize">
+          <div class="pilwrap" id="setup">
   <h2>
-    <a href="#initialize" name="initialize" class="pilcrow"></a>
-Initialize
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">exports.setup = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span>
-  async.each [Exec], <span class="hljs-function"><span class="hljs-params">(mod, cb)</span> -&gt;</span>
-    mod.setup cb
-  , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-6" id="section-6"></a>
-</div>
-<p>set module search path</p>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">    config.register <span class="hljs-string">'scripter'</span>, path.dirname __dirname
-    cb()</pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="output-helper">
-  <h2>
-    <a href="#output-helper" name="output-helper" class="pilcrow"></a>
-Output Helper
-  </h2>
-</div>
-
-        </td>
-        <td class="code highlight">
-          <pre class="coffeescript">exports.command = <span class="hljs-function"><span class="hljs-params">(name, lib, options, cb)</span> -&gt;</span>
-  <span class="hljs-built_in">console</span>.log <span class="hljs-string">"Run <span class="hljs-subst">#{name}</span> command..."</span>
-  <span class="hljs-keyword">if</span> lib.options
-    <span class="hljs-keyword">for</span> name, def <span class="hljs-keyword">of</span> lib.options
-      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{def.describe ? name}</span> = <span class="hljs-subst">#{options[name]}</span>"</span> <span class="hljs-keyword">if</span> options[name]
-  <span class="hljs-keyword">try</span>
-    lib.handler options, cb
-  <span class="hljs-keyword">catch</span> error
-    error.description = error.stack.split(<span class="hljs-regexp">/\n/</span>)[<span class="hljs-number">1.</span>.].join <span class="hljs-string">'\n'</span>
-    cb error
-
-exports.info = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> options.verbose
-    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
-
-exports.debug = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> options.verbose &gt; <span class="hljs-number">1</span>
-    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span>
-
-exports.noisy = <span class="hljs-function"><span class="hljs-params">(dir, options, message)</span> -&gt;</span>
-  <span class="hljs-keyword">if</span> options.verbose &gt; <span class="hljs-number">2</span>
-    <span class="hljs-built_in">console</span>.log chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{message}</span>"</span></pre>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="controll-flow-helper">
-  <h2>
-    <a href="#controll-flow-helper" name="controll-flow-helper" class="pilcrow"></a>
-Controll flow helper
+    <a href="#setup" name="setup" class="pilcrow"></a>
+Setup
   </h2>
 </div>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">
-exports.dirs = <span class="hljs-function"><span class="hljs-params">(options, fn, cb)</span> -&gt;</span></pre>
+autoDetect = [
+  <span class="hljs-string">'xml'</span>
+  <span class="hljs-string">'ini'</span>
+  <span class="hljs-string">'properties'</span>
+  <span class="hljs-string">'cson'</span>
+  <span class="hljs-string">'coffee'</span>
+  <span class="hljs-string">'yaml'</span>
+  <span class="hljs-string">'json'</span>
+  <span class="hljs-string">'js'</span>
+]</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="extension-to-parser">
+  <h3>
+    <a href="#extension-to-parser" name="extension-to-parser" class="pilcrow"></a>
+Extension to Parser
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">ext2parser =
+  <span class="hljs-attribute">yml</span>: <span class="hljs-string">'yaml'</span>
+  <span class="hljs-attribute">yaml</span>: <span class="hljs-string">'yaml'</span>
+  <span class="hljs-attribute">js</span>: <span class="hljs-string">'js'</span>
+  <span class="hljs-attribute">javascript</span>: <span class="hljs-string">'javascript'</span>
+  <span class="hljs-attribute">json</span>: <span class="hljs-string">'json'</span>
+  <span class="hljs-attribute">cson</span>: <span class="hljs-string">'cson'</span>
+  <span class="hljs-attribute">coffee</span>: <span class="hljs-string">'cson'</span>
+  <span class="hljs-attribute">xml</span>: <span class="hljs-string">'xml'</span>
+  <span class="hljs-attribute">ini</span>: <span class="hljs-string">'ini'</span>
+  <span class="hljs-attribute">properties</span>: <span class="hljs-string">'properties'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="format-object-into-string">
+  <h2>
+    <a href="#format-object-into-string" name="format-object-into-string" class="pilcrow"></a>
+Format Object into String
+  </h2>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>obj</code>
+object to be formatted</li>
+<li><code>format</code>
+formatter to use or filename to read format from</li>
+<li><code>options</code> (optional)
+specific for the formatter</li>
+<li><code>cb</code>
+callback will be called with (err, text)</li>
+</ul>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">
+exports.format = <span class="hljs-function"><span class="hljs-params">(obj, format, options, cb)</span> -&gt;</span>
+  debug <span class="hljs-string">"format object as <span class="hljs-subst">#{format}</span>"</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> options <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    cb = options
+    options = <span class="hljs-literal">null</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>read format from filename extension</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">if</span> format?.match <span class="hljs-regexp">/\./</span>
+    ext = path.extname(format).substring <span class="hljs-number">1</span>
+    format = ext2parser[ext] ? format</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>load library</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  <span class="hljs-keyword">try</span>
+    lib = <span class="hljs-built_in">require</span> <span class="hljs-string">"./type/<span class="hljs-subst">#{format}</span>"</span>
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb <span class="hljs-string">"Couldn't load <span class="hljs-subst">#{format}</span> library: <span class="hljs-subst">#{error.message}</span>"</span></pre>
         </td>
       </tr>
     
@@ -218,60 +237,40 @@ exports.dirs = <span class="hljs-function"><span class="hljs-params">(options, f
           <div class="pilwrap">
   <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
-<p>check for directories</p>
+<p>format</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  list = options._[<span class="hljs-number">1.</span>.]
-  list.push process.cwd() <span class="hljs-keyword">unless</span> list.length
-  list = list.map (e) -&gt; path.resolve e</pre>
+          <pre class="coffeescript">  lib.format obj, options, cb</pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10"></a>
+          <div class="pilwrap" id="parse-object-from-string">
+  <h2>
+    <a href="#parse-object-from-string" name="parse-object-from-string" class="pilcrow"></a>
+Parse Object from String
+  </h2>
 </div>
-<p>execute</p>
+<p>Try to parse object from string. Auto detect if no format is given.</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+<li><code>string</code>
+text to be parsed</li>
+<li><code>format</code> (optional)
+formatter to use or filename to read format from</li>
+<li><code>cb</code>
+callback will be called with (err, object)</li>
+</ul>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  problems = []
-  async.eachLimit list, <span class="hljs-number">3</span>, <span class="hljs-function"><span class="hljs-params">(dir, cb)</span> -&gt;</span>
-    exports.info dir, options, <span class="hljs-string">"started in <span class="hljs-subst">#{dir}</span>"</span>
-    fn dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-      exports.info dir, options, <span class="hljs-string">'done'</span>
-      problems.push <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
-      cb()
-  , <span class="hljs-function">-&gt;</span>
-    <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> problems.length
-    cb <span class="hljs-keyword">new</span> Error problems.join <span class="hljs-string">'\n'</span>
-
-exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir, options, cb)</span> -&gt;</span>
-  <span class="hljs-keyword">try</span>
-    lib = <span class="hljs-built_in">require</span> <span class="hljs-string">"./task/<span class="hljs-subst">#{task}</span>"</span>
-    lib dir, options, cb
-  <span class="hljs-keyword">catch</span> error
-    cb error
-
-exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, options, type, exec, cb)</span> -&gt;</span>
-  exports.debug dir, options, <span class="hljs-string">"<span class="hljs-subst">#{type}</span>"</span>
-  exports.debug dir, options, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
-  Exec.run exec, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> options.verbose &gt; <span class="hljs-number">2</span>
-      <span class="hljs-built_in">console</span>.log()
-      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{type}</span>"</span>
-      <span class="hljs-built_in">console</span>.log()
-      <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
-      <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
-      <span class="hljs-built_in">console</span>.log()
-    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> options.verbose &lt; <span class="hljs-number">3</span>
-      exports.results dir, options, type, chalk.magenta proc.stderr()
-    cb err, proc
-
-exports.results = <span class="hljs-function"><span class="hljs-params">(dir, options, title, results)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> results = resultsJoin(results).trim()</pre>
+          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, format, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> format <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    cb = format
+    format = <span class="hljs-literal">null</span>
+  debug <span class="hljs-string">"start parsing <span class="hljs-subst">#{format ? <span class="hljs-string">'unknown'</span>}</span> format"</span></pre>
         </td>
       </tr>
     
@@ -280,24 +279,78 @@ exports.results = <span class="hljs-function"><span class="hljs-params">(dir, op
           <div class="pilwrap">
   <a class="pilcrow" href="#section-11" id="section-11"></a>
 </div>
-<p>output results</p>
+<p>get list of parsers to check</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log()
-  <span class="hljs-built_in">console</span>.log chalk.bold title
-  <span class="hljs-built_in">console</span>.log()
-  <span class="hljs-built_in">console</span>.log results
-  <span class="hljs-built_in">console</span>.log()
-  results
-<span class="hljs-function">
-<span class="hljs-title">resultsJoin</span> = <span class="hljs-params">(res)</span> -&gt;</span>
-  <span class="hljs-keyword">return</span> res.trim() <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> res <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span>
-  <span class="hljs-keyword">if</span> Array.isArray res
-    res.map (e) -&gt; resultsJoin e
-    .join <span class="hljs-string">'\n\n'</span>
-  <span class="hljs-keyword">else</span>
-    <span class="hljs-string">''</span></pre>
+          <pre class="coffeescript">  detect = autoDetect[<span class="hljs-number">0.</span>.]
+  <span class="hljs-keyword">if</span> format?.match <span class="hljs-regexp">/\./</span>
+    ext = path.extname(format).substring <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> type = ext2parser[ext]
+      i = detect.indexOf type
+      detect.splice i, <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> i &gt; -<span class="hljs-number">1</span>
+      detect.unshift type
+  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> format
+    <span class="hljs-keyword">if</span> i = detect.indexOf format
+      detect.splice i, <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> i &gt; -<span class="hljs-number">1</span>
+      detect.unshift format</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>try to parse</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">  errors = []
+  obj = <span class="hljs-literal">null</span>
+  async.detectSeries detect, <span class="hljs-function"><span class="hljs-params">(format, cb)</span> -&gt;</span>
+    debug chalk.grey <span class="hljs-string">"try to parse as <span class="hljs-subst">#{format}</span>"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>load library</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">try</span>
+      lib = <span class="hljs-built_in">require</span> <span class="hljs-string">"./type/<span class="hljs-subst">#{format}</span>"</span>
+    <span class="hljs-keyword">catch</span> error
+      <span class="hljs-keyword">return</span> cb <span class="hljs-string">"Couldn't load <span class="hljs-subst">#{format}</span> library: <span class="hljs-subst">#{error.message}</span>"</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>run parser</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    lib.parse text, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err
+        debug chalk.grey <span class="hljs-string">"<span class="hljs-subst">#{format}</span>: <span class="hljs-subst">#{err.message}</span>"</span>
+        errors.push err.message
+        <span class="hljs-keyword">return</span> cb()
+      obj = result
+      cb <span class="hljs-literal">null</span>, <span class="hljs-literal">true</span>
+  , <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">if</span> result <span class="hljs-keyword">and</span> obj
+      debug chalk.grey <span class="hljs-string">"result:\n<span class="hljs-subst">#{util.inspect obj, {depth: <span class="hljs-literal">null</span>}</span>}"</span>
+      <span class="hljs-keyword">return</span> cb <span class="hljs-literal">null</span>, obj
+    cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Could not parse from <span class="hljs-subst">#{format ? <span class="hljs-string">'unknown'</span>}</span>:\n<span class="hljs-subst">#{errors.join <span class="hljs-string">'\n'</span>}</span>"</span></pre>
         </td>
       </tr>
     

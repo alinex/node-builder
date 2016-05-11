@@ -224,10 +224,7 @@ function switchTab(tab){
   if(window.localStorage && window.localStorage.docker_sidebarTab){
     switchTab(window.localStorage.docker_sidebarTab);
   }else{
-    switchTab('headings');
+    switchTab('tree');
   }
-
-  var contEl = document.getElementById('container')
-  contEl.focus()
 }));
 

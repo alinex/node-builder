@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>xml.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../";
+    var thisFile = "src/type/xml.coffee";
+    var defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
+<body>
+  <nav>
+<div class="logo"><a href="http://alinex.github.io"
+  onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
+  onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
+  <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
+    width="150" title="Alinex Universe Homepage" />
+  </a>
+  <img src="http://alinex.github.io/images/Alinex-200.png"
+    style="display:none" alt="preloading" />
+</div>
+<div class="links">
+  <a href="http://alinex.github.io/blog"
+    class="btn btn-primary"><span class="glyphicon-pencil"></span> Blog</a>
+  <a href="http://alinex.github.io/develop"
+    class="btn btn-primary"><span class="glyphicon-book"></span> Develop</a>
+  <a href="http://alinex.github.io/code.html"
+    class="btn btn-warning"><span class="glyphicon-cog"></span> Code</a>
+</div>
+</nav><div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+      <div class="heading h1">
+        <a href="#serializer-for-xml-syntax">Serializer for xml syntax</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#node-modules">Node Modules</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#object-greater-string">object -&amp;gt; string</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#string-greater-object">string -&amp;gt; object</a>
+      </div>
+
+      <div class="heading h3">
+        <a href="#optimize-parsed-cml">Optimize parsed cml</a>
+      </div>
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container" tabindex="0"><a id="fork" href="https://github.com/alinex/node-builder" title="Fork me on GitHub"></a>
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="serializer-for-xml-syntax">
+  <h1>
+    <a href="#serializer-for-xml-syntax" name="serializer-for-xml-syntax" class="pilcrow"></a>
+Serializer for xml syntax
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="node-modules">
+  <h2>
+    <a href="#node-modules" name="node-modules" class="pilcrow"></a>
+Node Modules
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>include base modules</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">xml2js = <span class="hljs-built_in">require</span> <span class="hljs-string">'xml2js'</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="object-greater-string">
+  <h2>
+    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
+object -&gt; string
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="string-greater-object">
+  <h2>
+    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
+string -&gt; object
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
+  xml2js.parseString text, {<span class="hljs-attribute">explicitArray</span>: <span class="hljs-literal">false</span>}, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error err.message.replace <span class="hljs-regexp">/\n/g</span>, <span class="hljs-string">' '</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>optimize result of attributes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    cb <span class="hljs-literal">null</span>, xmlOptimize result</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="optimize-parsed-cml">
+  <h3>
+    <a href="#optimize-parsed-cml" name="optimize-parsed-cml" class="pilcrow"></a>
+Optimize parsed cml
+  </h3>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">xmlOptimize</span> = <span class="hljs-params">(data)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> data <span class="hljs-keyword">unless</span> <span class="hljs-keyword">typeof</span> data <span class="hljs-keyword">is</span> <span class="hljs-string">'object'</span>
+  <span class="hljs-keyword">if</span> Array.isArray data</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>seep analyze array</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    result = []
+    <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> data
+      result.push xmlOptimize v
+    <span class="hljs-keyword">return</span> result
+  result = {}
+  <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">of</span> data</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>set value</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'_'</span>
+      result.value = v</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>set attributes</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> k <span class="hljs-keyword">is</span> <span class="hljs-string">'$'</span>
+      <span class="hljs-keyword">for</span> s, w <span class="hljs-keyword">of</span> xmlOptimize v
+        result[s] = w</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>keep other but check contents</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">    <span class="hljs-keyword">else</span>
+      result[k] = xmlOptimize v
+  <span class="hljs-keyword">return</span> result</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

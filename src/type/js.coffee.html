@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>index.coffee</title>
+  <title>js.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
-  <script src="../../../../../doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../../../../../";
-    var thisFile = "var/src/template/node/src/index.coffee";
+    var relativeDir = "../../";
+    var thisFile = "src/type/js.coffee";
     var defaultSidebar = true;
   </script>
-  <script src="../../../../../doc-script.js"></script>
+  <script src="../../doc-script.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
 <body>
@@ -41,7 +41,7 @@
     <div id="headings">
 
       <div class="heading h1">
-        <a href="#main-controlling-class">Main controlling class</a>
+        <a href="#serializer-for-js-syntax">Serializer for js syntax</a>
       </div>
 
       <div class="heading h2">
@@ -49,7 +49,11 @@
       </div>
 
       <div class="heading h2">
-        <a href="#initialize">Initialize</a>
+        <a href="#object-greater-string">object -&amp;gt; string</a>
+      </div>
+
+      <div class="heading h2">
+        <a href="#string-greater-object">string -&amp;gt; object</a>
       </div>
 
     </div>
@@ -63,10 +67,10 @@
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="main-controlling-class">
+          <div class="pilwrap" id="serializer-for-js-syntax">
   <h1>
-    <a href="#main-controlling-class" name="main-controlling-class" class="pilcrow"></a>
-Main controlling class
+    <a href="#serializer-for-js-syntax" name="serializer-for-js-syntax" class="pilcrow"></a>
+Serializer for js syntax
   </h1>
 </div>
 
@@ -100,36 +104,44 @@ Node Modules
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">'debug'</span>) <span class="hljs-string">'### name ###'</span>
-chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span></pre>
+          <pre class="coffeescript">vm = <span class="hljs-literal">null</span> <span class="hljs-comment"># load on demand</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap">
-  <a class="pilcrow" href="#section-4" id="section-4"></a>
-</div>
-<p>include alinex modules</p>
-
-        </td>
-        <td class="code highlight">
-          
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="docs">
-          <div class="pilwrap" id="initialize">
+          <div class="pilwrap" id="object-greater-string">
   <h2>
-    <a href="#initialize" name="initialize" class="pilcrow"></a>
-Initialize
+    <a href="#object-greater-string" name="object-greater-string" class="pilcrow"></a>
+object -&gt; string
   </h2>
 </div>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">exports.setup = <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript">exports.format = <span class="hljs-function"><span class="hljs-params">(obj, options, cb)</span> -&gt;</span>
+  cb <span class="hljs-literal">null</span>, JSON.stringify obj, <span class="hljs-literal">null</span>, options?.indent ? <span class="hljs-number">2</span></pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap" id="string-greater-object">
+  <h2>
+    <a href="#string-greater-object" name="string-greater-object" class="pilcrow"></a>
+string -&gt; object
+  </h2>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">exports.parse = <span class="hljs-function"><span class="hljs-params">(text, cb)</span> -&gt;</span>
+  vm ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'vm'</span>
+  <span class="hljs-keyword">try</span>
+    result = vm.runInNewContext <span class="hljs-string">"x=<span class="hljs-subst">#{text}</span>"</span>
+  <span class="hljs-keyword">catch</span> error
+    <span class="hljs-keyword">return</span> cb error
+  cb <span class="hljs-literal">null</span>, result</pre>
         </td>
       </tr>
     
