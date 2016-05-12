@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.7 (2016-05-12)
+-------------------------------------------------
+- Merge with master.
+- Fix error management.
+- Optimize error display.
+- Add highlighting for yaml and cson.
+- Don't run metrics if coveralls are selected.
+
 Version 2.0.6 (2016-05-12)
 -------------------------------------------------
 - Updated util package.
