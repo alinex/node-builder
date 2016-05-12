@@ -29,6 +29,9 @@ exports.options =
   coverage:
     type: 'boolean'
     describe: 'create coverage reports'
+  metrics:
+    type: 'boolean'
+    describe: 'create metrics report'
   coveralls:
     type: 'boolean'
     describe: 'send coverage to coveralls'
