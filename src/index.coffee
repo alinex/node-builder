@@ -66,7 +66,7 @@ exports.dirs = (options, fn, cb) ->
     fn dir, options, (err) ->
       exports.info dir, options, 'done'
       problems.push chalk.red "#{path.basename dir}: #{err.message}" if err
-      problems.push chalk.magenta err.description if err.description
+      problems.push chalk.magenta err.description if err?.description
       cb()
   , ->
     return cb() unless problems.length
