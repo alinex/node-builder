@@ -45,7 +45,7 @@
     "alinex-core": "^0.2.5",
     "alinex-exec": "^1.1.2",
     "alinex-fs": "^2.0.1",
-    "alinex-util": "^2.0.3",
+    "alinex-util": "^2.2.0",
     "async": "^2.0.0-rc.3",
     "chalk": "^1.1.3",
     "coffee-coverage": "^1.0.1",
