@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.6 (2016-05-12)
+-------------------------------------------------
+- Updated util package.
+- Add metrics switch.
+- Change template to setup coveralls in .travis.yml
+
 Version 2.0.5 (2016-05-10)
 -------------------------------------------------
 - Upgraded config, exec, fs, sass and yargs packages.
