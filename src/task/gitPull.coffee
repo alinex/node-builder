@@ -23,4 +23,7 @@ module.exports = (dir, options, cb) ->
     cwd: dir
     retry:
       times: 3
-  , cb
+  , (err, proc) ->
+    if err
+      err.description = "STDERR: #{proc.stderr()}" if proc.stderr()
+    cb err

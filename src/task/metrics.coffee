@@ -20,7 +20,11 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 module.exports = (dir, options, cb) ->
+<<<<<<< HEAD
   return cb() if options.coveralls
+=======
+  return cb() unless options.metrics
+>>>>>>> eaafbf0ebd5d8ddd9df7fa6c574117c3a11f5b69
   fs.exists "#{dir}/lib", (exists) ->
     unless exists
       console.warn "#{path.basename dir}: Skipped metrics because not compiled."

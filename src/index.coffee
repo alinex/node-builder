@@ -65,11 +65,14 @@ exports.dirs = (options, fn, cb) ->
     exports.info dir, options, "started in #{dir}"
     fn dir, options, (err) ->
       exports.info dir, options, 'done'
-      problems.push "#{path.basename dir}: #{err.message}" if err
+      problems.push chalk.red "#{path.basename dir}: #{err.message}" if err
+      problems.push chalk.magenta err.description if err.description
       cb()
   , ->
     return cb() unless problems.length
-    cb new Error problems.join '\n'
+    err = new Error "Some problems occured!"
+    err.description = problems.join '\n'
+    cb err
 
 exports.task = (task, dir, options, cb) ->
   try
@@ -97,7 +100,7 @@ exports.results = (dir, options, title, results) ->
   return unless results = resultsJoin(results).trim()
   # output results
   console.log()
-  console.log chalk.bold title
+  console.log chalk.bold "#{title} for #{path.basename dir}"
   console.log()
   console.log results
   console.log()
