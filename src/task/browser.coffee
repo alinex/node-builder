@@ -30,4 +30,5 @@ module.exports = (dir, options, cb) ->
   builder.exec dir, options, "open browser",
     cmd: 'sh'
     args: ['-c', "#{opener} \"#{encodeURI options.target}\""]
+    env: process.env
   , cb

@@ -21,6 +21,8 @@ module.exports = (dir, options, cb) ->
     cmd: 'git'
     args: [ 'pull', '-t', '-p', 'origin', 'master' ]
     cwd: dir
+    env:
+      HOME: process.env.HOME
     retry:
       times: 3
   , (err, proc) ->

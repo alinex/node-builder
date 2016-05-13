@@ -21,6 +21,9 @@ module.exports = (dir, options, cb) ->
     cmd: 'npm'
     args: [ 'install' ]
     cwd: dir
+    env:
+      PATH: process.env.PATH
+      HOME: process.env.HOME
     retry:
       times: 3
   , cb

@@ -29,6 +29,8 @@ module.exports = (dir, options, cb) ->
       cmd: 'git'
       args: [ 'commit', '-m', options.message ]
       cwd: dir
+      env:
+        HOME: process.env.HOME
       retry:
         times: 3
       check:

@@ -164,6 +164,8 @@ updateChangelog = (dir, options, cb) ->
     cmd: 'git'
     args: args
     cwd: dir
+    env:
+      HOME: process.env.HOME
   , (err, proc) ->
     return cb err if err
     file = path.join dir, 'Changelog.md'
@@ -195,6 +197,8 @@ gitTag = (dir, options, pack, cb) ->
       '-m', "Created version #{options.version}#{changelog}"
     ]
     cwd: dir
+    env:
+      HOME: process.env.HOME
   , cb
 
 # ### Push new version to npm
@@ -204,5 +208,8 @@ pushNpm = (dir, options, cb) ->
     cmd: 'npm'
     args: ['publish']
     cwd: dir
+    env:
+      HOME: process.env.HOME
+      PATH: process.env.PATH
   , (err) ->
     cb err, "Created version #{options.version}"

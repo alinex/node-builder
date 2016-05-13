@@ -139,6 +139,8 @@ initGit = (dir, options, cb) ->
     cmd: 'git'
     args: ['init']
     cwd: dir
+    env:
+      HOME: process.env.HOME
   , (err) ->
     return cb err if err
     async.filter [
@@ -231,6 +233,8 @@ initGitHub = (dir, options, cb) ->
     cmd: 'git'
     args: ['remote', 'show', 'origin']
     cwd: dir
+    env:
+      HOME: process.env.HOME
   , (err) ->
     unless err
       console.warn chalk.magenta "Skipped GitHub because other origin exists already"
@@ -282,4 +286,6 @@ initGitHub = (dir, options, cb) ->
             'origin', "https://github.com/#{options.user}/#{path.basename dir}"
           ]
           cwd: dir
+          env:
+            HOME: process.env.HOME
         , cb

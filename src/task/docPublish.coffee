@@ -59,6 +59,8 @@ cloneGit = (dir, options, tmpdir, pack, cb) ->
     cmd: 'git'
     args: ['clone', pack.repository.url, tmpdir]
     cwd: dir
+    env:
+      HOME: process.env.HOME
     retry:
       times: 3
   , cb
@@ -102,6 +104,8 @@ commit = (dir, options, tmpdir, cb) ->
       '-m', "Updated documentation"
     ]
     cwd: tmpdir
+    env:
+      HOME: process.env.HOME
   , cb
 
 push = (dir, options, tmpdir, cb) ->
@@ -109,6 +113,8 @@ push = (dir, options, tmpdir, cb) ->
     cmd: 'git'
     args: ['push', 'origin', 'gh-pages']
     cwd: tmpdir
+    env:
+      HOME: process.env.HOME
     retry:
       times: 3
   , cb

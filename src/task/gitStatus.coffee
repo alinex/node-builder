@@ -22,6 +22,7 @@ module.exports = (dir, options, cb) ->
     args: [ 'status' ]
     cwd: dir
     env:
+      HOME: process.env.HOME
       LANG: 'C'
   , (err, proc) ->
     return cb err if err
