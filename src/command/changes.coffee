@@ -46,7 +46,7 @@ exports.handler = (options, cb) ->
         (cb) -> git dir, options, cb
         (cb) -> builder.task 'npmChanges', dir, options, cb
       ], (err, results) ->
-        builder.results dir, options, "Results for #{path.basename dir}", results
+        builder.results dir, options, "Results", results
         cb err
   , cb
 
