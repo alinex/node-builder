@@ -84,6 +84,12 @@ exports.task = (task, dir, options, cb) ->
 exports.exec = (dir, options, type, exec, cb) ->
   exports.debug dir, options, "#{type}"
   exports.debug dir, options, "> #{exec.cmd} #{exec.args.join ' '}"
+#  proc = new Exec exec
+#  proc.on 'stdout', (line) ->
+#    console.log line
+#  proc.on 'done', ->
+#    console.log '-----------------------------------'
+#  proc.run (err) ->
   Exec.run exec, (err, proc) ->
     if proc.stdout() and options.verbose > 2
       console.log()
@@ -100,7 +106,7 @@ exports.results = (dir, options, title, results) ->
   return unless results = resultsJoin(results).trim()
   # output results
   console.log()
-  console.log chalk.bold "#{title} for #{path.basename dir}"
+  console.log chalk.bold "#{title}"
   console.log()
   console.log results
   console.log()

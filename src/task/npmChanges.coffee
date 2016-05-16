@@ -54,5 +54,6 @@ module.exports = (dir, options, cb) ->
             , chalk.underline('$1')+' # $2'
             msg += "  #{chalk.grey line}\n"
       return cb err, '' if msg.split(/\n/).length < 3
-      msg += chalk.grey("To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u") + "\n" if upgrade
+      if upgrade
+        msg += chalk.grey("To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u") + "\n"
       cb null, msg
