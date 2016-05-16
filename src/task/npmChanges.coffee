@@ -43,7 +43,7 @@ module.exports = (dir, options, cb) ->
           continue if line.match /Use npm-check/
           if line.match /^\w/
             continue if line.match /#{.+}/
-            continue if line.match /\//
+            continue if line.match /^\S\//
             msg += "- #{chalk.yellow line.trim()}\n"
             if match = line.match /to go (from .*)/
               msg = msg.replace /(\s*http.*)?\n.*?$/, " #{chalk.grey match[1]}\n"
@@ -54,5 +54,5 @@ module.exports = (dir, options, cb) ->
             , chalk.underline('$1')+' # $2'
             msg += "  #{chalk.grey line}\n"
       return cb err, '' if msg.split(/\n/).length < 3
-      msg += chalk.grey "To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u\n" if upgrade
+      msg += chalk.grey("To upgrade all use: " + chalk.underline "#{cmd} #{dir} -u") + "\n" if upgrade
       cb null, msg
