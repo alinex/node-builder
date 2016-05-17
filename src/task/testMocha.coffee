@@ -53,6 +53,9 @@ module.exports = (dir, options, cb) ->
           cmd: cmd
           args: args
           cwd: dir
+          env:
+            DEBUG: process.env.DEBUG
+          interactive: true
         , (err, proc) ->
           skip = true
           for line in proc.stdout().split /\n/
