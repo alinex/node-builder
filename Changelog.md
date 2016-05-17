@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.0.9 (2016-05-17)
+-------------------------------------------------
+- Upgraded config, yargs.
+- Use DEBUG environment setting for mocha tests.
+- Fix lint error.
+- Update changes parser.
+- Remove duplicated for in results heading.
+
 Version 2.0.8 (2016-05-13)
 -------------------------------------------------
 - Fixed environment setting on git call.
