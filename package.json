@@ -41,7 +41,7 @@
     "man": "./man"
   },
   "dependencies": {
-    "alinex-config": "^1.1.2",
+    "alinex-config": "^1.1.4",
     "alinex-core": "^0.2.5",
     "alinex-exec": "^1.1.2",
     "alinex-fs": "^2.0.1",
@@ -68,7 +68,7 @@
     "request": "^2.72.0",
     "typescript": "^1.8.10",
     "uglify-js": "^2.6.2",
-    "yargs": "^4.7.0"
+    "yargs": "^4.7.1"
   },
   "devDependencies": {
     "chai": "^3.5.0"
