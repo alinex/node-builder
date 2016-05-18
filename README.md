@@ -307,7 +307,8 @@ This will:
 - run mocha tests
 - collect and build coverage report (option --coverage)
 - send results from travis to coveralls (option --coveralls)
-- run metric analyses of compiled js
+- run metric analyses of compiled js (option --metrics)
+- make profiling report (option --prof)
 - open reports in browser (option --browser)
 
 So you may also create an html coverage report and open it:
@@ -334,6 +335,24 @@ This task can also be added to the `package.json` to be called using `npm test`:
 
 Attention, the metrics are build out of the compiled JavaScript. So you need to
 compile your code first before the metrics are updated.
+
+__Example Output: 'report/profiling.txt'__
+
+The file is broken up into sections which are again broken up by language. First,
+we look at the summary section and see:
+
+``` text
+[Summary]:
+ticks  total  nonlib   name
+   0    0.0%    0.0%  JavaScript
+  50   87.7%  100.0%  C++
+   3    5.3%    6.0%  GC
+   7   12.3%          Shared libraries
+```
+
+For each of the above entries an own category exists, which gives more details.
+
+
 
 ### doc
 

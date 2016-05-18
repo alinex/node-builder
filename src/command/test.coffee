@@ -26,6 +26,10 @@ exports.options =
     alias: 'b'
     type: 'boolean'
     describe: 'stop on first error in unit tests'
+  prof:
+    alias: 'p'
+    type: 'boolean'
+    describe: 'create profile report'
   coverage:
     type: 'boolean'
     describe: 'create coverage reports'
@@ -53,13 +57,18 @@ exports.handler = (options, cb) ->
       (cb) ->
         builder.task 'testMocha', dir, options, (err, results) ->
           return cb err, results if err
-          builder.task 'testCoveralls', dir, options, (err) ->
-            return cb err, results if err or not (options.browser and options.coverage)
-            builder.task 'browser', dir,
-              verbose: options.verbose
-              target: path.join dir, 'report', 'lcov-report', 'index.html'
-            , (err) ->
-              cb err, results
+          async.parallel [
+            (cb) ->
+              builder.task 'testCoveralls', dir, options, (err) ->
+                return cb err, results if err or not (options.browser and options.coverage)
+                builder.task 'browser', dir,
+                  verbose: options.verbose
+                  target: path.join dir, 'report', 'lcov-report', 'index.html'
+                , (err) ->
+                  cb err, results
+            (cb) ->
+              builder.task 'nodeProfiling', dir, options, cb
+          ]
       (cb) ->
         builder.task 'metrics', dir, options, (err) ->
           return cb err if err or not (options.browser and options.metrics)

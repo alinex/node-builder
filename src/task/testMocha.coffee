@@ -35,14 +35,17 @@ module.exports = (dir, options, cb) ->
         builder.info dir, options, "Run mocha tests"
         # Run external options
         msg = "Mocha Test results:\n"
+        cmd = mocha
         args = []
         if options.coverage
+          args.unshift cmd
           cmd = istanbul
           args.push '--dir=./report'
           args.push 'cover', mocha, '--', '--require', 'coffee-coverage/register-istanbul'
-        else
-          cmd = mocha
-          args.push '-w' if options.watch
+        if options.prof
+          args.unshift cmd
+          args.unshift '--prof'
+          cmd = 'node'
         args.push '--compilers', 'coffee:coffee-script/register'
         args.push '--reporter', 'spec'
         args.push '-c' # colors
