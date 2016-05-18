@@ -62,7 +62,7 @@ exports.handler = (options, cb) ->
               cb err, results
       (cb) ->
         builder.task 'metrics', dir, options, (err) ->
-          return cb err if err or not options.browser
+          return cb err if err or not (options.browser and options.metrics)
           builder.task 'browser', dir,
             verbose: options.verbose
             target: path.join dir, 'report', 'metrics', 'index.html'
