@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.2 (2016-05-19)
+-------------------------------------------------
+- Run profiling analyzation only if argument given.
+- Add pathg for coffeelint.
+
 Version 2.1.1 (2016-05-19)
 -------------------------------------------------
 - Use complete environment for mocha.
