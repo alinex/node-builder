@@ -58,6 +58,7 @@ module.exports = (dir, options, cb) ->
           cwd: dir
           env:
             DEBUG: process.env.DEBUG
+            PATH: process.env.PATH
           interactive: true
         , (err, proc) ->
           skip = true
