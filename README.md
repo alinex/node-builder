@@ -336,6 +336,9 @@ This task can also be added to the `package.json` to be called using `npm test`:
 Attention, the metrics are build out of the compiled JavaScript. So you need to
 compile your code first before the metrics are updated.
 
+
+Like noted above you may generate profiling reports using `--prof` switch.
+
 __Example Output: 'report/profiling.txt'__
 
 The file is broken up into sections which are again broken up by language. First,
@@ -351,8 +354,6 @@ ticks  total  nonlib   name
 ```
 
 For each of the above entries an own category exists, which gives more details.
-
-
 
 ### doc
 
