@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.1 (2016-05-19)
+-------------------------------------------------
+- Use complete environment for mocha.
+
 Version 2.1.0 (2016-05-19)
 -------------------------------------------------
 - Updated exec package.
