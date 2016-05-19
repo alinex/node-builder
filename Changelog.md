@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.0 (2016-05-19)
+-------------------------------------------------
+- Updated exec package.
+- Remove code for perf and dtrace because of problems with symbols.
+- Add profiling possibilities to builder.
+- Fixed call of coverage with browser but without metrics.
+
 Version 2.0.9 (2016-05-17)
 -------------------------------------------------
 - Upgraded config, yargs.
