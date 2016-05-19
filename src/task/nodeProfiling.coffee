@@ -20,6 +20,7 @@ builder = require '../index'
 #
 # - `verbose` - (integer) verbose level
 module.exports = (dir, options, cb) ->
+  return cb() unless options.prof
   builder.info dir, options, "analyze node profiling"
   # find all profiling logs
   fs.find dir,
