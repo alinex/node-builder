@@ -37,6 +37,9 @@ module.exports = (dir, options, cb) ->
           'src'
         ]
         cwd: dir
+        env:
+          PATH: process.env.PATH
+          NODE: process.env.NODE
       , (err, proc) ->
         if proc.stdout()
           for line in proc.stdout().trim().split /\n/
