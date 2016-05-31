@@ -134,11 +134,12 @@ Check git status
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'git status'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'status'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
-    <span class="hljs-attribute">env</span>:
-      <span class="hljs-attribute">LANG</span>: <span class="hljs-string">'C'</span>
+    cmd: <span class="hljs-string">'git'</span>
+    args: [ <span class="hljs-string">'status'</span> ]
+    cwd: dir
+    env:
+      HOME: process.env.HOME
+      LANG: <span class="hljs-string">'C'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">if</span> ~proc.stdout().indexOf <span class="hljs-string">'nothing to commit'</span>

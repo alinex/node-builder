@@ -242,11 +242,14 @@ exports.dirs = <span class="hljs-function"><span class="hljs-params">(options, f
     exports.info dir, options, <span class="hljs-string">"started in <span class="hljs-subst">#{dir}</span>"</span>
     fn dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       exports.info dir, options, <span class="hljs-string">'done'</span>
-      problems.push <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
+      problems.push chalk.red <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{err.message}</span>"</span> <span class="hljs-keyword">if</span> err
+      problems.push chalk.magenta err.description <span class="hljs-keyword">if</span> err?.description
       cb()
   , <span class="hljs-function">-&gt;</span>
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> problems.length
-    cb <span class="hljs-keyword">new</span> Error problems.join <span class="hljs-string">'\n'</span>
+    err = <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Some problems occured!"</span>
+    err.description = problems.join <span class="hljs-string">'\n'</span>
+    cb err
 
 exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir, options, cb)</span> -&gt;</span>
   <span class="hljs-keyword">try</span>
@@ -258,17 +261,36 @@ exports.task = <span class="hljs-function"><span class="hljs-params">(task, dir,
 exports.exec = <span class="hljs-function"><span class="hljs-params">(dir, options, type, exec, cb)</span> -&gt;</span>
   exports.debug dir, options, <span class="hljs-string">"<span class="hljs-subst">#{type}</span>"</span>
   exports.debug dir, options, <span class="hljs-string">"&gt; <span class="hljs-subst">#{exec.cmd}</span> <span class="hljs-subst">#{exec.args.join <span class="hljs-string">' '</span>}</span>"</span>
-  Exec.run exec, <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
-    <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> options.verbose &gt; <span class="hljs-number">2</span>
-      <span class="hljs-built_in">console</span>.log()
-      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{type}</span>"</span>
-      <span class="hljs-built_in">console</span>.log()
-      <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
-      <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
-      <span class="hljs-built_in">console</span>.log()
-    <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> options.verbose &lt; <span class="hljs-number">3</span>
-      exports.results dir, options, type, chalk.magenta proc.stderr()
-    cb err, proc
+  Exec.init (err) -&gt;
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    proc = <span class="hljs-keyword">new</span> Exec exec
+    <span class="hljs-keyword">if</span> (exec.interactive <span class="hljs-keyword">and</span> options.verbose &gt; <span class="hljs-number">2</span>) <span class="hljs-keyword">or</span> options.verbose &gt; <span class="hljs-number">3</span>
+      proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stdout'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{line}</span>"</span>
+      proc.<span class="hljs-literal">on</span> <span class="hljs-string">'stderr'</span>, <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span> <span class="hljs-built_in">console</span>.error <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{chalk.magenta line}</span>"</span>
+      proc.<span class="hljs-literal">on</span> <span class="hljs-string">'done'</span>, <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span> <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: Exit with code <span class="hljs-subst">#{code}</span>"</span>
+    proc.run (err) -&gt;</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>Exec.run exec, (err, proc) -&gt;</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="coffeescript">      <span class="hljs-keyword">if</span> proc.stdout() <span class="hljs-keyword">and</span> options.verbose &gt; <span class="hljs-number">3</span> <span class="hljs-keyword">or</span> (options.verbose &gt; <span class="hljs-number">2</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> options.interactive)
+        <span class="hljs-built_in">console</span>.log()
+        <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: <span class="hljs-subst">#{type}</span>"</span>
+        <span class="hljs-built_in">console</span>.log()
+        <span class="hljs-built_in">console</span>.log chalk.grey proc.stdout().trim().replace <span class="hljs-regexp">/s*\n+/g</span>, <span class="hljs-string">'\n'</span>
+        <span class="hljs-built_in">console</span>.error chalk.magenta proc.stderr().trim() <span class="hljs-keyword">if</span> proc.stderr()
+        <span class="hljs-built_in">console</span>.log()
+      <span class="hljs-keyword">if</span> err <span class="hljs-keyword">and</span> proc.stderr() <span class="hljs-keyword">and</span> options.verbose &lt; <span class="hljs-number">3</span>
+        exports.results dir, options, type, chalk.magenta proc.stderr()
+      cb err, proc
 
 exports.results = <span class="hljs-function"><span class="hljs-params">(dir, options, title, results)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> results = resultsJoin(results).trim()</pre>
@@ -278,14 +300,14 @@ exports.results = <span class="hljs-function"><span class="hljs-params">(dir, op
       <tr>
         <td class="docs">
           <div class="pilwrap">
-  <a class="pilcrow" href="#section-11" id="section-11"></a>
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
 </div>
 <p>output results</p>
 
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  <span class="hljs-built_in">console</span>.log()
-  <span class="hljs-built_in">console</span>.log chalk.bold title
+  <span class="hljs-built_in">console</span>.log chalk.bold <span class="hljs-string">"<span class="hljs-subst">#{title}</span>"</span>
   <span class="hljs-built_in">console</span>.log()
   <span class="hljs-built_in">console</span>.log results
   <span class="hljs-built_in">console</span>.log()

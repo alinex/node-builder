@@ -200,9 +200,9 @@ Compile md -&gt; man page
           fs.npmbin <span class="hljs-string">'marked-man'</span>, path.dirname(path.dirname __dirname), <span class="hljs-function"><span class="hljs-params">(err, cmd)</span> -&gt;</span>
             <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
             builder.exec dir, options, <span class="hljs-string">'compile into man'</span>,
-              <span class="hljs-attribute">cmd</span>: cmd
-              <span class="hljs-attribute">args</span>: [ input ]
-              <span class="hljs-attribute">cwd</span>: dir
+              cmd: cmd
+              args: [ input ]
+              cwd: dir
             , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
               <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
               builder.debug dir, options, <span class="hljs-string">"write into "</span> + path.join(dir, name)

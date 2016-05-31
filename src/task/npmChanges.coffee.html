@@ -154,14 +154,14 @@ NPM changes
     params = []
     params.push <span class="hljs-string">'-s'</span> <span class="hljs-keyword">if</span> options[<span class="hljs-string">'skip-unused'</span>]
     builder.exec dir, options, <span class="hljs-string">'npm-check'</span>,
-      <span class="hljs-attribute">cmd</span>: cmd
-      <span class="hljs-attribute">args</span>: params
-      <span class="hljs-attribute">cwd</span>: dir
-      <span class="hljs-attribute">retry</span>:
-        <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
-      <span class="hljs-attribute">check</span>:
-        <span class="hljs-attribute">exitCode</span>:
-          <span class="hljs-attribute">args</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+      cmd: cmd
+      args: params
+      cwd: dir
+      retry:
+        times: <span class="hljs-number">3</span>
+      check:
+        exitCode:
+          args: [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
     , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       upgrade = <span class="hljs-literal">false</span>
@@ -170,7 +170,7 @@ NPM changes
           <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/Use npm-check/</span>
           <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\w/</span>
             <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/#{.+}/</span>
-            <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/\//</span>
+            <span class="hljs-keyword">continue</span> <span class="hljs-keyword">if</span> line.match <span class="hljs-regexp">/^\S\//</span>
             msg += <span class="hljs-string">"- <span class="hljs-subst">#{chalk.yellow line.trim()}</span>\n"</span>
             <span class="hljs-keyword">if</span> match = line.match <span class="hljs-regexp">/to go (from .*)/</span>
               msg = msg.replace <span class="hljs-regexp">/(\s*http.*)?\n.*?$/</span>, <span class="hljs-string">" <span class="hljs-subst">#{chalk.grey match[<span class="hljs-number">1</span>]}</span>\n"</span>
@@ -181,7 +181,8 @@ NPM changes
             , chalk.underline(<span class="hljs-string">'$1'</span>)+<span class="hljs-string">' # $2'</span>
             msg += <span class="hljs-string">"  <span class="hljs-subst">#{chalk.grey line}</span>\n"</span>
       <span class="hljs-keyword">return</span> cb err, <span class="hljs-string">''</span> <span class="hljs-keyword">if</span> msg.split(<span class="hljs-regexp">/\n/</span>).length &lt; <span class="hljs-number">3</span>
-      msg += chalk.grey <span class="hljs-string">"To upgrade all use: "</span> + chalk.underline <span class="hljs-string">"<span class="hljs-subst">#{cmd}</span> <span class="hljs-subst">#{dir}</span> -u\n"</span> <span class="hljs-keyword">if</span> upgrade
+      <span class="hljs-keyword">if</span> upgrade
+        msg += chalk.grey(<span class="hljs-string">"To upgrade all use: "</span> + chalk.underline <span class="hljs-string">"<span class="hljs-subst">#{cmd}</span> <span class="hljs-subst">#{dir}</span> -u"</span>) + <span class="hljs-string">"\n"</span>
       cb <span class="hljs-literal">null</span>, msg</pre>
         </td>
       </tr>

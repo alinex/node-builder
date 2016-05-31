@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>push.coffee</title>
+  <title>nodeProfiling.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../../doc-style.css" />
   <script src="../../doc-filelist.js"></script>
   <script>
     var relativeDir = "../../";
-    var thisFile = "src/command/push.coffee";
+    var thisFile = "src/task/nodeProfiling.coffee";
     var defaultSidebar = true;
   </script>
   <script src="../../doc-script.js"></script>
@@ -49,11 +49,7 @@
       </div>
 
       <div class="heading h2">
-        <a href="#setup">Setup</a>
-      </div>
-
-      <div class="heading h2">
-        <a href="#handler">Handler</a>
+        <a href="#install-using-npm">Install using npm</a>
       </div>
 
     </div>
@@ -100,11 +96,12 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-3" id="section-3"></a>
 </div>
-<p>include base modules</p>
+<p>general modules</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">path = <span class="hljs-built_in">require</span> <span class="hljs-string">'path'</span></pre>
+          <pre class="coffeescript">chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+async = <span class="hljs-built_in">require</span> <span class="hljs-string">'async'</span></pre>
         </td>
       </tr>
     
@@ -113,7 +110,7 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-4" id="section-4"></a>
 </div>
-<p>include alinex modules</p>
+<p>alinex modules</p>
 
         </td>
         <td class="code highlight">
@@ -126,7 +123,7 @@ Node modules
           <div class="pilwrap">
   <a class="pilcrow" href="#section-5" id="section-5"></a>
 </div>
-<p>internal modules</p>
+<p>internal mhelper modules</p>
 
         </td>
         <td class="code highlight">
@@ -136,42 +133,41 @@ Node modules
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="setup">
+          <div class="pilwrap" id="install-using-npm">
   <h2>
-    <a href="#setup" name="setup" class="pilcrow"></a>
-Setup
+    <a href="#install-using-npm" name="install-using-npm" class="pilcrow"></a>
+Install using npm
   </h2>
 </div>
+<p><em>Arguments:</em></p>
+<ul>
+<li><code>verbose</code> - (integer) verbose level</li>
+</ul>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">
-exports.title = <span class="hljs-string">'push changes to remote repository'</span>
-exports.description = <span class="hljs-string">"""
-Push the newest changes to the origin repository. This includes all tags.
-"""</span>
-
-exports.options =
-  message:
-    alias: <span class="hljs-string">'m'</span>
-    type: <span class="hljs-string">'string'</span>
-    describe: <span class="hljs-string">'Commit message for local changes'</span></pre>
+          <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.prof
+  builder.info dir, options, <span class="hljs-string">"analyze node profiling"</span></pre>
         </td>
       </tr>
     
       <tr>
         <td class="docs">
-          <div class="pilwrap" id="handler">
-  <h2>
-    <a href="#handler" name="handler" class="pilcrow"></a>
-Handler
-  </h2>
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
 </div>
+<p>find all profiling logs</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">
-exports.handler = <span class="hljs-function"><span class="hljs-params">(options, cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript">  fs.find dir,
+    include: <span class="hljs-string">'isolate-*-v8.log'</span>
+  , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+    <span class="hljs-keyword">unless</span> list
+      <span class="hljs-built_in">console</span>.error chalk.magenta <span class="hljs-string">"No profiling information generated"</span>
+      <span class="hljs-keyword">return</span> cb()</pre>
         </td>
       </tr>
     
@@ -180,11 +176,18 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
           <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8"></a>
 </div>
-<p>step over directories</p>
+<p>analyze profiling</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  builder.dirs options, <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span></pre>
+          <pre class="coffeescript">    list.unshift <span class="hljs-string">'--prof-process'</span>
+    builder.exec dir, options, <span class="hljs-string">'node analyze profiling'</span>,
+      cmd: <span class="hljs-string">'node'</span>
+      args: list
+      cwd: dir
+      retry:
+        times: <span class="hljs-number">3</span>
+    , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span></pre>
         </td>
       </tr>
     
@@ -193,12 +196,13 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
           <div class="pilwrap">
   <a class="pilcrow" href="#section-9" id="section-9"></a>
 </div>
-<p>check for existing git repository</p>
+<p>store to file</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">    fs.exists path.join(dir, <span class="hljs-string">'.git'</span>), <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists <span class="hljs-comment"># no git repository</span></pre>
+          <pre class="coffeescript">      fs.writeFile <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/report/profiling.txt"</span>, proc.stdout(), <span class="hljs-string">'UTF8'</span>, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
+        cb()</pre>
         </td>
       </tr>
     
@@ -207,20 +211,13 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
           <div class="pilwrap">
   <a class="pilcrow" href="#section-10" id="section-10"></a>
 </div>
-<p>check status</p>
+<p>remove files</p>
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">      builder.task <span class="hljs-string">'gitStatus'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, out)</span> -&gt;</span>
-        <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-        <span class="hljs-keyword">unless</span> out
-          <span class="hljs-keyword">return</span> builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb
-        <span class="hljs-keyword">unless</span> options.message
-          <span class="hljs-keyword">return</span> cb <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Can't push to master if not everything is commited."</span>
-        builder.task <span class="hljs-string">'gitCommitAll'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
-          builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb
-  , cb</pre>
+          <pre class="coffeescript">        async.each list[<span class="hljs-number">1.</span>.], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
+          fs.remove file, cb
+        , <span class="hljs-function">-&gt;</span></pre>
         </td>
       </tr>
     

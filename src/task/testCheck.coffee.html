@@ -149,7 +149,7 @@ check for .only tests
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
   builder.info dir, options, <span class="hljs-string">"check tests"</span>
   fs.find path.join(dir, <span class="hljs-string">'test'</span>, <span class="hljs-string">'mocha'</span>),
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
+    type: <span class="hljs-string">'file'</span>
   , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     async.each list, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span></pre>

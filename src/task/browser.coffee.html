@@ -177,8 +177,9 @@ so we pass a blank title so we can quote the file we are opening</p>
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">else</span> path.resolve __dirname, <span class="hljs-string">'../../bin/xdg-open'</span>
   builder.exec dir, options, <span class="hljs-string">"open browser"</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"<span class="hljs-subst">#{opener}</span> \"<span class="hljs-subst">#{encodeURI options.target}</span>\""</span>]
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [<span class="hljs-string">'-c'</span>, <span class="hljs-string">"<span class="hljs-subst">#{opener}</span> \"<span class="hljs-subst">#{encodeURI options.target}</span>\""</span>]
+    env: process.env
   , cb</pre>
         </td>
       </tr>

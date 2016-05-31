@@ -147,6 +147,7 @@ Create metrics report
         </td>
         <td class="code highlight">
           <pre class="coffeescript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.metrics
   fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/lib"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
     <span class="hljs-keyword">unless</span> exists
       <span class="hljs-built_in">console</span>.warn <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span>: Skipped metrics because not compiled."</span>
@@ -169,14 +170,14 @@ Create metrics report
         </td>
         <td class="code highlight">
           <pre class="coffeescript">      builder.exec dir, options, <span class="hljs-string">'metrics report'</span>,
-        <span class="hljs-attribute">cmd</span>: cmd
-        <span class="hljs-attribute">args</span>: [
+        cmd: cmd
+        args: [
           <span class="hljs-string">'-r'</span>
           <span class="hljs-string">"-d"</span>, path.join dir, <span class="hljs-string">'report/metrics'</span>
           <span class="hljs-string">'-t'</span>, <span class="hljs-string">"<span class="hljs-subst">#{path.basename dir}</span> JS Analysis"</span>
           <span class="hljs-string">'lib'</span>
         ]
-        <span class="hljs-attribute">cwd</span>: dir
+        cwd: dir
       , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> cb err</pre>
         </td>
       </tr>

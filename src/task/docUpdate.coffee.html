@@ -229,11 +229,11 @@ Helper
       <span class="hljs-string">'-o'</span>, docPath
     ]
     builder.exec dir, options, <span class="hljs-string">'create api'</span>,
-      <span class="hljs-attribute">cmd</span>: cmd
-      <span class="hljs-attribute">args</span>: args
-      <span class="hljs-attribute">cwd</span>: dir
-      <span class="hljs-attribute">check</span>:
-        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+      cmd: cmd
+      args: args
+      cwd: dir
+      check:
+        noExitCode: <span class="hljs-literal">true</span>
     , cb
 <span class="hljs-function">
 <span class="hljs-title">copyImages</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span></pre>
@@ -253,43 +253,43 @@ Helper
   from = path.join dir, <span class="hljs-string">'src'</span>
   to = path.join docPath, <span class="hljs-string">'src'</span>
   fs.copy from, to,
-    <span class="hljs-attribute">include</span>: <span class="hljs-string">'*.{png,jpg,gif}'</span>
+    include: <span class="hljs-string">'*.{png,jpg,gif}'</span>
   , cb
 <span class="hljs-function">
 <span class="hljs-title">githubLink</span> = <span class="hljs-params">(dir, options, docPath, pack, replace, cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> pack.repository.url.match <span class="hljs-regexp">/github\.com/</span>
   builder.exec dir, options, <span class="hljs-string">'add github link'</span>,
-    <span class="hljs-attribute">cmd</span>: replace
-    <span class="hljs-attribute">args</span>: [
+    cmd: replace
+    args: [
       <span class="hljs-string">'(&lt;div id="container")&gt;'</span>
       <span class="hljs-string">'$1 tabindex="0"&gt;&lt;a id="fork" href="'</span>+pack.repository.url+<span class="hljs-string">'"
       title="Fork me on GitHub"&gt;&lt;/a&gt;'</span>
       docPath,
       <span class="hljs-string">'-r'</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
   , cb
 <span class="hljs-function">
 <span class="hljs-title">addViewport</span> = <span class="hljs-params">(dir, options, docPath, replace, cb)</span> -&gt;</span>
   builder.exec dir, options, <span class="hljs-string">'add viewport'</span>,
-    <span class="hljs-attribute">cmd</span>: replace
-    <span class="hljs-attribute">args</span>: [
+    cmd: replace
+    args: [
       <span class="hljs-string">'(&lt;/head&gt;)'</span>
       <span class="hljs-string">'&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;$1'</span>
       docPath
       <span class="hljs-string">'-r'</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
   , cb
 <span class="hljs-function">
 <span class="hljs-title">emptyCode</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span>
   builder.exec dir, options, <span class="hljs-string">'remove empty code'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [
       <span class="hljs-string">'-c'</span>
       <span class="hljs-string">"find <span class="hljs-subst">#{docPath}</span> -name \\*.html | xargs sed -i ':a;N;$!ba;s/&lt;pre[^&gt;]*&gt;\\s*&lt;\\/pre&gt;//g'"</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
   , cb
 <span class="hljs-function">
 <span class="hljs-title">emptyLines</span> = <span class="hljs-params">(dir, options, docPath, cb)</span> -&gt;</span></pre>
@@ -306,19 +306,19 @@ Helper
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'remove empty lines in code'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'sh'</span>
-    <span class="hljs-attribute">args</span>: [
+    cmd: <span class="hljs-string">'sh'</span>
+    args: [
       <span class="hljs-string">'-c'</span>
       <span class="hljs-string">"find <span class="hljs-subst">#{docPath}</span> -name \\*.html | xargs sed -i ':a;N;$!ba;s/\\s*&lt;\\/pre&gt;/&lt;\\/pre&gt;/g'"</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
   , cb
 <span class="hljs-function">
 <span class="hljs-title">addAlinex</span> = <span class="hljs-params">(dir, options, docPath, alinex, replace, cb)</span> -&gt;</span>
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> alinex
   builder.exec dir, options, <span class="hljs-string">'add alinex header'</span>,
-    <span class="hljs-attribute">cmd</span>: replace
-    <span class="hljs-attribute">args</span>: [
+    cmd: replace
+    args: [
       <span class="hljs-string">'(&lt;div id="sidebar_wrapper"&gt;)'</span>
       <span class="hljs-string">'''
       &lt;nav&gt;
@@ -344,32 +344,32 @@ Helper
       docPath
       <span class="hljs-string">'-r'</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
   , cb
 <span class="hljs-function">
 <span class="hljs-title">copyCss</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
   async.filter [
-    path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
-    path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+    path.join __dirname, <span class="hljs-string">'../../var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
+    path.join __dirname, <span class="hljs-string">'../../var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.css'</span>
   ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
     fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
   , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-style.css'</span>),
-      <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+      overwrite: <span class="hljs-literal">true</span>
     , cb
 <span class="hljs-function">
 <span class="hljs-title">copyJs</span> = <span class="hljs-params">(dir, options, pack, cb)</span> -&gt;</span>
   async.filter [
-    path.join dir, <span class="hljs-string">'var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
-    path.join dir, <span class="hljs-string">'var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+    path.join __dirname, <span class="hljs-string">'../../var/local/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
+    path.join __dirname, <span class="hljs-string">'../../var/src/docstyle'</span>, (pack.name.split <span class="hljs-regexp">/-/</span>)[<span class="hljs-number">0</span>] + <span class="hljs-string">'.js'</span>
   ], <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
     fs.exists file, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
   , <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     fs.copy files[<span class="hljs-number">0</span>], path.join(dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'doc-script.js'</span>),
-      <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+      overwrite: <span class="hljs-literal">true</span>
     , cb</pre>
         </td>
       </tr>

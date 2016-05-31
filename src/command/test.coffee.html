@@ -141,19 +141,26 @@ Pull the newest changes from the origin repository.
 """</span>
 
 exports.options =
-  <span class="hljs-attribute">bail</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'b'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'stop on first error in unit tests'</span>
-  <span class="hljs-attribute">coverage</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'create coverage reports'</span>
-  <span class="hljs-attribute">coveralls</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'send coverage to coveralls'</span>
-  <span class="hljs-attribute">browser</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'open results in browser'</span></pre>
+  bail:
+    alias: <span class="hljs-string">'b'</span>
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'stop on first error in unit tests'</span>
+  prof:
+    alias: <span class="hljs-string">'p'</span>
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'create profile report'</span>
+  coverage:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'create coverage reports'</span>
+  metrics:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'create metrics report'</span>
+  coveralls:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'send coverage to coveralls'</span>
+  browser:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'open results in browser'</span></pre>
         </td>
       </tr>
     
@@ -190,19 +197,24 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
       (cb) -&gt;
         builder.task <span class="hljs-string">'testMocha'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb err, results <span class="hljs-keyword">if</span> err
-          builder.task <span class="hljs-string">'testCoveralls'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-            <span class="hljs-keyword">return</span> cb err, results <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> (options.browser <span class="hljs-keyword">and</span> options.coverage)
-            builder.task <span class="hljs-string">'browser'</span>, dir,
-              <span class="hljs-attribute">verbose</span>: options.verbose
-              <span class="hljs-attribute">target</span>: path.join dir, <span class="hljs-string">'report'</span>, <span class="hljs-string">'lcov-report'</span>, <span class="hljs-string">'index.html'</span>
-            , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-              cb err, results
+          async.parallel [
+            (cb) -&gt;
+              builder.task <span class="hljs-string">'testCoveralls'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+                <span class="hljs-keyword">return</span> cb err, results <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> (options.browser <span class="hljs-keyword">and</span> options.coverage)
+                builder.task <span class="hljs-string">'browser'</span>, dir,
+                  verbose: options.verbose
+                  target: path.join dir, <span class="hljs-string">'report'</span>, <span class="hljs-string">'lcov-report'</span>, <span class="hljs-string">'index.html'</span>
+                , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
+                  cb err, results
+            (cb) -&gt;
+              builder.task <span class="hljs-string">'nodeProfiling'</span>, dir, options, cb
+          ]
       (cb) -&gt;
         builder.task <span class="hljs-string">'metrics'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
-          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options.browser
+          <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> (options.browser <span class="hljs-keyword">and</span> options.metrics)
           builder.task <span class="hljs-string">'browser'</span>, dir,
-            <span class="hljs-attribute">verbose</span>: options.verbose
-            <span class="hljs-attribute">target</span>: path.join dir, <span class="hljs-string">'report'</span>, <span class="hljs-string">'metrics'</span>, <span class="hljs-string">'index.html'</span>
+            verbose: options.verbose
+            target: path.join dir, <span class="hljs-string">'report'</span>, <span class="hljs-string">'metrics'</span>, <span class="hljs-string">'index.html'</span>
           , cb
     ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
       builder.results dir, options, <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span>"</span>, results

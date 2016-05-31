@@ -265,11 +265,11 @@ Include in own package
 </div>
 <p>Within your <code>package.json</code> it may look like:</p>
 <pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile --uglify"</span></span>,
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span>
-  </span>}
-</span>}
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"prepublish"</span>: <span class="hljs-string">"node_modules/.bin/builder compile --uglify"</span>,
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"node_modules/.bin/builder test"</span>
+  }
+}
 </code></pre>
 <div class="pilwrap" id="general-options">
   <h3>
@@ -384,10 +384,10 @@ Compile coffee script
 </ul>
 <p>Mostly this task will be added as prepublish script to the <code>package.json</code> like:</p>
 <pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">prepublish</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder compile -u"</span>
-  </span>}
-</span>}
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"prepublish"</span>: <span class="hljs-string">"node_modules/.bin/builder compile -u"</span>
+  }
+}
 </code></pre>
 <p>Also this will make man files from mardown documents in <code>src/man</code> if they
 are referenced in the package.json.</p>
@@ -412,7 +412,8 @@ builder ./node-util <span class="hljs-built_in">test</span>      <span class="hl
 <li>run mocha tests</li>
 <li>collect and build coverage report (option --coverage)</li>
 <li>send results from travis to coveralls (option --coveralls)</li>
-<li>run metric analyses of compiled js</li>
+<li>run metric analyses of compiled js (option --metrics)</li>
+<li>make profiling report (option --prof)</li>
 <li>open reports in browser (option --browser)</li>
 </ul>
 <p>So you may also create an html coverage report and open it:</p>
@@ -424,13 +425,25 @@ automatically in the browser. Also <code>--coveralls</code> may be added to send
 results from the coverage from travis to coveralls.</p>
 <p>This task can also be added to the <code>package.json</code> to be called using <code>npm test</code>:</p>
 <pre><code class="json">{
-  "<span class="hljs-attribute">scripts</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">test</span>": <span class="hljs-value"><span class="hljs-string">"node_modules/.bin/builder test"</span>
-  </span>}
-</span>}
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"node_modules/.bin/builder test"</span>
+  }
+}
 </code></pre>
 <p>Attention, the metrics are build out of the compiled JavaScript. So you need to
 compile your code first before the metrics are updated.</p>
+<p>Like noted above you may generate profiling reports using <code>--prof</code> switch.</p>
+<p><strong>Example Output: 'report/profiling.txt'</strong></p>
+<p>The file is broken up into sections which are again broken up by language. First,
+we look at the summary section and see:</p>
+<pre><code class="text">[Summary]:
+ticks  total  nonlib   name
+   0    0.0%    0.0%  JavaScript
+  50   87.7%  100.0%  C++
+   3    5.3%    6.0%  GC
+   7   12.3%          Shared libraries
+</code></pre>
+<p>For each of the above entries an own category exists, which gives more details.</p>
 <div class="pilwrap" id="doc">
   <h3>
     <a href="#doc" name="doc" class="pilcrow"></a>

@@ -162,7 +162,7 @@ Copy js
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  fs.find src, {<span class="hljs-attribute">include</span>: <span class="hljs-string">'*.js'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+          <pre class="coffeescript">  fs.find src, {include: <span class="hljs-string">'*.js'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     builder.info dir, options, <span class="hljs-string">"copy javascript files"</span>
@@ -173,11 +173,11 @@ Copy js
         fs.copy file, dest, cb
       mapfile = path.basename(file, <span class="hljs-string">'.js'</span>) + <span class="hljs-string">'.map'</span>
       builder.task <span class="hljs-string">'uglify'</span>, dir,
-        <span class="hljs-attribute">verbose</span>: options.verbose
-        <span class="hljs-attribute">dir</span>: dir
-        <span class="hljs-attribute">fromjs</span>: file
-        <span class="hljs-attribute">tojs</span>: dest
-        <span class="hljs-attribute">tomap</span>: mapfile
+        verbose: options.verbose
+        dir: dir
+        fromjs: file
+        tojs: dest
+        tomap: mapfile
       , cb
     , cb</pre>
         </td>

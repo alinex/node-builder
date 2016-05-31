@@ -248,10 +248,10 @@ Helper
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  async.parallel
-    <span class="hljs-attribute">hasDir</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists dir, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
-    <span class="hljs-attribute">hasGit</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/.git"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
-    <span class="hljs-attribute">hasPack</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/package.json"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
-    <span class="hljs-attribute">pack</span>: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> builder.task <span class="hljs-string">'packageJson'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, pack
+    hasDir: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists dir, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+    hasGit: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/.git"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+    hasPack: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/package.json"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, exists
+    pack: <span class="hljs-function"><span class="hljs-params">(cb)</span> -&gt;</span> builder.task <span class="hljs-string">'packageJson'</span>, dir, options, <span class="hljs-function"><span class="hljs-params">(err, pack)</span> -&gt;</span> cb <span class="hljs-literal">null</span>, pack
   , <span class="hljs-function"><span class="hljs-params">(err, system)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     system.pack ?= {}</pre>
@@ -270,52 +270,52 @@ Helper
           <pre class="coffeescript">    builder.debug dir, options, <span class="hljs-string">"ask interactive"</span>
     <span class="hljs-built_in">console</span>.log()
     inquirer.prompt [
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'input'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'name'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Give a package name like alinex-...:"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.name
+      type: <span class="hljs-string">'input'</span>
+      name: <span class="hljs-string">'name'</span>
+      message: <span class="hljs-string">"Give a package name like alinex-...:"</span>
+      when: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.name
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'input'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'description'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Give a short description:"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.description
+      type: <span class="hljs-string">'input'</span>
+      name: <span class="hljs-string">'description'</span>
+      message: <span class="hljs-string">"Give a short description:"</span>
+      when: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.description
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'input'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'copyright'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Give your full name for copyright:"</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">"Alexander Schilling"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.copyright
+      type: <span class="hljs-string">'input'</span>
+      name: <span class="hljs-string">'copyright'</span>
+      message: <span class="hljs-string">"Give your full name for copyright:"</span>
+      default: <span class="hljs-string">"Alexander Schilling"</span>
+      when: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.copyright
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'confirm'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'private'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Should this be kept private?"</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-literal">false</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.private?
+      type: <span class="hljs-string">'confirm'</span>
+      name: <span class="hljs-string">'private'</span>
+      message: <span class="hljs-string">"Should this be kept private?"</span>
+      default: <span class="hljs-literal">false</span>
+      when: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.pack.private?
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'confirm'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'initGit'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Should a git repository be initialized?"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.hasGit
+      type: <span class="hljs-string">'confirm'</span>
+      name: <span class="hljs-string">'initGit'</span>
+      message: <span class="hljs-string">"Should a git repository be initialized?"</span>
+      when: <span class="hljs-function">-&gt;</span> <span class="hljs-keyword">not</span> system.hasGit
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'confirm'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'initGithub'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Should a github repository be used?"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGit <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> (system.pack.private <span class="hljs-keyword">or</span> answer.private)
+      type: <span class="hljs-string">'confirm'</span>
+      name: <span class="hljs-string">'initGithub'</span>
+      message: <span class="hljs-string">"Should a github repository be used?"</span>
+      when: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGit <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> (system.pack.private <span class="hljs-keyword">or</span> answer.private)
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'input'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'user'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Your github username:"</span>
-      <span class="hljs-attribute">default</span>: <span class="hljs-string">'alinex'</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGithub
+      type: <span class="hljs-string">'input'</span>
+      name: <span class="hljs-string">'user'</span>
+      message: <span class="hljs-string">"Your github username:"</span>
+      default: <span class="hljs-string">'alinex'</span>
+      when: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGithub
     ,
-      <span class="hljs-attribute">type</span>: <span class="hljs-string">'password'</span>
-      <span class="hljs-attribute">name</span>: <span class="hljs-string">'password'</span>
-      <span class="hljs-attribute">message</span>: <span class="hljs-string">"Your password for github:"</span>
-      <span class="hljs-attribute">when</span>: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGithub
+      type: <span class="hljs-string">'password'</span>
+      name: <span class="hljs-string">'password'</span>
+      message: <span class="hljs-string">"Your password for github:"</span>
+      when: <span class="hljs-function"><span class="hljs-params">(answer)</span> -&gt;</span> answer.initGithub
     ]
     .<span class="hljs-keyword">then</span> (answer) -&gt;
       answer.pack =
-        <span class="hljs-attribute">name</span>: answer.name
+        name: answer.name
       <span class="hljs-keyword">delete</span> answer.name
       <span class="hljs-built_in">console</span>.log()
       cb <span class="hljs-literal">null</span>, util.extend system, answer</pre>
@@ -355,9 +355,11 @@ Create initial git repository
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.initGit
   builder.info dir, options, <span class="hljs-string">"initialize git"</span>
   builder.exec dir, options, <span class="hljs-string">"git init"</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'init'</span>]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: [<span class="hljs-string">'init'</span>]
+    cwd: dir
+    env:
+      HOME: process.env.HOME
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     async.filter [
@@ -371,7 +373,7 @@ Create initial git repository
       async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
         builder.debug dir, options, <span class="hljs-string">"copy template from <span class="hljs-subst">#{file}</span>"</span>
         fs.copy file, path.join(dir),
-          <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+          overwrite: <span class="hljs-literal">true</span>
         , cb
       , cb
     , cb
@@ -390,13 +392,13 @@ Create initial git repository
     async.each files, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span>
       builder.debug dir, options, <span class="hljs-string">"copy template from <span class="hljs-subst">#{file}</span>"</span>
       fs.copy file, path.join(dir),
-        <span class="hljs-attribute">overwrite</span>: <span class="hljs-literal">true</span>
+        overwrite: <span class="hljs-literal">true</span>
       , cb
     , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       fs.find dir,
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'file'</span>
-        <span class="hljs-attribute">exclude</span>: <span class="hljs-string">'**/.git/**'</span>
+        type: <span class="hljs-string">'file'</span>
+        exclude: <span class="hljs-string">'**/.git/**'</span>
       , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
         async.each list, <span class="hljs-function"><span class="hljs-params">(file, cb)</span> -&gt;</span></pre>
@@ -436,8 +438,8 @@ Create initial git repository
   builder.info dir, options, <span class="hljs-string">"update package.json"</span>
   <span class="hljs-keyword">return</span> cb()
   setup =
-    <span class="hljs-attribute">description</span>: options.description
-    <span class="hljs-attribute">copyright</span>: <span class="hljs-string">"<span class="hljs-subst">#{options.user}</span> <span class="hljs-subst">#{(<span class="hljs-keyword">new</span> Date()).getFullYear()}</span>"</span>
+    description: options.description
+    copyright: <span class="hljs-string">"<span class="hljs-subst">#{options.user}</span> <span class="hljs-subst">#{(<span class="hljs-keyword">new</span> Date()).getFullYear()}</span>"</span>
   setup.private = options.private <span class="hljs-keyword">if</span> options.private?
   setup.homepage = <span class="hljs-string">"http://<span class="hljs-subst">#{options.user}</span>.github.io/<span class="hljs-subst">#{path.basename dir}</span>/"</span> <span class="hljs-keyword">if</span> options.initGithub
   setup.repository = {}
@@ -470,9 +472,11 @@ Create new GitHub repository if not existing
   <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.initGithub
   builder.info dir, options, <span class="hljs-string">"initialize github"</span>
   builder.exec dir, options, <span class="hljs-string">"git remote"</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'remote'</span>, <span class="hljs-string">'show'</span>, <span class="hljs-string">'origin'</span>]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: [<span class="hljs-string">'remote'</span>, <span class="hljs-string">'show'</span>, <span class="hljs-string">'origin'</span>]
+    cwd: dir
+    env:
+      HOME: process.env.HOME
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-keyword">unless</span> err
       <span class="hljs-built_in">console</span>.warn chalk.magenta <span class="hljs-string">"Skipped GitHub because other origin exists already"</span>
@@ -480,11 +484,11 @@ Create new GitHub repository if not existing
     builder.debug dir, options, <span class="hljs-string">"check github repository"</span>
     builder.noisy dir, options, <span class="hljs-string">"GET https://api.github.com/user/repos"</span>
     request {
-      <span class="hljs-attribute">uri</span>: <span class="hljs-string">"https://api.github.com/repos/<span class="hljs-subst">#{options.user}</span>/<span class="hljs-subst">#{path.basename dir}</span>"</span>
-      <span class="hljs-attribute">auth</span>:
-        <span class="hljs-attribute">user</span>: options.user
-        <span class="hljs-attribute">pass</span>: options.password
-      <span class="hljs-attribute">headers</span>:
+      uri: <span class="hljs-string">"https://api.github.com/repos/<span class="hljs-subst">#{options.user}</span>/<span class="hljs-subst">#{path.basename dir}</span>"</span>
+      auth:
+        user: options.user
+        pass: options.password
+      headers:
         <span class="hljs-string">'User-Agent'</span>: options.user
     }, <span class="hljs-function"><span class="hljs-params">(err, response)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
@@ -496,21 +500,21 @@ Create new GitHub repository if not existing
       builder.debug dir, options, <span class="hljs-string">"create github repository"</span>
       builder.noisy dir, options, <span class="hljs-string">"POST https://api.github.com/user/repos"</span>
       request {
-        <span class="hljs-attribute">uri</span>: <span class="hljs-string">"https://api.github.com/user/repos"</span>
-        <span class="hljs-attribute">auth</span>:
-          <span class="hljs-attribute">user</span>: options.user
-          <span class="hljs-attribute">pass</span>: options.password
-        <span class="hljs-attribute">headers</span>:
+        uri: <span class="hljs-string">"https://api.github.com/user/repos"</span>
+        auth:
+          user: options.user
+          pass: options.password
+        headers:
           <span class="hljs-string">'User-Agent'</span>: options.user
-        <span class="hljs-attribute">method</span>: <span class="hljs-string">'POST'</span>
-        <span class="hljs-attribute">body</span>: JSON.stringify
-          <span class="hljs-attribute">name</span>: path.basename dir
-          <span class="hljs-attribute">description</span>: options.description
-          <span class="hljs-attribute">homepage</span>: <span class="hljs-string">"http://<span class="hljs-subst">#{options.user}</span>.github.io/<span class="hljs-subst">#{path.basename dir}</span>"</span>
-          <span class="hljs-attribute">private</span>: <span class="hljs-literal">false</span>
-          <span class="hljs-attribute">has_issues</span>: <span class="hljs-literal">true</span>
-          <span class="hljs-attribute">has_wiki</span>: <span class="hljs-literal">false</span>
-          <span class="hljs-attribute">has_downloads</span>: <span class="hljs-literal">true</span>
+        method: <span class="hljs-string">'POST'</span>
+        body: JSON.stringify
+          name: path.basename dir
+          description: options.description
+          homepage: <span class="hljs-string">"http://<span class="hljs-subst">#{options.user}</span>.github.io/<span class="hljs-subst">#{path.basename dir}</span>"</span>
+          private: <span class="hljs-literal">false</span>
+          has_issues: <span class="hljs-literal">true</span>
+          has_wiki: <span class="hljs-literal">false</span>
+          has_downloads: <span class="hljs-literal">true</span>
       }, <span class="hljs-function"><span class="hljs-params">(err, response)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
         <span class="hljs-keyword">unless</span> response?.statusCode <span class="hljs-keyword">is</span> <span class="hljs-number">201</span>
@@ -518,12 +522,14 @@ Create new GitHub repository if not existing
           to create repository"</span>
         builder.debug dir, options, <span class="hljs-string">"set github as origin"</span>
         builder.exec dir, options, <span class="hljs-string">'git remote add'</span>,
-          <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-          <span class="hljs-attribute">args</span>: [
+          cmd: <span class="hljs-string">'git'</span>
+          args: [
             <span class="hljs-string">'remote'</span>, <span class="hljs-string">'add'</span>
             <span class="hljs-string">'origin'</span>, <span class="hljs-string">"https://github.com/<span class="hljs-subst">#{options.user}</span>/<span class="hljs-subst">#{path.basename dir}</span>"</span>
           ]
-          <span class="hljs-attribute">cwd</span>: dir
+          cwd: dir
+          env:
+            HOME: process.env.HOME
         , cb</pre>
         </td>
       </tr>

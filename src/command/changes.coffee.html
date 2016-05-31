@@ -163,9 +163,9 @@ what goes into the new version.
 
 exports.options =
   <span class="hljs-string">'skip-unused'</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'s'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Skip check for unused packages'</span></pre>
+    alias: <span class="hljs-string">'s'</span>
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'Skip check for unused packages'</span></pre>
         </td>
       </tr>
     
@@ -201,7 +201,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         (cb) -&gt; git dir, options, cb
         (cb) -&gt; builder.task <span class="hljs-string">'npmChanges'</span>, dir, options, cb
       ], <span class="hljs-function"><span class="hljs-params">(err, results)</span> -&gt;</span>
-        builder.results dir, options, <span class="hljs-string">"Results for <span class="hljs-subst">#{path.basename dir}</span>"</span>, results
+        builder.results dir, options, <span class="hljs-string">"Results"</span>, results
         cb err
   , cb</pre>
         </td>
@@ -230,16 +230,16 @@ Helper
 <span class="hljs-title">gitChanges</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
   builder.info dir, options, <span class="hljs-string">"check git commits"</span>
   builder.exec dir, options, <span class="hljs-string">'git last publication'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'describe'</span>, <span class="hljs-string">'--abbrev=0'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: [ <span class="hljs-string">'describe'</span>, <span class="hljs-string">'--abbrev=0'</span> ]
+    cwd: dir
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
     tag = proc.stdout().trim()
     msg = <span class="hljs-string">"Changes since last publication as <span class="hljs-subst">#{tag}</span>:\n"</span>
     builder.exec dir, options, <span class="hljs-string">'git log'</span>,
-      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-      <span class="hljs-attribute">args</span>: [<span class="hljs-string">'log'</span>, <span class="hljs-string">"<span class="hljs-subst">#{tag}</span>..HEAD"</span>, <span class="hljs-string">"--format=oneline"</span>]
-      <span class="hljs-attribute">cwd</span>: dir
+      cmd: <span class="hljs-string">'git'</span>
+      args: [<span class="hljs-string">'log'</span>, <span class="hljs-string">"<span class="hljs-subst">#{tag}</span>..HEAD"</span>, <span class="hljs-string">"--format=oneline"</span>]
+      cwd: dir
     , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
       <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
       <span class="hljs-keyword">if</span> proc.stdout()
@@ -252,9 +252,9 @@ Helper
   builder.info dir, options, <span class="hljs-string">"check git status"</span>
   msg = <span class="hljs-string">''</span>
   builder.exec dir, options, <span class="hljs-string">'git status'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'status'</span>]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: [<span class="hljs-string">'status'</span>]
+    cwd: dir
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">if</span> proc.stdout()

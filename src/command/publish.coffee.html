@@ -170,28 +170,28 @@ Build and publish package to npm.
 """</span>
 
 exports.options =
-  <span class="hljs-attribute">message</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'m'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'Commit message for local changes'</span>
-  <span class="hljs-attribute">major</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release next major version'</span>
-  <span class="hljs-attribute">minor</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release next minor version'</span>
-  <span class="hljs-attribute">version</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'version to release'</span>
-  <span class="hljs-attribute">release</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'release message'</span>
-  <span class="hljs-attribute">try</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'try if publication is possible'</span>
-  <span class="hljs-attribute">force</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'force publish also on problems'</span></pre>
+  message:
+    alias: <span class="hljs-string">'m'</span>
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'Commit message for local changes'</span>
+  major:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'release next major version'</span>
+  minor:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'release next minor version'</span>
+  version:
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'version to release'</span>
+  release:
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'release message'</span>
+  try:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'try if publication is possible'</span>
+  force:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'force publish also on problems'</span></pre>
         </td>
       </tr>
     
@@ -238,7 +238,7 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">        (cb) -&gt; builder.task <span class="hljs-string">'clean'</span>, dir, {<span class="hljs-attribute">verbose</span>: options.verbose, <span class="hljs-attribute">auto</span>: <span class="hljs-literal">true</span>}, cb
+          <pre class="coffeescript">        (cb) -&gt; builder.task <span class="hljs-string">'clean'</span>, dir, {verbose: options.verbose, auto: <span class="hljs-literal">true</span>}, cb
         (cb) -&gt; builder.task <span class="hljs-string">'npmInstall'</span>, dir, options, cb
         (cb) -&gt;
           async.parallel [
@@ -280,8 +280,8 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
           ], cb
         (cb) -&gt;
           builder.task <span class="hljs-string">'gitCommitAll'</span>, dir,
-            <span class="hljs-attribute">verbose</span>: options.verbose
-            <span class="hljs-attribute">message</span>: <span class="hljs-string">"Added information for version <span class="hljs-subst">#{options.version}</span>"</span>
+            verbose: options.verbose
+            message: <span class="hljs-string">"Added information for version <span class="hljs-subst">#{options.version}</span>"</span>
           , cb
         (cb) -&gt; builder.task <span class="hljs-string">'gitPush'</span>, dir, options, cb</pre>
         </td>
@@ -394,9 +394,11 @@ add changes since last version to Changelog
   <span class="hljs-keyword">unless</span> options.oldVersion <span class="hljs-keyword">is</span> <span class="hljs-string">'0.0.0'</span>
     args.push <span class="hljs-string">"v<span class="hljs-subst">#{options.oldVersion}</span>..HEAD"</span>
   builder.exec dir, options, <span class="hljs-string">"git log"</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: args
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: args
+    cwd: dir
+    env:
+      HOME: process.env.HOME
   , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     file = path.join dir, <span class="hljs-string">'Changelog.md'</span>
@@ -447,13 +449,15 @@ Add version tag to git
     changelog = <span class="hljs-string">" see more in [Changelog.md](<span class="hljs-subst">#{pack.homepage}</span>/Changelog.md.html)"</span>
   builder.info dir, options, <span class="hljs-string">"add new tag"</span>
   builder.exec dir, options, <span class="hljs-string">'git tag'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [
+    cmd: <span class="hljs-string">'git'</span>
+    args: [
       <span class="hljs-string">'tag'</span>
       <span class="hljs-string">'-a'</span>, <span class="hljs-string">"v<span class="hljs-subst">#{options.version}</span>"</span>
       <span class="hljs-string">'-m'</span>, <span class="hljs-string">"Created version <span class="hljs-subst">#{options.version}</span><span class="hljs-subst">#{changelog}</span>"</span>
     ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cwd: dir
+    env:
+      HOME: process.env.HOME
   , cb</pre>
         </td>
       </tr>
@@ -472,9 +476,12 @@ Push new version to npm
           <pre class="coffeescript"><span class="hljs-function"><span class="hljs-title">pushNpm</span> = <span class="hljs-params">(dir, options, cb)</span> -&gt;</span>
   builder.info dir, options, <span class="hljs-string">'publish on npm'</span>
   builder.exec dir, options, <span class="hljs-string">'npm publish'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
-    <span class="hljs-attribute">args</span>: [<span class="hljs-string">'publish'</span>]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'npm'</span>
+    args: [<span class="hljs-string">'publish'</span>]
+    cwd: dir
+    env:
+      HOME: process.env.HOME
+      PATH: process.env.PATH
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     cb err, <span class="hljs-string">"Created version <span class="hljs-subst">#{options.version}</span>"</span></pre>
         </td>

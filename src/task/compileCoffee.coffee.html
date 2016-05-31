@@ -163,7 +163,7 @@ Compile coffee -&gt; js
 
         </td>
         <td class="code highlight">
-          <pre class="coffeescript">  fs.find src, {<span class="hljs-attribute">include</span>: <span class="hljs-string">'*.coffee'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
+          <pre class="coffeescript">  fs.find src, {include: <span class="hljs-string">'*.coffee'</span>}, <span class="hljs-function"><span class="hljs-params">(err, files)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> files.length
     builder.info dir, options, <span class="hljs-string">"compile coffee script files"</span>
@@ -174,11 +174,11 @@ Compile coffee -&gt; js
         mapfile = path.basename(file, <span class="hljs-string">'.coffee'</span>) + <span class="hljs-string">'.map'</span>
         builder.noisy dir, options, <span class="hljs-string">"compile <span class="hljs-subst">#{file[src.length+<span class="hljs-number">1.</span>.]}</span>"</span>
         compiled = coffee.compile data,
-          <span class="hljs-attribute">filename</span>: path.basename file
-          <span class="hljs-attribute">generatedFile</span>: jsfile
-          <span class="hljs-attribute">sourceRoot</span>: path.relative path.dirname(file), dir
-          <span class="hljs-attribute">sourceFiles</span>: [ file ]
-          <span class="hljs-attribute">sourceMap</span>: <span class="hljs-literal">true</span>
+          filename: path.basename file
+          generatedFile: jsfile
+          sourceRoot: path.relative path.dirname(file), dir
+          sourceFiles: [ file ]
+          sourceMap: <span class="hljs-literal">true</span>
         compiled.js += <span class="hljs-string">"\n//# sourceMappingURL=<span class="hljs-subst">#{path.basename mapfile}</span>"</span></pre>
         </td>
       </tr>
@@ -206,12 +206,12 @@ Compile coffee -&gt; js
         ], <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> options.uglify
           builder.task <span class="hljs-string">'uglify'</span>, dir,
-            <span class="hljs-attribute">verbose</span>: options.verbose
-            <span class="hljs-attribute">dir</span>: path.dirname filepathjs
-            <span class="hljs-attribute">fromjs</span>: jsfile
-            <span class="hljs-attribute">frommap</span>: mapfile
-            <span class="hljs-attribute">tojs</span>: jsfile
-            <span class="hljs-attribute">tomap</span>: mapfile
+            verbose: options.verbose
+            dir: path.dirname filepathjs
+            fromjs: jsfile
+            frommap: mapfile
+            tojs: jsfile
+            tomap: mapfile
           , cb
     , cb</pre>
         </td>

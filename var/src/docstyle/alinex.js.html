@@ -353,7 +353,7 @@ nodeClicked
         </td>
         <td class="code highlight">
           <pre class="javascript">  <span class="hljs-keyword">var</span> path = t.getAttribute(<span class="hljs-string">'rel'</span>);
-  <span class="hljs-keyword">if</span>(t.className.indexOf(<span class="hljs-string">'open'</span>) !== -<span class="hljs-number">1</span>){
+  <span class="hljs-keyword">if</span>(t.className.indexOf(<span class="hljs-string">'open'</span>) !== <span class="hljs-number">-1</span>){
     t.className=t.className.replace(<span class="hljs-regexp">/\s*open/g</span>,<span class="hljs-string">''</span>);
     <span class="hljs-keyword">if</span>(<span class="hljs-built_in">window</span>.localStorage) <span class="hljs-built_in">window</span>.localStorage.removeItem(<span class="hljs-string">'docker_openPath:'</span> + path);
   }<span class="hljs-keyword">else</span>{
@@ -455,7 +455,7 @@ nodeHtml
 
         </td>
         <td class="code highlight">
-          <pre class="javascript">    dirs.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)</span>{ <span class="hljs-keyword">return</span> (a.name &gt; b.name) ? <span class="hljs-number">1</span> : (a.name == b.name) ? <span class="hljs-number">0</span> : -<span class="hljs-number">1</span>; });
+          <pre class="javascript">    dirs.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>)</span>{ <span class="hljs-keyword">return</span> (a.name &gt; b.name) ? <span class="hljs-number">1</span> : (a.name == b.name) ? <span class="hljs-number">0</span> : <span class="hljs-number">-1</span>; });
 
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> k = <span class="hljs-number">0</span>; k &lt; dirs.length; k += <span class="hljs-number">1</span>) out += dirs[k].html;
   }</pre>
@@ -683,7 +683,7 @@ switchTab
         </td>
         <td class="code highlight">
           <pre class="javascript">      <span class="hljs-built_in">document</span>.getElementById(t).style.display = <span class="hljs-string">'block'</span>;
-      <span class="hljs-keyword">if</span>(children[i].className.indexOf(<span class="hljs-string">'selected'</span>) === -<span class="hljs-number">1</span>) children[i].className += <span class="hljs-string">' selected'</span>;
+      <span class="hljs-keyword">if</span>(children[i].className.indexOf(<span class="hljs-string">'selected'</span>) === <span class="hljs-number">-1</span>) children[i].className += <span class="hljs-string">' selected'</span>;
     }<span class="hljs-keyword">else</span>{</pre>
         </td>
       </tr>

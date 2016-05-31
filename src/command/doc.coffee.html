@@ -139,12 +139,12 @@ Create a html api documentation and maybe upload it to github pages.
 """</span>
 
 exports.options =
-  <span class="hljs-attribute">publish</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'publish documentation'</span>
-  <span class="hljs-attribute">browser</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'open api in browser'</span></pre>
+  publish:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'publish documentation'</span>
+  browser:
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'open api in browser'</span></pre>
         </td>
       </tr>
     
@@ -184,14 +184,14 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
             <span class="hljs-built_in">console</span>.log <span class="hljs-string">"<span class="hljs-subst">#{path.dirname dir}</span>: waiting for github to update site... (10sec)"</span>
             setTimeout -&gt;
               builder.task <span class="hljs-string">"browser"</span>, dir,
-                <span class="hljs-attribute">verbose</span>: options.verbose
-                <span class="hljs-attribute">target</span>: pack.homepage
+                verbose: options.verbose
+                target: pack.homepage
               , cb
             , <span class="hljs-number">10000</span>
         <span class="hljs-keyword">else</span>
           builder.task <span class="hljs-string">"browser"</span>, dir,
-            <span class="hljs-attribute">verbose</span>: options.verbose
-            <span class="hljs-attribute">target</span>: path.join dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'index.html'</span>
+            verbose: options.verbose
+            target: path.join dir, <span class="hljs-string">'doc'</span>, <span class="hljs-string">'index.html'</span>
           , cb
   , cb</pre>
         </td>

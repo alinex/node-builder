@@ -204,19 +204,19 @@ Clean directories
     (cb) -&gt;
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.dist
       builder.exec dir, options, <span class="hljs-string">"remove development only modules"</span>,
-        <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'npm'</span>
-        <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'prune'</span>, <span class="hljs-string">'--production'</span> ]
-        <span class="hljs-attribute">cwd</span>: dir
+        cmd: <span class="hljs-string">'npm'</span>
+        args: [ <span class="hljs-string">'prune'</span>, <span class="hljs-string">'--production'</span> ]
+        cwd: dir
       , cb
     (cb) -&gt;
       <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> options.dist
       builder.debug dir, options, <span class="hljs-string">"remove unneccessary files"</span>
       selection = [
-        <span class="hljs-attribute">include</span>: <span class="hljs-string">'LICENSE'</span>
+        include: <span class="hljs-string">'LICENSE'</span>
       ,
-        <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">2</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'dir'</span>
-        <span class="hljs-attribute">include</span>: <span class="hljs-string">'example?(s)'</span>
+        maxdepth: <span class="hljs-number">2</span>
+        type: <span class="hljs-string">'dir'</span>
+        include: <span class="hljs-string">'example?(s)'</span>
       ]
       async.each selection, <span class="hljs-function"><span class="hljs-params">(spec, cb)</span> -&gt;</span>
         builder.debug dir, options, <span class="hljs-string">"Remove <span class="hljs-subst">#{spec.include}</span>"</span>

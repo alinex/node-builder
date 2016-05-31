@@ -136,19 +136,21 @@ Commit all changed files
         </td>
         <td class="code highlight">
           <pre class="coffeescript">  builder.exec dir, options, <span class="hljs-string">'git add all'</span>,
-    <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-    <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'add'</span>, <span class="hljs-string">'-A'</span> ]
-    <span class="hljs-attribute">cwd</span>: dir
+    cmd: <span class="hljs-string">'git'</span>
+    args: [ <span class="hljs-string">'add'</span>, <span class="hljs-string">'-A'</span> ]
+    cwd: dir
   , <span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span>
     <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
     builder.exec dir, options, <span class="hljs-string">'git commit'</span>,
-      <span class="hljs-attribute">cmd</span>: <span class="hljs-string">'git'</span>
-      <span class="hljs-attribute">args</span>: [ <span class="hljs-string">'commit'</span>, <span class="hljs-string">'-m'</span>, options.message ]
-      <span class="hljs-attribute">cwd</span>: dir
-      <span class="hljs-attribute">retry</span>:
-        <span class="hljs-attribute">times</span>: <span class="hljs-number">3</span>
-      <span class="hljs-attribute">check</span>:
-        <span class="hljs-attribute">noExitCode</span>: <span class="hljs-literal">true</span>
+      cmd: <span class="hljs-string">'git'</span>
+      args: [ <span class="hljs-string">'commit'</span>, <span class="hljs-string">'-m'</span>, options.message ]
+      cwd: dir
+      env:
+        HOME: process.env.HOME
+      retry:
+        times: <span class="hljs-number">3</span>
+      check:
+        noExitCode: <span class="hljs-literal">true</span>
     , cb</pre>
         </td>
       </tr>

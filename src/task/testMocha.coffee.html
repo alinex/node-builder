@@ -173,14 +173,17 @@ Run mocha tests
         </td>
         <td class="code highlight">
           <pre class="coffeescript">        msg = <span class="hljs-string">"Mocha Test results:\n"</span>
+        cmd = mocha
         args = []
         <span class="hljs-keyword">if</span> options.coverage
+          args.unshift cmd
           cmd = istanbul
           args.push <span class="hljs-string">'--dir=./report'</span>
           args.push <span class="hljs-string">'cover'</span>, mocha, <span class="hljs-string">'--'</span>, <span class="hljs-string">'--require'</span>, <span class="hljs-string">'coffee-coverage/register-istanbul'</span>
-        <span class="hljs-keyword">else</span>
-          cmd = mocha
-          args.push <span class="hljs-string">'-w'</span> <span class="hljs-keyword">if</span> options.watch
+        <span class="hljs-keyword">if</span> options.prof
+          args.unshift cmd
+          args.unshift <span class="hljs-string">'--prof'</span>
+          cmd = <span class="hljs-string">'node'</span>
         args.push <span class="hljs-string">'--compilers'</span>, <span class="hljs-string">'coffee:coffee-script/register'</span>
         args.push <span class="hljs-string">'--reporter'</span>, <span class="hljs-string">'spec'</span>
         args.push <span class="hljs-string">'-c'</span> <span class="hljs-comment"># colors</span>
@@ -188,9 +191,11 @@ Run mocha tests
         args.push <span class="hljs-string">'--bail'</span> <span class="hljs-keyword">if</span> options.bail
         args.push <span class="hljs-string">'test/mocha'</span>
         builder.exec dir, options, <span class="hljs-string">'mocha tests'</span>,
-          <span class="hljs-attribute">cmd</span>: cmd
-          <span class="hljs-attribute">args</span>: args
-          <span class="hljs-attribute">cwd</span>: dir
+          cmd: cmd
+          args: args
+          cwd: dir
+          env: process.env
+          interactive: <span class="hljs-literal">true</span>
         , <span class="hljs-function"><span class="hljs-params">(err, proc)</span> -&gt;</span>
           skip = <span class="hljs-literal">true</span>
           <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> proc.stdout().split <span class="hljs-regexp">/\n/</span>

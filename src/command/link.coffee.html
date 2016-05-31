@@ -155,13 +155,13 @@ command.
 """</span>
 
 exports.options =
-  <span class="hljs-attribute">link</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'l'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'package name to link'</span>
-  <span class="hljs-attribute">local</span>:
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'local path which is used'</span></pre>
+  link:
+    alias: <span class="hljs-string">'l'</span>
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'package name to link'</span>
+  local:
+    type: <span class="hljs-string">'string'</span>
+    describe: <span class="hljs-string">'local path which is used'</span></pre>
         </td>
       </tr>
     
@@ -205,8 +205,8 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
         <td class="code highlight">
           <pre class="coffeescript">    <span class="hljs-keyword">unless</span> options.link
       <span class="hljs-keyword">return</span> fs.find dir,
-        <span class="hljs-attribute">include</span>: <span class="hljs-string">'alinex-*'</span>
-        <span class="hljs-attribute">type</span>: <span class="hljs-string">'dir'</span>
+        include: <span class="hljs-string">'alinex-*'</span>
+        type: <span class="hljs-string">'dir'</span>
       , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
         async.each list, <span class="hljs-function"><span class="hljs-params">(link, cb)</span> -&gt;</span>

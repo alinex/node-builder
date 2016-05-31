@@ -152,10 +152,10 @@ This will recreate the lib folder and copy or compile the sources into it.
 """</span>
 
 exports.options =
-  <span class="hljs-attribute">uglify</span>:
-    <span class="hljs-attribute">alias</span>: <span class="hljs-string">'u'</span>
-    <span class="hljs-attribute">type</span>: <span class="hljs-string">'boolean'</span>
-    <span class="hljs-attribute">describe</span>: <span class="hljs-string">'run uglify for each file'</span></pre>
+  uglify:
+    alias: <span class="hljs-string">'u'</span>
+    type: <span class="hljs-string">'boolean'</span>
+    describe: <span class="hljs-string">'run uglify for each file'</span></pre>
         </td>
       </tr>
     
@@ -219,8 +219,8 @@ exports.handler = <span class="hljs-function"><span class="hljs-params">(options
       fs.exists <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/node_modules"</span>, <span class="hljs-function"><span class="hljs-params">(exists)</span> -&gt;</span>
         <span class="hljs-keyword">return</span> cb() <span class="hljs-keyword">unless</span> exists
         fs.find <span class="hljs-string">"<span class="hljs-subst">#{dir}</span>/node_modules"</span>,
-          <span class="hljs-attribute">type</span>: <span class="hljs-string">'link'</span>
-          <span class="hljs-attribute">maxdepth</span>: <span class="hljs-number">1</span>
+          type: <span class="hljs-string">'link'</span>
+          maxdepth: <span class="hljs-number">1</span>
         , <span class="hljs-function"><span class="hljs-params">(err, list)</span> -&gt;</span>
           <span class="hljs-keyword">return</span> cb err <span class="hljs-keyword">if</span> err
           async.each list, <span class="hljs-function"><span class="hljs-params">(subdir, cb)</span> -&gt;</span>
