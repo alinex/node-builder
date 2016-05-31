@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.3 (2016-05-31)
+-------------------------------------------------
+- Fix coverage call.
+
 Version 2.1.2 (2016-05-19)
 -------------------------------------------------
 - Run profiling analyzation only if argument given.
