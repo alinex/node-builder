@@ -37,11 +37,10 @@ module.exports = (dir, options, cb) ->
         msg = "Mocha Test results:\n"
         cmd = mocha
         args = []
+        args.push '--dir=./report'
         if options.coverage
-          args.unshift cmd
+          args.unshift 'cover', mocha, '--', '--require', 'coffee-coverage/register-istanbul'
           cmd = istanbul
-          args.push '--dir=./report'
-          args.push 'cover', mocha, '--', '--require', 'coffee-coverage/register-istanbul'
         if options.prof
           args.unshift cmd
           args.unshift '--prof'
