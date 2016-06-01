@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.5 (2016-06-01)
+-------------------------------------------------
+- Copy environment to coveralls call.
+
 Version 2.1.4 (2016-05-31)
 -------------------------------------------------
 - Fix argument order for istanbul.
