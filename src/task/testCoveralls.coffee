@@ -32,6 +32,7 @@ module.exports = (dir, options, cb) ->
         cmd: 'sh'
         args: ['-c', "cat report/lcov.info | #{coveralls} --verbose"]
         cwd: dir
+        env: process.env
         retry:
           times: 3
       , cb
