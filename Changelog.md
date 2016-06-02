@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.6 (2016-06-02)
+-------------------------------------------------
+- Style more languages in doc.
+
 Version 2.1.5 (2016-06-01)
 -------------------------------------------------
 - Copy environment to coveralls call.
