@@ -97,18 +97,12 @@ exports.handler = (options, cb) ->
         (cb) -> builder.task 'gitPush', dir, options, cb
         # publish
         (cb) ->
-          async.parallel [
-            (cb) ->
-              async.series [
-                (cb) -> gitTag dir, options, pack, cb
-                (cb) -> builder.task 'gitPush', dir, options, cb
-              ], cb
+          async.series [
+            (cb) -> gitTag dir, options, pack, cb
+            (cb) -> builder.task 'gitPush', dir, options, cb
+            (cb) -> builder.task 'docUpdate', dir, options, cb
+            (cb) -> builder.task 'docPublish', dir, options, cb
             (cb) -> pushNpm dir, options, cb
-            (cb) ->
-              async.series [
-                (cb) -> builder.task 'docUpdate', dir, options, cb
-                (cb) -> builder.task 'docPublish', dir, options, cb
-              ], cb
           ], cb
       ], (err, results) ->
         builder.results dir, options, "Results for #{path.basename dir}", results
