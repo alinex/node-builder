@@ -100,8 +100,8 @@ exports.handler = (options, cb) ->
           async.series [
             (cb) -> gitTag dir, options, pack, cb
             (cb) -> builder.task 'gitPush', dir, options, cb
-            (cb) -> builder.task 'docUpdate', dir, options, cb
-            (cb) -> builder.task 'docPublish', dir, options, cb
+#            (cb) -> builder.task 'docUpdate', dir, options, cb
+#            (cb) -> builder.task 'docPublish', dir, options, cb
             (cb) -> pushNpm dir, options, cb
           ], cb
       ], (err, results) ->
