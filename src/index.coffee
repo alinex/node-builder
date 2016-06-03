@@ -93,7 +93,8 @@ exports.exec = (dir, options, type, exec, cb) ->
       proc.on 'done', (code) -> console.log "#{path.basename dir}: Exit with code #{code}"
     proc.run (err) ->
   #  Exec.run exec, (err, proc) ->
-      if proc.stdout() and options.verbose > 3 or (options.verbose > 2 and not options.interactive)
+      if proc.stdout() and (options.verbose > 3 or (options.verbose > 2 and not exec.interactive))
+        console.log options.verbose, not options.interactive
         console.log()
         console.log "#{path.basename dir}: #{type}"
         console.log()

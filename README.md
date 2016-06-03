@@ -164,6 +164,7 @@ processing of some tasks.
 1. show the big actions going on
 2. detailed actions with commandline calls
 3. also show command output and more details
+4. always show summary at the end, also if already displayed
 
 `-C` or `--no-colors` can be used to disable the colored output.
 
