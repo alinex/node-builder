@@ -66,8 +66,18 @@ exports.handler = (options, cb) ->
           async.parallel [
             (cb) ->
               async.series [
-                (cb) -> builder.task 'gitCommitAll', dir, options, cb
-                (cb) -> builder.task 'gitPush', dir, options, cb
+                (cb) ->
+                  builder.task 'gitStatus', dir, options, (err, out) ->
+                    return cb err if err
+                    unless out
+                      return builder.task 'gitPush', dir, options, cb
+                    unless options.message
+                      return cb new Error "Can't push to master if not everything is commited."
+                    builder.task 'gitCommitAll', dir, options, (err) ->
+                      return cb err if err
+                      builder.task 'gitPush', dir, options, cb
+#                (cb) -> builder.task 'gitCommitAll', dir, options, cb
+#                (cb) -> builder.task 'gitPush', dir, options, cb
                 (cb) -> builder.task 'npmChanges', dir, options, cb
               ], cb
             (cb) -> builder.task 'lintCoffee', dir, options, cb
