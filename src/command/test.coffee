@@ -52,31 +52,22 @@ exports.handler = (options, cb) ->
   # step over directories
   builder.dirs options, (dir, options, cb) ->
     async.parallel [
-      (cb) ->
-        builder.task 'lintCoffee', dir, options, cb
+      (cb) -> builder.task 'lintCoffee', dir, options, cb
       (cb) ->
         builder.task 'testMocha', dir, options, (err, results) ->
           return cb err, results if err
           async.parallel [
-            (cb) ->
-              builder.task 'testCoveralls', dir, options, (err) ->
-                return cb err, results if err or not (options.browser and options.coverage)
-                builder.task 'browser', dir,
-                  verbose: options.verbose
-                  target: path.join dir, 'report', 'lcov-report', 'index.html'
-                , (err) ->
-                  cb err, results
-            (cb) ->
-              builder.task 'nodeProfiling', dir, options, cb
-          ]
-      (cb) ->
-        builder.task 'metrics', dir, options, (err) ->
-          return cb err if err or not (options.browser and options.metrics)
-          builder.task 'browser', dir,
-            verbose: options.verbose
-            target: path.join dir, 'report', 'metrics', 'index.html'
-          , cb
+            (cb) -> builder.task 'testCoveralls', dir, options, cb
+            (cb) -> builder.task 'nodeProfiling', dir, options, cb
+          ], cb
+      (cb) -> builder.task 'metrics', dir, options, cb
     ], (err, results) ->
       builder.results dir, options, "Results for #{path.basename dir}", results
-      cb err
+      return cb err if err
+      builder.task 'reportIndex', dir, options, (err) ->
+        return cb err if err
+        builder.task 'browser', dir,
+          verbose: options.verbose
+          target: path.join dir, 'report', 'index.html'
+        , cb
   , cb
