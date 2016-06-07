@@ -61,7 +61,7 @@ exports.dirs = (options, fn, cb) ->
   list = list.map (e) -> path.resolve e
   # execute
   problems = []
-  async.eachLimit list, 3, (dir, cb) ->
+  async.eachLimit list, 10, (dir, cb) ->
     exports.info dir, options, "started in #{dir}"
     fn dir, options, (err) ->
       exports.info dir, options, 'done'
