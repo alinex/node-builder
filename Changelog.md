@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.7 (2016-06-06)
+-------------------------------------------------
+- Add report index after test.
+- Remove duplicate output on interactive exec.
+- Fix push in publish with no changes.
+- Publish documentation not automatically with package.
+- Change order in publish step.
+
 Version 2.1.6 (2016-06-02)
 -------------------------------------------------
 - Style more languages in doc.
