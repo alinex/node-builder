@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.8 (2016-06-07)
+-------------------------------------------------
+- Fix changed package detection to not fail on require of submodules.
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Only create report index if report directory exists.
+
 Version 2.1.7 (2016-06-06)
 -------------------------------------------------
 - Add report index after test.
