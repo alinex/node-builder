@@ -9,6 +9,7 @@
 path = require 'path'
 async = require 'async'
 # include alinex modules
+fs = require 'alinex-fs'
 # internal mhelper modules
 builder = require '../index'
 
@@ -64,10 +65,12 @@ exports.handler = (options, cb) ->
     ], (err, results) ->
       builder.results dir, options, "Results for #{path.basename dir}", results
       return cb err if err
-      builder.task 'reportIndex', dir, options, (err) ->
-        return cb err if err
-        builder.task 'browser', dir,
-          verbose: options.verbose
-          target: path.join dir, 'report', 'index.html'
-        , cb
+      fs.exists "#{dir}/report", (exists) ->
+        return cb() unless exists
+        builder.task 'reportIndex', dir, options, (err) ->
+          return cb err if err
+          builder.task 'browser', dir,
+            verbose: options.verbose
+            target: path.join dir, 'report', 'index.html'
+          , cb
   , cb
