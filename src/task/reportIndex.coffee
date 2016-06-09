@@ -53,7 +53,8 @@ module.exports = (dir, options, cb) ->
             .replace /^[\s\S]*<div class="wrapper">\s*/, ''
             .replace /\s*<!-- for sticky footer[\s\S]*/, ''
           when 'profiling.txt'
-            body = body.replace /^[\s\S]*\[Summary\]:\s*/, '<h1>&nbsp;Profiling<br/><br/></h1><pre>  '
+            body = body.replace /^[\s\S]*\[Summary\]:\s*/,
+            '<h1>&nbsp;Profiling<br/><br/></h1><pre>  '
             .replace /\s*\[[\s\S]*/, '</pre>'
             body += '<p><a href="' + index + '">&nbsp;&nbsp;See the full data.</a></p>'
         cb null, [head, body]
