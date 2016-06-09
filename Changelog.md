@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.9 (2016-06-09)
+-------------------------------------------------
+- Don't opern browser after test if nothing to display.
+
 Version 2.1.8 (2016-06-07)
 -------------------------------------------------
 - Fix changed package detection to not fail on require of submodules.
