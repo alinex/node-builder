@@ -109,10 +109,6 @@ builder.setup (err) ->
     name = path.basename file, path.extname file
     lib = require file
     yargs.command name, lib.title, command name, file
-  jobs = path.join path.dirname(__dirname), 'var/lib/script/index.js'
-  if fs.existsSync jobs
-    jobs = require jobs
-    jobs.addTo yargs
   # help
   yargs.help 'help'
   .updateStrings
