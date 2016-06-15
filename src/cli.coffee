@@ -34,6 +34,13 @@ process.on 'exit', ->
   console.log "Goodbye\n" unless quiet
 
 
+# Support quiet mode through switch
+# -------------------------------------------------
+quiet = false
+for a in ['--get-yargs-completions', 'bashrc', '-q', '--quiet']
+  quiet = true if a in process.argv
+
+
 # Command Setup
 # -------------------------------------------------
 command = (name, file) ->
@@ -55,9 +62,12 @@ command = (name, file) ->
     .alias 'h', 'help'
     .epilogue """
       This is the description of the '#{name}' command. You may also look into the
-      general help using or the man page.
+      general help or the man page.
       """
   handler: (args) ->
+    # implement some global switches
+    chalk.enabled = false if args.nocolors
+    # run command
     builder.command name, lib, args, (err) ->
       alinex.exit err if err
       alinex.exit 0
@@ -127,9 +137,7 @@ builder.setup (err) ->
     err.description = 'Specify --help for available options'
     alinex.exit 2, err
   # now parse the arguments
-  args = yargs.argv
-  # implement some global switches
-  chalk.enabled = false if args.nocolors
-
-  unless args._.length
+  argv = yargs.argv
+  # check for corrct call
+  unless argv._.length
     alinex.exit 2, new Error "Nothing to do specify --help for available options"
