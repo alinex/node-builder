@@ -686,17 +686,6 @@ pre code.sh::before {
   padding: 4px 0 0 10px;
 }
 
-pre code.json::before {
-  content: "CSON Data";
-  font-weight: bold;
-  display: block;
-  background: #61b961;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-bottom: 5px;
-  margin: -6px -5px 2px -11px;
-  padding: 4px 0 0 10px;
-}
 pre code.handlebars::before {
   content: "Handlebars Template";
   font-weight: bold;
