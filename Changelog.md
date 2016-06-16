@@ -4,6 +4,13 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.10 (2016-06-16)
+-------------------------------------------------
+- Upgrade core and util packages.
+- Add style for markdown higlighting.
+- Remove unused code.
+- Fix lint error.
+
 Version 2.1.9 (2016-06-09)
 -------------------------------------------------
 - Don't opern browser after test if nothing to display.
