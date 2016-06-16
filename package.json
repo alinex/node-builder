@@ -42,10 +42,10 @@
   },
   "dependencies": {
     "alinex-config": "^1.1.6",
-    "alinex-core": "^0.2.5",
+    "alinex-core": "^0.2.9",
     "alinex-exec": "^1.1.3",
     "alinex-fs": "^2.0.1",
-    "alinex-util": "^2.2.0",
+    "alinex-util": "^2.3.0",
     "async": "^2.0.0-rc.3",
     "chalk": "^1.1.3",
     "coffee-coverage": "^1.0.1",
