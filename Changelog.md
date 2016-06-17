@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.11 (2016-06-17)
+-------------------------------------------------
+- Added sql highlighting support.
+- Move handlebars to documents in highlighting style.
+- Update doc style.
+- Change style to use multiple colors code highlighting.
+- Remove debug message.
+
 Version 2.1.10 (2016-06-16)
 -------------------------------------------------
 - Upgrade core and util packages.
