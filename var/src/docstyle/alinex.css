@@ -685,6 +685,17 @@ pre code.sh::before {
   margin: -6px -5px 2px -11px;
   padding: 4px 0 0 10px;
 }
+pre code.sql::before {
+  content: "SQL Code";
+  font-weight: bold;
+  display: block;
+  background: #f0ad4e;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: 5px;
+  margin: -6px -5px 2px -11px;
+  padding: 4px 0 0 10px;
+}
 
 pre code.json::before {
   content: "JSON Data";
