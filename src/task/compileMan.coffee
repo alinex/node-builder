@@ -8,7 +8,8 @@
 # node packages
 path = require 'path'
 async = require 'async'
-# use marked-man binary
+# used through shell
+# - require 'marked-man' 
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules

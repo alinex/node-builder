@@ -10,6 +10,10 @@ path = require 'path'
 chalk = require 'chalk'
 # alinex packages
 fs = require 'alinex-fs'
+# used through shell
+# - require 'istanbul'
+# - require 'mocha'
+# - require 'coffee-coverage'
 # internal mhelper modules
 builder = require '../index'
 

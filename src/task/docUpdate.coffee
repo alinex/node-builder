@@ -10,6 +10,9 @@ path = require 'path'
 async = require 'async'
 # alinex packages
 fs = require 'alinex-fs'
+# used through shell
+# - require 'docker'
+# - require 'replace'
 # internal mhelper modules
 builder = require '../index'
 

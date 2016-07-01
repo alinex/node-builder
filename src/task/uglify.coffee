@@ -10,6 +10,8 @@ path = require 'path'
 # use uglifyjs binary
 # alinex packages
 fs = require 'alinex-fs'
+# used through shell
+# - require 'uglify-js'
 # internal mhelper modules
 builder = require '../index'
 
