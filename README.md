@@ -340,6 +340,8 @@ compile your code first before the metrics are updated.
 
 Like noted above you may generate profiling reports using `--prof` switch.
 
+> But you need at least node js version 4.4 to do this.
+
 __Example Output: 'report/profiling.txt'__
 
 The file is broken up into sections which are again broken up by language. First,
