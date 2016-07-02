@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.13 (2016-07-02)
+-------------------------------------------------
+- 
+
 Version 2.1.12 (2016-07-02)
 -------------------------------------------------
 - Fix lint error.
