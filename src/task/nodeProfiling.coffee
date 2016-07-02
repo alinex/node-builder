@@ -40,10 +40,11 @@ module.exports = (dir, options, cb) ->
         times: 3
     , (err, proc) ->
       # store to file
-      fs.writeFile "#{dir}/report/profiling.txt", proc.stdout(), 'UTF8', (err) ->
-        return cb err if err
-        cb()
-        # remove files
-        async.each list[1..], (file, cb) ->
-          fs.remove file, cb
-        , ->
+      fs.mkdirs "#{dir}/report", ->
+        fs.writeFile "#{dir}/report/profiling.txt", proc.stdout(), 'UTF8', (err) ->
+          return cb err if err
+          cb()
+          # remove files
+          async.each list[1..], (file, cb) ->
+            fs.remove file, cb
+          , ->
