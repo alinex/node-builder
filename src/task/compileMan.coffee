@@ -9,7 +9,7 @@
 path = require 'path'
 async = require 'async'
 # used through shell
-# - require 'marked-man' 
+# - require 'marked-man'
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules
