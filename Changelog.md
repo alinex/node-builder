@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.12 (2016-07-02)
+-------------------------------------------------
+- Fix lint error.
+- Merge branch 'master' of https://github.com/alinex/node-builder
+- Fix: create report directory in --prof if not existing.
+- Hint to use node 4.4 for profiling.
+- Remove no longer used packages.
+
 Version 2.1.11 (2016-06-17)
 -------------------------------------------------
 - Added sql highlighting support.
