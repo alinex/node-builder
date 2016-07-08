@@ -86,21 +86,21 @@ exports.exec = (dir, options, type, exec, cb) ->
   exports.debug dir, options, "> #{exec.cmd} #{exec.args.join ' '}"
   Exec.init (err) ->
     return cb err if err
+    interactive = (exec.interactive and options.verbose > 2) or options.verbose > 3
     proc = new Exec exec
-    if (exec.interactive and options.verbose > 2) or options.verbose > 3
+    if interactive
       proc.on 'stdout', (line) -> console.log "#{path.basename dir}: #{line}"
-      proc.on 'stderr', (line) -> console.error "#{path.basename dir}: #{chalk.magenta line}"
+      proc.on 'stderr', (line) -> console.error "#{chalk.magenta path.basename dir}: #{line}"
       proc.on 'done', (code) -> console.log "#{path.basename dir}: Exit with code #{code}"
     proc.run (err) ->
-  #  Exec.run exec, (err, proc) ->
-      if proc.stdout() and (options.verbose > 3 or (options.verbose > 2 and not exec.interactive))
+      if proc.stdout() and not interactive
         console.log()
         console.log "#{path.basename dir}: #{type}"
         console.log()
         console.log chalk.grey proc.stdout().trim().replace /s*\n+/g, '\n'
         console.error chalk.magenta proc.stderr().trim() if proc.stderr()
         console.log()
-      if err and proc.stderr() and options.verbose < 3
+      if err and proc.stderr() and not interactive
         exports.results dir, options, type, chalk.magenta proc.stderr()
       cb err, proc
 

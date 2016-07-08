@@ -58,6 +58,7 @@ module.exports = (dir, options, cb) ->
         args.push 'test/mocha'
         env = util.clone process.env
         env.DEBUG = process.env.TEST_DEBUG if process.env.TEST_DEBUG
+        env.DEBUG_COLORS = 1 unless options.nocolors
         builder.exec dir, options, 'mocha tests',
           cmd: cmd
           args: args
