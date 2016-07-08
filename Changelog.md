@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.15 (2016-07-08)
+-------------------------------------------------
+- Fix linked submodules detection.
+- Don't show verbose command out everytime.
+
 Version 2.1.14 (2016-07-08)
 -------------------------------------------------
 - Merge branch 'master' of https://www.github.com/alinex/node-builder
