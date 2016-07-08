@@ -4,6 +4,15 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.1.14 (2016-07-08)
+-------------------------------------------------
+- Merge branch 'master' of https://www.github.com/alinex/node-builder
+- Prevent summary on interactive mocha.
+- Color mode of builder triggers also mocha color output.
+- Allow use of env.TEST_DEBUG.
+- Updated alinex-fs@2.0.2, alinex-util@2.3.1, npm-check@5.2.2, inquirer@1.1.2, moment@2.14.1, uglify-js@2.7.0, istanbul@0.4.4
+- Small fixes.
+
 Version 2.1.13 (2016-07-02)
 -------------------------------------------------
 - 
