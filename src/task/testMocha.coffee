@@ -73,4 +73,4 @@ module.exports = (dir, options, cb) ->
             continue if skip
             msg += line + '\n'
           return cb err, '' if msg.split(/\n/).length < 2
-          cb err, msg
+          cb err, if options.verbose > 2 then null else msg
