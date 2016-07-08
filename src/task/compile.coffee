@@ -21,7 +21,7 @@ builder = require '../index'
 # - `uglify` - (boolean) should uglify be used
 module.exports = (dir, options, cb) ->
   fs.exists "#{dir}/src", (exists) ->
-    return cb new Error "No source files found" unless exists
+    return cb new Error "No source files found at #{dir}/src" unless exists
     # remove old lib dir
     builder.debug dir, options, "remove lib"
     fs.remove "#{dir}/lib", (err) ->

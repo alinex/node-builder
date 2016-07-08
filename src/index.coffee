@@ -93,7 +93,7 @@ exports.exec = (dir, options, type, exec, cb) ->
       proc.on 'stderr', (line) -> console.error "#{chalk.magenta path.basename dir}: #{line}"
       proc.on 'done', (code) -> console.log "#{path.basename dir}: Exit with code #{code}"
     proc.run (err) ->
-      if proc.stdout() and not interactive
+      if proc.stdout() and options.verbose > 1 and not interactive
         console.log()
         console.log "#{path.basename dir}: #{type}"
         console.log()
