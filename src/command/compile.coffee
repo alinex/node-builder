@@ -45,11 +45,9 @@ compile = (dir, options, cb) ->
       fs.exists "#{dir}/node_modules", (exists) ->
         return cb() unless exists
         fs.find "#{dir}/node_modules",
-          type: 'dir'
+          type: 'link'
           maxdepth: 1
         , (err, list) ->
-          console.log list.length
-          return cb()
           return cb err if err
           async.each list, (subdir, cb) ->
             compile subdir, options, cb
