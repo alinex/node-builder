@@ -10,6 +10,7 @@ path = require 'path'
 chalk = require 'chalk'
 # alinex packages
 fs = require 'alinex-fs'
+util = require 'alinex-util'
 # used through shell
 # - require 'istanbul'
 # - require 'mocha'
@@ -55,11 +56,13 @@ module.exports = (dir, options, cb) ->
         args.push '--recursive'
         args.push '--bail' if options.bail
         args.push 'test/mocha'
+        env = util.clone process.env
+        env.DEBUG = process.env.TEST_DEBUG if process.env.TEST_DEBUG
         builder.exec dir, options, 'mocha tests',
           cmd: cmd
           args: args
           cwd: dir
-          env: process.env
+          env: env
           interactive: true
         , (err, proc) ->
           skip = true

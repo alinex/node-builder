@@ -318,7 +318,10 @@ So you may also create an html coverage report and open it:
 builder test --coverage --browser
 ```
 
-If you want to stop after the  first error occurs use the `--bail` flag.
+If you want to stop after the first error occurs use the `--bail` flag.
+
+To use debugging set the environment variable `TEST_DEBUG` instead of `DEBUG`. This way
+it will only influence the mocha tests not the builder itself.
 
 And at last you can add the `--browser` flag to open the coverage report
 automatically in the browser. Also `--coveralls` may be added to send the
