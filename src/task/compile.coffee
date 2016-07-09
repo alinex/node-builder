@@ -30,5 +30,6 @@ module.exports = (dir, options, cb) ->
       async.parallel [
         (cb) -> builder.task 'compileCoffee', dir, options, cb
         (cb) -> builder.task 'copyJs', dir, options, cb
+        (cb) -> builder.task 'compileStylus', dir, options, cb
         (cb) -> builder.task 'compileMan', dir, options, cb
       ], cb
