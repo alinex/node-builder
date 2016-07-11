@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.0 (2016-07-11)
+-------------------------------------------------
+Now supporting stylus as css preprocessor.
+
+- Fix small lint error.
+- Upgraded alinex-config@1.2.1, request@2.73.0, yargs@4.8.0
+- Compile stylus with axis support.
+
 Version 2.1.15 (2016-07-08)
 -------------------------------------------------
 - Fix linked submodules detection.
