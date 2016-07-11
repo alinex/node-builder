@@ -38,5 +38,6 @@ module.exports = (dir, options, cb) ->
         .use axis()
         .render (err, css) ->
           return cb err if err
-          fs.writeFile "#{path.dirname file}/#{path.basename file, path.extname file}.css", css, 'utf8', cb
+          cssfile = "#{path.dirname file}/#{path.basename file, path.extname file}.css"
+          fs.writeFile cssfile, css, 'utf8', cb
     , cb
