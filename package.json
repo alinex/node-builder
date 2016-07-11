@@ -41,7 +41,7 @@
     "man": "./man"
   },
   "dependencies": {
-    "alinex-config": "^1.1.6",
+    "alinex-config": "^1.2.1",
     "alinex-core": "^0.2.9",
     "alinex-exec": "^1.1.3",
     "alinex-fs": "^2.0.2",
@@ -62,10 +62,10 @@
     "npm-check": "^5.2.2",
     "plato": "^1.5.0",
     "replace": ">=0.2.0 <0.4.0",
-    "request": "^2.72.0",
+    "request": "^2.73.0",
     "stylus": "^0.54.5",
     "uglify-js": "^2.7.0",
-    "yargs": "^4.7.1"
+    "yargs": "^4.8.0"
   },
   "devDependencies": {
     "chai": "^3.5.0"
