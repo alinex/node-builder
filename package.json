@@ -41,6 +41,7 @@
     "man": "./man"
   },
   "dependencies": {
+    "alinex-codedoc": "^0.1.1",
     "alinex-config": "^1.2.1",
     "alinex-core": "^0.2.9",
     "alinex-exec": "^1.1.3",
