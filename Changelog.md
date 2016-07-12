@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.1 (2016-07-12)
+-------------------------------------------------
+- Add reference to codedoc used as binary.
+- Support new codedoc creation as command doc2 (initial state).
+
 Version 2.2.0 (2016-07-11)
 -------------------------------------------------
 Now supporting stylus as css preprocessor.
