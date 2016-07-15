@@ -166,7 +166,7 @@ addAlinex = (dir, options, docPath, alinex, replace, cb) ->
         onmouseover="logo.src='https://alinex.github.io/images/Alinex-200.png'"
         onmouseout="logo.src='https://alinex.github.io/images/Alinex-black-200.png'">
         <img name="logo" src="https://alinex.github.io/images/Alinex-black-200.png"
-          width="150" title="Alinex Universe Homepage" />
+          width="150" title="Alinex Homepage" />
         </a>
         <img src="http://alinex.github.io/images/Alinex-200.png"
           style="display:none" alt="preloading" />

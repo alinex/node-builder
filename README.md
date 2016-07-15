@@ -16,7 +16,7 @@ It may help a lot while developing to automatize the consequently done tasks.
 - usable for other modules, too
 - working with multiple packages at once
 
-> It is one of the modules of the [Alinex Universe](http://alinex.github.io/code.html)
+> It is one of the modules of the [Alinex Namespace](http://alinex.github.io/code.html)
 > following the code standards defined in the [General Docs](http://alinex.github.io/develop).
 
 
