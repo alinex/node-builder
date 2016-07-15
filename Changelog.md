@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.2.2 (2016-07-15)
+-------------------------------------------------
+- Upgraded async, coveralls and codedoc
+- Rename links to Alinex Namespace.
+- Add copyright sign.
+
 Version 2.2.1 (2016-07-12)
 -------------------------------------------------
 - Add reference to codedoc used as binary.
