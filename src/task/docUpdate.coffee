@@ -30,7 +30,6 @@ module.exports = (dir, options, cb) ->
   async.series [
     (cb) -> removeDir dir, options, docPath, cb
     (cb) -> createDoc dir, options, docPath, cb
-    (cb) -> createIndex dir, options, docPath, cb
   ], (err) -> cb err
 
 
@@ -42,24 +41,6 @@ removeDir = (dir, options, docPath, cb) ->
     return cb() unless exists
     builder.debug dir, options, "remove doc/ folder"
     fs.remove docPath, cb
-
-createIndex = (dir, options, docPath, cb) ->
-  builder.debug dir, options, "create index page"
-  fs.writeFile path.join(docPath, 'index.html'), """
-    <html>
-    <head>
-      <meta http-equiv="refresh" content="0; url=README.md.html" />
-      <script type="text/javascript">
-          window.location.href = "README.md.html"
-      </script>
-      <title>Page Redirection</title>
-    </head>
-    <body>
-      If you are not redirected automatically, follow the link to the
-      <a href='README.md.html'>README</a>.
-    </body>
-    </html>
-    """, cb
 
 createDoc = (dir, options, docPath, cb) ->
   builder.debug dir, options, "extract documentation"
