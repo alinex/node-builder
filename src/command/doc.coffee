@@ -14,18 +14,21 @@ builder = require '../index'
 # Setup
 # -------------------------------------------------
 
-exports.title = 'create api documentation'
+exports.title = 'create documentation'
 exports.description = """
-Create a html api documentation and maybe upload it to github pages.
+Create a html documentation and maybe upload it to github pages.
 """
 
 exports.options =
+  code:
+    type: 'boolean'
+    describe: 'make code documentation'
   publish:
     type: 'boolean'
     describe: 'publish documentation'
   browser:
     type: 'boolean'
-    describe: 'open api in browser'
+    describe: 'open site in browser'
 
 
 # Handler
