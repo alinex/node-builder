@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.1 (2016-07-19)
+-------------------------------------------------
+- upgraded alinex-codedoc@0.3.2
+- Adding nib to be used in stylus, too.
+- Creation of index no longer needed for new codedoc.
+
 Version 2.3.0 (2016-07-19)
 -------------------------------------------------
 Using new documentation tool codedoc.
