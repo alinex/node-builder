@@ -4,6 +4,14 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.0 (2016-07-19)
+-------------------------------------------------
+Using new documentation tool codedoc.
+
+- Automatically create docs on publish again.
+- Switch to alinex-codedoc for documentation.
+- Upgrade yargs@4.8.1, plato@1.6.0, alinex-codedoc@0.3.0.
+
 Version 2.2.2 (2016-07-15)
 -------------------------------------------------
 - Upgraded async, coveralls and codedoc
