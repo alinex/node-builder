@@ -10,6 +10,7 @@ path = require 'path'
 async = require 'async'
 stylus = require 'stylus'
 axis = require 'axis'
+nib = require 'nib'
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules
@@ -35,6 +36,7 @@ module.exports = (dir, options, cb) ->
         stylus data
         .set 'filename', file
         .set 'compress', true
+        .use nib()
         .use axis()
         .render (err, css) ->
           return cb err if err
