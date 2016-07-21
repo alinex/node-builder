@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.2 (2016-07-21)
+-------------------------------------------------
+- Updated alinex-codedoc
+- Upgraded alinex-codedoc
+
 Version 2.3.1 (2016-07-19)
 -------------------------------------------------
 - upgraded alinex-codedoc@0.3.2
