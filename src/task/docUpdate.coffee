@@ -55,6 +55,7 @@ createDoc = (dir, options, docPath, cb) ->
         output: "#{dir}/doc"
         style: 'codedoc'
         code: options.code
+        verbose: (options.verbose ? 1) - 1
       , cb
 
 readExcludes = (dir, cb) ->
