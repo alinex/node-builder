@@ -4,6 +4,10 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.4 (2016-07-28)
+-------------------------------------------------
+- Updated coveralls@2.11.12, npm-check@5.2.3, alinex-codedoc@1.1.0
+
 Version 2.3.3 (2016-07-26)
 -------------------------------------------------
 - Upgraded alinex-codedoc@1.0.0, async@2.0.1, request@2.74.0, alinex-codedoc@1.0.0, alinex-config@1.2.1
