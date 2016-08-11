@@ -7,6 +7,7 @@
 
 # node packages
 path = require 'path'
+memoize = require 'memoizee'
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules
@@ -18,7 +19,7 @@ builder = require '../index'
 # _Arguments:_
 #
 # - `verbose` - (integer) verbose level
-module.exports = (dir, options, cb) ->
+module.exports = memoize (dir, options, cb) ->
   builder.debug dir, options, "read package json"
   file = path.join dir, 'package.json'
   try
