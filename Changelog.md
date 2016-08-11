@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.6 (2016-08-11)
+-------------------------------------------------
+- Add memoizee package.
+- Update alinex-fs@2.0.7, nib@1.1.2, alinex-codedoc@1.2.5, plato@1.7.0, mocha@3.0.2
+- Don't alert on self package name which may occure in comments.
+
 Version 2.3.5 (2016-08-05)
 -------------------------------------------------
 - Upgraded async@2.0.1, coveralls@2.11.12, nib@1.1.2, npm-check@5.2.3, request@2.74.0, alinex-codedoc@1.2.0, mocha@3.0.1
