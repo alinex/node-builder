@@ -43,9 +43,9 @@
   "dependencies": {
     "alinex-codedoc": "^1.2.10",
     "alinex-config": "^1.2.1",
-    "alinex-core": "^0.2.9",
+    "alinex-core": "^0.2.10",
     "alinex-exec": "^1.1.3",
-    "alinex-fs": "^3.0.2",
+    "alinex-fs": "2.x",
     "alinex-util": "^2.4.0",
     "async": "^2.0.1",
     "axis": "^0.6.1",
