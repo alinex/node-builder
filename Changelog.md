@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.7 (2016-08-19)
+-------------------------------------------------
+- Fix error handling and return exit codes.
+- Update memoizee@0.4.1, alinex-codedoc@1.2.10, mocha@3.0.2, uglify-js@2.7.3, alinex-util@2.4.0, plato@1.7.0, alinex-fs@3.0.2, yargs@5.0.0
+- Upgrade alinex-codedoc, alinex-util@2.4.0
+
 Version 2.3.6 (2016-08-11)
 -------------------------------------------------
 - Add memoizee package.
