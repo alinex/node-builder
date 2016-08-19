@@ -138,6 +138,6 @@ builder.setup (err) ->
     alinex.exit 2, err
   # now parse the arguments
   argv = yargs.argv
-  # check for corrct call
+  # check for correct call
   unless argv._.length
     alinex.exit 2, new Error "Nothing to do specify --help for available options"
