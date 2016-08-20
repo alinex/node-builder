@@ -4,6 +4,11 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.8 (2016-08-20)
+-------------------------------------------------
+- Make compile of man pages inline.
+- Update travis.
+
 Version 2.3.7 (2016-08-19)
 -------------------------------------------------
 - Fix error handling and return exit codes.
