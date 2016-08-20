@@ -8,8 +8,7 @@
 # node packages
 path = require 'path'
 async = require 'async'
-# used through shell
-# - require 'marked-man'
+marked = require 'marked-man'
 # alinex packages
 fs = require 'alinex-fs'
 # internal mhelper modules
@@ -35,17 +34,17 @@ module.exports = (dir, options, cb) ->
       # make all manpages
       async.each pack.man, (name, cb) ->
         input = "#{src}/#{name}.md"
+        dest = "#{dir}/#{name}"
         fs.exists input, (exists) ->
           return cb new Error "The file '#{input}' didn't exist" unless exists
-          builder.debug dir, options, "create #{pack.man}"
-          fs.npmbin 'marked-man', path.dirname(path.dirname __dirname), (err, cmd) ->
+          builder.debug dir, options, "create #{name}"
+          fs.readFile input, 'utf8', (err, md) ->
             return cb err if err
-            builder.exec dir, options, 'compile into man',
-              cmd: cmd
-              args: [ input ]
-              cwd: dir
-            , (err, proc) ->
-              return cb err if err
-              builder.debug dir, options, "write into " + path.join(dir, name)
-              fs.writeFile path.join(dir, name), proc.stdout(), cb
+            roff = marked.parse md,
+              format: "roff"
+              name: path.basename input, path.extname input
+              date: '1979-01-01'
+              gfm: true
+              breaks: true
+            fs.writeFile dest, roff, 'utf8', cb
       , cb
