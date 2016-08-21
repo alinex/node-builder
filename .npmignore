@@ -11,5 +11,4 @@
 /var/local
 /var/lib
 .travis.yml
-/.npmignore
-/.gitignore
+/.*
