@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.3.9 (2016-10-18)
+-------------------------------------------------
+- Update alinex-util@2.4.2, async@2.1.2, coffee-script@1.11.1, coffeelint@1.16.0, coveralls@2.11.14, inquirer@1.2.2, istanbul@0.4.5, mocha@3.1.2, moment@2.15.1, npm-check@5.4.0, request@2.75.0, yargs@6.2.0
+- Updated ignore files.
+- Updated ignore files.
+
 Version 2.3.8 (2016-08-20)
 -------------------------------------------------
 - Make compile of man pages inline.
