@@ -41,40 +41,33 @@
     "man": "./man"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "alinex-codedoc": "^1.2.10",
-    "alinex-config": "^1.4.1",
-    "alinex-core": "^0.2.10",
-    "alinex-exec": "^1.1.3",
-=======
     "alinex-codedoc": "^1.3.1",
     "alinex-config": "^1.4.1",
     "alinex-core": "^0.2.10",
     "alinex-exec": "^2.0.0",
->>>>>>> 95c6de5b10a7c0063d96208e59c8fd9da942e9c2
     "alinex-fs": "^3.0.3",
-    "alinex-util": "^2.4.2",
-    "async": "^2.1.2",
+    "alinex-util": "^2.5.0",
+    "async": "^2.1.4",
     "axis": "^0.6.1",
     "chalk": "^1.1.3",
     "coffee-coverage": "^1.0.1",
-    "coffee-script": "^1.11.1",
+    "coffee-script": "^1.12.1",
     "coffeelint": "^1.16.0",
-    "coveralls": "^2.11.14",
+    "coveralls": "^2.11.15",
     "inquirer": "^2.0.0",
     "istanbul": "^0.4.5",
     "marked-man": "^0.2.0",
     "memoizee": "^0.4.1",
-    "mocha": "^3.1.2",
-    "moment": "^2.15.1",
+    "mocha": "^3.2.0",
+    "moment": "^2.17.1",
     "nib": "^1.1.2",
     "npm-check": "^5.4.0",
     "plato": "^1.7.0",
     "replace": ">=0.2.0 <0.4.0",
-    "request": "^2.75.0",
+    "request": "^2.79.0",
     "stylus": "^0.54.5",
-    "uglify-js": "^2.7.3",
-    "yargs": "^6.2.0"
+    "uglify-js": "^2.7.5",
+    "yargs": "^6.5.0"
   },
   "devDependencies": {
     "chai": "^3.5.0"
