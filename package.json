@@ -41,10 +41,17 @@
     "man": "./man"
   },
   "dependencies": {
+<<<<<<< HEAD
     "alinex-codedoc": "^1.2.10",
     "alinex-config": "^1.4.1",
     "alinex-core": "^0.2.10",
     "alinex-exec": "^1.1.3",
+=======
+    "alinex-codedoc": "^1.3.1",
+    "alinex-config": "^1.4.1",
+    "alinex-core": "^0.2.10",
+    "alinex-exec": "^2.0.0",
+>>>>>>> 95c6de5b10a7c0063d96208e59c8fd9da942e9c2
     "alinex-fs": "^3.0.3",
     "alinex-util": "^2.4.2",
     "async": "^2.1.2",
@@ -54,9 +61,9 @@
     "coffee-script": "^1.11.1",
     "coffeelint": "^1.16.0",
     "coveralls": "^2.11.14",
-    "inquirer": "^1.2.2",
+    "inquirer": "^2.0.0",
     "istanbul": "^0.4.5",
-    "marked-man": "0.1.x",
+    "marked-man": "^0.2.0",
     "memoizee": "^0.4.1",
     "mocha": "^3.1.2",
     "moment": "^2.15.1",

@@ -22,7 +22,7 @@ exports.setup = (cb) ->
   , (err) ->
     return cb err if err
     # set module search path
-    config.register 'scripter', path.dirname __dirname
+    config.register 'builder', path.dirname __dirname
     cb()
 
 # Output Helper
