@@ -19,7 +19,7 @@ module.exports = (dir, options, cb) ->
   # run the pull options
   builder.exec dir, options, 'git push',
     cmd: 'git'
-    args: [ 'push', '--tags', 'origin', 'master' ]
+    args: [ 'push', '--all', 'origin' ]
     cwd: dir
     env:
       HOME: process.env.HOME
