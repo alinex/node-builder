@@ -178,8 +178,9 @@ createNodePackage = (dir, options, cb) ->
     , (err) ->
       return cb err if err
       fs.find dir,
-        type: 'file'
-        exclude: '**/.git/**'
+        filter:
+          type: 'file'
+          exclude: '**/.git/**'
       , (err, list) ->
         return cb err if err
         async.each list, (file, cb) ->

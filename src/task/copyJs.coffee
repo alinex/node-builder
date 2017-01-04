@@ -24,7 +24,10 @@ module.exports = (dir, options, cb) ->
   src = path.join dir, 'src'
   lib = path.join dir, 'lib'
   # find files to compile
-  fs.find src, {include: '*.js'}, (err, files) ->
+  fs.find src,
+    filter:
+      include: '*.js'
+  , (err, files) ->
     return cb err if err
     return cb() unless files.length
     builder.info dir, options, "copy javascript files"

@@ -113,7 +113,8 @@ builder.setup (err) ->
       global: true
   # add the commands
   list = fs.findSync __dirname + '/command',
-    type: 'f'
+    filter:
+      type: 'f'
   for file in list
     continue unless file.match /\.(coffee|js)$/
     name = path.basename file, path.extname file

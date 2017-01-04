@@ -24,7 +24,8 @@ module.exports = (dir, options, cb) ->
   builder.info dir, options, "analyze node profiling"
   # find all profiling logs
   fs.find dir,
-    include: 'isolate-*-v8.log'
+    filter:
+      include: 'isolate-*-v8.log'
   , (err, list) ->
     return cb err if err
     unless list

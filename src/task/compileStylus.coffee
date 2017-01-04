@@ -24,7 +24,8 @@ builder = require '../index'
 # - `verbose` - (integer) verbose level
 module.exports = (dir, options, cb) ->
   fs.find "#{dir}/var/src/template",
-    include: '*.styl'
+    filter:
+      include: '*.styl'
   , (err, files) ->
     return cb() if err or not files
     builder.info dir, options, "compile stylus"

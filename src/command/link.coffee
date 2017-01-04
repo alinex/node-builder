@@ -43,8 +43,9 @@ exports.handler = (options, cb) ->
     # link all alinex packages if locally existing
     unless options.link
       return fs.find dir,
-        include: 'alinex-*'
-        type: 'dir'
+        filter:
+          include: 'alinex-*'
+          type: 'dir'
       , (err, list) ->
         return cb err if err
         async.each list, (link, cb) ->

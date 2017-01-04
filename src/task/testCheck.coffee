@@ -22,7 +22,8 @@ builder = require '../index'
 module.exports = (dir, options, cb) ->
   builder.info dir, options, "check tests"
   fs.find path.join(dir, 'test', 'mocha'),
-    type: 'file'
+    filter:
+      type: 'file'
   , (err, list) ->
     return cb err if err
     async.each list, (file, cb) ->
