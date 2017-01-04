@@ -4,6 +4,12 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.4.1 (2017-01-04)
+-------------------------------------------------
+- Merge branch 'master' of https://www.github.com/alinex/node-builder
+- Fix alinex-fs calls for newer major version.
+- Run uglify only if given as parameter.
+
 Version 2.4.0 (2016-12-13)
 -------------------------------------------------
 - Use --all in pull and push.
