@@ -4,6 +4,17 @@ Version changes
 The following list gives a short overview about what is changed between
 individual versions:
 
+Version 2.4.0 (2016-12-13)
+-------------------------------------------------
+- Use --all in pull and push.
+- Change push to also push branches.
+- Update async@2.1.4, coveralls@2.11.15, uglify-js@2.7.5, alinex-codedoc@1.3.1, alinex-util@2.5.0, coffee-script@1.12.1, mocha@3.2.0, moment@2.17.1, request@2.79.0, yargs@6.5.0, inquirer@2.0.0, marked-man@0.2.0
+- Small changes.
+- Update alinex-codedoc@1.3.1
+- Remove var parts from documentation.
+- Update alinex-config@1.4.1, alinex-exec@2.0.0, alinex-fs@3.0.3, inquirer@2.0.0, marked-man@0.2.0
+- Update alinex-config@1.4.1 alinex-fs@3.0.3
+
 Version 2.3.9 (2016-10-18)
 -------------------------------------------------
 - Update alinex-util@2.4.2, async@2.1.2, coffee-script@1.11.1, coffeelint@1.16.0, coveralls@2.11.14, inquirer@1.2.2, istanbul@0.4.5, mocha@3.1.2, moment@2.15.1, npm-check@5.4.0, request@2.75.0, yargs@6.2.0
