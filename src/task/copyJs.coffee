@@ -31,8 +31,9 @@ module.exports = (dir, options, cb) ->
     async.each files, (file, cb) ->
       dest = path.join lib, file[src.length..]
       unless options.uglify
-        builder.noisy dir, options, "copy file"
+        builder.noisy dir, options, "copy file #{file}"
         fs.copy file, dest, cb
+        return
       mapfile = path.basename(file, '.js') + '.map'
       builder.task 'uglify', dir,
         verbose: options.verbose
